@@ -1,0 +1,36 @@
+﻿   Qt/MSBuild: 3.3.1.1
+   Qt: 5.15.2
+  MainWin.cpp
+S:\Graduate\DSV - 1\DSV\MainWin.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  qrc_Icon.cpp
+  moc_MainWin.cpp
+  moc_CenteredToolBar.cpp
+  moc_FileWidget.cpp
+  moc_PrefetchThread.cpp
+  moc_MiniMap.cpp
+  moc_InputDialog.cpp
+  moc_LabelWin.cpp
+  moc_DetailDialog.cpp
+  moc_ImageFilter.cpp
+  moc_ItemDialog.cpp
+  moc_QImageGraphicScene.cpp
+  moc_ScaleBar.cpp
+  moc_SnapDialog.cpp
+  moc_PlotBar.cpp
+  moc_SnapWidget.cpp
+  moc_WSITileGraphicsItemCache.cpp
+S:\Graduate\DSV - 1\DSV\PrefetchThread.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“x64/Release/qt/moc/moc_PrefetchThread.cpp”)
+  
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItemCache.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“x64/Release/qt/moc/moc_WSITileGraphicsItemCache.cpp”)
+  
+  moc_TileManager.cpp
+  moc_IOThread.cpp
+  moc_IOWorker.cpp
+  moc_PathologyViewer.cpp
+  正在生成代码
+  Previous IPDB not found, fall back to full compilation.
+  All 3690 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  DSV.vcxproj -> S:\Graduate\DSV - 1\x64\Release\DSV.exe

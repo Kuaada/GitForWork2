@@ -1,0 +1,3224 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QColor::CT::array。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qcolor.h"
+                },
+                "region": {
+                  "startLine": 265,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QColor::CT::{ctor}",
+                  "decoratedName": "??0CT@QColor@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QColor::CT::array"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QColor::CT::argb。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qcolor.h"
+                },
+                "region": {
+                  "startLine": 265,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QColor::CT::{ctor}",
+                  "decoratedName": "??0CT@QColor@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QColor::CT::argb"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QColor::CT::ahsv。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qcolor.h"
+                },
+                "region": {
+                  "startLine": 265,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QColor::CT::{ctor}",
+                  "decoratedName": "??0CT@QColor@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QColor::CT::ahsv"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QColor::CT::argbExtended。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qcolor.h"
+                },
+                "region": {
+                  "startLine": 265,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QColor::CT::{ctor}",
+                  "decoratedName": "??0CT@QColor@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QColor::CT::argbExtended"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QColor::CT::acmyk。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qcolor.h"
+                },
+                "region": {
+                  "startLine": 265,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QColor::CT::{ctor}",
+                  "decoratedName": "??0CT@QColor@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QColor::CT::acmyk"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QColor::CT::ahsl。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qcolor.h"
+                },
+                "region": {
+                  "startLine": 265,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QColor::CT::{ctor}",
+                  "decoratedName": "??0CT@QColor@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QColor::CT::ahsl"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QtSharedPointer::ExternalRefCountData::destroyer。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qsharedpointer_impl.h"
+                },
+                "region": {
+                  "startLine": 146,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtSharedPointer::ExternalRefCountData::{ctor}",
+                  "decoratedName": "??0ExternalRefCountData@QtSharedPointer@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QtSharedPointer::ExternalRefCountData::destroyer"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QMatrix::_m11。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qmatrix.h"
+                },
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QMatrix::{ctor}",
+                  "decoratedName": "??0QMatrix@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QMatrix::_m11"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QMatrix::_m12。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qmatrix.h"
+                },
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QMatrix::{ctor}",
+                  "decoratedName": "??0QMatrix@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QMatrix::_m12"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QMatrix::_m21。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qmatrix.h"
+                },
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QMatrix::{ctor}",
+                  "decoratedName": "??0QMatrix@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QMatrix::_m21"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QMatrix::_m22。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qmatrix.h"
+                },
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QMatrix::{ctor}",
+                  "decoratedName": "??0QMatrix@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QMatrix::_m22"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QMatrix::_dx。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qmatrix.h"
+                },
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QMatrix::{ctor}",
+                  "decoratedName": "??0QMatrix@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QMatrix::_dx"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QMatrix::_dy。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qmatrix.h"
+                },
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QMatrix::{ctor}",
+                  "decoratedName": "??0QMatrix@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QMatrix::_dy"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QTransform::m_13。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qtransform.h"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QTransform::{ctor}",
+                  "decoratedName": "??0QTransform@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QTransform::m_13"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QTransform::m_23。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qtransform.h"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QTransform::{ctor}",
+                  "decoratedName": "??0QTransform@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QTransform::m_23"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QTransform::m_33。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qtransform.h"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QTransform::{ctor}",
+                  "decoratedName": "??0QTransform@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QTransform::m_33"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QTransform::m_type。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qtransform.h"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QTransform::{ctor}",
+                  "decoratedName": "??0QTransform@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QTransform::m_type"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QTransform::m_dirty。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qtransform.h"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QTransform::{ctor}",
+                  "decoratedName": "??0QTransform@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QTransform::m_dirty"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QTransform::d。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qtransform.h"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QTransform::{ctor}",
+                  "decoratedName": "??0QTransform@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QTransform::d"
+          }
+        },
+        {
+          "ruleId": "C26813",
+          "message": {
+            "text": "使用“按位和”检查是否设置了标志。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtWidgets/qsizepolicy.h"
+                },
+                "region": {
+                  "startLine": 118,
+                  "startColumn": 16,
+                  "endLine": 118,
+                  "endColumn": 24
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QSizePolicy::{ctor}",
+                  "decoratedName": "??0QSizePolicy@@QEAA@W4Policy@0@0W4ControlType@0@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QVariant::Private::data。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 400,
+                  "startColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QVariant::Private::{ctor}",
+                  "decoratedName": "??0Private@QVariant@@QEAA@I@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QVariant::Private::data"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QVector2D::v。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qvector2d.h"
+                },
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QVector2D::{ctor}",
+                  "decoratedName": "??0QVector2D@@QEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QVector2D::v"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QUuid::data3。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/quuid.h"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QUuid::{ctor}",
+                  "decoratedName": "??0QUuid@@AEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QUuid::data3"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QUuid::data2。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/quuid.h"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QUuid::{ctor}",
+                  "decoratedName": "??0QUuid@@AEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QUuid::data2"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QUuid::data4。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/quuid.h"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QUuid::{ctor}",
+                  "decoratedName": "??0QUuid@@AEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QUuid::data4"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "未初始化变量 QUuid::data1。始终初始化成员变量(type.6)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/quuid.h"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QUuid::{ctor}",
+                  "decoratedName": "??0QUuid@@AEAA@W4Initialization@Qt@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "QUuid::data1"
+          }
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QPair<QVariant,QVariant> > 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QPair<QVariant,QVariant> >::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@U?$QPair@VQVariant@@V1@@@@QtPrivate@@SA?AU?$QPair@VQVariant@@V1@@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QMap<QString,QVariant> > 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QMap<QString,QVariant> >::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@V?$QMap@VQString@@VQVariant@@@@@QtPrivate@@SA?AV?$QMap@VQString@@VQVariant@@@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QHash<QString,QVariant> > 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QHash<QString,QVariant> >::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@V?$QHash@VQString@@VQVariant@@@@@QtPrivate@@SA?AV?$QHash@VQString@@VQVariant@@@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QList<QVariant> > 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QList<QVariant> >::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@V?$QList@VQVariant@@@@@QtPrivate@@SA?AV?$QList@VQVariant@@@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QSize> 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QSize>::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@VQSize@@@QtPrivate@@SA?AVQSize@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QBrush> 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QBrush>::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@VQBrush@@@QtPrivate@@SA?AVQBrush@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QColor> 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QColor>::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@VQColor@@@QtPrivate@@SA?AVQColor@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QFont> 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QFont>::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@VQFont@@@QtPrivate@@SA?AVQFont@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QIcon> 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QIcon>::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@VQIcon@@@QtPrivate@@SA?AVQIcon@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QtMetaTypePrivate::QAssociativeIterableImpl> 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QtMetaTypePrivate::QAssociativeIterableImpl>::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@VQAssociativeIterableImpl@QtMetaTypePrivate@@@QtPrivate@@SA?AVQAssociativeIterableImpl@QtMetaTypePrivate@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QtMetaTypePrivate::QSequentialIterableImpl> 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QtMetaTypePrivate::QSequentialIterableImpl>::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@VQSequentialIterableImpl@QtMetaTypePrivate@@@QtPrivate@@SA?AVQSequentialIterableImpl@QtMetaTypePrivate@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QtMetaTypePrivate::QPairVariantInterfaceImpl> 是 constexpr，如果需要编译时计算，请将变量 toId 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qmetatype.h"
+                },
+                "region": {
+                  "startLine": 2413,
+                  "startColumn": 15,
+                  "endLine": 2413,
+                  "endColumn": 79
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::IsMetaTypePair<QPair<QVariant,QVariant>,1>::registerConverter",
+                  "decoratedName": "?registerConverter@?$IsMetaTypePair@U?$QPair@VQVariant@@V1@@@$00@QtPrivate@@SA_NH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QtMetaTypePrivate::QSequentialIterableImpl> 是 constexpr，如果需要编译时计算，请将变量 toId 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qmetatype.h"
+                },
+                "region": {
+                  "startLine": 2430,
+                  "startColumn": 23,
+                  "endLine": 2430,
+                  "endColumn": 85
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::ValueTypeIsMetaType<QList<QModelIndex>,1>::registerConverter",
+                  "decoratedName": "?registerConverter@?$ValueTypeIsMetaType@V?$QList@VQModelIndex@@@@$00@QtPrivate@@SA_NH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26498",
+          "message": {
+            "text": "函数 qMetaTypeId<QtMetaTypePrivate::QPairVariantInterfaceImpl> 是 constexpr，如果需要编译时计算，请将变量 vid 标记为 constexpr (con.5)。"
+          },
+          "analysisTarget": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+                },
+                "region": {
+                  "startLine": 742,
+                  "startColumn": 23,
+                  "endLine": 742,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "QtPrivate::QVariantValueHelper<QtMetaTypePrivate::QPairVariantInterfaceImpl>::metaType",
+                  "decoratedName": "?metaType@?$QVariantValueHelper@VQPairVariantInterfaceImpl@QtMetaTypePrivate@@@QtPrivate@@SA?AVQPairVariantInterfaceImpl@QtMetaTypePrivate@@AEBVQVariant@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34435.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "da85ff70eda90f28bf71bb702bf9d9ab6c8e404225e0b6b58ee0316dbf7a2654"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qcolor.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "78fa8718403bcc4c63d0da529093037d396ed5c8a47955f03b9165d554b61b04"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qsharedpointer_impl.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "9fa7f20a1aff1dc2a9f93719f41a6ee7cbe64a34e7a92e5279a31d9297dc70dc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qmatrix.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "9470ff946d0b003be54d3d7cc652b3c16ec75deda66d2b97ad33deb7243580cb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qtransform.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "6d54a8d075c7279c8d1f6d83ee3fc511a9fd150d03c38254716a530e6f46e45b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtWidgets/qsizepolicy.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "9109503efe6d77acee17eac4eb7cd71117f86c5428ec9a9e147451254b413eb6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qvariant.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "f2101643f4444be6badd73ff9bbbe8681a24320d9b5e2463e683170aba184963"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtGui/qvector2d.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "feae870b39df3fdacf63101c29bdd759faa4e49aa679df3f1e86d4e4c8f40ea8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/quuid.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "48335098a7ae73b8b86d1b7b0f0f10879ffb00b17ffec44a72f52c2760008c25"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///S:/APP/QT/5.15.2/msvc2019_64/include/QtCore/qmetatype.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "6a113cf6d223672fe25650dc5a44a30cf1e8f5672563e8b5603d030ef2876c0c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/pathologyviewer.h"
+          },
+          "hashes": {
+            "sha-256": "1232d53abdc2ec4b0fd28972899026ec744a88ac1ff601b2922cd7e88f489113"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicsview"
+          },
+          "hashes": {
+            "sha-256": "39d0b025ea39450a8c90556ce891b0e0a67c90b813abc9f53cb25e14f3ff1b39"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicsview.h"
+          },
+          "hashes": {
+            "sha-256": "9ff6dbce0330c7121543f4a7af66b0552e2ec49e2b7623b541e94c156a4ded4d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qtwidgetsglobal.h"
+          },
+          "hashes": {
+            "sha-256": "8113c3c4bcbd9e9cfef10fbe5860d06be5d709e76f07c720f2fd3d0f36353372"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qtguiglobal.h"
+          },
+          "hashes": {
+            "sha-256": "f7e8e7b25e40197254c413fd1380d6eb281717c8e913b6498e217b77c6de12a5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qglobal.h"
+          },
+          "hashes": {
+            "sha-256": "6e4ec54c9d55e19dfc0fb78e6870d1a1cbc6c9d8a4c85c94b25a034d92b3e88c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qconfig.h"
+          },
+          "hashes": {
+            "sha-256": "116c38d161bbbbc4539f487058d2e458058e610e3cdc15051a4b661e1e3a226e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qtcore-config.h"
+          },
+          "hashes": {
+            "sha-256": "c7b175732c386e8dd02b82b7f85f6224db9ca1f3904cc8a5ee4d2ba47d8ddff7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qsystemdetection.h"
+          },
+          "hashes": {
+            "sha-256": "2b9b6f9c7d8b3b6d4b969fd76810183c4fa254c168a5666ebc4608dd2503c720"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qprocessordetection.h"
+          },
+          "hashes": {
+            "sha-256": "4b213a20b5fe9854c15add2a766149a618ccea4722c1c4539114297ffd10ce46"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qcompilerdetection.h"
+          },
+          "hashes": {
+            "sha-256": "f4f6f950b4a2de67b7daf32639d1ee30125d4aeab94b8b5a4a7e62b1caeb9dce"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qtypeinfo.h"
+          },
+          "hashes": {
+            "sha-256": "0eec49b43b0d04e3bf745556e318b9948d15187cad077bc0356e87a657dc13a3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qsysinfo.h"
+          },
+          "hashes": {
+            "sha-256": "62453e3afc65d4f058b0fd818e9d51114d028022b6779d1849ebeb10afd7f871"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qlogging.h"
+          },
+          "hashes": {
+            "sha-256": "15da2f087192224dfd5e37bf5ebfe9c3d98e85984fa8f1d19142a27f18be84ed"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qflags.h"
+          },
+          "hashes": {
+            "sha-256": "d878f953eb92d1e461e3fdeaeb1ee5180af7c5d182d6f623ef980b85f42f522b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qatomic.h"
+          },
+          "hashes": {
+            "sha-256": "0c62f737d9f1025f59e20d07cccaeb2c29e40a5d7f8b98cbafd05b892b1aefd1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qbasicatomic.h"
+          },
+          "hashes": {
+            "sha-256": "5c0510ebe23c30ddcf94785b73ba080f6760e74489be23398cfc6175b40b092e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qatomic_cxx11.h"
+          },
+          "hashes": {
+            "sha-256": "1b28f11f2627b82ef8179ead4d3e94de46e211773b1bafa0c9fa488e31776185"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qgenericatomic.h"
+          },
+          "hashes": {
+            "sha-256": "2884012f49145bca143f1e16f3b298ce521fb0a8fb057f5f968a49cad5d3cb01"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qglobalstatic.h"
+          },
+          "hashes": {
+            "sha-256": "a03a9fc88e2eeee0ce6f7fe933cfc26f6f6fa537f44bd362adae07deaa69ab02"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qnumeric.h"
+          },
+          "hashes": {
+            "sha-256": "5fd217b7cdf309029d5b57a2acd1cf4aa1ff7ab35b13e74156c9e40eea9b4ae6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qversiontagging.h"
+          },
+          "hashes": {
+            "sha-256": "cbea54f03bdda2474251dcfb5f3354685f1cfd5a4f812233dee4dc268bca8dbf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qtgui-config.h"
+          },
+          "hashes": {
+            "sha-256": "3d2962fb732f8becb9c3459939f5211e8938c15a2803c0c902b0478a168041e2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qtwidgets-config.h"
+          },
+          "hashes": {
+            "sha-256": "73bd10533d2b79545225fe0c23e58589a351d7d3041799aefcd32bb6aa3011b7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qbytearray.h"
+          },
+          "hashes": {
+            "sha-256": "79ff22ade3412b91574c82dd383b3289f31ffd98d6ccf1c3dbb821a37483ac87"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qrefcount.h"
+          },
+          "hashes": {
+            "sha-256": "52985f939fecb97600a671203e92f633cd5f1955e6c9a62a726f76f2cf1e2590"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qnamespace.h"
+          },
+          "hashes": {
+            "sha-256": "375c9109826e5b968e6af56883eb8b093cc068eb0264ed1ade259c04c95e1f37"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qarraydata.h"
+          },
+          "hashes": {
+            "sha-256": "0e600540e86057dc4aa0e62aea0763c5e52f6f7e4287abf9ace5e37d5af14595"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qvarlengtharray.h"
+          },
+          "hashes": {
+            "sha-256": "4061101e54d6b20ad00a275fd978a72fdc6b8dd0fed006f15f54a4b936bdd057"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qcontainerfwd.h"
+          },
+          "hashes": {
+            "sha-256": "5d9e7599ad99967e6b2e2c4fd94f076411f7a75e8a7e8ed3a2b385fe520ac348"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qalgorithms.h"
+          },
+          "hashes": {
+            "sha-256": "6c85fd7c373259990ce8ed7b582ab0f1c544e2d5bc39e275bcbbffdf2045c460"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qcontainertools_impl.h"
+          },
+          "hashes": {
+            "sha-256": "d5f52f85a19fde5c9498628f867454167fa7e6938d4cd488c39b4a52dc98a6ee"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qhashfunctions.h"
+          },
+          "hashes": {
+            "sha-256": "e791a3b8846f6e17fcb9c438297317b9688a3ee38cffc0243b4bffe6f5808bcd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qstring.h"
+          },
+          "hashes": {
+            "sha-256": "f5c8704d15a6fc4b9ad06d19fae85b93dfc55ca285135b6af23ac7f974852cbf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qchar.h"
+          },
+          "hashes": {
+            "sha-256": "402a74bee0670303ecafaad3bea174b63051ed304259a1b2b0d00c27ff92d1e0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qstringliteral.h"
+          },
+          "hashes": {
+            "sha-256": "5e3e17efa2d3696b663e362a8b77f3cda6c9aac96dfb034753417cdbb9466ae9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qstringalgorithms.h"
+          },
+          "hashes": {
+            "sha-256": "5abd2dfaa414ed18c5e94dd04c6534496d2d9baddce058f0111cd74723db3777"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qstringview.h"
+          },
+          "hashes": {
+            "sha-256": "b9ffbe8e0c45df4849e1d0e2559af5fb7e4d4f3aa7d810af25bc96e88573dda9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qpair.h"
+          },
+          "hashes": {
+            "sha-256": "6215d7eb3d950841f8e11e3a81037beaf0ae67b3e6ad850354815bc6701c4874"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qobjectdefs.h"
+          },
+          "hashes": {
+            "sha-256": "cdc581f6aff6796000e48f01f9cf4732dbd6fee29e1c26dbbc2435451561caec"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qobjectdefs_impl.h"
+          },
+          "hashes": {
+            "sha-256": "cf87ec4a28071ecc54cf72440ab8a273a35f07b09926c85d1461517436eb9693"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpainter.h"
+          },
+          "hashes": {
+            "sha-256": "1a3c44e732dc1ce23b3e9467c19c1320f100bc48b29340961987384675d78400"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qrect.h"
+          },
+          "hashes": {
+            "sha-256": "1aa90cfc7164d60dc4603f4b4b1e08711d06f81cd2eb690df9314b434705fb71"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qmargins.h"
+          },
+          "hashes": {
+            "sha-256": "48c6e1aebb8622028435f85a25f988fb2a36f874fd1f413193fdd971cfc7dfd7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qsize.h"
+          },
+          "hashes": {
+            "sha-256": "7a3d705f47d2550e717aa397bfc222085b12bf6364061be56737c597e1e5ece3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qpoint.h"
+          },
+          "hashes": {
+            "sha-256": "4d5be734ccb00009cb3b32ee047cf3d6979b93d8c36bb892b89903094bfdd4e7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qscopedpointer.h"
+          },
+          "hashes": {
+            "sha-256": "d3ba2de893b79eaa85a695d9e63d62226d003c5407c00411bda704dd9716b47c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpixmap.h"
+          },
+          "hashes": {
+            "sha-256": "f17fcbfe5f881d2946f3636b2aac1113b175e1ad0ac131facd73543e2c98e4e2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpaintdevice.h"
+          },
+          "hashes": {
+            "sha-256": "58d3cd99ea62f885497ef05c998dfa35fb9fe9725af9782908cf92e5394ed3c6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qwindowdefs.h"
+          },
+          "hashes": {
+            "sha-256": "28bd2d9df28e136dbfbcc0e20542839bc508922af7d5e34dbb919353471c3626"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qwindowdefs_win.h"
+          },
+          "hashes": {
+            "sha-256": "56479cc4b3d9353192a8a9663100e6955052a66a0ba1d5a9d1a7812babf63787"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qrgb.h"
+          },
+          "hashes": {
+            "sha-256": "280ce39d2bf15d58b73fb613d8f3f5604f451e41bdcf7c30e82711efe14241f2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qstringlist.h"
+          },
+          "hashes": {
+            "sha-256": "5967508c4bb68ee38eca2a220d949fc9fad6bc20c808771611968ecde574b4fc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qlist.h"
+          },
+          "hashes": {
+            "sha-256": "94981f4cf256cd1bb9ec941d45a715233da33f37bcd3dfa59a5bbb3850d062d2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qiterator.h"
+          },
+          "hashes": {
+            "sha-256": "e7683d0cdfbd31c719e83625fd09fd21827b1264a37415651f698a9e92f80a2b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qvector.h"
+          },
+          "hashes": {
+            "sha-256": "583a7d2a24155a8e85ff67584c22f6be31fe88a4b93b51cc21e529595c4f3da9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qbytearraylist.h"
+          },
+          "hashes": {
+            "sha-256": "328207423077f5dd22f1ca4e6ba9abb054a3dd28be3174da714acb3e83266a67"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qregexp.h"
+          },
+          "hashes": {
+            "sha-256": "9167bd8d3035aa5378aa11271a5d86378f5819654319d0f1e6cc401635535233"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qstringmatcher.h"
+          },
+          "hashes": {
+            "sha-256": "fa673d2aa54488aedde0cf63e86ab70f4270cab88ef1e0216fb9853cc11d3497"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qrgba64.h"
+          },
+          "hashes": {
+            "sha-256": "3b27859e3f29eeb37121b42d93ea503419bfd5a790aca39187bbe5ba24dd5434"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qsharedpointer.h"
+          },
+          "hashes": {
+            "sha-256": "0876ce436c49e53c26926fa7daa98233e859a862d5fdff72d5d6da7ac75362d0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qshareddata.h"
+          },
+          "hashes": {
+            "sha-256": "7fd84d0c5e2f043357e9875b3ce2e8f22576e7aa955df9c3ed416cb4f716a483"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qhash.h"
+          },
+          "hashes": {
+            "sha-256": "3add56fb91ba10f215d2c7b0d03e704bbfa17b42dd16e3d7efe6f23819a30ec1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qobject.h"
+          },
+          "hashes": {
+            "sha-256": "165f9308381489426e25b071653a13acb2a73d4047e807fb6b3d4245a4ebc386"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qobject_impl.h"
+          },
+          "hashes": {
+            "sha-256": "a984c3b6721fcb797a501e2952e19ea7bc3e0aae5eaf7ececa9a8152354f9e3a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qimage.h"
+          },
+          "hashes": {
+            "sha-256": "7ee9b38ba073be0155d4ef82b59470cf0c9fc082831142df3ecb0112f9c9b8f1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpixelformat.h"
+          },
+          "hashes": {
+            "sha-256": "bd00ce5d9be3fbf30aef73f5df009ebe13d3cf032e7ebea58f8349d0c43dc0a0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpolygon.h"
+          },
+          "hashes": {
+            "sha-256": "05261c87ae5c5503df067c5aa1f0487e1dac154a39c055a61693dfbe0e672fd1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qregion.h"
+          },
+          "hashes": {
+            "sha-256": "c7d1b3fbd4b6ed2f0d50c065f82425ccdbce935eefe71996b464c6e0f5c4d08a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qdatastream.h"
+          },
+          "hashes": {
+            "sha-256": "3ea959be841a15a02789fe01e7bab4cf04789ce78ca81300e67a3200e073744e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qiodevice.h"
+          },
+          "hashes": {
+            "sha-256": "7dc9592c4f14793007c391043e474c7ccb4256582426dec550f90ccea66c1f85"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qline.h"
+          },
+          "hashes": {
+            "sha-256": "c5f3dbb424f1d35e66b5996ed267bab1b46d571208372cc3b583b3a8dc07f3ad"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qtextoption.h"
+          },
+          "hashes": {
+            "sha-256": "bc46b019784c039c9b5cdc264b8a34ea4db4e453a51fe2ff2ae66cd7ba5a338a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpen.h"
+          },
+          "hashes": {
+            "sha-256": "554bf098bac08b6febb7d90dcd5da258077be7aa558069283724222832674d42"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qbrush.h"
+          },
+          "hashes": {
+            "sha-256": "ea0bb6189029a23fc4e0fca3e84aabc96a3d12ed3ca7177f0102b3dff3728b54"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qfontinfo.h"
+          },
+          "hashes": {
+            "sha-256": "2e917acb84c49abd0216814bd318d6ce91a2d17dbeb4098f15a77346ea05faed"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qfont.h"
+          },
+          "hashes": {
+            "sha-256": "b719d3a424c5a157d321e59be80a60283872357953122cf78ef3179c91b370ef"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qfontmetrics.h"
+          },
+          "hashes": {
+            "sha-256": "7f05e5db500f0b9b5935ff76202bd09dafc65779ae466af7cc9301a6ba2273b2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qscrollarea.h"
+          },
+          "hashes": {
+            "sha-256": "4039e9ba44113d09cc263341ab1fac40b41ea4e8c68f81d6907cd23c80a22165"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qabstractscrollarea.h"
+          },
+          "hashes": {
+            "sha-256": "e0b5b4d3366c12a387d09c2743851d5ee1466f2e2cc1d4185a0a3f055c586aea"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qframe.h"
+          },
+          "hashes": {
+            "sha-256": "c4de739adabf07d40023e3e8722df548b07bb731bdec806272bfb263ee297044"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qwidget.h"
+          },
+          "hashes": {
+            "sha-256": "f982edcbe71b38fbcdf79ebfdda73b1196f3ef5d7f05fd0d299ffcc5db9172ff"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpalette.h"
+          },
+          "hashes": {
+            "sha-256": "db1a417dfc759c31ffaabbaae49488db181c1aa321930cb89a19aede31c61d06"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qcursor.h"
+          },
+          "hashes": {
+            "sha-256": "d968af8dac0734765f54f37fbb9fcfd00e65c554edd482ce96ada5077eeedc5f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qkeysequence.h"
+          },
+          "hashes": {
+            "sha-256": "180a028e55cb48d96dab31ceebfbc3d980a97dc59641006a85491f1ef38d4d36"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicsscene.h"
+          },
+          "hashes": {
+            "sha-256": "83fce966f455a5bc8916b425b569556685cb3e2833eca826b566b8c92b2d809e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpainterpath"
+          },
+          "hashes": {
+            "sha-256": "38b4bf608b2f942f132f1faac40ff706c7080cf70eb29c7aa5396cd76361b3f4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpainterpath.h"
+          },
+          "hashes": {
+            "sha-256": "50fae23b1a012b8e615ebecd612b5f3c10655949d47bca05b71c259d4f1686f9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qcontextmenuevent"
+          },
+          "hashes": {
+            "sha-256": "de21438959a1c2f6496c3eced0efc8940861ed712c0d1138214d61a912116f48"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qevent.h"
+          },
+          "hashes": {
+            "sha-256": "c89094199683e8003268464f53d8108c6682902ccb50f64eef95cf59288523bc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qcoreevent.h"
+          },
+          "hashes": {
+            "sha-256": "b5ff2e158904c0e496512841b017f167081bb6e87d11c60456a2805780a9c86c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qmap.h"
+          },
+          "hashes": {
+            "sha-256": "bb39e8977657f7fad3db509305fdd3d0b7454b1245abfbe5de5d40dd3d5f6dc2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qset.h"
+          },
+          "hashes": {
+            "sha-256": "f05501b06b65bbfb9a367c5e2d21acc4c44b1e015cc737147a1ac7e5614d1f63"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qurl.h"
+          },
+          "hashes": {
+            "sha-256": "595b8d14485e8c8bee53ffd2f315e95cceb58c778387f9cae3d94e8957d8462b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qfile.h"
+          },
+          "hashes": {
+            "sha-256": "4e171116e34d75cefd475d13c23b157a5bd799911cd2d11d019a7924bed188af"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qfiledevice.h"
+          },
+          "hashes": {
+            "sha-256": "619241895c6c5bb112c85d53d113f591d2bcb62717fdb526587497b4940b5d5d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qtouchdevice.h"
+          },
+          "hashes": {
+            "sha-256": "353b1d0bff14e5046cb6e3192a9045e3c857ad00d6fdac5675d6a4a2574944ca"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qtimer"
+          },
+          "hashes": {
+            "sha-256": "fa33efadcc8c540819885cd3442cb3d838a70adfbf5f9f5218eb2dc5f640b2fe"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qtimer.h"
+          },
+          "hashes": {
+            "sha-256": "05889dd546bcbdcf8d4cbf298be6e16bc2a6bc58c929dd2eb40bd7fd1623041b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qbasictimer.h"
+          },
+          "hashes": {
+            "sha-256": "f4da5aa2098c1b81ef53a3d6baaec2ff561277601abf4b907065fb08fd2d6ded"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qdebug"
+          },
+          "hashes": {
+            "sha-256": "d076a9fe9a5f0fc1ed95ddc388f08101dc6632e8796a4fdd56f39b8fb79bdfcd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qdebug.h"
+          },
+          "hashes": {
+            "sha-256": "aca0084e9a16413b7b32f0ea982ca02403830ebcff33d9337e67bf46a61dfd91"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qtextstream.h"
+          },
+          "hashes": {
+            "sha-256": "93cd0a25258df87d0f9e7ada5da02d5010d2d60750a1f7dc708f08256553d454"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qlocale.h"
+          },
+          "hashes": {
+            "sha-256": "7ae01f2c27c80745e97c4410275d2516942d41d402689932ab5b69c61285450a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qcontiguouscache.h"
+          },
+          "hashes": {
+            "sha-256": "20a29288f00178141b48b3e104b71a23d898e8bf60a1a5935c80b310bcf210c7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qaction"
+          },
+          "hashes": {
+            "sha-256": "501b20f0939e5d94811d9a087f671d331890dc50a379b056eebdcc2082da7d72"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qaction.h"
+          },
+          "hashes": {
+            "sha-256": "e0c6253876af50915d986ba404aba3ca32c5ccb576c1ba08852d6fe80298a714"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qicon.h"
+          },
+          "hashes": {
+            "sha-256": "950917f0ae8c2d3f497e4fb9795bd87aa13d9d358d0822a7cdfc1e6e9995c8fa"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qactiongroup.h"
+          },
+          "hashes": {
+            "sha-256": "00117a6400c8eb07220f958c15d0aab87ad4c2b4772686d457d237ef7d07f5ce"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qapplication"
+          },
+          "hashes": {
+            "sha-256": "c9549f77e7cc42304c254ac5063d705c928be9d239bb83fbc1e15dd604d92388"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qapplication.h"
+          },
+          "hashes": {
+            "sha-256": "4c2bbf9f302bb50d969e65d34bc1e243168810104465615fe669ca80e8be0d65"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qcoreapplication.h"
+          },
+          "hashes": {
+            "sha-256": "f7e224b88098fd08494c674bda228808831871939c2c712f59577d6a166d0077"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qeventloop.h"
+          },
+          "hashes": {
+            "sha-256": "18d1f5e8d9688bd316ef796b55e17a9384df1803349df27101a14cdccb1088de"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qguiapplication.h"
+          },
+          "hashes": {
+            "sha-256": "2aa860e9ec2c17f4a043d62740c3112640883433ad4c30ba9b94ee5fc0460f8c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qinputmethod.h"
+          },
+          "hashes": {
+            "sha-256": "916e6ea31a6ecab1c10c49a055c505a3cf4a2c02ae19d916621f7a8a0c1e1374"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qmenu"
+          },
+          "hashes": {
+            "sha-256": "8fc7c68e384f7b40b86702283da10d2b0531b8aeb0a3e243215bf43153ea8212"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qmenu.h"
+          },
+          "hashes": {
+            "sha-256": "ec0d41919fafa778564af494aa87cdb5d026d229d1ce02b364cd54e6a072aca9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qmessagebox"
+          },
+          "hashes": {
+            "sha-256": "7ea8b84e3d260f07028513a4bc0dad2dbcf3eeec155e7b7f26dc8d295a2477b8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qmessagebox.h"
+          },
+          "hashes": {
+            "sha-256": "39431499759d7b8a06b4edb6cb5a4ee89d9074f4fa5c4c6b6bbab7390e7732c5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qdialog.h"
+          },
+          "hashes": {
+            "sha-256": "041ae5de88d9152b5ba7141e67876e298292b7316c051dcfce77fc8969ff832c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qresizeevent"
+          },
+          "hashes": {
+            "sha-256": "de21438959a1c2f6496c3eced0efc8940861ed712c0d1138214d61a912116f48"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qtimeline"
+          },
+          "hashes": {
+            "sha-256": "22c73c19a65b65de1ec763cbc42e8722fb2569df2669c179abe486678decab9f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qtimeline.h"
+          },
+          "hashes": {
+            "sha-256": "0ea867239318ccfb568d67a65e962caaf41ccb4cdd387077b6b95387b53cf1ad"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qeasingcurve.h"
+          },
+          "hashes": {
+            "sha-256": "5434de74dc6011800e87ae86f0652ccbef1de5c4f33d29038847fc03591a0a09"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qscrollbar"
+          },
+          "hashes": {
+            "sha-256": "26f1aed3595f71e726ad197e7efbdb11d6edffabf4093da71eddc02d31fcaa25"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qscrollbar.h"
+          },
+          "hashes": {
+            "sha-256": "b8179b4fe32eec40ebab7d92b7335f15c3c5803c17cfd66d68555ca17282a87d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qabstractslider.h"
+          },
+          "hashes": {
+            "sha-256": "66ceb5ca2f94c2f691ce3658434e6fec2c1658c1e21833c47a366bf8038b719d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qhboxlayout"
+          },
+          "hashes": {
+            "sha-256": "09e0fae02e5ee675e204d4391ed277d4d227c2afe1fd192514bfe937c0061eda"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qboxlayout.h"
+          },
+          "hashes": {
+            "sha-256": "e0e49151917214cee34b84b8824269545eaabe6b66a2a2ad5f590b9eeec42d6f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlayout.h"
+          },
+          "hashes": {
+            "sha-256": "f19ef1fc0a55548013c0d5e424295c514f1d94e09f16cd6473a195f37a01fc7c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlayoutitem.h"
+          },
+          "hashes": {
+            "sha-256": "29c14ca21554b137639567502ce92cfcb7bbf9ae10436bb19dc8410076de641e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgridlayout.h"
+          },
+          "hashes": {
+            "sha-256": "d02c4e7d6108c315c841a16cec45234722814371c114feffaba8ddc0bf920a18"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qguiapplication"
+          },
+          "hashes": {
+            "sha-256": "af0fea0f69be5e1b4b991bbc7bb92f48d5f0a4edf390399bcc5a883cc3af022c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qmainwindow"
+          },
+          "hashes": {
+            "sha-256": "15732be6d1d18b807be57ce87785086c1c2a11303f5ad7ccb0b896d10fa9b340"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qmainwindow.h"
+          },
+          "hashes": {
+            "sha-256": "affe4706b50f66f71dabe3d85c6e3a2b156c85c7e1caaeca4f49d117b3e60e93"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qtabwidget.h"
+          },
+          "hashes": {
+            "sha-256": "3e6f79a480f31ae7d855eeca56a8c90a13deb742bb237df1c98d736f24b85412"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qstatusbar"
+          },
+          "hashes": {
+            "sha-256": "192b0e5a3a343eb413f84e1df26795473adc9106bab72359727d20ebd3694289"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qstatusbar.h"
+          },
+          "hashes": {
+            "sha-256": "6f97cb60004c973917b78746813ea0fdebc10d0a061be3a093d06be5e4f69b0b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlineedit"
+          },
+          "hashes": {
+            "sha-256": "53659d0b4f1e1ba94780d533d9c793cd3c1f1c5bbeaefd48c567e125f660acbb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlineedit.h"
+          },
+          "hashes": {
+            "sha-256": "2523903f07fd7c4625be0b0382c753a3c2fc7e9f68a3f57c4214f53c813330cd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qtextcursor.h"
+          },
+          "hashes": {
+            "sha-256": "284489ee88e57b23a5053c3619a149b61313138dc0fb86b78d3d9c1feefddb33"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qtextformat.h"
+          },
+          "hashes": {
+            "sha-256": "827c53f6456bab85da7cb612d88631911f0a92253a04202f32874d84e0c282c6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/minimap.h"
+          },
+          "hashes": {
+            "sha-256": "7fa916a6dc8384b85a06b23ae347ae7dc6a98ebb3cc07a4fcb86b29ec98ee2b0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qwidget"
+          },
+          "hashes": {
+            "sha-256": "87674e685fc23b8f8b7609070a4dd72e01fffdccd4a619cf67ad165b3199311b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qpointer"
+          },
+          "hashes": {
+            "sha-256": "bae5666fd5aac23ba35d2475863593e3c394654080a01c4259b8a47529bd30aa"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qpointer.h"
+          },
+          "hashes": {
+            "sha-256": "1ce338048d031777b374a75281a367af4df731471de7ba42a51d721488cdb696"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/scalebar.h"
+          },
+          "hashes": {
+            "sha-256": "486cd73b9cbcac0751e0841a111876251ed415d1895e0c76bde53f6ef07c7ef3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/iothread.h"
+          },
+          "hashes": {
+            "sha-256": "b12cdf260a1f1d21c98a714f46798c51a116292c6d6eb49efd82dcb108e13b3c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qobject"
+          },
+          "hashes": {
+            "sha-256": "505402cce1146ba71e7e638a5d4ae6beda6be988e2179bd1b9b60e283dd77653"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qmutex"
+          },
+          "hashes": {
+            "sha-256": "97153894c17fbd3ae8ddbae1ff9f854baeb1a1d4cfd1b850ebf55f95dd768f2c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qmutex.h"
+          },
+          "hashes": {
+            "sha-256": "5c47c744f248adb18fdd60871cf3f75274f15106897cb7399583ec049ed7900d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qwaitcondition"
+          },
+          "hashes": {
+            "sha-256": "5bc4a54a4f316c8e8e512c107bb7f923a4148001efb6fa55ffb2c77220657402"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qwaitcondition.h"
+          },
+          "hashes": {
+            "sha-256": "576236dcce40106593c024c16e0d0431ba09b60962e91274ceb3241233099361"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qdeadlinetimer"
+          },
+          "hashes": {
+            "sha-256": "ecfad8865f23c81e3d001a1d6d1bd517c50003e9ff7da3156eb6a131be499588"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qdeadlinetimer.h"
+          },
+          "hashes": {
+            "sha-256": "1707a1f0c3dc51596f7d6c838883653e75904016f79389dd5f276bdb2f66e362"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qelapsedtimer.h"
+          },
+          "hashes": {
+            "sha-256": "3ba1b1886dfadbd78b43dcb2d0709b5d4728943c348d99a2f376d50b2c4e49f4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qthread"
+          },
+          "hashes": {
+            "sha-256": "d0967c2e9f5a9eff4604305877eeb81f05cade0eb98a2fba798d79c3ac07df0c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qthread.h"
+          },
+          "hashes": {
+            "sha-256": "1ea401d4f35f6417b93a9f9d148a43bfc6fe097cde5a312942706752413a465f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/slidecolormanagement.h"
+          },
+          "hashes": {
+            "sha-256": "c00520eefff1e017cc1c3ff9c20333192251959677101ae33b80e57a2151e065"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/prefetchthread.h"
+          },
+          "hashes": {
+            "sha-256": "269aee6e3f6974d6b49ffd702e8e37f1d9f354dd9adc5db5fb2f1fd275c91475"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qrect"
+          },
+          "hashes": {
+            "sha-256": "2a6ecb35e7d71d1d55170d7da262ab3e3968594effbaa8ceaa09fbc8c5ed08bf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/multiresolutionimage.h"
+          },
+          "hashes": {
+            "sha-256": "f488c03f9056b3009cc6da9a14571ca776ee2d7a1fcbd0bf3e1d50ea6e8ff2b1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/imagesource.h"
+          },
+          "hashes": {
+            "sha-256": "ffcd27bf9be58d9486ad04b565674bf09d455a574926ae3d98bf6c8333282a1e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/tilecache.hpp"
+          },
+          "hashes": {
+            "sha-256": "a9212e1cb98200186b6568da2db23c9b5cbfb20b89a6ca2182ee26df4e04a654"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/patch.h"
+          },
+          "hashes": {
+            "sha-256": "c2e5bde73625029d4a6a8cd16fc3db34425cda54063f34ec616b79d9915075c9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/patch.hpp"
+          },
+          "hashes": {
+            "sha-256": "6625448ce3080e25c001de7faf18d56113aa3826201f39153feaeef6ecf76c73"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/wsitilegraphicsitem.h"
+          },
+          "hashes": {
+            "sha-256": "f0e4f5a7190ed68d3f7fe2bb080a1f9512185f0e4a3ffe6e7bec8aff90fb1f72"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicsitem"
+          },
+          "hashes": {
+            "sha-256": "9b0fe10d8765e893613c66b0697e5d07afc396443447877be08da8085ad453b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicsitem.h"
+          },
+          "hashes": {
+            "sha-256": "4a83cd584a7d68b25ea8c9273014297442e85ca0fb2d6338fd0012469ed5fea1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/wsitilegraphicsitemcache.h"
+          },
+          "hashes": {
+            "sha-256": "834fd1ab19542503df947acdb218931dbdd35ae303d72031a00a52db96f54a81"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/tilemanager.h"
+          },
+          "hashes": {
+            "sha-256": "a3ec7fcb5a4322173d511fe1f3108da9d4e9e1523e6b91a1db13b4c0cb6e52b2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicsscene"
+          },
+          "hashes": {
+            "sha-256": "40221def156af6b39f0cdd93b1a194777bb5e3822d5e1cc8524518025f03e518"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qcoreapplication"
+          },
+          "hashes": {
+            "sha-256": "2c4d4919b2e48dbc5ab4bc1ca532b5e776ebe54be758a4d48286e39ac1830a20"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/ioworker.h"
+          },
+          "hashes": {
+            "sha-256": "eb262fadd8033578f7d27279899036788a8fd3d1a3063f9127cb7f00b1684894"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpixmap"
+          },
+          "hashes": {
+            "sha-256": "8aaa3aeb6c84947ed38e1a0470c9d5d6158d25ab84cfd0c0564adad195a29f55"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicslineitem"
+          },
+          "hashes": {
+            "sha-256": "9b0fe10d8765e893613c66b0697e5d07afc396443447877be08da8085ad453b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/inputdialog.h"
+          },
+          "hashes": {
+            "sha-256": "932245ad1d1e18006a1f2ca057c7f077e0f95eb5fdbf374ad89ee1e7f0f95b53"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qdialog"
+          },
+          "hashes": {
+            "sha-256": "97f8c3a17b009ca799fc92a1713bfb277b81bf36c1ad68558baa9f6acd9afe4d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlayout"
+          },
+          "hashes": {
+            "sha-256": "82bdda632fc8e541c3c3a7c42028ae3efce54182c2f72a0366cf09f3aa8dc98c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qstring"
+          },
+          "hashes": {
+            "sha-256": "e84da8bad02245c8c474be2d777df3e535ddc8198b72883525b123bf1bc0ce67"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qtoolbutton"
+          },
+          "hashes": {
+            "sha-256": "2db53eeea3e1f088065595d170ac013a3e7a92b2456cf9d8a7e1b38055e2a4f1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qtoolbutton.h"
+          },
+          "hashes": {
+            "sha-256": "e9eeea2ed5cd4b25c941ee5ad0b65649e679321c0a0f609f35d9158ebd088ae9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qabstractbutton.h"
+          },
+          "hashes": {
+            "sha-256": "3c52008b48d6725006b9f6782e59cd8da9874d3f140b75a0a4de91808800188a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/labelwin.h"
+          },
+          "hashes": {
+            "sha-256": "b7361c4eb06ee0f2d7f21924a615d3dbbef0a4dad80bcadf7b923ffe184eb920"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlabel"
+          },
+          "hashes": {
+            "sha-256": "7dfe557e9f85e4583751756e9db440aa9ddb642fe4d41a916c35b703ef39bd65"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlabel.h"
+          },
+          "hashes": {
+            "sha-256": "b7dd662be3d8ab47c5f9e9d0b6bb3e30105983780a255faa90d6e4b11c49dcd1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/detaildialog.h"
+          },
+          "hashes": {
+            "sha-256": "d5e2b4af823d371f27dc4adb312b49156ab548e522ffccebdffd1474e51d85f3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlistwidget"
+          },
+          "hashes": {
+            "sha-256": "7739492d043afd6d576a9b091e980f8e3a0ec06896ab4af20469c018dee70d70"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlistwidget.h"
+          },
+          "hashes": {
+            "sha-256": "381828f02caaa06aacc6840048d60221fc120a37136cf39cee31f17072a819a3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlistview.h"
+          },
+          "hashes": {
+            "sha-256": "fc037fcb7c38ffe21d3950ccece5ca10f6325d31a2aa41088bde96b587e682b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qabstractitemview.h"
+          },
+          "hashes": {
+            "sha-256": "eb3a571f663391880c3af1f74684e429b54a77b5d31acb2814bfa85b60b41907"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qabstractitemmodel.h"
+          },
+          "hashes": {
+            "sha-256": "97431242d690a21de099962aed07b629a780889c5897806ca08a043393c91cc4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qitemselectionmodel.h"
+          },
+          "hashes": {
+            "sha-256": "18a272af948ef8e78aa819dabd28c66bdb756f40bdb130f8d5288c85b7ecc957"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qabstractitemdelegate.h"
+          },
+          "hashes": {
+            "sha-256": "e1d0728d6d6440f93a357bfa2dab57e05bc2648ef08ccfd55ed404f90abf4d57"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qstyleoption.h"
+          },
+          "hashes": {
+            "sha-256": "91751d053e3951f626cadaa8b9b5deed959c9ac75d7921eade5403d8f6cf7e43"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qabstractspinbox.h"
+          },
+          "hashes": {
+            "sha-256": "445dec00d8d394f2b3d189584c53f8d1521f580698dddc872d08fe185e4c6094"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qvalidator.h"
+          },
+          "hashes": {
+            "sha-256": "905a8bb183b28650f7dccef00b2888757e984ce2f9b44a4149c559bf5c35e36c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qregularexpression.h"
+          },
+          "hashes": {
+            "sha-256": "310689904ff4a17ebef8eae4b84de3aa477953ef7d2d947f71980226f3a1032d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qslider.h"
+          },
+          "hashes": {
+            "sha-256": "1cddab4f9901a15127111ca4929ba0f54d8cc8c3ad550e19dde909ca1ff3ab11"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qstyle.h"
+          },
+          "hashes": {
+            "sha-256": "ba3e040a10b985ba40c04ec2baff5dc043892c4b9d6cdca0d55301184f8a8678"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qtabbar.h"
+          },
+          "hashes": {
+            "sha-256": "dd49a678b536e8455f9c76018bd84921504a0de08060d97a47443ed54d6c6d01"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qrubberband.h"
+          },
+          "hashes": {
+            "sha-256": "faa694223b75484d68f255d44ebbd4925a81663bfc25a1d5fae52884d0e6c8b2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qlistwidgetitem"
+          },
+          "hashes": {
+            "sha-256": "7739492d043afd6d576a9b091e980f8e3a0ec06896ab4af20469c018dee70d70"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/itemdialog.h"
+          },
+          "hashes": {
+            "sha-256": "844dccb03da24e4fca4609edfc60df76d6fc6792e1649e063a72a693342ea19a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/item/qimagegraphicscene.h"
+          },
+          "hashes": {
+            "sha-256": "23a2c7d2d63993c109c90cde5871821e55f2351ad3e439a5f093128a2b585683"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/item/linerenderelement.h"
+          },
+          "hashes": {
+            "sha-256": "93148823e7e9ff00fcb1b6a2d6f6820f99bbfb1dd41d6fb2c8907b66788e2d99"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qpainter"
+          },
+          "hashes": {
+            "sha-256": "5984a8fba852608f2b614213d087fc2de9ed3a3393d4509e54e9966234f05030"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qimage"
+          },
+          "hashes": {
+            "sha-256": "c82ed47417dfefb08c9061b12ee25c12a51d6e908b462f90a206f913278f7ae5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qjsonobject"
+          },
+          "hashes": {
+            "sha-256": "77509ce93527c7a9559454736388f74f5cac82596443127ac6ac85fe76a1a636"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qjsonobject.h"
+          },
+          "hashes": {
+            "sha-256": "2d75b2a17b90b7a1f4eb62335762114c11d50add3d73ed2a3136f1e7d992ea35"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qjsonvalue.h"
+          },
+          "hashes": {
+            "sha-256": "f5952cd473ed6834a3f273f5b08f133537277ee14f2fdf32a004c2bc36d1dd96"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qcborvalue.h"
+          },
+          "hashes": {
+            "sha-256": "b485897c0cd6105e6a32916d5549db5e338ca5f0214b5f7d85ac5bd54539b5d8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qdatetime.h"
+          },
+          "hashes": {
+            "sha-256": "f6c4be8f914bbf28d152f0637bd37705930ff98baef00da9fa46278abca15004"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtcore/qcborcommon.h"
+          },
+          "hashes": {
+            "sha-256": "68299065826d545212d10c21ceba67176dd0f6169762d57286f444ab19bc4c64"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicsscenemouseevent"
+          },
+          "hashes": {
+            "sha-256": "52c0fe843748071fdbe14c76d043abbba25a1d267cbdf1486ad051e7ebad072a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicssceneevent.h"
+          },
+          "hashes": {
+            "sha-256": "5ca16275f2de2fe1f8c2da8aa2e4bb57a88aec9b6b39b8fda6ed3c234ee6b369"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/item/renderelement.h"
+          },
+          "hashes": {
+            "sha-256": "aa3d85dff82e423d529a7d2cb4183a6cc4474dd23c360c35059ae7eada17ea69"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicssimpletextitem"
+          },
+          "hashes": {
+            "sha-256": "9b0fe10d8765e893613c66b0697e5d07afc396443447877be08da8085ad453b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicsscenehoverevent"
+          },
+          "hashes": {
+            "sha-256": "52c0fe843748071fdbe14c76d043abbba25a1d267cbdf1486ad051e7ebad072a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/item/rectrenderelement.h"
+          },
+          "hashes": {
+            "sha-256": "6740349f9d08868558c3a75c53aa2f6946ded282d8da5d922b8058a0c96c4616"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicsrectitem"
+          },
+          "hashes": {
+            "sha-256": "9b0fe10d8765e893613c66b0697e5d07afc396443447877be08da8085ad453b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/item/ellipserenderelement.h"
+          },
+          "hashes": {
+            "sha-256": "be5bd1917d816821805c29953b9c21514894e76dde2dd8e6b9f4842905058461"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicsellipseitem"
+          },
+          "hashes": {
+            "sha-256": "9b0fe10d8765e893613c66b0697e5d07afc396443447877be08da8085ad453b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/item/textrenderelement.h"
+          },
+          "hashes": {
+            "sha-256": "88d6bb47e8798cc06e9362411e87fed8872d3485421ce2caf1933c08ce1331bd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicstextitem"
+          },
+          "hashes": {
+            "sha-256": "9b0fe10d8765e893613c66b0697e5d07afc396443447877be08da8085ad453b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtgui/qkeyevent"
+          },
+          "hashes": {
+            "sha-256": "de21438959a1c2f6496c3eced0efc8940861ed712c0d1138214d61a912116f48"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/graduate/dsv/dsv/item/contourrenderelement.h"
+          },
+          "hashes": {
+            "sha-256": "8f43ff3d0b2e5177ee3fddce5090ea3a365327c342f90d5725630b990ef90182"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///s:/app/qt/5.15.2/msvc2019_64/include/qtwidgets/qgraphicspolygonitem"
+          },
+          "hashes": {
+            "sha-256": "9b0fe10d8765e893613c66b0697e5d07afc396443447877be08da8085ad453b4"
+          }
+        }
+      ]
+    }
+  ]
+}

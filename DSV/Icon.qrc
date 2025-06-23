@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/brush.png</file>
+        <file>resources/cancel.png</file>
+        <file>resources/circle.png</file>
+        <file>resources/color.png</file>
+        <file>resources/deal.png</file>
+        <file>resources/detail.png</file>
+        <file>resources/DSV.png</file>
+        <file>resources/label.png</file>
+        <file>resources/leftdown.png</file>
+        <file>resources/leftup.png</file>
+        <file>resources/line.png</file>
+        <file>resources/measure.png</file>
+        <file>resources/mini.png</file>
+        <file>resources/openData.png</file>
+        <file>resources/plus.png</file>
+        <file>resources/rectangle.png</file>
+        <file>resources/reset.png</file>
+        <file>resources/rightdown.png</file>
+        <file>resources/rightup.png</file>
+        <file>resources/rotate.png</file>
+        <file>resources/save.png</file>
+        <file>resources/scale.png</file>
+        <file>resources/snap.png</file>
+        <file>resources/tag.png</file>
+        <file>resources/text.png</file>
+        <file>resources/zoom.png</file>
+        <file>resources/saveTIFF.png</file>
+        <file>resources/List.png</file>
+    </qresource>
+</RCC>

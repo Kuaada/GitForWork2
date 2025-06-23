@@ -1,0 +1,143 @@
+﻿   Qt/MSBuild: 3.3.1.1
+   Qt: 5.15.2
+  CenteredToolBar.cpp
+  FileWidget.cpp
+  IOThread.cpp
+  IOWorker.cpp
+  ImageSource.cpp
+  ItemDialog.cpp
+  ContourRenderElement.cpp
+  EllipseRenderElement.cpp
+  LineRenderElement.cpp
+  QImageGraphicScene.cpp
+  RectRenderElement.cpp
+  RenderElement.cpp
+  TextRenderElement.cpp
+  LabelWin.cpp
+  MainWin.cpp
+  MultiResolutionImage.cpp
+S:\Graduate\DSV - 1\DSV\MultiResolutionImage.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\ItemDialog.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\MainWin.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\IOWorker.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\CenteredToolBar.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\LabelWin.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\ImageSource.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\FileWidget.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\IOThread.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  MultiResolutionImageFactory.cpp
+S:\Graduate\DSV - 1\DSV\MultiResolutionImageFactory.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\MultiResolutionImage.cpp(30,12): warning C4018: “>=”: 有符号/无符号不匹配
+S:\Graduate\DSV - 1\DSV\MultiResolutionImage.cpp(68,12): warning C4018: “>=”: 有符号/无符号不匹配
+S:\Graduate\DSV - 1\DSV\MultiResolutionImage.cpp(106,12): warning C4018: “>=”: 有符号/无符号不匹配
+S:\Graduate\DSV - 1\DSV\MultiResolutionImage.cpp(144,12): warning C4018: “>=”: 有符号/无符号不匹配
+S:\Graduate\DSV - 1\DSV\MultiResolutionImage.cpp(354,25): warning C4018: “<”: 有符号/无符号不匹配
+S:\Graduate\DSV - 1\DSV\MultiResolutionImage.cpp(368,25): warning C4018: “<”: 有符号/无符号不匹配
+  OpenSlideImage.cpp
+S:\Graduate\DSV - 1\DSV\OpenSlideImage.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\IOThread.cpp(29,20): warning C4018: “<”: 有符号/无符号不匹配
+S:\Graduate\DSV - 1\DSV\IOThread.cpp(44,22): warning C4267: “初始化”: 从“size_t”转换到“unsigned int”，可能丢失数据
+  Patch.hpp
+S:\Graduate\DSV - 1\DSV\UtilityFunctions.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“IOWorker.cpp”)
+  
+  PathologyViewer.cpp
+S:\Graduate\DSV - 1\DSV\PathologyViewer.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  PlotBar.cpp
+  PrefetchThread.cpp
+S:\Graduate\DSV - 1\DSV\PlotBar.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  ScaleBar.cpp
+S:\Graduate\DSV - 1\DSV\PrefetchThread.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\PrefetchThread.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“PrefetchThread.cpp”)
+  
+S:\Graduate\DSV - 1\DSV\ScaleBar.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  SlideColorManagement.cpp
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  TileManager.cpp
+  WSITileGraphicsItem.cpp
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItem.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\TileManager.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“WSITileGraphicsItem.cpp”)
+  
+S:\Graduate\DSV - 1\DSV\IOWorker.cpp(246,32): warning C4018: “<”: 有符号/无符号不匹配
+      S:\Graduate\DSV - 1\DSV\IOWorker.cpp(246,32):
+      模板实例化上下文(最早的实例化上下文)为
+          S:\Graduate\DSV - 1\DSV\IOWorker.cpp(141,30):
+          查看对正在编译的函数 模板 实例化“Patch<unsigned char> *IOWorker::getForegroundTile<unsigned char>(std::shared_ptr<_Ty>,const IOJob *)”的引用
+          with
+          [
+              _Ty=MultiResolutionImage
+          ]
+  
+  WSITileGraphicsItemCache.cpp
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItemCache.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItemCache.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“WSITileGraphicsItemCache.cpp”)
+  
+  main.cpp
+S:\Graduate\DSV - 1\DSV\main.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+S:\Graduate\DSV - 1\DSV\Patch.hpp(253,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“IOWorker.cpp”)
+      S:\Graduate\DSV - 1\DSV\Patch.hpp(253,20):
+      模板实例化上下文(最早的实例化上下文)为
+          S:\Graduate\DSV - 1\DSV\Patch.hpp(7,67):
+          查看对正在编译的 类 模板 实例化“Patch<unsigned char>”的引用
+          S:\Graduate\DSV - 1\DSV\Patch.hpp(59,1):
+          在编译 类 模板 成员函数“Patch<unsigned char>::~Patch(void)”时
+          S:\Graduate\DSV - 1\DSV\Patch.hpp(161,209):
+          在编译 类 模板 成员函数“Patch<unsigned char>::Patch(const std::vector<unsigned __int64,std::allocator<unsigned __int64>> &,const SlideColorManagement::ColorType &,T *,bool,std::vector<double,std::allocator<double>>,std::vector<double,std::allocator<double>>)”时
+          with
+          [
+              T=unsigned char
+          ]
+              S:\Graduate\DSV - 1\DSV\IOWorker.cpp(250,30):
+              请参阅 "IOWorker::getForegroundTile" 中对 "Patch<unsigned char>::Patch" 的第一个引用
+          S:\Graduate\DSV - 1\DSV\Patch.hpp(249,35):
+          在编译 类 模板 成员函数“void Patch<unsigned char>::calculateStrides(void)”时
+  
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(43,54): warning C4305: “初始化”: 从“double”到“_Ty”截断
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(43,54): warning C4305:         with
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(43,54): warning C4305:         [
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(43,54): warning C4305:             _Ty=float
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(43,54): warning C4305:         ]
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(43,66): warning C4305: “初始化”: 从“double”到“_Ty”截断
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(43,66): warning C4305:         with
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(43,66): warning C4305:         [
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(43,66): warning C4305:             _Ty=float
+S:\Graduate\DSV - 1\DSV\SlideColorManagement.cpp(43,66): warning C4305:         ]
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“WSITileGraphicsItemCache.cpp”)
+  
+S:\Graduate\DSV - 1\DSV\OpenSlideImage.cpp(94,31): warning C4018: “<”: 有符号/无符号不匹配
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“TileManager.cpp”)
+  
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItemCache.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“TileManager.cpp”)
+  
+S:\Graduate\DSV - 1\DSV\TileManager.cpp(48,32): warning C4018: “<”: 有符号/无符号不匹配
+S:\Graduate\DSV - 1\DSV\PrefetchThread.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“PathologyViewer.cpp”)
+  
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“PathologyViewer.cpp”)
+  
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItemCache.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“PathologyViewer.cpp”)
+  
+S:\Graduate\DSV - 1\DSV\PathologyViewer.cpp(618,27): warning C4305: “=”: 从“double”到“float”截断
+S:\Graduate\DSV - 1\DSV\PathologyViewer.cpp(632,28): warning C4305: “=”: 从“double”到“float”截断
+  moc_CenteredToolBar.cpp
+  moc_MainWin.cpp
+  moc_PrefetchThread.cpp
+  moc_WSITileGraphicsItemCache.cpp
+S:\Graduate\DSV - 1\DSV\WSITileGraphicsItemCache.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“x64/Debug/qt/moc/moc_WSITileGraphicsItemCache.cpp”)
+  
+S:\Graduate\DSV - 1\DSV\PrefetchThread.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“x64/Debug/qt/moc/moc_PrefetchThread.cpp”)
+  
+MSVCRTD.lib(initializers.obj) : warning LNK4098: 默认库“msvcrt.lib”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+  DSV.vcxproj -> S:\Graduate\DSV - 1\x64\Debug\DSV.exe

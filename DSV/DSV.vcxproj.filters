@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="MultiLevelImageandCache">
+      <UniqueIdentifier>{59817a5a-3935-4298-8676-8a55aff6f47b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOThread">
+      <UniqueIdentifier>{4a91d6c1-aae7-42ac-b287-fc57656fc6bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TileManage">
+      <UniqueIdentifier>{ce05d8fd-86e5-44b9-9c99-d7601a304fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UISet">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ItemTool">
+      <UniqueIdentifier>{7d2da92b-c39d-4874-9730-2f407ebf3ef8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ImageSource.cpp">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiResolutionImage.cpp">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClCompile>
+    <ClCompile Include="Patch.hpp">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenSlideImage.cpp">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClCompile>
+    <ClCompile Include="IOThread.cpp">
+      <Filter>IOThread</Filter>
+    </ClCompile>
+    <ClCompile Include="IOWorker.cpp">
+      <Filter>IOThread</Filter>
+    </ClCompile>
+    <ClCompile Include="TileManager.cpp">
+      <Filter>TileManage</Filter>
+    </ClCompile>
+    <ClCompile Include="WSITileGraphicsItem.cpp">
+      <Filter>TileManage</Filter>
+    </ClCompile>
+    <ClCompile Include="WSITileGraphicsItemCache.cpp">
+      <Filter>TileManage</Filter>
+    </ClCompile>
+    <ClCompile Include="CenteredToolBar.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="FileWidget.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWin.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="PathologyViewer.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiResolutionImageFactory.cpp">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClCompile>
+    <ClCompile Include="ScaleBar.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMap.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="PrefetchThread.cpp">
+      <Filter>IOThread</Filter>
+    </ClCompile>
+    <ClCompile Include="SnapDialog.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="SlideColorManagement.cpp">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClCompile>
+    <ClCompile Include="PlotBar.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="SnapWidget.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="InputDialog.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="LabelWin.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="DetailDialog.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageFilter.cpp">
+      <Filter>UISet</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemDialog.cpp">
+      <Filter>ItemTool</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ContourRenderElement.cpp">
+      <Filter>ItemTool</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\EllipseRenderElement.cpp">
+      <Filter>ItemTool</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\LineRenderElement.cpp">
+      <Filter>ItemTool</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\QImageGraphicScene.cpp">
+      <Filter>ItemTool</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\RectRenderElement.cpp">
+      <Filter>ItemTool</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\RenderElement.cpp">
+      <Filter>ItemTool</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\TextRenderElement.cpp">
+      <Filter>ItemTool</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="MainWin.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="CenteredToolBar.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="FileWidget.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="PathologyViewer.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="IOThread.h">
+      <Filter>IOThread</Filter>
+    </QtMoc>
+    <QtMoc Include="IOWorker.h">
+      <Filter>IOThread</Filter>
+    </QtMoc>
+    <QtMoc Include="TileManager.h">
+      <Filter>TileManage</Filter>
+    </QtMoc>
+    <QtMoc Include="WSITileGraphicsItemCache.h">
+      <Filter>TileManage</Filter>
+    </QtMoc>
+    <QtMoc Include="ScaleBar.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="MiniMap.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="PrefetchThread.h">
+      <Filter>IOThread</Filter>
+    </QtMoc>
+    <QtMoc Include="SnapDialog.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="PlotBar.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="SnapWidget.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="InputDialog.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="LabelWin.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="DetailDialog.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="ImageFilter.h">
+      <Filter>UISet</Filter>
+    </QtMoc>
+    <QtMoc Include="ItemDialog.h">
+      <Filter>ItemTool</Filter>
+    </QtMoc>
+    <QtMoc Include="Item\QImageGraphicScene.h">
+      <Filter>ItemTool</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Icon.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TabStyle.hpp">
+      <Filter>UISet</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageSource.h">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClInclude>
+    <ClInclude Include="SlideColorManagement.h">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiResolutionImage.h">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClInclude>
+    <ClInclude Include="TileCache.hpp">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClInclude>
+    <ClInclude Include="Patch.h">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenSlideImage.h">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilityFunctions.h">
+      <Filter>IOThread</Filter>
+    </ClInclude>
+    <ClInclude Include="WSITileGraphicsItem.h">
+      <Filter>TileManage</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiResolutionImageFactory.h">
+      <Filter>MultiLevelImageandCache</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\ContourRenderElement.h">
+      <Filter>ItemTool</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\EllipseRenderElement.h">
+      <Filter>ItemTool</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\LineRenderElement.h">
+      <Filter>ItemTool</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\RectRenderElement.h">
+      <Filter>ItemTool</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\RenderElement.h">
+      <Filter>ItemTool</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\TextRenderElement.h">
+      <Filter>ItemTool</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>UISet</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DSV.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
