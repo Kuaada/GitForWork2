@@ -73,7 +73,7 @@ void RenderElement::setName(QString strName)
 	m_strName = strName;
 }
 
-/**
+/*
  * @brief 转换为JSON对象
  * @return JSON对象
  * @details 将渲染元素的属性序列化为JSON格式，包括类型、颜色、线宽、名称和像素尺寸

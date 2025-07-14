@@ -14,7 +14,6 @@
  * @note    该类继承自QDialog，是DSV项目的详情显示组件
  * @see     MainWin, PathologyViewer, SlideColorManagement
  */
-
 #pragma once
 
 #include <QDialog>
@@ -48,6 +47,7 @@
   *          // 详情对话框会自动显示所有属性信息
   * @see     MainWin, PathologyViewer, SlideColorManagement
   */
+
 class DetailDialog : public QDialog
 {
     Q_OBJECT

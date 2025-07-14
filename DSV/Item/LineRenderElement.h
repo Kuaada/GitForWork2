@@ -30,7 +30,9 @@
 #include"RenderElement.h"
 #include<QGraphicsSimpleTextItem>
 #include<QGraphicsScene>
+#include<cmath>
 #include<QGraphicsSceneHoverEvent>
+#include"ControlPoint.h"
 
 /**
  * @brief   线条渲染元素类
@@ -116,7 +118,7 @@ public:
      */
     virtual QJsonObject toJson();
 
-    /**
+        /**
      * @brief   鼠标悬停进入事件
      * @param   event   悬停事件对象
      * @details 当鼠标悬停在线条上时触发，显示控制点和测量信息
@@ -124,7 +126,16 @@ public:
      * @note    该函数是QGraphicsItem虚函数的重写
      */
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
-
+    
+    /**
+     * @brief   鼠标悬停移动事件
+     * @param   event   悬停事件对象
+     * @details 当鼠标在线条上移动时触发，检查是否悬停在控制点上并设置相应光标
+     *
+     * @note    该函数是QGraphicsItem虚函数的重写
+     */
+    virtual void hoverMoveEvent(QGraphicsSceneHoverEvent* event) override;
+    
     /**
      * @brief   鼠标悬停离开事件
      * @param   event   悬停事件对象
@@ -133,6 +144,27 @@ public:
      * @note    该函数是QGraphicsItem虚函数的重写
      */
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
+
+    /**
+     * @brief   自定义绘制函数
+     * @param   painter     绘制器
+     * @param   option      绘制选项
+     * @param   widget      绘制目标窗口
+     * @details 自定义绘制线条，保持线宽不受缩放影响
+     * 
+     * @note    该函数是QGraphicsItem虚函数的重写
+     */
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
+
+    /**
+     * @brief   元素变化事件处理
+     * @param   change      变化类型
+     * @param   value       变化值
+     * @details 监听元素变换变化，更新字体大小
+     * 
+     * @note    该函数是QGraphicsItem虚函数的重写
+     */
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
 
 protected:
     /**
@@ -145,18 +177,59 @@ protected:
      */
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override
     {
-        //QPointF pos = mapToScene(event->pos());
-        QPointF pos = event->pos();
-        QRectF rect1 = m_controlPoint1->rect();
-        QRectF rect2 = m_controlPoint2->rect();
-        if (rect1.contains(pos))
+        QPointF clickPos = event->pos();
+        bool controlPointClicked = false;
+        
+        // 检查是否点击在控制点上
+        if (m_controlPoint1 && m_controlPoint2)
         {
-            m_pDragingItem = m_controlPoint1;
+            // 获取控制点在场景中的实际位置
+            QPointF control1ScenePos = m_controlPoint1->mapToScene(m_controlPoint1->rect().center());
+            QPointF control2ScenePos = m_controlPoint2->mapToScene(m_controlPoint2->rect().center());
+            QPointF clickScenePos = mapToScene(clickPos);
+            
+            // 计算控制点大小（考虑缩放）
+            qreal controlSize = m_fControlSize;
+            if (scene()) {
+                QList<QGraphicsView*> views = scene()->views();
+                if (!views.isEmpty()) {
+                    QGraphicsView* view = views.first();
+                    QTransform viewTransform = view->transform();
+                    qreal scale = std::sqrt(viewTransform.m11() * viewTransform.m11() + viewTransform.m12() * viewTransform.m12());
+                    controlSize = m_fControlSize / scale;
+                }
+            }
+            
+            // 增加拾取容差，使控制点更容易点击
+            qreal pickTolerance = qMax(controlSize, 12.0); // 增加最小拾取范围到12像素
+            
+            // 检查点击位置是否在控制点范围内
+            qreal distance1 = std::sqrt(std::pow(clickScenePos.x() - control1ScenePos.x(), 2) + 
+                                        std::pow(clickScenePos.y() - control1ScenePos.y(), 2));
+            qreal distance2 = std::sqrt(std::pow(clickScenePos.x() - control2ScenePos.x(), 2) + 
+                                        std::pow(clickScenePos.y() - control2ScenePos.y(), 2));
+            
+            if (distance1 <= pickTolerance)
+            {
+                m_pDragingItem = m_controlPoint1;
+                m_isResizing = true;  // 开始调整大小
+                setCursor(Qt::CrossCursor);
+                controlPointClicked = true;
+                event->accept();
+                return; // 直接返回，不调用基类事件
+            }
+            else if (distance2 <= pickTolerance)
+            {
+                m_pDragingItem = m_controlPoint2;
+                m_isResizing = true;  // 开始调整大小
+                setCursor(Qt::CrossCursor);
+                controlPointClicked = true;
+                event->accept();
+                return; // 直接返回，不调用基类事件
+            }
         }
-        if (rect2.contains(pos))
-        {
-            m_pDragingItem = m_controlPoint2;
-        }
+        
+        // 如果没有点击控制点，调用基类事件处理
         QGraphicsLineItem::mousePressEvent(event);
     }
 
@@ -172,20 +245,29 @@ protected:
     {
         if (m_pDragingItem)
         {
-            //QPointF pos = mapToScene(event->pos());
             QPointF pos = event->pos();
-            QLineF Line = this->line();
+            QLineF currentLine = this->line();
+            
             if (m_pDragingItem == m_controlPoint1)
             {
-
-                updateLine(pos, Line.p2());
+                // 更新线条起点
+                setLine(QLineF(pos, currentLine.p2()));
+                updateContrlPoints();
             }
-            else
+            else if (m_pDragingItem == m_controlPoint2)
             {
-
-                updateLine(Line.p1(), pos);
+                // 更新线条终点
+                setLine(QLineF(currentLine.p1(), pos));
+                updateContrlPoints();
             }
-            updateContrlPoints();
+            
+            // 更新文本项
+            if (m_pTextItem) {
+                m_pTextItem->setText(QStringLiteral("%1 mm").arg(getPerimeter(), 0, 'g', 4));
+                m_pTextItem->setPos((currentLine.p1() + currentLine.p2()) / 2.0 + QPointF(10.0, 10.0));
+            }
+            
+            event->accept();
             return;
         }
         QGraphicsLineItem::mouseMoveEvent(event);
@@ -200,7 +282,13 @@ protected:
      */
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override
     {
-        m_pDragingItem = nullptr;
+        if (m_pDragingItem) {
+            m_pDragingItem = nullptr;
+            m_isResizing = false;  // 结束调整大小
+            setCursor(Qt::ArrowCursor);
+            event->accept();
+            return; // 直接返回，不调用基类事件
+        }
         QGraphicsLineItem::mouseReleaseEvent(event);
     }
 
@@ -210,21 +298,32 @@ private:
      * @details 根据当前线条端点位置，更新控制点和文本标签的位置
      */
     void updateContrlPoints();
+    // 动态字体大小
+    int getDynamicFontSize();
+    
+    /**
+     * @brief   更新文本字体大小
+     * @details 根据当前视图大小更新文本项的字体大小
+     */
+    void updateFontSize();
 
     /** @brief 起点控制点，用于拖拽编辑起点位置 */
-    QGraphicsRectItem* m_controlPoint1 = nullptr;
+    ControlPoint* m_controlPoint1 = nullptr;
 
     /** @brief 终点控制点，用于拖拽编辑终点位置 */
-    QGraphicsRectItem* m_controlPoint2 = nullptr;
+    ControlPoint* m_controlPoint2 = nullptr;
 
     /** @brief 文本标签项，显示线条长度或名称 */
     QGraphicsSimpleTextItem* m_pTextItem = nullptr;
 
     /** @brief 当前正在拖拽的控制点指针 */
-    QGraphicsRectItem* m_pDragingItem = nullptr;
-
-    /** @brief 控制点的大小（像素） */
-    int m_fControlSize = 10;
+    ControlPoint* m_pDragingItem = nullptr;
+    
+    /** @brief 控制点大小，用于创建和定位控制点 */
+    qreal m_fControlSize = 10.0;
+    
+    /** @brief 是否正在调整大小，用于绘制调整提示 */
+    bool m_isResizing = false;
 
     /**
      * @brief   计算两点间距离

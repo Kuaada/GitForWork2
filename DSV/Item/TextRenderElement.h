@@ -179,6 +179,17 @@ public:
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
     
     /**
+     * @brief   自定义绘制函数
+     * @param   painter     绘制器
+     * @param   option      绘制选项
+     * @param   widget      绘制目标窗口
+     * @details 自定义绘制文本，提供更好的视觉效果
+     * 
+     * @note    该函数是QGraphicsTextItem虚函数的重写
+     */
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
+    
+    /**
      * @brief   键盘按下事件
      * @param   event   键盘事件对象
      * @details 处理键盘按下事件：

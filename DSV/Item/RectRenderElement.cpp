@@ -8,6 +8,8 @@
  */
 
 #include "RectRenderElement.h"
+#include <cmath>  // 添加数学函数头文件
+#include <QTextDocument>
 
 /**
  * @brief 矩形渲染元素构造函数（仅名称）
@@ -23,22 +25,25 @@ RectRenderElement::RectRenderElement(QString strName, QGraphicsItem* parent) :Re
     setAcceptDrops(true);          // 接受拖放事件
     setZValue(10);                 // 设置Z轴值
     setFlags(ItemIsMovable | ItemIsSelectable | ItemIsFocusable);  // 设置交互标志
+    // 移除 ItemIgnoresTransformations，改用自定义绘制
    // m_pTextItem = new QGraphicsSimpleTextItem(this);
     //m_pTextItem->setText(QString("面积:%1 周长:%2").arg(getArea(), 0, 'g', 4).arg(getPerimeter(), 0, 'g', 4));
-    setToolTip(QStringLiteral("面积:%1 um^2 周长:%2 um").arg(getArea(),0,'f',1).arg(getPerimeter(),0,'f',1));
+    setToolTip(QStringLiteral("面积: %1 μm² 周长: %2 μm").arg(getArea(),0,'f',1).arg(getPerimeter(),0,'f',1));
 
     if (!m_pTextItem)
     {
-        m_pTextItem = new QGraphicsSimpleTextItem(this);
-        m_pTextItem->setPen(m_pen);
-        m_pTextItem->setPos(10,10);
-        m_pTextItem->setFont(QFont("宋体", 16));
+        m_pTextItem = new QGraphicsTextItem(this);
+        m_pTextItem->setDefaultTextColor(m_pen.color());
+        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
         m_pTextItem->setFlag(ItemIgnoresTransformations);
+        m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
+        m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
     }
-    m_pTextItem->setText(QStringLiteral("%2 um").arg(getPerimeter(), 0, 'g', 4));
+    m_pTextItem->setPos(10, 10);
+    m_pTextItem->setHtml(getDescription());
     //pRectItem->setParentItem(this);
     createControlPoints();
-
+    updateControlPointsPosition(); // 确保控制点位置正确初始化
 }
 
 /**
@@ -49,10 +54,12 @@ RectRenderElement::RectRenderElement(QString strName, QGraphicsItem* parent) :Re
 RectRenderElement::RectRenderElement(QJsonObject json):RenderElement(json)
 {
     m_elementType = Rectangle;
+    // 移除 ItemIgnoresTransformations，改用自定义绘制
    // m_pTextItem = new QGraphicsSimpleTextItem(this);
     //m_pTextItem->setText(QString("面积:%1 周长:%2").arg(getArea(), 0, 'g', 4).arg(getPerimeter(), 0, 'g', 4));
     //scene()->addItem(m_pTextItem);
     createControlPoints();
+    updateControlPointsPosition(); // 确保控制点位置正确初始化
 }
 
 /**
@@ -70,18 +77,22 @@ RectRenderElement::RectRenderElement(QString strName, const QRectF& rect, QGraph
     setAcceptTouchEvents(true);
     setAcceptDrops(true);
     setFlags(ItemIsMovable|ItemIsSelectable|ItemIsFocusable);
+    // 移除 ItemIgnoresTransformations，改用自定义绘制
     setToolTip(getDescription());
     createControlPoints();
+    updateControlPointsPosition(); // 确保控制点位置正确初始化
     setZValue(10);
     if (!m_pTextItem)
     {
-        m_pTextItem = new QGraphicsSimpleTextItem(this);
-        m_pTextItem->setPen(m_pen);
-        m_pTextItem->setPos(10, 10);
-        m_pTextItem->setFont(QFont("宋体", 16));
+        m_pTextItem = new QGraphicsTextItem(this);
+        m_pTextItem->setDefaultTextColor(m_pen.color());
+        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
         m_pTextItem->setFlag(ItemIgnoresTransformations);
+        m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
+        m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
     }
-    m_pTextItem->setText(getDescription());
+    m_pTextItem->setPos(10, 10);
+    m_pTextItem->setHtml(getDescription());
 }
 
 /**
@@ -100,21 +111,23 @@ RectRenderElement::~RectRenderElement()
  */
 void RectRenderElement::updateRect(QRectF rect)
 {
-    QGraphicsRectItem::setRect(0,0,rect.width(),rect.height());
+    QGraphicsRectItem::setRect(QRectF(0, 0, rect.width(), rect.height()));
     setPos(rect.topLeft());
-    setToolTip(QStringLiteral("面积:%1 um^2 周长:%2 um").arg(getArea(), 0, 'f', 1).arg(getPerimeter(), 0, 'f', 1));
+    setToolTip(QStringLiteral("面积: %1 μm² 周长: %2 μm").arg(getArea(), 0, 'f', 1).arg(getPerimeter(), 0, 'f', 1));
     updateControlPointsPosition();
     //m_pTextItem->setText(QString("面积:%1 周长:%2").arg(getArea(), 0, 'f', 4).arg(getPerimeter(), 0, 'g', 4));
         //scene()->addItem(m_pTextItem);
     if (!m_pTextItem)
     {
-        m_pTextItem = new QGraphicsSimpleTextItem(this);
-        m_pTextItem->setPen(m_pen);
-        m_pTextItem->setPos(10, 10);
-        m_pTextItem->setFont(QFont("宋体", 16));
+        m_pTextItem = new QGraphicsTextItem(this);
+        m_pTextItem->setDefaultTextColor(m_pen.color());
+        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
         m_pTextItem->setFlag(ItemIgnoresTransformations);
+        m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
+        m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
     }
-    m_pTextItem->setText(getDescription());
+    m_pTextItem->setPos(10, 10);
+    m_pTextItem->setHtml(getDescription());
 }
 
 /**
@@ -156,15 +169,97 @@ float RectRenderElement::getPerimeter()
 /**
  * @brief 鼠标悬停进入事件处理
  * @param event 悬停事件对象
- * @details 当鼠标悬停在矩形上时，改变光标样式和矩形颜色
+ * @details 当鼠标悬停在矩形上时，检查是否悬停在控制点上并设置相应光标
  */
 void RectRenderElement::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
-    setCursor(QCursor(Qt::ArrowCursor));
-    QPen pen;
-    pen.setWidth(m_pen.width());
-    pen.setColor(Qt::blue);
-    setPen(pen);
+    QPointF hoverPos = event->pos();
+    
+    // 检查是否悬停在控制点上
+    for (int i = 0; i < m_controlPoints.size(); ++i)
+    {
+        QPointF controlScenePos = m_controlPoints[i]->mapToScene(m_controlPoints[i]->rect().center());
+        QPointF hoverScenePos = mapToScene(hoverPos);
+        
+        // 计算控制点大小（考虑缩放）
+        qreal controlSize = m_fControlSize;
+        if (scene()) {
+            QList<QGraphicsView*> views = scene()->views();
+            if (!views.isEmpty()) {
+                QGraphicsView* view = views.first();
+                QTransform viewTransform = view->transform();
+                qreal scale = std::sqrt(viewTransform.m11() * viewTransform.m11() + viewTransform.m12() * viewTransform.m12());
+                controlSize = m_fControlSize / scale;
+            }
+        }
+        // 增加拾取容差，使控制点更容易悬停
+        qreal pickTolerance = qMax(controlSize, 12.0); // 增加最小拾取范围到12像素
+        // 检查悬停位置是否在控制点范围内
+        qreal distance = std::sqrt(std::pow(hoverScenePos.x() - controlScenePos.x(), 2) + 
+                                   std::pow(hoverScenePos.y() - controlScenePos.y(), 2));
+        
+        if (distance <= pickTolerance)
+        {
+            setCursor(getControlPointCursor(i));
+            return;
+        }
+    }
+    
+    // 如果没有悬停在控制点上，设置默认光标
+    setCursor(Qt::ArrowCursor);
+    
+    // 悬停效果：改变矩形颜色为现代蓝色
+    QPen hoverPen;
+    hoverPen.setWidth(m_pen.width());
+    hoverPen.setColor(QColor(0, 120, 215));  // 现代蓝色
+    hoverPen.setStyle(Qt::SolidLine);
+    setPen(hoverPen);
+    
+    // 强制重绘以显示悬停效果
+    update();
+}
+
+/**
+ * @brief 鼠标悬停移动事件处理
+ * @param event 悬停事件对象
+ * @details 当鼠标在矩形上移动时，检查是否悬停在控制点上并设置相应光标
+ */
+void RectRenderElement::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
+{
+    QPointF hoverPos = event->pos();
+    
+    // 检查是否悬停在控制点上
+    for (int i = 0; i < m_controlPoints.size(); ++i)
+    {
+        QPointF controlScenePos = m_controlPoints[i]->mapToScene(m_controlPoints[i]->rect().center());
+        QPointF hoverScenePos = mapToScene(hoverPos);
+        
+        // 计算控制点大小（考虑缩放）
+        qreal controlSize = m_fControlSize;
+        if (scene()) {
+            QList<QGraphicsView*> views = scene()->views();
+            if (!views.isEmpty()) {
+                QGraphicsView* view = views.first();
+                QTransform viewTransform = view->transform();
+                qreal scale = std::sqrt(viewTransform.m11() * viewTransform.m11() + viewTransform.m12() * viewTransform.m12());
+                controlSize = m_fControlSize / scale;
+            }
+        }
+        // 增加拾取容差，使控制点更容易悬停
+        qreal pickTolerance = qMax(controlSize, 12.0); // 增加最小拾取范围到12像素
+        // 检查悬停位置是否在控制点范围内
+        qreal distance = std::sqrt(std::pow(hoverScenePos.x() - controlScenePos.x(), 2) + 
+                                   std::pow(hoverScenePos.y() - controlScenePos.y(), 2));
+        
+        if (distance <= pickTolerance)
+        {
+            setCursor(getControlPointCursor(i));
+            return;
+        }
+    }
+    
+    // 如果没有悬停在控制点上，设置默认光标
+    setCursor(Qt::ArrowCursor);
 }
 
 /**
@@ -174,67 +269,11 @@ void RectRenderElement::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
  */
 void RectRenderElement::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
+    // 恢复原始矩形样式
     setPen(m_pen);
-    setCursor(QCursor(Qt::PointingHandCursor));
-}
-
-/**
- * @brief 创建控制点
- * @details 在矩形的各个关键位置创建控制点，用于调整矩形大小和形状
- */
-void RectRenderElement::createControlPoints()
-{
-    qreal rectWidth = rect().width();
-    qreal rectHeight = rect().height();
-    // 左上角控制点
-    QGraphicsRectItem* topLeftPoint = new QGraphicsRectItem(-m_fControlSize, -m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize,this);
-    topLeftPoint->setBrush(QBrush(Qt::green));
-    topLeftPoint->setPen(QPen(Qt::green));
-    m_controlPoints.append(topLeftPoint);
-
-    // 右上角控制点
-    QGraphicsRectItem* topRightPoint = new QGraphicsRectItem(rectWidth - m_fControlSize, -m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize,this);
-    topRightPoint->setBrush(QBrush(Qt::green));
-    topRightPoint->setPen(QPen(Qt::green));
-    m_controlPoints.append(topRightPoint);
-
-    // 左下角控制点
-    QGraphicsRectItem* bottomLeftPoint = new QGraphicsRectItem(-m_fControlSize, rectHeight - m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize,this);
-    bottomLeftPoint->setBrush(QBrush(Qt::green));
-    bottomLeftPoint->setPen(QPen(Qt::green));
-    m_controlPoints.append(bottomLeftPoint);
-
-    // 右下角控制点
-    QGraphicsRectItem* bottomRightPoint = new QGraphicsRectItem(rectWidth - m_fControlSize, rectHeight - m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize,this);
-    bottomRightPoint->setBrush(QBrush(Qt::green));
-    bottomRightPoint->setPen(QPen(Qt::green));
-    m_controlPoints.append(bottomRightPoint);
-
-    // 左边中间控制点
-    QGraphicsRectItem* leftMidPoint = new QGraphicsRectItem(-m_fControlSize, rectHeight / 2 - m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0,this);
-    leftMidPoint->setBrush(QBrush(Qt::green));
-    leftMidPoint->setPen(QPen(Qt::green));
-    m_controlPoints.append(leftMidPoint);
-
-    // 右边中间控制点
-    QGraphicsRectItem* rightMidPoint = new QGraphicsRectItem(rectWidth - m_fControlSize, rectHeight / 2 - m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0,this);
-    rightMidPoint->setBrush(QBrush(Qt::green));
-    rightMidPoint->setPen(QPen(Qt::green));
-    m_controlPoints.append(rightMidPoint);
-
-    // 上边中间控制点
-    QGraphicsRectItem* topMidPoint = new QGraphicsRectItem(rectWidth / 2 - m_fControlSize, -m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0,this);
-    topMidPoint->setBrush(QBrush(Qt::green));
-    topMidPoint->setPen(QPen(Qt::green));
-    m_controlPoints.append(topMidPoint);
-
-    // 下边中间控制点
-    QGraphicsRectItem* bottomMidPoint = new QGraphicsRectItem(rectWidth / 2 - m_fControlSize, rectHeight - m_fControlSize, m_fControlSize*2.0, m_fControlSize*2.0,this);
-    bottomMidPoint->setBrush(QBrush(Qt::green));
-    bottomMidPoint->setPen(QPen(Qt::green));
-    m_controlPoints.append(bottomMidPoint);
-
-   
+    
+    // 强制重绘以清除悬停效果
+    update();
 }
 
 /**
@@ -245,24 +284,54 @@ void RectRenderElement::createControlPoints()
 void RectRenderElement::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QPointF clickPos = event->pos();
-    qreal rectWidth = rect().width();
-    qreal rectHeight = rect().height();
+    bool controlPointClicked = false;
 
     // 遍历控制点，判断是否点击在控制点上
     for (int i = 0; i < m_controlPoints.size(); ++i)
     {
-        QRectF rectItem=m_controlPoints[i]->rect();
-        rectItem=mapRectFromItem(m_controlPoints[i],rectItem);
-        if (rectItem.contains(clickPos))
+        // 获取控制点在场景中的实际位置
+        QPointF controlScenePos = m_controlPoints[i]->mapToScene(m_controlPoints[i]->rect().center());
+        QPointF clickScenePos = mapToScene(clickPos);
+        
+        // 计算控制点大小（考虑缩放）
+        qreal controlSize = m_fControlSize;
+        if (scene()) {
+            QList<QGraphicsView*> views = scene()->views();
+            if (!views.isEmpty()) {
+                QGraphicsView* view = views.first();
+                QTransform viewTransform = view->transform();
+                qreal scale = std::sqrt(viewTransform.m11() * viewTransform.m11() + viewTransform.m12() * viewTransform.m12());
+                controlSize = m_fControlSize / scale;
+            }
+        }
+        
+        // 增加拾取容差，使控制点更容易点击
+        qreal pickTolerance = qMax(controlSize, 12.0); // 增加最小拾取范围到12像素
+        
+        // 检查点击位置是否在控制点范围内
+        qreal distance = std::sqrt(std::pow(clickScenePos.x() - controlScenePos.x(), 2) + 
+                                   std::pow(clickScenePos.y() - controlScenePos.y(), 2));
+        
+        if (distance <= pickTolerance)
         {
             m_isResizing = true;
+            m_currentControlPointIndex = i;
             m_lastMousePos = clickPos;
             setFocus();
-            return;
+            
+            // 设置相应的鼠标光标
+            setCursor(getControlPointCursor(i));
+            
+            controlPointClicked = true;
+            event->accept();
+            break;
         }
     }
 
+    // 如果没有点击控制点，则调用基类处理移动和选择
+    if (!controlPointClicked) {
     QGraphicsRectItem::mousePressEvent(event);
+    }
 }
 
 /**
@@ -272,105 +341,360 @@ void RectRenderElement::mousePressEvent(QGraphicsSceneMouseEvent* event)
  */
 void RectRenderElement::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-    if (m_isResizing)
+    if (m_isResizing && m_currentControlPointIndex >= 0)
     {
-        
         QPointF currentPos = event->pos();
         qreal dx = currentPos.x() - m_lastMousePos.x();
         qreal dy = currentPos.y() - m_lastMousePos.y();
-        qDebug() << "Adjust Size x:"<<dx<<"y:"<<dy;
-        qreal newWidth = rect().width();
-        qreal newHeight = rect().height();
+        
+        QPointF currentItemPos = pos();
+        QRectF currentRect = rect();
+        qreal newItemX = currentItemPos.x();
+        qreal newItemY = currentItemPos.y();
+        qreal newWidth = currentRect.width();
+        qreal newHeight = currentRect.height();
 
-        // 根据点击的不同控制点，计算宽度和高度的变化
-        if (m_controlPoints[0]->contains(m_lastMousePos) || m_controlPoints[1]->contains(m_lastMousePos) ||
-            m_controlPoints[2]->contains(m_lastMousePos) || m_controlPoints[3]->contains(m_lastMousePos))
+        // 根据不同的控制点实现不同的调整行为
+        switch (m_currentControlPointIndex)
         {
+        case 0: // 左上角 - 调整左上角
+            newItemX += dx;
+            newItemY += dy;
+            newWidth -= dx;
+            newHeight -= dy;
+            break;
+        case 1: // 右上角 - 调整右上角
+            newItemY += dy;
+            newWidth += dx;
+            newHeight -= dy;
+            break;
+        case 2: // 左下角 - 调整左下角
+            newItemX += dx;
+            newWidth -= dx;
+            newHeight += dy;
+            break;
+        case 3: // 右下角 - 调整右下角
             newWidth += dx;
             newHeight += dy;
-        }
-        else if (m_controlPoints[4]->contains(m_lastMousePos) || m_controlPoints[5]->contains(m_lastMousePos))
-        {
+            break;
+        case 4: // 左边中间 - 调整左边
+            newItemX += dx;
+            newWidth -= dx;
+            break;
+        case 5: // 右边中间 - 调整右边
             newWidth += dx;
-        }
-        else if (m_controlPoints[6]->contains(m_lastMousePos) || m_controlPoints[7]->contains(m_lastMousePos))
-        {
+            break;
+        case 6: // 上边中间 - 调整上边
+            newItemY += dy;
+            newHeight -= dy;
+            break;
+        case 7: // 下边中间 - 调整下边
             newHeight += dy;
+            break;
         }
 
-        if (newWidth > 0 && newHeight > 0)
+        // 确保最小尺寸限制
+        if (newWidth > 10 && newHeight > 10)
         {
-            setRect(rect().x(), rect().y(), newWidth, newHeight);
+            // 更新矩形项的位置和大小
+            setPos(newItemX, newItemY);
+            setRect(QRectF(0, 0, newWidth, newHeight));
             
-            m_lastMousePos = currentPos;
+            // 更新控制点位置
             updateControlPointsPosition();
-        }
+            
+            // 更新工具提示和文本显示
         setToolTip(getDescription());
-        if (!m_pTextItem)
-        {
-            m_pTextItem = new QGraphicsSimpleTextItem(this);
-            m_pTextItem->setPen(m_pen);
-            m_pTextItem->setPos(10, 10);
-            m_pTextItem->setFont(QFont("宋体", 16));
-            m_pTextItem->setFlag(ItemIgnoresTransformations);
+            if (m_pTextItem) {
+        m_pTextItem->setHtml(getDescription());
+            }
+            
+            // 更新最后鼠标位置
+            m_lastMousePos = currentPos;
+            
+            // 强制重绘
+            update();
         }
-        m_pTextItem->setText(getDescription());
+        
+        event->accept();
         return;
     }
-    
 
     QGraphicsRectItem::mouseMoveEvent(event);
 }
-QString RectRenderElement::getDescription()
-{
-    return QStringLiteral("面积:%1 um^2\r\n周长:%2 um").arg(getArea(), 0, 'f', 1).arg(getPerimeter(), 0, 'f', 1);
-}
+
+/**
+ * @brief 鼠标释放事件处理
+ * @param event 鼠标事件对象
+ * @details 结束调整大小模式，恢复默认光标
+ */
 void RectRenderElement::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
-    m_isResizing = false;
+    if (m_isResizing) {
+        m_isResizing = false;
+        m_currentControlPointIndex = -1;
+        // 恢复默认光标
+        setCursor(Qt::ArrowCursor);
+        event->accept();
+        return;
+    }
+    
     QGraphicsRectItem::mouseReleaseEvent(event);
-}/*
+}
+
+/**
+ * @brief 获取矩形描述信息
+ * @return 包含矩形信息的描述字符串
+ * @details 返回矩形的详细信息，包括面积和周长，使用更友好的格式
+ */
+QString RectRenderElement::getDescription()
+{
+    float area = getArea();
+    float perimeter = getPerimeter();
+    
+    // 使用标准格式显示测量信息
+    QString areaText = QString::number(area, 'f', 1);
+    QString perimeterText = QString::number(perimeter, 'f', 1);
+    
+    return QStringLiteral("面积: %1 μm<sup>2</sup><br>周长: %2 μm").arg(areaText).arg(perimeterText);
+}
+
+/**
+ * @brief 获取控制点对应的鼠标光标
+ * @param controlPointIndex 控制点索引
+ * @return 对应的鼠标光标
+ * @details 根据控制点位置返回相应的鼠标光标样式
+ */
+Qt::CursorShape RectRenderElement::getControlPointCursor(int controlPointIndex)
+{
+    switch (controlPointIndex)
+    {
+    case 0: // 左上角 - 对角线调整
+        return Qt::SizeFDiagCursor;
+    case 1: // 右上角 - 对角线调整
+        return Qt::SizeBDiagCursor;
+    case 2: // 左下角 - 对角线调整
+        return Qt::SizeBDiagCursor;
+    case 3: // 右下角 - 对角线调整
+        return Qt::SizeFDiagCursor;
+    case 4: // 左边中间 - 水平调整
+        return Qt::SizeHorCursor;
+    case 5: // 右边中间 - 水平调整
+        return Qt::SizeHorCursor;
+    case 6: // 上边中间 - 垂直调整
+        return Qt::SizeVerCursor;
+    case 7: // 下边中间 - 垂直调整
+        return Qt::SizeVerCursor;
+    default:
+        return Qt::ArrowCursor;
+    }
+}
+
+/**
+ * @brief 创建控制点
+ * @details 在矩形的各个关键位置创建控制点，用于调整矩形大小和形状
+ */
+void RectRenderElement::createControlPoints()
+{
+    qreal rectWidth = rect().width();
+    qreal rectHeight = rect().height();
+    
+    // 左上角控制点 - 相对于矩形项的位置
+    ControlPoint* topLeftPoint = new ControlPoint(-m_fControlSize, -m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize, this);
+    m_controlPoints.append(topLeftPoint);
+
+    // 右上角控制点 - 相对于矩形项的位置
+    ControlPoint* topRightPoint = new ControlPoint(rectWidth - m_fControlSize, -m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize, this);
+    m_controlPoints.append(topRightPoint);
+                               
+    // 左下角控制点 - 相对于矩形项的位置
+    ControlPoint* bottomLeftPoint = new ControlPoint(-m_fControlSize, rectHeight - m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize, this);
+    m_controlPoints.append(bottomLeftPoint);
+
+    // 右下角控制点 - 相对于矩形项的位置
+    ControlPoint* bottomRightPoint = new ControlPoint(rectWidth - m_fControlSize, rectHeight - m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize, this);
+    m_controlPoints.append(bottomRightPoint);
+
+    // 左边中间控制点 - 相对于矩形项的位置
+    ControlPoint* leftMidPoint = new ControlPoint(-m_fControlSize, rectHeight / 2 - m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0, this);
+    m_controlPoints.append(leftMidPoint);
+
+    // 右边中间控制点 - 相对于矩形项的位置
+    ControlPoint* rightMidPoint = new ControlPoint(rectWidth - m_fControlSize, rectHeight / 2 - m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0, this);
+    m_controlPoints.append(rightMidPoint);
+
+    // 上边中间控制点 - 相对于矩形项的位置
+    ControlPoint* topMidPoint = new ControlPoint(rectWidth / 2 - m_fControlSize, -m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0, this);
+    m_controlPoints.append(topMidPoint);
+
+    // 下边中间控制点 - 相对于矩形项的位置
+    ControlPoint* bottomMidPoint = new ControlPoint(rectWidth / 2 - m_fControlSize, rectHeight - m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0, this);
+    m_controlPoints.append(bottomMidPoint);
+}
+
+/**
+ * @brief 更新控制点位置
+ * @details 根据当前矩形区域，更新所有控制点的位置
+ */
 void RectRenderElement::updateControlPointsPosition()
 {
     qreal rectWidth = rect().width();
     qreal rectHeight = rect().height();
-    qreal m_fControlSize = 10;
 
-    //QGraphicsItem *parent= m_controlPoints[0]->parentItem();
-    QPointF posTopLeft = pos();
-    float x = posTopLeft.x();
-    float y = posTopLeft.y();
-    m_controlPoints[0]->setPos(0, 0);
-                               
-    m_controlPoints[1]->setPos(rectWidth - controlSize, 0);
-    m_controlPoints[2]->setPos(0, rectHeight - controlSize);
-    m_controlPoints[3]->setPos(rectWidth - controlSize, rectHeight - controlSize);
-                               
-    m_controlPoints[4]->setPos(0, rectHeight / 2 - controlSize / 2);
-    m_controlPoints[5]->setPos(rectWidth - controlSize, rectHeight / 2 - controlSize / 2);
-                               
-    m_controlPoints[6]->setPos(rectWidth / 2 - controlSize / 2, 0);
-    m_controlPoints[7]->setPos(rectWidth / 2 - controlSize / 2, rectHeight - controlSize);
-}*/
+    // 更新所有控制点的位置 - 使用setRect来设置位置和大小
+    // 左上角控制点
+    m_controlPoints[0]->setRect(-m_fControlSize, -m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize);
+    
+    // 右上角控制点
+    m_controlPoints[1]->setRect(rectWidth - m_fControlSize, -m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize);
+    
+    // 左下角控制点
+    m_controlPoints[2]->setRect(-m_fControlSize, rectHeight - m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize);
+    
+    // 右下角控制点
+    m_controlPoints[3]->setRect(rectWidth - m_fControlSize, rectHeight - m_fControlSize, 2.0* m_fControlSize, 2.0* m_fControlSize);
 
-void RectRenderElement::updateControlPointsPosition()
+    // 左边中间控制点
+    m_controlPoints[4]->setRect(-m_fControlSize, rectHeight / 2 - m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0);
+    
+    // 右边中间控制点
+    m_controlPoints[5]->setRect(rectWidth - m_fControlSize, rectHeight / 2 - m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0);
+
+    // 上边中间控制点
+    m_controlPoints[6]->setRect(rectWidth / 2 - m_fControlSize, -m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0);
+    
+    // 下边中间控制点
+    m_controlPoints[7]->setRect(rectWidth / 2 - m_fControlSize, rectHeight - m_fControlSize, m_fControlSize *2.0, m_fControlSize *2.0);
+}
+
+/**
+ * @brief 元素变化事件处理
+ * @param change 变化类型
+ * @param value 变化值
+ * @return 处理后的值
+ * @details 监听元素变换变化，更新控制点位置
+ */
+QVariant RectRenderElement::itemChange(GraphicsItemChange change, const QVariant& value)
 {
-    qreal rectWidth = rect().width();
-    qreal rectHeight = rect().height();
-    //qreal controlSize = 6;
+    // 当元素变换发生变化时，更新控制点位置和字体大小
+    if (change == ItemTransformChange || change == ItemScaleChange) {
+        updateControlPointsPosition();
+        updateFontSize();
+    }
+    
+    return QGraphicsRectItem::itemChange(change, value);
+}
 
-    //QGraphicsItem *parent= m_controlPoints[0]->parentItem();
-    QPointF posTopLeft = pos();
-    float x = posTopLeft.x();
-    float y = posTopLeft.y();
-    m_controlPoints[0]->setRect(-m_fControlSize, -m_fControlSize, 2.0 * m_fControlSize, 2.0 * m_fControlSize);
-    m_controlPoints[1]->setRect(rectWidth - m_fControlSize, -m_fControlSize, 2.0 * m_fControlSize, 2.0 * m_fControlSize);
-    m_controlPoints[2]->setRect(-m_fControlSize, rectHeight - m_fControlSize, 2.0 * m_fControlSize, 2.0 * m_fControlSize);
-    m_controlPoints[3]->setRect(rectWidth - m_fControlSize, rectHeight - m_fControlSize, 2.0 * m_fControlSize, 2.0 * m_fControlSize);
+/**
+ * @brief 自定义绘制函数
+ * @param painter 绘制器
+ * @param option 绘制选项
+ * @param widget 绘制目标窗口
+ * @details 自定义绘制矩形，保持线宽不受缩放影响，正确处理选中状态和悬停效果
+ */
+void RectRenderElement::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+{
+    // 保存当前变换
+    painter->save();
+    
+    // 获取当前变换矩阵
+    QTransform transform = painter->transform();
+    
+    // 计算缩放因子
+    qreal scale = std::sqrt(transform.m11() * transform.m11() + transform.m12() * transform.m12());
+    
+    // 创建新的画笔，调整线宽以抵消缩放
+    QPen pen = m_pen;
+    pen.setWidthF(pen.widthF() / scale);
+    
+    // 根据状态设置不同的样式
+    if (isSelected()) {
+        // 选中状态：蓝色边框，线宽加倍
+        pen.setColor(QColor(0, 120, 215));  // 现代蓝色
+        pen.setWidthF(pen.widthF() * 2.5);
+        pen.setStyle(Qt::SolidLine);
+    } else if (hasFocus()) {
+        // 焦点状态：深蓝色边框，线宽适中
+        pen.setColor(QColor(0, 100, 180));
+        pen.setWidthF(pen.widthF() * 1.8);
+        pen.setStyle(Qt::SolidLine);
+    } else {
+        // 普通状态：使用原始颜色，但稍微加粗
+        pen.setColor(m_pen.color());
+        pen.setWidthF(pen.widthF() * 1.2);
+        pen.setStyle(Qt::SolidLine);
+    }
+    
+    painter->setPen(pen);
+    
+    // 如果选中，绘制半透明填充
+    if (isSelected()) {
+        QBrush fillBrush(QColor(0, 120, 215, 30));  // 半透明蓝色填充
+        painter->setBrush(fillBrush);
+    } else {
+        painter->setBrush(Qt::NoBrush);
+    }
+    
+    // 绘制矩形
+    painter->drawRect(rect());
+    
+    // 如果正在调整大小，绘制调整提示
+    if (m_isResizing) {
+        QPen resizePen(QColor(255, 140, 0, 180));  // 橙色
+        resizePen.setWidthF(2.0 / scale);
+        resizePen.setStyle(Qt::DashLine);
+        painter->setPen(resizePen);
+        painter->setBrush(Qt::NoBrush);
+        painter->drawRect(rect());
+    }
+    
+    // 恢复变换
+    painter->restore();
+}
 
-    m_controlPoints[4]->setRect(-m_fControlSize, rectHeight / 2 - m_fControlSize, m_fControlSize * 2.0, m_fControlSize * 2.0);
-    m_controlPoints[5]->setRect(rectWidth - m_fControlSize, rectHeight / 2 - m_fControlSize, m_fControlSize * 2.0, m_fControlSize * 2.0);
+/**
+ * @brief 获取动态字体大小
+ * @return 基于屏幕视窗大小的字体大小
+ * @details 根据当前视图大小计算合适的字体大小，确保文字在不同缩放级别下都清晰可见
+ */
+int RectRenderElement::getDynamicFontSize()
+{
+    // 默认字体大小（像素）
+    int defaultSize = 14;  // 稍微增大默认字体大小
+    
+    // 尝试获取视图
+    if (scene()) {
+        QList<QGraphicsView*> views = scene()->views();
+        if (!views.isEmpty()) {
+            QGraphicsView* view = views.first();
+            QSize viewSize = view->size();
+            
+            // 计算基于视图大小的字体大小
+            // 使用视图对角线长度的比例
+            qreal diagonal = std::sqrt(viewSize.width() * viewSize.width() + viewSize.height() * viewSize.height());
+            
+            // 字体大小约为视图对角线的1.0%（稍微增大比例）
+            qreal screenBasedSize = diagonal * 0.01;
+            
+            // 设置最小和最大限制
+            screenBasedSize = qMax(screenBasedSize, 10.0);   // 最小10像素
+            screenBasedSize = qMin(screenBasedSize, 28.0);   // 最大28像素
+            
+            return static_cast<int>(screenBasedSize);
+        }
+    }
+    
+    // 如果无法获取视图，返回默认大小
+    return defaultSize;
+}
 
-    m_controlPoints[6]->setRect(rectWidth / 2 - m_fControlSize, -m_fControlSize, m_fControlSize * 2.0, m_fControlSize * 2.0);
-    m_controlPoints[7]->setRect(rectWidth / 2 - m_fControlSize, rectHeight - m_fControlSize, m_fControlSize * 2.0, m_fControlSize * 2.0);
+/**
+ * @brief 更新文本字体大小
+ * @details 根据当前视图大小更新文本项的字体大小
+ */
+void RectRenderElement::updateFontSize()
+{
+    if (m_pTextItem) {
+        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));  // 使用微软雅黑字体
+    }
 }

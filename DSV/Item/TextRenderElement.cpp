@@ -12,6 +12,8 @@
  */
 
 #include "TextRenderElement.h"
+#include <cmath>  // 添加数学函数头文件
+#include <QTextDocument>
 
 /**
  * @brief 构造函数：通过名称初始化文本渲染元素
@@ -29,8 +31,9 @@ TextRenderElement::TextRenderElement(QString strName, QGraphicsItem* parent) :Re
     setFlags(ItemIsMovable | ItemIsSelectable | ItemIsFocusable);
     setTextInteractionFlags(Qt::TextEditable|Qt::TextSelectableByKeyboard);
     setInputMethodHints(Qt::ImhMultiLine); // 允许多行输入
-    QFont font("宋体",16);
+    QFont font("Microsoft YaHei", 18, QFont::Normal);  // 使用微软雅黑字体，增大字号
     setFont(font);
+    setDefaultTextColor(QColor(0, 0, 0));  // 设置默认文字颜色为黑色
     setPlainText(QStringLiteral("双击输入内容"));
     setFlag(ItemIgnoresTransformations);
    // m_pTextItem = new QGraphicsSimpleTextItem(this);
@@ -71,8 +74,9 @@ TextRenderElement::TextRenderElement(QString strName, QString strText,QGraphicsI
     setFlags(ItemIsMovable|ItemIsSelectable|ItemIsFocusable);
     setTextInteractionFlags(Qt::TextEditable | Qt::TextSelectableByKeyboard);
     setInputMethodHints(Qt::ImhMultiLine); // 允许多行输入
-    QFont font("宋体", 16);
+    QFont font("Microsoft YaHei", 18, QFont::Normal);  // 使用微软雅黑字体，增大字号
     setFont(font);
+    setDefaultTextColor(QColor(0, 0, 0));  // 设置默认文字颜色为黑色
     //m_pTextItem = new QGraphicsSimpleTextItem(this);
     //m_pTextItem->setText(QString("面积:%1 周长:%2").arg(getArea(), 0, 'g', 4).arg(getPerimeter(), 0, 'g', 4));
     //m_pTextItem->setPos(mapToScene(pos()));
@@ -106,8 +110,8 @@ QJsonObject TextRenderElement::toJson()
  */
 void TextRenderElement::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
-    setCursor(QCursor(Qt::ArrowCursor));
-    setDefaultTextColor(Qt::red);
+    setCursor(QCursor(Qt::IBeamCursor));  // 文本编辑光标
+    setDefaultTextColor(QColor(0, 120, 215));  // 现代蓝色
 }
 
 /**
@@ -117,8 +121,51 @@ void TextRenderElement::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
  */
 void TextRenderElement::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
-    setCursor(QCursor(Qt::PointingHandCursor));
+    setCursor(QCursor(Qt::ArrowCursor));
     setDefaultTextColor(m_pen.color());
-    /*setTextInteractionFlags(Qt::NoTextInteraction);*/
     QGraphicsTextItem::hoverLeaveEvent(event); // 确保调用父类方法
+}
+
+/**
+ * @brief 自定义绘制函数
+ * @param painter 绘制器
+ * @param option 绘制选项
+ * @param widget 绘制目标窗口
+ * @details 自定义绘制文本，提供更好的视觉效果
+ */
+void TextRenderElement::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+{
+    // 保存当前变换
+    painter->save();
+    
+    // 获取当前变换矩阵
+    QTransform transform = painter->transform();
+    
+    // 计算缩放因子
+    qreal scale = std::sqrt(transform.m11() * transform.m11() + transform.m12() * transform.m12());
+    
+    // 根据状态设置不同的样式
+    if (isSelected()) {
+        // 选中状态：绘制蓝色边框
+        QPen selectionPen(QColor(0, 120, 215));  // 现代蓝色
+        selectionPen.setWidthF(2.0 / scale);
+        selectionPen.setStyle(Qt::DashLine);
+        painter->setPen(selectionPen);
+        painter->setBrush(QColor(0, 120, 215, 20));  // 半透明蓝色填充
+        painter->drawRect(boundingRect());
+    } else if (hasFocus()) {
+        // 焦点状态：绘制深蓝色边框
+        QPen focusPen(QColor(0, 100, 180));
+        focusPen.setWidthF(1.5 / scale);
+        focusPen.setStyle(Qt::SolidLine);
+        painter->setPen(focusPen);
+        painter->setBrush(Qt::NoBrush);
+        painter->drawRect(boundingRect());
+    }
+    
+    // 调用父类绘制方法
+    QGraphicsTextItem::paint(painter, option, widget);
+    
+    // 恢复变换
+    painter->restore();
 }

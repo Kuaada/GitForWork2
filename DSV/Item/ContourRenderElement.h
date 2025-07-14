@@ -30,7 +30,9 @@
 #include<QGraphicsSceneMouseEvent>
 #include"RenderElement.h"
 #include<QGraphicsSimpleTextItem>
+#include<QGraphicsView>
 #include<QGraphicsScene>
+#include<cmath>
 
 /**
  * @brief   轮廓渲染元素类
@@ -143,6 +145,27 @@ public:
      * @note    该函数是QGraphicsItem虚函数的重写
      */
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
+
+    /**
+     * @brief   自定义绘制函数
+     * @param   painter     绘制器
+     * @param   option      绘制选项
+     * @param   widget      绘制目标窗口
+     * @details 自定义绘制轮廓，保持线宽不受缩放影响
+     * 
+     * @note    该函数是QGraphicsItem虚函数的重写
+     */
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
+    
+    /**
+     * @brief   元素变化事件处理
+     * @param   change      变化类型
+     * @param   value       变化值
+     * @details 监听元素变换变化，更新字体大小
+     * 
+     * @note    该函数是QGraphicsItem虚函数的重写
+     */
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
     
     /**
      * @brief   计算轮廓面积
@@ -226,6 +249,19 @@ private:
      */
     QString getDescription();
     
+    /**
+     * @brief   获取动态字体大小
+     * @return  基于屏幕视窗大小的字体大小
+     * @details 根据当前视图大小计算合适的字体大小
+     */
+    int getDynamicFontSize();
+    
+    /**
+     * @brief   更新文本字体大小
+     * @details 根据当前视图大小更新文本项的字体大小
+     */
+    void updateFontSize();
+    
     /** @brief 文本标签项，显示轮廓面积、周长或名称 */
-    QGraphicsSimpleTextItem* m_pTextItem=nullptr;
+    QGraphicsTextItem* m_pTextItem = nullptr;
 };

@@ -8,6 +8,8 @@
  */
 
 #include "LineRenderElement.h"
+#include <cmath>  // 添加数学函数头文件
+#include <QGraphicsView>
 
 /**
  * @brief 线条渲染元素构造函数（仅名称）
@@ -23,6 +25,7 @@ LineRenderElement::LineRenderElement(QString strName, QGraphicsItem* parent) :Re
     setAcceptDrops(true);          // 接受拖放事件
     setZValue(10);                 // 设置Z轴值
     setFlags(ItemIsMovable | ItemIsSelectable | ItemIsFocusable);  // 设置交互标志
+    // 移除 ItemIgnoresTransformations，改用自定义绘制
     //m_pTextItem = new QGraphicsSimpleTextItem(this);
     //m_pTextItem->setText(QString("面积:%1 周长:%2").arg(getArea(), 0, 'g', 4).arg(getPerimeter(), 0, 'g', 4));
     setToolTip(QString("面积:%1 周长:%2").arg(getArea(), 0, 'g', 4).arg(getPerimeter(), 0, 'g', 4));
@@ -38,6 +41,7 @@ LineRenderElement::LineRenderElement(QString strName, QGraphicsItem* parent) :Re
 LineRenderElement::LineRenderElement(QJsonObject json) :RenderElement(json)
 {
     m_elementType = Line;
+    // 移除 ItemIgnoresTransformations，改用自定义绘制
     // m_pTextItem = new QGraphicsSimpleTextItem(this);
      //m_pTextItem->setText(QString("面积:%1 周长:%2").arg(getArea(), 0, 'g', 4).arg(getPerimeter(), 0, 'g', 4));
      //scene()->addItem(m_pTextItem);
@@ -60,11 +64,21 @@ LineRenderElement::LineRenderElement(QString strName, const QPointF& pt1, const 
     setAcceptDrops(true);          // 接受拖放事件
     setZValue(10);                 // 设置Z轴值
     setFlags(ItemIsMovable | ItemIsSelectable | ItemIsFocusable);  // 设置交互标志
-    setToolTip(QStringLiteral("长度:%2").arg(getPerimeter(), 0, 'g', 4));
+    // 移除 ItemIgnoresTransformations，改用自定义绘制
+    setToolTip(QStringLiteral("长度: %1 μm").arg(getPerimeter(), 0, 'f', 1));
     m_pTextItem = new QGraphicsSimpleTextItem(this);
-    m_pTextItem->setFont(QFont("宋体", 16));
+    m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));  // 使用微软雅黑字体
     m_pTextItem->setFlag(ItemIgnoresTransformations);  // 忽略变换
-    m_pTextItem->setText(QStringLiteral("%2 mm").arg(getPerimeter(), 0, 'g', 4));
+    
+    // 设置文本背景以提高可读性
+    QBrush textBrush(QColor(255, 255, 255, 200));  // 半透明白色背景
+    m_pTextItem->setBrush(textBrush);
+    
+    // 使用标准格式显示长度信息
+    float length = getPerimeter();
+    QString lengthText = QString::number(length, 'f', 1);
+    m_pTextItem->setText(QStringLiteral("长度: %1 μm").arg(lengthText));
+    
     m_pTextItem->setPen(m_pen);
     m_pTextItem->setPos((pt1 + pt2) / 2.0);  // 设置文本位置为线条中点
     m_pTextItem->setFlag(ItemIgnoresTransformations);
@@ -92,21 +106,28 @@ LineRenderElement::~LineRenderElement()
 void LineRenderElement::updateLine(const QPointF& pt1, const QPointF& pt2)
 {
     QGraphicsLineItem::setLine(QLineF(pt1, pt2));  // 设置新的线条
-    setToolTip(QStringLiteral("长度:%2").arg(getPerimeter(), 0, 'g', 4));
+    
+    // 使用标准格式显示长度信息
+    float length = getPerimeter();
+    QString lengthText = QString::number(length, 'f', 1);
+    setToolTip(QStringLiteral("长度: %1 μm").arg(lengthText));
+    
     if (!m_pTextItem)
     {
         m_pTextItem = new QGraphicsSimpleTextItem(this);
         m_pTextItem->setPen(m_pen);
-        m_pTextItem->setFont(QFont("宋体", 16));
+        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));  // 使用微软雅黑字体
         m_pTextItem->setFlag(ItemIgnoresTransformations);
+        
+        // 设置文本背景以提高可读性
+        QBrush textBrush(QColor(255, 255, 255, 200));  // 半透明白色背景
+        m_pTextItem->setBrush(textBrush);
     }
 
-    m_pTextItem->setText(QStringLiteral("%2 um").arg(getPerimeter(), 0, 'g', 4));
+    m_pTextItem->setText(QStringLiteral("长度: %1 μm").arg(lengthText));
     m_pTextItem->setPos((pt1 + pt2) / 2.0 + QPointF(10.0, 10.0));
 
     updateContrlPoints();  // 更新控制点
-
-
 }
 
 /**
@@ -137,16 +158,107 @@ float LineRenderElement::getPerimeter()
 /**
  * @brief 鼠标悬停进入事件处理
  * @param event 悬停事件对象
- * @details 当鼠标悬停在线条上时，改变光标样式和线条颜色
+ * @details 当鼠标悬停在线条上时，检查是否悬停在控制点上并设置相应光标
  */
 void LineRenderElement::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
-    setCursor(QCursor(Qt::CrossCursor));  // 设置十字光标
-    QPen pen;
-    pen.setWidth(m_pen.width());
-    pen.setColor(Qt::blue);
-    setPen(pen);
-    QGraphicsItem::hoverEnterEvent(event);
+    QPointF hoverPos = event->pos();
+    
+    // 检查是否悬停在控制点上
+    if (m_controlPoint1 && m_controlPoint2)
+    {
+        QPointF control1ScenePos = m_controlPoint1->mapToScene(m_controlPoint1->rect().center());
+        QPointF control2ScenePos = m_controlPoint2->mapToScene(m_controlPoint2->rect().center());
+        QPointF hoverScenePos = mapToScene(hoverPos);
+        
+        // 计算控制点大小（考虑缩放）
+        qreal controlSize = m_fControlSize;
+        if (scene()) {
+            QList<QGraphicsView*> views = scene()->views();
+            if (!views.isEmpty()) {
+                QGraphicsView* view = views.first();
+                QTransform viewTransform = view->transform();
+                qreal scale = std::sqrt(viewTransform.m11() * viewTransform.m11() + viewTransform.m12() * viewTransform.m12());
+                controlSize = m_fControlSize / scale;
+            }
+        }
+        
+        // 增加拾取容差，使控制点更容易悬停
+        qreal pickTolerance = qMax(controlSize, 12.0); // 增加最小拾取范围到12像素
+        
+        // 检查悬停位置是否在控制点范围内
+        qreal distance1 = std::sqrt(std::pow(hoverScenePos.x() - control1ScenePos.x(), 2) + 
+                                    std::pow(hoverScenePos.y() - control1ScenePos.y(), 2));
+        qreal distance2 = std::sqrt(std::pow(hoverScenePos.x() - control2ScenePos.x(), 2) + 
+                                    std::pow(hoverScenePos.y() - control2ScenePos.y(), 2));
+        
+        if (distance1 <= pickTolerance || distance2 <= pickTolerance)
+        {
+            setCursor(Qt::CrossCursor);
+            return;
+        }
+    }
+    
+    // 如果没有悬停在控制点上，设置默认光标
+    setCursor(Qt::ArrowCursor);
+    
+    // 悬停效果：改变线条颜色为现代蓝色
+    QPen hoverPen;
+    hoverPen.setWidth(m_pen.width());
+    hoverPen.setColor(QColor(0, 120, 215));  // 现代蓝色
+    hoverPen.setStyle(Qt::SolidLine);
+    setPen(hoverPen);
+    
+    // 强制重绘以显示悬停效果
+    update();
+}
+
+/**
+ * @brief 鼠标悬停移动事件处理
+ * @param event 悬停事件对象
+ * @details 当鼠标在线条上移动时，检查是否悬停在控制点上并设置相应光标
+ */
+void LineRenderElement::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
+{
+    QPointF hoverPos = event->pos();
+    
+    // 检查是否悬停在控制点上
+    if (m_controlPoint1 && m_controlPoint2)
+    {
+        QPointF control1ScenePos = m_controlPoint1->mapToScene(m_controlPoint1->rect().center());
+        QPointF control2ScenePos = m_controlPoint2->mapToScene(m_controlPoint2->rect().center());
+        QPointF hoverScenePos = mapToScene(hoverPos);
+        
+        // 计算控制点大小（考虑缩放）
+        qreal controlSize = m_fControlSize;
+        if (scene()) {
+            QList<QGraphicsView*> views = scene()->views();
+            if (!views.isEmpty()) {
+                QGraphicsView* view = views.first();
+                QTransform viewTransform = view->transform();
+                qreal scale = std::sqrt(viewTransform.m11() * viewTransform.m11() + viewTransform.m12() * viewTransform.m12());
+                controlSize = m_fControlSize / scale;
+            }
+        }
+        
+        // 增加拾取容差，使控制点更容易悬停
+        qreal pickTolerance = qMax(controlSize, 12.0); // 增加最小拾取范围到12像素
+        
+        // 检查悬停位置是否在控制点范围内
+        qreal distance1 = std::sqrt(std::pow(hoverScenePos.x() - control1ScenePos.x(), 2) + 
+                                    std::pow(hoverScenePos.y() - control1ScenePos.y(), 2));
+        qreal distance2 = std::sqrt(std::pow(hoverScenePos.x() - control2ScenePos.x(), 2) + 
+                                    std::pow(hoverScenePos.y() - control2ScenePos.y(), 2));
+        
+        if (distance1 <= pickTolerance || distance2 <= pickTolerance)
+        {
+            setCursor(Qt::CrossCursor);
+            return;
+        }
+    }
+    
+    // 如果没有悬停在控制点上，设置默认光标
+    setCursor(Qt::ArrowCursor);
 }
 
 /**
@@ -156,9 +268,11 @@ void LineRenderElement::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
  */
 void LineRenderElement::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
-    setCursor(QCursor(Qt::PointingHandCursor));  // 设置手型光标
-    setPen(m_pen);  // 恢复原始线条样式
-    QGraphicsItem::hoverLeaveEvent(event);
+    // 恢复原始线条样式
+    setPen(m_pen);
+    
+    // 强制重绘以清除悬停效果
+    update();
 }
 
 /**
@@ -171,15 +285,134 @@ void LineRenderElement::updateContrlPoints()
     QPointF pt2 = line().p2();  // 获取终点
     if (!m_controlPoint1)
     {
-        m_controlPoint1 = new QGraphicsRectItem(pt1.x() - m_fControlSize, pt1.y() - m_fControlSize, m_fControlSize * 2.0, m_fControlSize * 2.0, this);
-        //m_controlPoint1->setFlags(ItemIsSelectable | ItemIsFocusable);
-
+        m_controlPoint1 = new ControlPoint(0, 0, m_fControlSize * 2.0, m_fControlSize * 2.0, this);
     }
     if (!m_controlPoint2)
     {
-        m_controlPoint2 = new QGraphicsRectItem(pt2.x() - m_fControlSize, pt2.y() - m_fControlSize, m_fControlSize * 2.0, m_fControlSize * 2.0, this);
-        //m_controlPoint2->setFlags(ItemIsSelectable | ItemIsFocusable);
+        m_controlPoint2 = new ControlPoint(0, 0, m_fControlSize * 2.0, m_fControlSize * 2.0, this);
     }
-    m_controlPoint1->setRect(pt1.x() - m_fControlSize, pt1.y() - m_fControlSize, m_fControlSize * 2.0, m_fControlSize * 2.0);
-    m_controlPoint2->setRect(pt2.x() - m_fControlSize, pt2.y() - m_fControlSize, m_fControlSize * 2.0, m_fControlSize * 2.0);
+    m_controlPoint1->setPos(pt1.x() - m_fControlSize, pt1.y() - m_fControlSize);
+    m_controlPoint2->setPos(pt2.x() - m_fControlSize, pt2.y() - m_fControlSize);
+}
+
+/**
+ * @brief 自定义绘制函数
+ * @param painter 绘制器
+ * @param option 绘制选项
+ * @param widget 绘制目标窗口
+ * @details 自定义绘制线条，保持线宽不受缩放影响，正确处理选中状态和悬停效果
+ */
+void LineRenderElement::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+{
+    // 保存当前变换
+    painter->save();
+    
+    // 获取当前变换矩阵
+    QTransform transform = painter->transform();
+    
+    // 计算缩放因子
+    qreal scale = std::sqrt(transform.m11() * transform.m11() + transform.m12() * transform.m12());
+    
+    // 创建新的画笔，调整线宽以抵消缩放
+    QPen pen = m_pen;
+    pen.setWidthF(pen.widthF() / scale);
+    
+    // 根据状态设置不同的样式
+    if (isSelected()) {
+        // 选中状态：蓝色边框，线宽加倍
+        pen.setColor(QColor(0, 120, 215));  // 现代蓝色
+        pen.setWidthF(pen.widthF() * 2.5);
+        pen.setStyle(Qt::SolidLine);
+    } else if (hasFocus()) {
+        // 焦点状态：深蓝色边框，线宽适中
+        pen.setColor(QColor(0, 100, 180));
+        pen.setWidthF(pen.widthF() * 1.8);
+        pen.setStyle(Qt::SolidLine);
+    } else {
+        // 普通状态：使用原始颜色，但稍微加粗
+        pen.setColor(m_pen.color());
+        pen.setWidthF(pen.widthF() * 1.2);
+        pen.setStyle(Qt::SolidLine);
+    }
+    
+    painter->setPen(pen);
+    
+    // 绘制线条
+    painter->drawLine(line());
+    
+    // 如果正在调整大小，绘制调整提示
+    if (m_isResizing) {
+        QPen resizePen(QColor(255, 140, 0, 180));  // 橙色
+        resizePen.setWidthF(2.0 / scale);
+        resizePen.setStyle(Qt::DashLine);
+        painter->setPen(resizePen);
+        painter->drawLine(line());
+    }
+    
+    // 恢复变换
+    painter->restore();
+}
+
+/**
+ * @brief 获取动态字体大小
+ * @return 基于屏幕视窗大小的字体大小
+ * @details 根据当前视图大小计算合适的字体大小，确保文字在不同缩放级别下都清晰可见
+ */
+int LineRenderElement::getDynamicFontSize()
+{
+    // 默认字体大小（像素）
+    int defaultSize = 14;  // 稍微增大默认字体大小
+    
+    // 尝试获取视图
+    if (scene()) {
+        QList<QGraphicsView*> views = scene()->views();
+        if (!views.isEmpty()) {
+            QGraphicsView* view = views.first();
+            QSize viewSize = view->size();
+            
+            // 计算基于视图大小的字体大小
+            // 使用视图对角线长度的比例
+            qreal diagonal = std::sqrt(viewSize.width() * viewSize.width() + viewSize.height() * viewSize.height());
+            
+            // 字体大小约为视图对角线的1.0%（稍微增大比例）
+            qreal screenBasedSize = diagonal * 0.01;
+            
+            // 设置最小和最大限制
+            screenBasedSize = qMax(screenBasedSize, 10.0);   // 最小10像素
+            screenBasedSize = qMin(screenBasedSize, 28.0);   // 最大28像素
+            
+            return static_cast<int>(screenBasedSize);
+        }
+    }
+    
+    // 如果无法获取视图，返回默认大小
+    return defaultSize;
+}
+
+/**
+ * @brief 更新文本字体大小
+ * @details 根据当前视图大小更新文本项的字体大小
+ */
+void LineRenderElement::updateFontSize()
+{
+    if (m_pTextItem) {
+        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));  // 使用微软雅黑字体
+    }
+}
+
+/**
+ * @brief 元素变化事件处理
+ * @param change 变化类型
+ * @param value 变化值
+ * @return 处理后的值
+ * @details 监听元素变换变化，更新字体大小
+ */
+QVariant LineRenderElement::itemChange(GraphicsItemChange change, const QVariant& value)
+{
+    // 当元素变换发生变化时，更新字体大小
+    if (change == ItemTransformChange || change == ItemScaleChange) {
+        updateFontSize();
+    }
+    
+    return QGraphicsLineItem::itemChange(change, value);
 }

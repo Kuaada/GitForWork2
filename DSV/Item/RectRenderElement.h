@@ -31,6 +31,8 @@
 #include"RenderElement.h"
 #include<QGraphicsSimpleTextItem>
 #include<QGraphicsScene>
+#include<cmath>
+#include"ControlPoint.h"
 
 /**
  * @brief   矩形渲染元素类
@@ -143,6 +145,15 @@ public:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     
     /**
+     * @brief   鼠标悬停移动事件
+     * @param   event   悬停事件对象
+     * @details 当鼠标在矩形上移动时触发，检查是否悬停在控制点上并设置相应光标
+     * 
+     * @note    该函数是QGraphicsItem虚函数的重写
+     */
+    virtual void hoverMoveEvent(QGraphicsSceneHoverEvent* event);
+    
+    /**
      * @brief   鼠标悬停离开事件
      * @param   event   悬停事件对象
      * @details 当鼠标离开矩形时触发，隐藏控制点和测量信息
@@ -150,6 +161,27 @@ public:
      * @note    该函数是QGraphicsItem虚函数的重写
      */
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
+
+    /**
+     * @brief   自定义绘制函数
+     * @param   painter     绘制器
+     * @param   option      绘制选项
+     * @param   widget      绘制目标窗口
+     * @details 自定义绘制矩形，保持线宽不受缩放影响，正确处理选中状态
+     * 
+     * @note    该函数是QGraphicsItem虚函数的重写
+     */
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
+
+    /**
+     * @brief   元素变化事件处理
+     * @param   change      变化类型
+     * @param   value       变化值
+     * @details 监听元素变换变化，更新控制点位置
+     * 
+     * @note    该函数是QGraphicsItem虚函数的重写
+     */
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
 
 protected:
     /**
@@ -182,11 +214,8 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
 
 private:
-    /** @brief 控制点的大小（像素），可根据需求调整 */
-    qreal m_fControlSize = 6;
-    
     /** @brief 文本标签项，显示矩形面积、周长或名称 */
-    QGraphicsSimpleTextItem* m_pTextItem = nullptr;
+    QGraphicsTextItem* m_pTextItem = nullptr;
     
     /** @brief 是否正在调整大小的标志 */
     bool m_isResizing;
@@ -194,8 +223,14 @@ private:
     /** @brief 上次鼠标位置，用于计算拖拽距离 */
     QPointF m_lastMousePos;
     
+    /** @brief 当前拖拽的控制点索引 */
+    int m_currentControlPointIndex = -1;
+    
     /** @brief 控制点列表，包含矩形的所有控制点 */
-    QList<QGraphicsRectItem*> m_controlPoints;
+    QList<ControlPoint*> m_controlPoints;
+    
+    /** @brief 控制点大小，用于创建和定位控制点 */
+    qreal m_fControlSize = 10.0;
     
     /**
      * @brief   创建控制点
@@ -208,4 +243,25 @@ private:
      * @details 根据当前矩形区域，更新所有控制点的位置
      */
     void updateControlPointsPosition();
+    
+    /**
+     * @brief   获取动态字体大小
+     * @return  基于屏幕视窗大小的字体大小
+     * @details 根据当前视图大小计算合适的字体大小
+     */
+    int getDynamicFontSize();
+    
+    /**
+     * @brief   更新文本字体大小
+     * @details 根据当前视图大小更新文本项的字体大小
+     */
+    void updateFontSize();
+    
+    /**
+     * @brief   获取控制点对应的鼠标光标
+     * @param   controlPointIndex    控制点索引
+     * @return  对应的鼠标光标
+     * @details 根据控制点位置返回相应的鼠标光标样式
+     */
+    Qt::CursorShape getControlPointCursor(int controlPointIndex);
 };

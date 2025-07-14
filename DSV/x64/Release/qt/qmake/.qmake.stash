@@ -16,7 +16,8 @@ QMAKE_CXX.INCDIRS = \
     "S:\\Windows Kits\\10\\Include\\10.0.22621.0\\winrt" \
     "S:\\Windows Kits\\10\\Include\\10.0.22621.0\\cppwinrt" \
     Include\\um \
-    ..\\Env\\include
+    ..\\Env\\include \
+    "S:\\Windows Kits\\vcpkg-master\\installed\\x64-windows\\include"
 QMAKE_CXX.LIBDIRS = \
     ..\\Env\\lib \
     S:\\APP\\VS2022\\VC\\Tools\\MSVC\\14.42.34433\\lib\\x64 \

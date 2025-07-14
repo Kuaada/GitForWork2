@@ -154,14 +154,14 @@ void FileWidget::onTreeViewItemClicked(const QModelIndex& index)
     QFileInfo fileInfo(filePath);
 
     // 检查是否为支持的文件格式
-    if (fileInfo.isFile() && fileInfo.suffix().toLower() == "tif"|| 
-        fileInfo.isFile() && fileInfo.suffix().toLower() == "tiff" ||
-        fileInfo.isFile() && fileInfo.suffix().toLower()=="svs"|| 
-        fileInfo.isFile() && fileInfo.suffix().toLower() == "ndpi"|| 
-        fileInfo.isFile() && fileInfo.suffix().toLower() == "czi"||
-        fileInfo.isFile() && fileInfo.suffix().toLower() == "bif" ||
-        fileInfo.isFile() && fileInfo.suffix().toLower() == "zvi" ||
-        fileInfo.isFile() && fileInfo.suffix().toLower() == "scn" ||
+    if (fileInfo.isFile() && fileInfo.suffix().toLower() == "tif"   || 
+        fileInfo.isFile() && fileInfo.suffix().toLower() == "tiff"  ||
+        fileInfo.isFile() && fileInfo.suffix().toLower()=="svs"     || 
+        fileInfo.isFile() && fileInfo.suffix().toLower() == "ndpi"  || 
+        fileInfo.isFile() && fileInfo.suffix().toLower() == "czi"   ||
+        fileInfo.isFile() && fileInfo.suffix().toLower() == "bif"   ||
+        fileInfo.isFile() && fileInfo.suffix().toLower() == "zvi"   ||
+        fileInfo.isFile() && fileInfo.suffix().toLower() == "scn"   ||
         fileInfo.isFile() && fileInfo.suffix().toLower() == "dcm") // 检查是否为支持的图像文件
     {
         emit fileSelected(filePath); // 发出自定义信号
