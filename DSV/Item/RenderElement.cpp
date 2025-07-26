@@ -111,3 +111,53 @@ void RenderElement::setLineWidth(int nLineWidth)
 {
 	m_pen.setWidth(nLineWidth);
 }
+
+/**
+ * @brief 智能单位转换工具函数
+ * @param value 原始值（微米）
+ * @param isArea 是否为面积值（决定使用平方单位）
+ * @return 包含转换后值和单位的字符串
+ * @details 根据数值大小自动选择合适的单位：
+ *          - 小于1000 μm: 使用 μm
+ *          - 1000-999999 μm: 使用 mm
+ *          - 大于等于1000000 μm: 使用 cm
+ *          面积值会自动使用对应的平方单位
+ */
+QString RenderElement::formatMeasurement(float value, bool isArea)
+{
+    QString unit;
+    float convertedValue;
+    int precision;
+    
+    if (value < 1000.0f) {
+        // 小于1000，使用微米
+        convertedValue = value;
+        unit = isArea ? "um2" : "um";  // 使用更兼容的字符
+        precision = (value < 10.0f) ? 2 : 1; // 小数值使用更多精度
+    } else if (value < 1000000.0f) {
+        // 1000-999999，使用毫米
+        convertedValue = value / 1000.0f;
+        unit = isArea ? "mm2" : "mm";  // 使用更兼容的字符
+        precision = (convertedValue < 10.0f) ? 2 : 1;
+    } else {
+        // 大于等于1000000，使用厘米
+        convertedValue = value / 10000.0f;
+        unit = isArea ? "cm2" : "cm";  // 使用更兼容的字符
+        precision = (convertedValue < 10.0f) ? 2 : 1;
+    }
+    
+    // 格式化数值，避免科学计数法
+    QString valueStr = QString::number(convertedValue, 'f', precision);
+    
+    // 移除末尾的0（如果小数点后全是0，则移除小数点）
+    if (valueStr.contains('.')) {
+        while (valueStr.endsWith('0') && valueStr.contains('.')) {
+            valueStr.chop(1);
+        }
+        if (valueStr.endsWith('.')) {
+            valueStr.chop(1);
+        }
+    }
+    
+    return QString("%1 %2").arg(valueStr).arg(unit);
+}

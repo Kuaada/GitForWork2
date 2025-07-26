@@ -12,9 +12,9 @@
  *          - 控制点管理和视觉反馈
  *          - JSON序列化和反序列化
  *          - 悬停效果和测量信息显示
- * 
- * @note    该类是DSV项目测量工具的重要组件，用于面积测量、
- *          区域标注、ROI（感兴趣区域）选择等功能
+ *
+ * @note    该类继承自QGraphicsRectItem和RenderElement，是DSV项目
+ *          中常用的渲染元素之一，用于面积测量、区域标注等功能
  * @see     RenderElement, QGraphicsRectItem, LineRenderElement
  */
 
@@ -39,27 +39,29 @@
  * @details 继承自QGraphicsRectItem和RenderElement，专门负责矩形的渲染和交互。
  *          提供矩形的绘制、拖拽、缩放、面积计算等功能。支持多个控制点，
  *          允许用户通过拖拽控制点来调整矩形的大小和位置。
- * 
+ *
  * @note    该类是DSV项目测量工具的核心组件，用于面积测量、
  *          区域标注等功能。支持JSON序列化，便于数据保存和恢复。
- * 
+ *
  * @example
  * @code
  * // 创建矩形渲染元素
  * RectRenderElement* rect = new RectRenderElement("测量区域", QRectF(0, 0, 100, 100));
- * 
+ *
  * // 添加到场景
  * scene->addItem(rect);
- * 
+ *
  * // 获取矩形面积
  * float area = rect->getArea();
- * 
+ *
  * // 获取矩形周长
  * float perimeter = rect->getPerimeter();
  * @endcode
  */
-class RectRenderElement :public QGraphicsRectItem, public RenderElement
+class RectRenderElement :public QObject,public RenderElement,public QGraphicsRectItem
 {
+    Q_OBJECT
+
 public:
     /**
      * @brief   构造函数（仅名称）
@@ -264,4 +266,13 @@ private:
      * @details 根据控制点位置返回相应的鼠标光标样式
      */
     Qt::CursorShape getControlPointCursor(int controlPointIndex);
+    
+    /**
+     * @brief   更新控制点拾取区域
+     * @details 根据当前视图缩放状态更新所有控制点的拾取区域
+     */
+    void updateControlPointsPickupArea();
+signals:
+    void sendPerimeterAndArea(float Perimeter, float Area);
+
 };

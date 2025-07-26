@@ -34,6 +34,8 @@
 #include<QGraphicsSceneHoverEvent>
 #include"ControlPoint.h"
 
+
+
 /**
  * @brief   线条渲染元素类
  * @details 继承自QGraphicsLineItem和RenderElement，专门负责线条的渲染和交互。
@@ -55,8 +57,9 @@
  * float length = line->getPerimeter();
  * @endcode
  */
-class LineRenderElement :public QGraphicsLineItem, public RenderElement
+class LineRenderElement :public QObject, public RenderElement, public QGraphicsLineItem
 {
+    Q_OBJECT
 public:
     /**
      * @brief   构造函数（仅名称）
@@ -92,6 +95,13 @@ public:
      * @details 更新线条的端点位置，重新计算长度和显示控制点
      */
     void updateLine(const QPointF& pt1, const QPointF& pt2);
+
+    /**
+    * @brief   获取直线描述信息
+    * @return  包含直线信息的描述字符串
+    * @details 返回直线的详细信息，包括名称、位置、大小、长度等
+    */
+    QString getDescription();
 
     /**
      * @brief   析构函数
@@ -260,13 +270,13 @@ protected:
                 setLine(QLineF(currentLine.p1(), pos));
                 updateContrlPoints();
             }
-            
+
             // 更新文本项
             if (m_pTextItem) {
-                m_pTextItem->setText(QStringLiteral("%1 mm").arg(getPerimeter(), 0, 'g', 4));
+                m_pTextItem->setText(QStringLiteral("长度: %1").arg(RenderElement::formatMeasurement(getPerimeter(), false)));
                 m_pTextItem->setPos((currentLine.p1() + currentLine.p2()) / 2.0 + QPointF(10.0, 10.0));
             }
-            
+            emit sendLength(getPerimeter());  // 发送最终长度
             event->accept();
             return;
         }
@@ -285,6 +295,7 @@ protected:
         if (m_pDragingItem) {
             m_pDragingItem = nullptr;
             m_isResizing = false;  // 结束调整大小
+            emit sendLength(getPerimeter());  // 发送最终长度
             setCursor(Qt::ArrowCursor);
             event->accept();
             return; // 直接返回，不调用基类事件
@@ -338,4 +349,6 @@ private:
         double dy = p2.y() - p1.y();
         return sqrt(dx * dx + dy * dy);
     }
+signals:
+    void sendLength(float length);
 };

@@ -7,11 +7,11 @@ SnapDialog::SnapDialog(QWidget *parent)
 	initUi();
 	setupStyle();
 	fadeInAnimation = new QPropertyAnimation(this, "windowOpacity");
-	fadeInAnimation->setDuration(500); // ¶¯»­³ÖĞøÊ±¼ä£¬µ¥Î»ºÁÃë
+	fadeInAnimation->setDuration(500); // åŠ¨ç”»æŒç»­æ—¶é—´ï¼Œå•ä½æ¯«ç§’
 	fadeInAnimation->setStartValue(0.0);
 	fadeInAnimation->setEndValue(1.0);
 
-	// ´´½¨µ­³ö¶¯»­
+	// åˆ›å»ºæ·¡å‡ºåŠ¨ç”»
 	fadeOutAnimation = new QPropertyAnimation(this, "windowOpacity");
 	fadeOutAnimation->setDuration(500);
 	fadeOutAnimation->setStartValue(1.0);
@@ -19,7 +19,7 @@ SnapDialog::SnapDialog(QWidget *parent)
 
 	connect(fadeOutAnimation, &QPropertyAnimation::finished, this, &SnapDialog::accept);
 
-	// ÉèÖÃ¶Ô»°¿ò³õÊ¼Í¸Ã÷¶ÈÎª0
+	// è®¾ç½®å¯¹è¯æ¡†åˆå§‹é€æ˜åº¦ä¸º0
 	setWindowOpacity(0.0);
 	QPushButton* save = this->findChild<QPushButton*>("SavePic");
 	connect(save, &QPushButton::clicked, m_SnapWidget, &SnapWidget::saveSnap);
@@ -50,38 +50,38 @@ void SnapDialog::fadeOutAndHide()
 
 void SnapDialog::initUi()
 {
-	//¹Ø±ÕÎÊºÅÌáÊ¾
+	//å…³é—­é—®å·æç¤º
 	this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
-	this->setWindowTitle(QStringLiteral("¿ìÕÕ"));
+	this->setWindowTitle(QStringLiteral("å¿«ç…§"));
 	this->setFixedSize(800, 400);
 
-	//²¼¾Ö£º
+	//å¸ƒå±€ï¼š
 	//___________________
 	//|        |         |
 	//|        |         |
 	//|  left0 |         |
-	//|¡ª¡ª¡ª¡ª|  Widget |
+	//|â€”â€”â€”â€”|  Widget |
 	//|        |         |
 	//|  left1 |         |
 	//|        |         |
-	//¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+	//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 	QHBoxLayout* mainLayout = new QHBoxLayout(this);
 	mainLayout->setContentsMargins(10, 10, 10, 10);
 	QVBoxLayout* mainLeft = new QVBoxLayout();
 	mainLeft->setContentsMargins(0, 10, 0, 30);
 	
-	//left0²¼¾Ö
+	//left0å¸ƒå±€
 	QVBoxLayout* left0 = new QVBoxLayout();
-	QLabel* labelInfo0 = new QLabel(QStringLiteral("¿ìÕÕĞÅÏ¢"), this);
+	QLabel* labelInfo0 = new QLabel(QStringLiteral("å¿«ç…§ä¿¡æ¯"), this);
 	labelInfo0->setFixedHeight(60);
-	QCheckBox* label = new QCheckBox(QStringLiteral("ÏÔÊ¾ÇĞÆ¬±êÇ©"), this);
+	QCheckBox* label = new QCheckBox(QStringLiteral("æ˜¾ç¤ºåˆ‡ç‰‡æ ‡ç­¾"), this);
 	label->setObjectName(QStringLiteral("labelInfo"));
 	label->setFixedHeight(50);
-	QCheckBox* scalebar = new QCheckBox(QStringLiteral("ÏÔÊ¾±ÈÀı³ß"),this);
+	QCheckBox* scalebar = new QCheckBox(QStringLiteral("æ˜¾ç¤ºæ¯”ä¾‹å°º"),this);
 	scalebar->setObjectName(QStringLiteral("scaleBar"));
 	scalebar->setChecked(true);
 	scalebar->setFixedHeight(50);
-	QCheckBox* minimap = new QCheckBox(QStringLiteral("ÏÔÊ¾ÃÔÄãÍ¼"), this);
+	QCheckBox* minimap = new QCheckBox(QStringLiteral("æ˜¾ç¤ºè¿·ä½ å›¾"), this);
 	minimap->setObjectName(QStringLiteral("miniMap"));
 	minimap->setChecked(true);
 	minimap->setFixedHeight(50);
@@ -90,20 +90,20 @@ void SnapDialog::initUi()
 	left0->addWidget(label,1);
 	left0->addWidget(minimap,1);
 
-	//left1²¼¾Ö
+	//left1å¸ƒå±€
 	QVBoxLayout* left1 = new QVBoxLayout();
-	QLabel* labelInfo1 = new QLabel(QStringLiteral("±£´æ"), this);
+	QLabel* labelInfo1 = new QLabel(QStringLiteral("ä¿å­˜"), this);
 	labelInfo1->setFixedHeight(60);
 	QHBoxLayout* H0 = new QHBoxLayout(this);
 	QPushButton* Save = new QPushButton(this);
 	Save->setObjectName(QStringLiteral("SavePic"));
-	QLabel* label0 = new QLabel(QStringLiteral("±£´æÊÓÍ¼"),this);
+	QLabel* label0 = new QLabel(QStringLiteral("ä¿å­˜è§†å›¾"),this);
 	H0->addWidget(Save);
 	H0->addWidget(label0);
 
 	QHBoxLayout* H1 = new QHBoxLayout(this);
 	QPushButton* SaveTIFF = new QPushButton(this);
-	QLabel* label1 = new QLabel(QStringLiteral("±£´æÊÓÍ¼ÎªTIFF"), this);
+	QLabel* label1 = new QLabel(QStringLiteral("ä¿å­˜è§†å›¾ä¸ºTIFF"), this);
 	SaveTIFF->setEnabled(false);
 	label1->setEnabled(false);
 	H1->addWidget(SaveTIFF);
@@ -113,7 +113,7 @@ void SnapDialog::initUi()
 	left1->addLayout(H0,1);
 	left1->addLayout(H1,1);
 
-	//left²¼¾Ö
+	//leftå¸ƒå±€
 	mainLeft->addLayout(left0,1);
 	mainLeft->addLayout(left1,1);
 
@@ -124,7 +124,7 @@ void SnapDialog::initUi()
 	
 
 	
-	//ÉèÖÃbuttonÍ¼±ê¼°´óĞ¡
+	//è®¾ç½®buttonå›¾æ ‡åŠå¤§å°
 	Save->setFixedSize(40, 40);
 	Save->setIcon(QIcon(":/resources/save.png"));
 	SaveTIFF->setFixedSize(40, 40);
@@ -137,20 +137,20 @@ void SnapDialog::setupStyle()
 
 	QString styleSheet =
 		"QDialog {"
-		"border-radius: 10px; /* ÉèÖÃ¶Ô»°¿òµÄÔ²½Ç°ë¾¶ */"
+		"border-radius: 10px; /* è®¾ç½®å¯¹è¯æ¡†çš„åœ†è§’åŠå¾„ */"
 		"}"
 		"QLabel {"
-		"font-size: 14pt; /* ÉèÖÃ QLabel µÄ×ÖÌå´óĞ¡ */"
+		"font-size: 14pt; /* è®¾ç½® QLabel çš„å­—ä½“å¤§å° */"
 		"padding: 0; "
 		"margin: 0; "
 		"}"
 		"QCheckBox {"
-		"font-size: 14pt; /* ÉèÖÃ QCheckBox µÄ×ÖÌå´óĞ¡ */"
+		"font-size: 14pt; /* è®¾ç½® QCheckBox çš„å­—ä½“å¤§å° */"
 		"padding: 0; "
 		"margin: 0; "
 		"}"
 		"QPushButton {"
-		"font-size: 14pt; /* ÉèÖÃ QPushButton µÄ×ÖÌå´óĞ¡ */"
+		"font-size: 14pt; /* è®¾ç½® QPushButton çš„å­—ä½“å¤§å° */"
 		"padding: 0; "
 		"margin: 0; "
 		"}";

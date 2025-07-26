@@ -28,8 +28,8 @@ LineRenderElement::LineRenderElement(QString strName, QGraphicsItem* parent) :Re
     // 移除 ItemIgnoresTransformations，改用自定义绘制
     //m_pTextItem = new QGraphicsSimpleTextItem(this);
     //m_pTextItem->setText(QString("面积:%1 周长:%2").arg(getArea(), 0, 'g', 4).arg(getPerimeter(), 0, 'g', 4));
-    setToolTip(QString("面积:%1 周长:%2").arg(getArea(), 0, 'g', 4).arg(getPerimeter(), 0, 'g', 4));
-
+    setToolTip(getDescription());
+    //m_pTextItem->setFlag(ItemIgnoresTransformations);  // 忽略变换
 
 }
 
@@ -65,19 +65,13 @@ LineRenderElement::LineRenderElement(QString strName, const QPointF& pt1, const 
     setZValue(10);                 // 设置Z轴值
     setFlags(ItemIsMovable | ItemIsSelectable | ItemIsFocusable);  // 设置交互标志
     // 移除 ItemIgnoresTransformations，改用自定义绘制
-    setToolTip(QStringLiteral("长度: %1 μm").arg(getPerimeter(), 0, 'f', 1));
+    setToolTip(getDescription());
     m_pTextItem = new QGraphicsSimpleTextItem(this);
     m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));  // 使用微软雅黑字体
     m_pTextItem->setFlag(ItemIgnoresTransformations);  // 忽略变换
     
-    // 设置文本背景以提高可读性
-    QBrush textBrush(QColor(255, 255, 255, 200));  // 半透明白色背景
-    m_pTextItem->setBrush(textBrush);
-    
-    // 使用标准格式显示长度信息
-    float length = getPerimeter();
-    QString lengthText = QString::number(length, 'f', 1);
-    m_pTextItem->setText(QStringLiteral("长度: %1 μm").arg(lengthText));
+    // 使用智能单位转换显示长度信息
+    m_pTextItem->setText(getDescription());
     
     m_pTextItem->setPen(m_pen);
     m_pTextItem->setPos((pt1 + pt2) / 2.0);  // 设置文本位置为线条中点
@@ -96,38 +90,32 @@ LineRenderElement::~LineRenderElement()
 {
 
 }
-
 /**
  * @brief 更新线条位置
  * @param pt1 新的起点
  * @param pt2 新的终点
- * @details 更新线条的起点和终点，并重新计算相关属性
+ * @details 更新线条的起点和终点位置，并重新计算相关属性
  */
 void LineRenderElement::updateLine(const QPointF& pt1, const QPointF& pt2)
 {
-    QGraphicsLineItem::setLine(QLineF(pt1, pt2));  // 设置新的线条
-    
-    // 使用标准格式显示长度信息
-    float length = getPerimeter();
-    QString lengthText = QString::number(length, 'f', 1);
-    setToolTip(QStringLiteral("长度: %1 μm").arg(lengthText));
-    
-    if (!m_pTextItem)
-    {
-        m_pTextItem = new QGraphicsSimpleTextItem(this);
-        m_pTextItem->setPen(m_pen);
-        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));  // 使用微软雅黑字体
-        m_pTextItem->setFlag(ItemIgnoresTransformations);
-        
-        // 设置文本背景以提高可读性
-        QBrush textBrush(QColor(255, 255, 255, 200));  // 半透明白色背景
-        m_pTextItem->setBrush(textBrush);
-    }
+    setLine(QLineF(pt1, pt2));
+    updateContrlPoints();
+   
+}
 
-    m_pTextItem->setText(QStringLiteral("长度: %1 μm").arg(lengthText));
-    m_pTextItem->setPos((pt1 + pt2) / 2.0 + QPointF(10.0, 10.0));
-
-    updateContrlPoints();  // 更新控制点
+/**
+ * @brief 获取线条描述信息
+ * @return 包含线条信息的描述字符串
+ * @details 返回线条的详细信息，只显示长度（周长）
+ */
+QString LineRenderElement::getDescription()
+{
+    float perimeter = getPerimeter();
+    
+    // 线条只显示长度（周长），不显示面积
+    QString perimeterText = RenderElement::formatMeasurement(perimeter, false);
+    
+    return QStringLiteral("长度: %1").arg(perimeterText);
 }
 
 /**
@@ -413,6 +401,8 @@ QVariant LineRenderElement::itemChange(GraphicsItemChange change, const QVariant
     if (change == ItemTransformChange || change == ItemScaleChange) {
         updateFontSize();
     }
+
+    //emit 
     
     return QGraphicsLineItem::itemChange(change, value);
 }

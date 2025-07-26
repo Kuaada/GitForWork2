@@ -28,5 +28,6 @@
         <file>resources/zoom.png</file>
         <file>resources/saveTIFF.png</file>
         <file>resources/List.png</file>
+        <file>resources/delete.png</file>
     </qresource>
 </RCC>

@@ -11,6 +11,7 @@
 #include <cmath>  // 添加数学函数头文件
 #include <QTextDocument>
 
+
 /**
  * @brief 矩形渲染元素构造函数（仅名称）
  * @param strName 元素名称
@@ -19,29 +20,13 @@
  */
 RectRenderElement::RectRenderElement(QString strName, QGraphicsItem* parent) :RenderElement(strName), QGraphicsRectItem(parent)
 {
-	m_elementType = Rectangle;  // 设置元素类型为矩形
+    m_elementType = Rectangle;  // 设置元素类型为矩形
     setAcceptHoverEvents(true);    // 接受悬停事件
     setAcceptTouchEvents(true);    // 接受触摸事件
     setAcceptDrops(true);          // 接受拖放事件
     setZValue(10);                 // 设置Z轴值
     setFlags(ItemIsMovable | ItemIsSelectable | ItemIsFocusable);  // 设置交互标志
-    // 移除 ItemIgnoresTransformations，改用自定义绘制
-   // m_pTextItem = new QGraphicsSimpleTextItem(this);
-    //m_pTextItem->setText(QString("面积:%1 周长:%2").arg(getArea(), 0, 'g', 4).arg(getPerimeter(), 0, 'g', 4));
-    setToolTip(QStringLiteral("面积: %1 μm² 周长: %2 μm").arg(getArea(),0,'f',1).arg(getPerimeter(),0,'f',1));
-
-    if (!m_pTextItem)
-    {
-        m_pTextItem = new QGraphicsTextItem(this);
-        m_pTextItem->setDefaultTextColor(m_pen.color());
-        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
-        m_pTextItem->setFlag(ItemIgnoresTransformations);
-        m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
-        m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
-    }
-    m_pTextItem->setPos(10, 10);
-    m_pTextItem->setHtml(getDescription());
-    //pRectItem->setParentItem(this);
+    setToolTip(getDescription());
     createControlPoints();
     updateControlPointsPosition(); // 确保控制点位置正确初始化
 }
@@ -70,29 +55,17 @@ RectRenderElement::RectRenderElement(QJsonObject json):RenderElement(json)
  * @details 创建具有指定区域的矩形渲染元素，并设置文本显示
  */
 RectRenderElement::RectRenderElement(QString strName, const QRectF& rect, QGraphicsItem* parent)
-	:RenderElement(strName), QGraphicsRectItem(rect,parent)
+    :RenderElement(strName), QGraphicsRectItem(rect,parent)
 {
-    m_elementType = Ellipse;
+    m_elementType = Rectangle;  // 设置元素类型为矩形
     setAcceptHoverEvents(true);
     setAcceptTouchEvents(true);
     setAcceptDrops(true);
     setFlags(ItemIsMovable|ItemIsSelectable|ItemIsFocusable);
-    // 移除 ItemIgnoresTransformations，改用自定义绘制
     setToolTip(getDescription());
     createControlPoints();
     updateControlPointsPosition(); // 确保控制点位置正确初始化
     setZValue(10);
-    if (!m_pTextItem)
-    {
-        m_pTextItem = new QGraphicsTextItem(this);
-        m_pTextItem->setDefaultTextColor(m_pen.color());
-        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
-        m_pTextItem->setFlag(ItemIgnoresTransformations);
-        m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
-        m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
-    }
-    m_pTextItem->setPos(10, 10);
-    m_pTextItem->setHtml(getDescription());
 }
 
 /**
@@ -113,21 +86,23 @@ void RectRenderElement::updateRect(QRectF rect)
 {
     QGraphicsRectItem::setRect(QRectF(0, 0, rect.width(), rect.height()));
     setPos(rect.topLeft());
-    setToolTip(QStringLiteral("面积: %1 μm² 周长: %2 μm").arg(getArea(), 0, 'f', 1).arg(getPerimeter(), 0, 'f', 1));
+    setToolTip(getDescription());
     updateControlPointsPosition();
-    //m_pTextItem->setText(QString("面积:%1 周长:%2").arg(getArea(), 0, 'f', 4).arg(getPerimeter(), 0, 'g', 4));
-        //scene()->addItem(m_pTextItem);
-    if (!m_pTextItem)
-    {
-        m_pTextItem = new QGraphicsTextItem(this);
-        m_pTextItem->setDefaultTextColor(m_pen.color());
-        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
-        m_pTextItem->setFlag(ItemIgnoresTransformations);
-        m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
-        m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
-    }
-    m_pTextItem->setPos(10, 10);
-    m_pTextItem->setHtml(getDescription());
+    // 延迟创建文本项到itemChange，不在这里创建
+    //if (m_pTextItem) {
+    //    m_pTextItem->setPlainText(getDescription());
+    //    m_pTextItem->setPos(10, 10);
+    //}
+    
+    //// 创建文本项显示描述信息
+    //if (!m_pTextItem) {
+    //    m_pTextItem = new QGraphicsTextItem(this);
+    //    m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
+    //    m_pTextItem->setFlag(ItemIgnoresTransformations);
+    //    m_pTextItem->setDefaultTextColor(m_pen.color()); // 使用元素主色作为文字颜色
+    //}
+    //        m_pTextItem->setPlainText(getDescription());
+    //m_pTextItem->setPos(10, 10);
 }
 
 /**
@@ -150,7 +125,7 @@ float RectRenderElement::getArea() {
     QRectF rc =rect();
    
     return rc.width()* rc.height() * data(0).toDouble() * data(0).toDouble();
-}
+}  
 
 /**
  * @brief 计算矩形周长
@@ -169,45 +144,10 @@ float RectRenderElement::getPerimeter()
 /**
  * @brief 鼠标悬停进入事件处理
  * @param event 悬停事件对象
- * @details 当鼠标悬停在矩形上时，检查是否悬停在控制点上并设置相应光标
+ * @details 当鼠标悬停在矩形上时，显示悬停效果
  */
 void RectRenderElement::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
-    QPointF hoverPos = event->pos();
-    
-    // 检查是否悬停在控制点上
-    for (int i = 0; i < m_controlPoints.size(); ++i)
-    {
-        QPointF controlScenePos = m_controlPoints[i]->mapToScene(m_controlPoints[i]->rect().center());
-        QPointF hoverScenePos = mapToScene(hoverPos);
-        
-        // 计算控制点大小（考虑缩放）
-        qreal controlSize = m_fControlSize;
-        if (scene()) {
-            QList<QGraphicsView*> views = scene()->views();
-            if (!views.isEmpty()) {
-                QGraphicsView* view = views.first();
-                QTransform viewTransform = view->transform();
-                qreal scale = std::sqrt(viewTransform.m11() * viewTransform.m11() + viewTransform.m12() * viewTransform.m12());
-                controlSize = m_fControlSize / scale;
-            }
-        }
-        // 增加拾取容差，使控制点更容易悬停
-        qreal pickTolerance = qMax(controlSize, 12.0); // 增加最小拾取范围到12像素
-        // 检查悬停位置是否在控制点范围内
-        qreal distance = std::sqrt(std::pow(hoverScenePos.x() - controlScenePos.x(), 2) + 
-                                   std::pow(hoverScenePos.y() - controlScenePos.y(), 2));
-        
-        if (distance <= pickTolerance)
-        {
-            setCursor(getControlPointCursor(i));
-            return;
-        }
-    }
-    
-    // 如果没有悬停在控制点上，设置默认光标
-    setCursor(Qt::ArrowCursor);
-    
     // 悬停效果：改变矩形颜色为现代蓝色
     QPen hoverPen;
     hoverPen.setWidth(m_pen.width());
@@ -217,49 +157,18 @@ void RectRenderElement::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
     
     // 强制重绘以显示悬停效果
     update();
+    
+    QGraphicsRectItem::hoverEnterEvent(event);
 }
 
 /**
  * @brief 鼠标悬停移动事件处理
  * @param event 悬停事件对象
- * @details 当鼠标在矩形上移动时，检查是否悬停在控制点上并设置相应光标
+ * @details 当鼠标在矩形上移动时，处理悬停移动事件
  */
 void RectRenderElement::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 {
-    QPointF hoverPos = event->pos();
-    
-    // 检查是否悬停在控制点上
-    for (int i = 0; i < m_controlPoints.size(); ++i)
-    {
-        QPointF controlScenePos = m_controlPoints[i]->mapToScene(m_controlPoints[i]->rect().center());
-        QPointF hoverScenePos = mapToScene(hoverPos);
-        
-        // 计算控制点大小（考虑缩放）
-        qreal controlSize = m_fControlSize;
-        if (scene()) {
-            QList<QGraphicsView*> views = scene()->views();
-            if (!views.isEmpty()) {
-                QGraphicsView* view = views.first();
-                QTransform viewTransform = view->transform();
-                qreal scale = std::sqrt(viewTransform.m11() * viewTransform.m11() + viewTransform.m12() * viewTransform.m12());
-                controlSize = m_fControlSize / scale;
-            }
-        }
-        // 增加拾取容差，使控制点更容易悬停
-        qreal pickTolerance = qMax(controlSize, 12.0); // 增加最小拾取范围到12像素
-        // 检查悬停位置是否在控制点范围内
-        qreal distance = std::sqrt(std::pow(hoverScenePos.x() - controlScenePos.x(), 2) + 
-                                   std::pow(hoverScenePos.y() - controlScenePos.y(), 2));
-        
-        if (distance <= pickTolerance)
-        {
-            setCursor(getControlPointCursor(i));
-            return;
-        }
-    }
-    
-    // 如果没有悬停在控制点上，设置默认光标
-    setCursor(Qt::ArrowCursor);
+    QGraphicsRectItem::hoverMoveEvent(event);
 }
 
 /**
@@ -289,30 +198,8 @@ void RectRenderElement::mousePressEvent(QGraphicsSceneMouseEvent* event)
     // 遍历控制点，判断是否点击在控制点上
     for (int i = 0; i < m_controlPoints.size(); ++i)
     {
-        // 获取控制点在场景中的实际位置
-        QPointF controlScenePos = m_controlPoints[i]->mapToScene(m_controlPoints[i]->rect().center());
-        QPointF clickScenePos = mapToScene(clickPos);
-        
-        // 计算控制点大小（考虑缩放）
-        qreal controlSize = m_fControlSize;
-        if (scene()) {
-            QList<QGraphicsView*> views = scene()->views();
-            if (!views.isEmpty()) {
-                QGraphicsView* view = views.first();
-                QTransform viewTransform = view->transform();
-                qreal scale = std::sqrt(viewTransform.m11() * viewTransform.m11() + viewTransform.m12() * viewTransform.m12());
-                controlSize = m_fControlSize / scale;
-            }
-        }
-        
-        // 增加拾取容差，使控制点更容易点击
-        qreal pickTolerance = qMax(controlSize, 12.0); // 增加最小拾取范围到12像素
-        
-        // 检查点击位置是否在控制点范围内
-        qreal distance = std::sqrt(std::pow(clickScenePos.x() - controlScenePos.x(), 2) + 
-                                   std::pow(clickScenePos.y() - controlScenePos.y(), 2));
-        
-        if (distance <= pickTolerance)
+        // 使用控制点的shape()函数来判断点击
+        if (m_controlPoints[i]->shape().contains(m_controlPoints[i]->mapFromParent(clickPos)))
         {
             m_isResizing = true;
             m_currentControlPointIndex = i;
@@ -330,7 +217,7 @@ void RectRenderElement::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
     // 如果没有点击控制点，则调用基类处理移动和选择
     if (!controlPointClicked) {
-    QGraphicsRectItem::mousePressEvent(event);
+        QGraphicsRectItem::mousePressEvent(event);
     }
 }
 
@@ -406,7 +293,7 @@ void RectRenderElement::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             // 更新工具提示和文本显示
         setToolTip(getDescription());
             if (m_pTextItem) {
-        m_pTextItem->setHtml(getDescription());
+        m_pTextItem->setPlainText(getDescription());
             }
             
             // 更新最后鼠标位置
@@ -415,7 +302,7 @@ void RectRenderElement::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             // 强制重绘
             update();
         }
-        
+        emit sendPerimeterAndArea(getPerimeter(), getArea());
         event->accept();
         return;
     }
@@ -434,6 +321,7 @@ void RectRenderElement::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         m_isResizing = false;
         m_currentControlPointIndex = -1;
         // 恢复默认光标
+        emit sendPerimeterAndArea(getPerimeter(), getArea());
         setCursor(Qt::ArrowCursor);
         event->accept();
         return;
@@ -445,18 +333,18 @@ void RectRenderElement::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 /**
  * @brief 获取矩形描述信息
  * @return 包含矩形信息的描述字符串
- * @details 返回矩形的详细信息，包括面积和周长，使用更友好的格式
+ * @details 返回矩形的详细信息，包括名称、位置、大小、面积等
  */
 QString RectRenderElement::getDescription()
 {
     float area = getArea();
     float perimeter = getPerimeter();
     
-    // 使用标准格式显示测量信息
-    QString areaText = QString::number(area, 'f', 1);
-    QString perimeterText = QString::number(perimeter, 'f', 1);
+    // 使用与直线一致的格式，分行显示
+    QString areaText = RenderElement::formatMeasurement(area, true);
+    QString perimeterText = RenderElement::formatMeasurement(perimeter, false);
     
-    return QStringLiteral("面积: %1 μm<sup>2</sup><br>周长: %2 μm").arg(areaText).arg(perimeterText);
+    return QStringLiteral("面积: %1\n周长: %2").arg(areaText).arg(perimeterText);
 }
 
 /**
@@ -578,12 +466,28 @@ QVariant RectRenderElement::itemChange(GraphicsItemChange change, const QVariant
 {
     // 当元素变换发生变化时，更新控制点位置和字体大小
     if (change == ItemTransformChange || change == ItemScaleChange) {
-        updateControlPointsPosition();
-        updateFontSize();
+        if (!m_controlPoints.isEmpty()) {
+            updateControlPointsPosition();
+        }
+        if (m_pTextItem) {
+            m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
+        }
     }
-    
     return QGraphicsRectItem::itemChange(change, value);
 }
+
+/**
+ * @brief 更新控制点拾取区域
+ * @details 根据当前视图缩放状态更新所有控制点的拾取区域
+ */
+void RectRenderElement::updateControlPointsPickupArea()
+{
+    for (ControlPoint* controlPoint : m_controlPoints) {
+        controlPoint->updatePickupArea();
+    }
+}
+
+
 
 /**
  * @brief 自定义绘制函数
@@ -660,7 +564,7 @@ void RectRenderElement::paint(QPainter* painter, const QStyleOptionGraphicsItem*
 int RectRenderElement::getDynamicFontSize()
 {
     // 默认字体大小（像素）
-    int defaultSize = 14;  // 稍微增大默认字体大小
+    int defaultSize = 14;  // 与椭圆元素保持一致
     
     // 尝试获取视图
     if (scene()) {

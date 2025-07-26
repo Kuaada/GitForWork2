@@ -306,6 +306,24 @@ void PathologyViewer::zoomFinished()
     emit factorTrans(float(transform().m11()));
     sender()->~QObject();
 }
+void PathologyViewer::handleItemSelection(QGraphicsItem* item)
+{
+    if (LineRenderElement* line = dynamic_cast<LineRenderElement*>(item)) {
+        emit perimeterUpdated(line->getPerimeter());
+    }
+    else if (RectRenderElement* rect = dynamic_cast<RectRenderElement*>(item)) {
+        emit areaAndPerimeterUpdated(rect->getPerimeter(), rect->getArea());
+    }
+    else if (EllipseRenderElement* ellipse = dynamic_cast<EllipseRenderElement*>(item)) {
+        emit areaAndPerimeterUpdated(ellipse->getPerimeter(), ellipse->getArea());
+    }
+    else if (ContourRenderElement* contour = dynamic_cast<ContourRenderElement*>(item)) {
+        emit areaAndPerimeterUpdated(contour->getPerimeter(), contour->getArea());
+    }
+    else if (TextRenderElement* text = dynamic_cast<TextRenderElement*>(item)) {
+       // emit textSelected(text->text()); // 示例：发送文本内容
+    }
+}
 void PathologyViewer::moveTo(const QPointF& pos) {
     this->centerOn(pos);
     float maxDownsample = 1. / this->_sceneScale;
@@ -818,7 +836,6 @@ void PathologyViewer::mousePressEvent(QMouseEvent* event)
     if (_img)
     {
 
-
         switch (m_mouseType)
         {
         case Nothing:
@@ -829,26 +846,57 @@ void PathologyViewer::mousePressEvent(QMouseEvent* event)
                 return;
             }
             else if (event->button() == Qt::RightButton) {
-                
-                    if (!_isFirstRightClick)
-                    {
-                        emit rightClicked(); // 右键点击信号，返回filePath
-                        event->accept();
-                        return;
+                if (!_isFirstRightClick)
+                {
+                    emit rightClicked(); // 右键点击信号，返回filePath
+                    event->accept();
+                    return;
+                }          
+            }
+            else if (event->button() == Qt::LeftButton) {
+                // 新增：处理左键选中图形项
+                QGraphicsItem* clickedItem = itemAt(event->pos());
+                if (clickedItem) {
+                    // 清除之前的选择
+                    scene()->clearSelection();
+                    // 选中当前点击的项
+                    clickedItem->setSelected(true);
+                    // 发送选中信号
+                    if (LineRenderElement* line = dynamic_cast<LineRenderElement*>(clickedItem)) {
+                        emit perimeterUpdated(line->getPerimeter());
                     }
-                               
-                }
+                    else if (RectRenderElement* rect = dynamic_cast<RectRenderElement*>(clickedItem)) {
+                        emit areaAndPerimeterUpdated(rect->getPerimeter(), rect->getArea());
+                    }
+                    else if (EllipseRenderElement* ellipse = dynamic_cast<EllipseRenderElement*>(clickedItem)) {
+                        emit areaAndPerimeterUpdated(ellipse->getPerimeter(), ellipse->getArea());
+                    }
+                    else if (ContourRenderElement* contour = dynamic_cast<ContourRenderElement*>(clickedItem)) {
+                        emit areaAndPerimeterUpdated(contour->getPerimeter(), contour->getArea());
+                    }
+                    else if (TextRenderElement* text = dynamic_cast<TextRenderElement*>(clickedItem)) {
+                        // emit textSelected(text->text()); // 示例：发送文本内容
+                    }
 
-            event->accept();
+                }
+            }
+
             break;
         case Line:
             if (event->button() == Qt::LeftButton)
             {
                 m_bLButtonDown = true;
                 m_ptOri = event->pos();
+                ///** @brief 临时图形项指针 */
+                //QGraphicsItem* m_pTempItem;    LineRenderElemnt继承于QGraphicsItem,其次继承于另外一个类
                 m_pTempItem = new LineRenderElement("LineRenderElement");
+       
                 m_pGraphicsScene->addItem(m_pTempItem);
                 static_cast<LineRenderElement*>(m_pTempItem)->setPen(m_penRealTime);
+                // 连接信号与槽 - 修正类型转换，确保正确
+                  // 设置画笔样式
+                connect(static_cast<LineRenderElement*>(m_pTempItem), &LineRenderElement::sendLength,
+                    this, &PathologyViewer::perimeterUpdated);
             }
             break;
         case Rect:
@@ -859,6 +907,9 @@ void PathologyViewer::mousePressEvent(QMouseEvent* event)
                 m_pTempItem = new RectRenderElement("RectangleRenderElement");
                 m_pGraphicsScene->addItem(m_pTempItem);
                 static_cast<RectRenderElement*>(m_pTempItem)->setPen(m_penRealTime);
+
+                connect(static_cast<RectRenderElement*>(m_pTempItem), &RectRenderElement::sendPerimeterAndArea,
+                    this, &PathologyViewer::areaAndPerimeterUpdated);
             }
             break;
         case Ellipse:
@@ -869,6 +920,8 @@ void PathologyViewer::mousePressEvent(QMouseEvent* event)
                 m_pTempItem = new EllipseRenderElement("EllipseRenderElement");
                 m_pGraphicsScene->addItem(m_pTempItem);
                 static_cast<EllipseRenderElement*>(m_pTempItem)->setPen(m_penRealTime);
+                connect(static_cast<EllipseRenderElement*>(m_pTempItem), &EllipseRenderElement::sendPerimeterAndArea,
+                    this, &PathologyViewer::areaAndPerimeterUpdated);
             }
             break;
         case Text:
@@ -925,16 +978,18 @@ void PathologyViewer::mouseReleaseEvent(QMouseEvent* event)
         {
             return;
         }
-         if (static_cast<QGraphicsItem*>(m_pTempItem)->boundingRect().width() < 3)
-         delete m_pTempItem;
-         m_pTempItem = nullptr;
-         setMouseType(Nothing);
+        emit perimeterUpdated(static_cast<LineRenderElement*>(m_pTempItem)->getPerimeter());
+        if (static_cast<QGraphicsItem*>(m_pTempItem)->boundingRect().width() < 3)
+        delete m_pTempItem;
+        m_pTempItem = nullptr;
+        setMouseType(Nothing);
         break;
     case Rect:
         if (event->button() == Qt::RightButton)
         {
             return;
         }
+        emit areaAndPerimeterUpdated(static_cast<LineRenderElement*>(m_pTempItem)->getPerimeter(), static_cast<LineRenderElement*>(m_pTempItem)->getArea());
         if (static_cast<QGraphicsItem*>(m_pTempItem)->boundingRect().width() < 3)
             delete m_pTempItem;
         m_pTempItem = nullptr;
@@ -945,6 +1000,7 @@ void PathologyViewer::mouseReleaseEvent(QMouseEvent* event)
         {
             return;
         }
+        emit areaAndPerimeterUpdated(static_cast<LineRenderElement*>(m_pTempItem)->getPerimeter(), static_cast<LineRenderElement*>(m_pTempItem)->getArea());
         if (static_cast<QGraphicsItem*>(m_pTempItem)->boundingRect().width() < 3)
             delete m_pTempItem;
         m_pTempItem = nullptr;
@@ -963,6 +1019,7 @@ void PathologyViewer::mouseReleaseEvent(QMouseEvent* event)
         {
             return;
         }
+        emit areaAndPerimeterUpdated(static_cast<LineRenderElement*>(m_pTempItem)->getPerimeter(), static_cast<LineRenderElement*>(m_pTempItem)->getArea());
         if (static_cast<QGraphicsItem*>(m_pTempItem)->boundingRect().width() < 3)
         delete m_pTempItem;
         m_pTempItem = nullptr;
@@ -1004,11 +1061,9 @@ void PathologyViewer::mouseMoveEvent(QMouseEvent* event)
         {
             return;
         }
-        
         m_ptMove = event->pos();
         static_cast<LineRenderElement*>(m_pTempItem)->updateLine(mapToScene(m_ptOri), mapToScene(m_ptMove));
-
-        
+        emit perimeterUpdated(static_cast<LineRenderElement*>(m_pTempItem)->getPerimeter());
     }
     else if (m_mouseType == Rect && m_pTempItem)
    {
@@ -1025,6 +1080,7 @@ void PathologyViewer::mouseMoveEvent(QMouseEvent* event)
        qreal height = std::abs(m_ptOri.y() - m_ptMove.y());
        QPointF ptBottomRight = mapToScene(x + width, y + height);
        static_cast<RectRenderElement*>(m_pTempItem)->updateRect(QRectF(ptTopLeft, ptBottomRight));
+       emit areaAndPerimeterUpdated(static_cast<LineRenderElement*>(m_pTempItem)->getPerimeter(), static_cast<LineRenderElement*>(m_pTempItem)->getArea());
 
    }
     else if (m_mouseType == Ellipse && m_pTempItem)
@@ -1034,9 +1090,7 @@ void PathologyViewer::mouseMoveEvent(QMouseEvent* event)
             return;
         }
             m_ptMove = event->pos();
-
             QPoint endPoint = event->pos();
-
             qreal x = (std::min)(m_ptOri.x(), m_ptMove.x());
             qreal y = (std::min)(m_ptOri.y(), m_ptMove.y());
             QPointF ptTopLeft = mapToScene(x, y);
@@ -1044,17 +1098,8 @@ void PathologyViewer::mouseMoveEvent(QMouseEvent* event)
             qreal height = std::abs(m_ptOri.y() - m_ptMove.y());
             QPointF ptBottomRight = mapToScene(x + width, y + height);
             static_cast<EllipseRenderElement*>(m_pTempItem)->updateRect(QRectF(ptTopLeft, ptBottomRight));
+            emit areaAndPerimeterUpdated(static_cast<LineRenderElement*>(m_pTempItem)->getPerimeter(), static_cast<LineRenderElement*>(m_pTempItem)->getArea());
         }
-    else if (m_mouseType == Line && m_pTempItem)
-    {
-        if (event->button() == Qt::RightButton)
-        {
-            return;
-        }
-        m_ptMove = event->pos();
-
-        static_cast<LineRenderElement*>(m_pTempItem)->updateLine(mapToScene(m_ptOri), mapToScene(m_ptMove));
-    }
     else if (m_mouseType == Contour && m_pTempItem)
         {
         if (event->button() == Qt::RightButton)
@@ -1064,6 +1109,7 @@ void PathologyViewer::mouseMoveEvent(QMouseEvent* event)
             m_ptMove = event->pos();
             m_polygon.push_back(mapToScene(m_ptMove));
             static_cast<ContourRenderElement*>(m_pTempItem)->updateContour(m_polygon);
+            emit areaAndPerimeterUpdated(static_cast<LineRenderElement*>(m_pTempItem)->getPerimeter(), static_cast<LineRenderElement*>(m_pTempItem)->getArea());
         }
 
 }

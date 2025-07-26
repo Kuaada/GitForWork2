@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file MainWin.cpp
  * @brief 主窗口实现文件
  * @details 实现数字病理切片查看器的主窗口界面，包括工具栏、文件管理、状态栏等核心UI组件
@@ -266,6 +266,11 @@ void MainWin::initConnect()
 	QToolButton* textTool = m_PlotBar->findChild<QToolButton*>("TextTool");
 	connect(textTool, &QToolButton::clicked, [view]() {view->setMouseType(MouseType::Text);});
 	
+	QToolButton* deleteTool = m_PlotBar->findChild<QToolButton*>("DeleteTool");
+	connect(deleteTool, &QToolButton::clicked, [view]() {view->onActionDeleteSelection();}); 
+
+	connect(view, &PathologyViewer::perimeterUpdated, m_PlotBar, &PlotBar::setOneLabel);
+	connect(view, &PathologyViewer::areaAndPerimeterUpdated, m_PlotBar, &PlotBar::setTwoLabel);
 	// 比例尺和工具栏连接
 	ScaleBar* scaleBar = view->findChild<ScaleBar*>("ScaleBar");
 	CenteredToolBar* toolBar = this->findChild<CenteredToolBar*>("ToolBar");

@@ -12,9 +12,9 @@
  *          - 控制点管理和视觉反馈
  *          - JSON序列化和反序列化
  *          - 悬停效果和测量信息显示
- * 
- * @note    该类是DSV项目测量工具的重要组件，用于椭圆区域测量、
- *          细胞计数、病灶标注等功能
+ *
+ * @note    该类继承自QGraphicsEllipseItem和RenderElement，是DSV项目
+ *          中常用的渲染元素之一，用于椭圆区域测量、细胞计数等功能
  * @see     RenderElement, QGraphicsEllipseItem, RectRenderElement
  */
 
@@ -32,33 +32,36 @@
 #include<QGraphicsScene>
 #include<cmath>
 #include"ControlPoint.h"
+#include<QGraphicsSimpleTextItem>
 
 /**
  * @brief   椭圆渲染元素类
- * @details 继承自RenderElement和QGraphicsEllipseItem，专门负责椭圆的渲染和交互。
+ * @details 继承自QGraphicsEllipseItem和RenderElement，专门负责椭圆的渲染和交互。
  *          提供椭圆的绘制、拖拽、缩放、面积计算等功能。支持多个控制点，
  *          允许用户通过拖拽控制点来调整椭圆的大小和位置。
- * 
- * @note    该类是DSV项目测量工具的重要组件，用于椭圆区域测量、
+ *
+ * @note    该类是DSV项目测量工具的核心组件，用于椭圆区域测量、
  *          细胞计数、病灶标注等功能。支持JSON序列化，便于数据保存和恢复。
- * 
+ *
  * @example
  * @code
  * // 创建椭圆渲染元素
  * EllipseRenderElement* ellipse = new EllipseRenderElement("细胞区域", QRectF(0, 0, 100, 80));
- * 
+ *
  * // 添加到场景
  * scene->addItem(ellipse);
- * 
+ *
  * // 获取椭圆面积
  * float area = ellipse->getArea();
- * 
+ *
  * // 获取椭圆周长
  * float perimeter = ellipse->getPerimeter();
  * @endcode
  */
-class EllipseRenderElement:public RenderElement,public QGraphicsEllipseItem
+class EllipseRenderElement:public QObject,public RenderElement,public QGraphicsEllipseItem
 {
+	Q_OBJECT
+
 public:
 	/**
 	 * @brief   构造函数（仅名称）
@@ -258,5 +261,9 @@ protected:
 	qreal m_fcontrolSize = 10;
 	
 	/** @brief 文本标签项，显示椭圆面积、周长或名称 */
-	QGraphicsTextItem* m_pTextItem = nullptr;
+	QGraphicsSimpleTextItem* m_pTextItem = nullptr;
+
+signals:
+	void sendPerimeterAndArea(float Perimeter,float Area);
+
 };

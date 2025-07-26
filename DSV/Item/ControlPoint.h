@@ -28,6 +28,7 @@
 /**
  * @brief 控制点类
  * @details 自定义控制点类，大小基于屏幕比例，保持合适的视觉大小
+ *          优化了拾取范围管理，解决放大时拾取范围过大的问题
  */
 class ControlPoint : public QGraphicsRectItem
 {
@@ -48,11 +49,14 @@ public:
         setPen(QPen(Qt::green, 2));
         setZValue(20);
         
-        // 禁用鼠标事件，让父Item处理
-        setAcceptHoverEvents(false);
-        setAcceptTouchEvents(false);
+        // 启用鼠标事件，让控制点可以处理交互
+        setAcceptHoverEvents(true);
+        setAcceptTouchEvents(true);
         setFlag(ItemIsSelectable, false);
         setFlag(ItemIsFocusable, false);
+        
+        // 初始化拾取范围
+        updatePickupArea();
     }
 
     /**
@@ -130,6 +134,61 @@ public:
         QGraphicsRectItem::hoverLeaveEvent(event);
     }
 
+    /**
+     * @brief 鼠标按下事件
+     * @param event 鼠标事件对象
+     * @details 当鼠标按下控制点时触发
+     */
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override
+    {
+        // 禁用鼠标事件，让父Item处理
+        QGraphicsRectItem::mousePressEvent(event);
+    }
+
+
+
+    /**
+     * @brief 形状函数重写
+     * @return 控制点的实际拾取形状
+     * @details 返回基于屏幕比例的拾取形状，解决放大时拾取范围过大的问题
+     */
+    QPainterPath shape() const override
+    {
+        QPainterPath path;
+        
+        // 获取当前视图的缩放因子
+        qreal scale = 1.0;
+        if (scene()) {
+            QList<QGraphicsView*> views = scene()->views();
+            if (!views.isEmpty()) {
+                QGraphicsView* view = views.first();
+                QTransform viewTransform = view->transform();
+                scale = std::sqrt(viewTransform.m11() * viewTransform.m11() + viewTransform.m12() * viewTransform.m12());
+            }
+        }
+        
+        // 计算基于屏幕的拾取范围
+        qreal pickupSize = getScreenBasedPickupSize() / scale;
+        
+        // 以控制点中心为基准创建拾取区域
+        QRectF originalRect = rect();
+        QPointF center = originalRect.center();
+        QRectF pickupRect(center.x() - pickupSize/2, center.y() - pickupSize/2, pickupSize, pickupSize);
+        
+        path.addRect(pickupRect);
+        return path;
+    }
+
+    /**
+     * @brief 更新拾取区域
+     * @details 根据当前视图状态更新控制点的拾取区域
+     */
+    void updatePickupArea()
+    {
+        // 强制更新形状
+        prepareGeometryChange();
+    }
+
 private:
     /** @brief 是否正在悬停的标志 */
     bool m_isHovered = false;
@@ -168,5 +227,41 @@ private:
         
         // 如果无法获取视图，返回默认大小
         return defaultSize;
+    }
+
+    /**
+     * @brief 获取基于屏幕大小的拾取范围尺寸
+     * @return 基于屏幕的拾取范围大小
+     * @details 根据当前视图大小计算合适的拾取范围，确保拾取范围与视觉大小匹配
+     */
+    qreal getScreenBasedPickupSize() const
+    {
+        // 默认拾取范围（像素）
+        qreal defaultPickupSize = 12.0;
+        
+        // 尝试获取视图
+        if (scene()) {
+            QList<QGraphicsView*> views = scene()->views();
+            if (!views.isEmpty()) {
+                QGraphicsView* view = views.first();
+                QSize viewSize = view->size();
+                
+                // 计算基于视图大小的拾取范围
+                // 使用视图对角线长度的比例
+                qreal diagonal = std::sqrt(viewSize.width() * viewSize.width() + viewSize.height() * viewSize.height());
+                
+                // 拾取范围约为视图对角线的0.8%（比视觉大小稍大，便于拾取）
+                qreal screenBasedPickupSize = diagonal * 0.008;
+                
+                // 设置最小和最大限制
+                screenBasedPickupSize = qMax(screenBasedPickupSize, 8.0);   // 最小8像素
+                screenBasedPickupSize = qMin(screenBasedPickupSize, 32.0);  // 最大32像素
+                
+                return screenBasedPickupSize;
+            }
+        }
+        
+        // 如果无法获取视图，返回默认大小
+        return defaultPickupSize;
     }
 }; 

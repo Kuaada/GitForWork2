@@ -199,6 +199,18 @@
     <QtMoc Include="Item\QImageGraphicScene.h">
       <Filter>ItemTool</Filter>
     </QtMoc>
+    <QtMoc Include="Item\LineRenderElement.h">
+      <Filter>ItemTool</Filter>
+    </QtMoc>
+    <QtMoc Include="Item\RectRenderElement.h">
+      <Filter>ItemTool</Filter>
+    </QtMoc>
+    <QtMoc Include="Item\EllipseRenderElement.h">
+      <Filter>ItemTool</Filter>
+    </QtMoc>
+    <QtMoc Include="Item\ContourRenderElement.h">
+      <Filter>ItemTool</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Icon.qrc">
@@ -236,26 +248,14 @@
     <ClInclude Include="MultiResolutionImageFactory.h">
       <Filter>MultiLevelImageandCache</Filter>
     </ClInclude>
-    <ClInclude Include="Item\ContourRenderElement.h">
-      <Filter>ItemTool</Filter>
-    </ClInclude>
-    <ClInclude Include="Item\EllipseRenderElement.h">
-      <Filter>ItemTool</Filter>
-    </ClInclude>
-    <ClInclude Include="Item\LineRenderElement.h">
-      <Filter>ItemTool</Filter>
-    </ClInclude>
-    <ClInclude Include="Item\RectRenderElement.h">
-      <Filter>ItemTool</Filter>
-    </ClInclude>
     <ClInclude Include="Item\RenderElement.h">
-      <Filter>ItemTool</Filter>
-    </ClInclude>
-    <ClInclude Include="Item\TextRenderElement.h">
       <Filter>ItemTool</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>UISet</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\TextRenderElement.h">
+      <Filter>ItemTool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

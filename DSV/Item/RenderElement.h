@@ -234,6 +234,19 @@ public:
      */
     virtual QJsonObject toJson();
 
+    /**
+     * @brief   智能单位转换工具函数
+     * @param   value       原始值（微米）
+     * @param   isArea      是否为面积值（决定使用平方单位）
+     * @return  包含转换后值和单位的字符串
+     * @details 根据数值大小自动选择合适的单位：
+     *          - 小于1000 μm: 使用 μm
+     *          - 1000-999999 μm: 使用 mm
+     *          - 大于等于1000000 μm: 使用 cm
+     *          面积值会自动使用对应的平方单位
+     */
+    static QString formatMeasurement(float value, bool isArea = false);
+
 protected:
     /** @brief 元素类型，标识当前元素的具体类型 */
     ElementType m_elementType;
@@ -246,4 +259,6 @@ protected:
 
     /** @brief 像素大小，用于坐标转换和缩放计算 */
     double m_dPixelSize;
+
+
 };

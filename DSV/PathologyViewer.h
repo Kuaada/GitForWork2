@@ -493,6 +493,22 @@ signals:
      */
     void fpsUpdated(int fps);
 
+    /**
+    * @brief   返回绘制项长度值\周长等
+    * @details 当绘制项更新发送值
+    * @param   perimeter 当前\长度值周长值
+    * @note    该信号用于更新UI中的绘制项的周长\长度
+    */
+    void perimeterUpdated(float perimeter);
+    /**
+    * @brief   返回绘制项面积
+    * @details 当直线更新绘制的时候发送值
+    * @param   Area 当前面积值
+    * @note    该信号用于更新UI中的绘制项的面积
+    */
+    void areaAndPerimeterUpdated(float perimeter, float Area);
+
+
 public slots:
     /**
      * @brief   移动到指定位置
@@ -588,6 +604,12 @@ public slots:
      * @note    该函数用于更新比例信息
      */
     void setChangedMpp(float mpp);
+    /**
+     * @brief   删除选择槽函数
+     * @details 处理删除选择的操作
+     * @note    该槽函数用于删除当前选中的元素
+     */
+    void onActionDeleteSelection();
 
 private:
     /** @brief 是否首次右键点击，用于关闭文件窗口 */
@@ -861,11 +883,11 @@ private slots:
     void zoomFinished();
 
     /**
-     * @brief   删除选择槽函数
-     * @details 处理删除选择的操作
-     * @note    该槽函数用于删除当前选中的元素
+     * @brief   点击选中操作
+     * @details 细分选中Item的内容是什么
+     * @note    该函数在点击事件中调用
      */
-    void onActionDeleteSelection();
+    void handleItemSelection(QGraphicsItem* item);
 
     /**
      * @brief   更新FPS槽函数
@@ -878,4 +900,10 @@ private slots:
         emit fpsUpdated(m_currentFPS); // 发出信号更新UI
         qDebug() << "FPS:" << m_currentFPS;
     }
+    /**
+    * @brief   直线长度中转
+    * @details 更新当前的FPS值并发出信号
+    * @note    该槽函数由FPS定时器定期调用
+    */
+
 };

@@ -63,15 +63,15 @@ ContourRenderElement::ContourRenderElement(QString strName, QVector<QPointF> pts
     setFlags(ItemIsMovable|ItemIsSelectable|ItemIsFocusable);  // 设置交互标志
     // 移除 ItemIgnoresTransformations，改用自定义绘制
     
-    // 创建文本项显示描述信息
-    m_pTextItem = new QGraphicsTextItem(this);
-    m_pTextItem->setDefaultTextColor(m_pen.color());
-    m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
-    m_pTextItem->setFlag(ItemIgnoresTransformations);
-    m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
-    m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
-    m_pTextItem->setHtml(getDescription());
-    m_pTextItem->setPos(boundingRect().center());
+    //// 创建文本项显示描述信息
+    //m_pTextItem = new QGraphicsTextItem(this);
+    //m_pTextItem->setDefaultTextColor(m_pen.color());
+    //m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
+    //m_pTextItem->setFlag(ItemIgnoresTransformations);
+    //m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
+    //m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
+    //m_pTextItem->setHtml(getDescription());
+    //m_pTextItem->setPos(boundingRect().center());
 }
 
 /**
@@ -103,19 +103,19 @@ void ContourRenderElement::addPoint(const QPointF& pt)
 void ContourRenderElement::updateContour(QVector<QPointF> pts)
 {
     setPolygon(QPolygonF(pts));  // 设置新的多边形
-    setToolTip(getDescription()); // 更新工具提示
-    
-    // 创建或更新文本项
-    if (!m_pTextItem)
-    {
-        m_pTextItem = new QGraphicsTextItem(this);
-        m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
-        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
-        m_pTextItem->setFlag(ItemIgnoresTransformations);
-        m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
-    }
-    m_pTextItem->setHtml(getDescription());
-    m_pTextItem->setPos(boundingRect().center());
+    //setToolTip(getDescription()); // 更新工具提示
+    //
+    //// 创建或更新文本项
+    //if (!m_pTextItem)
+    //{
+    //    m_pTextItem = new QGraphicsTextItem(this);
+    //    m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
+    //    m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
+    //    m_pTextItem->setFlag(ItemIgnoresTransformations);
+    //    m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
+    //}
+    //m_pTextItem->setHtml(getDescription());
+    //m_pTextItem->setPos(boundingRect().center());
 }
 
 /**
@@ -209,20 +209,20 @@ void ContourRenderElement::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 }
 
 /**
- * @brief 获取描述信息
- * @return 包含面积和周长的描述字符串
- * @details 返回轮廓的面积和周长信息，使用更友好的格式
+ * @brief 获取轮廓描述信息
+ * @return 包含轮廓信息的描述字符串
+ * @details 返回轮廓的详细信息，包括面积和周长，使用与直线一致的格式
  */
 QString ContourRenderElement::getDescription()
 {
     float area = getArea();
     float perimeter = getPerimeter();
     
-    // 使用标准格式显示测量信息
-    QString areaText = QString::number(area, 'f', 1);
-    QString perimeterText = QString::number(perimeter, 'f', 1);
+    // 使用与直线一致的格式，分行显示
+    QString areaText = RenderElement::formatMeasurement(area, true);
+    QString perimeterText = RenderElement::formatMeasurement(perimeter, false);
     
-    return QStringLiteral("面积: %1 μm<sup>2</sup><br>周长: %2 μm").arg(areaText).arg(perimeterText);
+    return QStringLiteral("面积: %1\n周长: %2").arg(areaText).arg(perimeterText);
 }
 
 /**

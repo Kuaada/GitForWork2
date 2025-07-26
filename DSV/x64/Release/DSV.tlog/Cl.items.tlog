@@ -43,7 +43,11 @@ S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_LabelWin.cpp;S:\Graduate\DSV - 1\
 S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_DetailDialog.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_DetailDialog.obj
 S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_ImageFilter.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_ImageFilter.obj
 S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_ItemDialog.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_ItemDialog.obj
+S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_ContourRenderElement.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_ContourRenderElement.obj
+S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_EllipseRenderElement.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_EllipseRenderElement.obj
+S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_LineRenderElement.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_LineRenderElement.obj
 S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_QImageGraphicScene.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_QImageGraphicScene.obj
+S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_RectRenderElement.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_RectRenderElement.obj
 S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_ScaleBar.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_ScaleBar.obj
 S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_SnapDialog.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_SnapDialog.obj
 S:\Graduate\DSV - 1\DSV\x64\Release\qt\moc\moc_PlotBar.cpp;S:\Graduate\DSV - 1\DSV\x64\Release\moc_PlotBar.obj

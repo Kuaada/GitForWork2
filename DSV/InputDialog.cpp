@@ -1,4 +1,4 @@
-#include "InputDialog.h"
+ï»¿#include "InputDialog.h"
 
 InputDialog::InputDialog(QWidget *parent)
 	: QDialog(parent)
@@ -20,7 +20,7 @@ QString InputDialog::getInputText()
 void InputDialog::initUi()
 {
 	this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
-	this->setWindowTitle(QStringLiteral("ÎÄ±¾ÊäÈë"));
+	this->setWindowTitle(QStringLiteral("æ–‡æœ¬è¾“å…¥"));
 
 	QVBoxLayout* mainLayout = new QVBoxLayout(this);
 	m_strEdit = new QLineEdit(this);
@@ -30,11 +30,11 @@ void InputDialog::initUi()
 	QHBoxLayout* buttonLayout = new QHBoxLayout(this);
 
 	m_confirm = new QToolButton(this);
-	m_confirm->setText(QStringLiteral("È·ÈÏ"));
+	m_confirm->setText(QStringLiteral("ç¡®è®¤"));
 	m_confirm->setObjectName(QStringLiteral("Confirm"));
 	m_cancel = new QToolButton(this);
 	m_cancel->setObjectName(QStringLiteral("Cancel"));
-	m_cancel->setText(QStringLiteral("È¡Ïû"));
+	m_cancel->setText(QStringLiteral("å–æ¶ˆ"));
 	buttonLayout->addWidget(m_confirm);
 	buttonLayout->addWidget(m_cancel);
 
@@ -55,8 +55,8 @@ void InputDialog::onConfirmClicked()
 {
 	QString inputText = m_strEdit->text();
 	if (inputText.isEmpty()) {
-		QMessageBox::warning(this, QStringLiteral("¾¯¸æ"), QStringLiteral("ÊäÈëÄÚÈİ²»ÄÜÎª¿Õ£¬ÇëÖØĞÂÊäÈë£¡"));
+		QMessageBox::warning(this, QStringLiteral("è­¦å‘Š"), QStringLiteral("è¾“å…¥å†…å®¹ä¸èƒ½ä¸ºç©ºï¼Œè¯·é‡æ–°è¾“å…¥ï¼"));
 		return;
 	}
-	accept(); // ¹Ø±Õ¶Ô»°¿ò²¢·µ»Ø QDialog::Accepted
+	accept(); // å…³é—­å¯¹è¯æ¡†å¹¶è¿”å› QDialog::Accepted
 }

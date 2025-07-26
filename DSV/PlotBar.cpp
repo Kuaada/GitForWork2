@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file PlotBar.cpp
  * @brief 绘图工具栏实现文件
  * @details 实现数字病理切片查看器的绘图工具栏，包含线条、矩形、圆形、文本、路径等绘图工具
@@ -23,6 +23,8 @@ PlotBar::PlotBar(QWidget *parent)
     setUpStyle();          // 设置样式
     setAttribute(Qt::WA_StyledBackground);  // 启用样式背景
     m_stateVisible = true; // 设置可见状态
+   
+    //setTwoLabel(120.,1209);
 }
 
 /**
@@ -31,10 +33,13 @@ PlotBar::PlotBar(QWidget *parent)
  */
 void PlotBar::initUi()
 {
+    QVBoxLayout* mainLayout1 = new QVBoxLayout(this);
+    mainLayout1->setMargin(10);
+
     // 创建水平布局
-    QHBoxLayout* mainLayout = new QHBoxLayout(this);
-    mainLayout->setContentsMargins(10,10,10,10);
-    mainLayout->setMargin(10);
+    QHBoxLayout* mainLayout0 = new QHBoxLayout();
+    mainLayout0->setContentsMargins(10,10,10,10);
+    mainLayout0->setMargin(0);
     
     // 创建各种绘图工具按钮
     QToolButton* line = createToolButton(":/resources/line.png");        // 线条工具
@@ -51,23 +56,42 @@ void PlotBar::initUi()
     
     QToolButton* path = createToolButton(":/resources/brush.png");        // 路径工具
     path->setObjectName(QStringLiteral("PathTool"));
+
+    QToolButton* deletebutton = createToolButton(":/resources/delete.png");        // 路径工具
+    deletebutton->setObjectName(QStringLiteral("DeleteTool"));
     
     QToolButton* cancel = createToolButton(":/resources/cancel.png");     // 取消工具
     cancel->setObjectName(QStringLiteral("Cancel"));
     
-    // 将按钮添加到布局中
-    mainLayout->addWidget(line);
-    mainLayout->addWidget(rectangle);
-    mainLayout->addWidget(circle);
-    mainLayout->addWidget(text);
-    mainLayout->addWidget(path);
-    mainLayout->addWidget(cancel);
 
-    setLayout(mainLayout);
+    QLabel* PerimeterLabel = new QLabel();
+    PerimeterLabel->setObjectName(QStringLiteral("PerimeterLabel"));
+    PerimeterLabel->setFixedHeight(40);
+
+    QLabel* AreaLabel = new QLabel();
+    AreaLabel->setObjectName(QStringLiteral("AreaLabel"));
+    PerimeterLabel->setFixedHeight(40);
+
+
+    // 将按钮添加到布局中
+    mainLayout0->addWidget(line);
+    mainLayout0->addWidget(rectangle);
+    mainLayout0->addWidget(circle);
+    mainLayout0->addWidget(text);
+    mainLayout0->addWidget(path);
+    mainLayout0->addWidget(deletebutton);
+    mainLayout0->addWidget(cancel);
+
+
+    mainLayout1->addLayout(mainLayout0);
+    mainLayout1->addWidget(PerimeterLabel);
+    mainLayout1->addWidget(AreaLabel);
+
+    setLayout(mainLayout1);
     
     // 设置固定尺寸
-    int fixedWidth = 6 * 35 + 20 + 5 * 10;   // 6个按钮 * 35像素 + 边距
-    int fixedHeight = 35 + 10 * 2;           // 按钮高度 + 上下边距
+    int fixedWidth = 7 * 35 + 20 + 5 * 10;   // 6个按钮 * 35像素 + 边距
+    int fixedHeight = 40*2 + 35 + 10 * 2;           // 按钮高度 + 上下边距
     setFixedHeight(fixedHeight);
     setFixedWidth(fixedWidth);
     setWindowOpacity(1.0);                   // 设置窗口透明度
@@ -117,3 +141,36 @@ void PlotBar::setUpStyle()
 }
 
 
+void PlotBar::setOneLabel(float Perimeter)
+{
+    QLabel* PerimeterLabel = this->findChild<QLabel*>(QStringLiteral("PerimeterLabel"));
+    if (!PerimeterLabel) return; // 建议保留空指针检查
+
+    // 使用 QStringLiteral 包装每个字符串部分
+    QString showText = QStringLiteral("长度：") +
+        QString::number(Perimeter) +
+        QStringLiteral("um");
+
+    PerimeterLabel->setText(showText);
+}
+
+void PlotBar::setTwoLabel(float Perimeter, float Area)
+{
+    QLabel* PerimeterLabel = this->findChild<QLabel*>(QStringLiteral("PerimeterLabel"));
+    if (!PerimeterLabel) return;
+
+    QString showText0 = QStringLiteral("周长：") +
+        QString::number(Perimeter) +
+        QStringLiteral(" um");
+
+    PerimeterLabel->setText(showText0);
+
+    QLabel* AreaLabel = this->findChild<QLabel*>(QStringLiteral("AreaLabel"));
+    if (!AreaLabel) return;
+
+    QString showText1 = QStringLiteral("面积：") +
+        QString::number(Area) +
+        QStringLiteral(" um^2");
+
+    AreaLabel->setText(showText1);
+}

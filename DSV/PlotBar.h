@@ -25,6 +25,8 @@
 #include <QToolButton>
 #include <QResizeEvent>
 #include <QListWidget>
+#include <QLabel>
+
 
  /**
   * @class  PlotBar
@@ -120,4 +122,9 @@ private:
 
     /** @brief 可见状态标志 */
     bool m_stateVisible;
+
+
+public slots:
+    void setOneLabel(float Perimeter);
+    void setTwoLabel(float Perimeter,float Area);
 };

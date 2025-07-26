@@ -73,18 +73,16 @@ EllipseRenderElement::EllipseRenderElement(QString strName, const QRectF& rc, QG
     m_isResizing = false;
     m_currentControlPointIndex = -1;
     
-    // 创建文本项显示描述信息
-    if (!m_pTextItem)
-    {
-        m_pTextItem = new QGraphicsTextItem(this);
-        m_pTextItem->setDefaultTextColor(m_pen.color());
-        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
-        m_pTextItem->setFlag(ItemIgnoresTransformations);
-        m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
-        m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
-    }
-    m_pTextItem->setPos(rect().center());
-    m_pTextItem->setHtml(getDescription());
+    //// 创建文本项显示描述信息
+    //if (!m_pTextItem)
+    //{
+    //    m_pTextItem = new QGraphicsSimpleTextItem(this);
+    //    m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
+    //    m_pTextItem->setFlag(ItemIgnoresTransformations);
+    //    m_pTextItem->setPen(m_pen); // 使用元素主色描边
+    //}
+    //m_pTextItem->setText(getDescription());
+    //m_pTextItem->setPos(rect().center());
     updateControlPoints();  // 初始化控制点
 }
 
@@ -108,35 +106,33 @@ void EllipseRenderElement::updateRect(QRectF rc)
     updateControlPoints();              // 更新控制点
     setToolTip(getDescription());       // 更新工具提示
     
-    // 更新文本项
-    if (!m_pTextItem)
-    {
-        m_pTextItem = new QGraphicsTextItem(this);
-        m_pTextItem->setDefaultTextColor(m_pen.color());
-        m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
-        m_pTextItem->setFlag(ItemIgnoresTransformations);
-        m_pTextItem->setDefaultTextColor(QColor(0, 0, 0));
-        m_pTextItem->document()->setDefaultStyleSheet("body { background-color: rgba(255, 255, 255, 0.8); padding: 2px; }");
-    }
-    m_pTextItem->setPos(rect().center());
-    m_pTextItem->setHtml(getDescription());
+    //// 更新文本项
+    //if (!m_pTextItem)
+    //{
+    //    m_pTextItem = new QGraphicsSimpleTextItem(this);
+    //    m_pTextItem->setFont(QFont("Microsoft YaHei", getDynamicFontSize(), QFont::Normal));
+    //    m_pTextItem->setFlag(ItemIgnoresTransformations);
+    //    m_pTextItem->setPen(m_pen); // 使用元素主色描边
+    //}
+    //m_pTextItem->setText(getDescription());
+    //m_pTextItem->setPos(rect().center());
 }
 
 /**
- * @brief 获取描述信息
- * @return 包含面积和周长的描述字符串
- * @details 返回椭圆的面积和周长信息，使用更友好的格式
+ * @brief 获取椭圆描述信息
+ * @return 包含椭圆信息的描述字符串
+ * @details 返回椭圆的详细信息，包括面积和周长，使用与直线一致的格式
  */
 QString EllipseRenderElement::getDescription()
 {
     float area = getArea();
     float perimeter = getPerimeter();
     
-    // 使用标准格式显示测量信息
-    QString areaText = QString::number(area, 'f', 1);
-    QString perimeterText = QString::number(perimeter, 'f', 1);
+    // 使用与直线一致的格式，分行显示
+    QString areaText = RenderElement::formatMeasurement(area, true);
+    QString perimeterText = RenderElement::formatMeasurement(perimeter, false);
     
-    return QStringLiteral("面积: %1 μm<sup>2</sup><br>周长: %2 μm").arg(areaText).arg(perimeterText);
+    return QStringLiteral("面积: %1\n周长: %2").arg(areaText).arg(perimeterText);
 }
 
 /**
@@ -392,7 +388,7 @@ void EllipseRenderElement::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             // 更新工具提示和文本显示
             setToolTip(getDescription());
             if (m_pTextItem) {
-                m_pTextItem->setHtml(getDescription());
+                m_pTextItem->setText(getDescription());
                 m_pTextItem->setPos(rect().center());  // 更新文本位置
             }
             
@@ -403,6 +399,9 @@ void EllipseRenderElement::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             update();
         }
         
+
+        emit sendPerimeterAndArea(getPerimeter(), getArea());
+
         event->accept();
         return;
     }
@@ -420,6 +419,7 @@ void EllipseRenderElement::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         m_isResizing = false;
         m_currentControlPointIndex = -1;
         // 恢复默认光标
+        emit sendPerimeterAndArea(getPerimeter(), getArea());
         setCursor(Qt::ArrowCursor);
         event->accept();
         return; // 直接返回，不调用基类事件

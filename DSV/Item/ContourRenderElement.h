@@ -13,9 +13,9 @@
  *          - 悬停效果和视觉反馈
  *          - JSON序列化和反序列化
  *          - 复杂形状的测量和分析
- * 
- * @note    该类是DSV项目高级测量工具的重要组件，用于复杂轮廓测量、
- *          病灶轮廓分析、细胞形态分析等功能
+ *
+ * @note    该类继承自QGraphicsPolygonItem和RenderElement，是DSV项目
+ *          中常用的渲染元素之一，用于复杂轮廓测量、病灶轮廓分析等功能
  * @see     RenderElement, QGraphicsPolygonItem, TextRenderElement
  */
 
@@ -39,31 +39,32 @@
  * @details 继承自QGraphicsPolygonItem和RenderElement，专门负责轮廓的渲染和交互。
  *          提供轮廓的绘制、拖拽、编辑、面积计算等功能。支持动态添加轮廓点，
  *          允许用户通过鼠标交互来创建和编辑复杂的轮廓形状。
- * 
- * @note    该类是DSV项目高级测量工具的重要组件，用于复杂轮廓测量、
+ *
+ * @note    该类是DSV项目高级测量工具的核心组件，用于复杂轮廓测量、
  *          病灶轮廓分析、细胞形态分析等功能。支持JSON序列化，便于数据保存和恢复。
- * 
+ *
  * @example
  * @code
  * // 创建轮廓渲染元素
  * QVector<QPointF> points = {QPointF(0, 0), QPointF(100, 0), QPointF(100, 100), QPointF(0, 100)};
  * ContourRenderElement* contour = new ContourRenderElement("病灶轮廓", points);
- * 
+ *
  * // 添加到场景
  * scene->addItem(contour);
- * 
+ *
  * // 添加新的轮廓点
  * contour->addPoint(QPointF(50, 50));
- * 
+ *
  * // 获取轮廓面积
  * float area = contour->getArea();
- * 
+ *
  * // 获取轮廓周长
  * float perimeter = contour->getPerimeter();
  * @endcode
  */
-class ContourRenderElement :public QGraphicsPolygonItem, public RenderElement
+class ContourRenderElement :public QObject,public RenderElement,public QGraphicsPolygonItem
 {
+    Q_OBJECT
 public:
     /**
      * @brief   构造函数（仅名称）
@@ -264,4 +265,8 @@ private:
     
     /** @brief 文本标签项，显示轮廓面积、周长或名称 */
     QGraphicsTextItem* m_pTextItem = nullptr;
+signals:
+    void sendPerimeter(float Perimeter);
+    void sendArea(float Area);
+
 };

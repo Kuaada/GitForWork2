@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_PathologyViewer_t {
-    QByteArrayData data[40];
-    char stringdata0[478];
+    QByteArrayData data[47];
+    char stringdata0[574];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -50,43 +50,53 @@ QT_MOC_LITERAL(14, 146, 8), // "mppTrans"
 QT_MOC_LITERAL(15, 155, 3), // "num"
 QT_MOC_LITERAL(16, 159, 10), // "fpsUpdated"
 QT_MOC_LITERAL(17, 170, 3), // "fps"
-QT_MOC_LITERAL(18, 174, 6), // "moveTo"
-QT_MOC_LITERAL(19, 181, 3), // "pos"
-QT_MOC_LITERAL(20, 185, 20), // "onFieldOfViewChanged"
-QT_MOC_LITERAL(21, 206, 24), // "onForegroundImageChanged"
-QT_MOC_LITERAL(22, 231, 35), // "std::weak_ptr<MultiResolution..."
-QT_MOC_LITERAL(23, 267, 7), // "for_img"
-QT_MOC_LITERAL(24, 275, 5), // "scale"
-QT_MOC_LITERAL(25, 281, 18), // "setFileWidgetState"
-QT_MOC_LITERAL(26, 300, 5), // "state"
-QT_MOC_LITERAL(27, 306, 17), // "setMiniMapVisible"
-QT_MOC_LITERAL(28, 324, 15), // "setCoverageArea"
-QT_MOC_LITERAL(29, 340, 11), // "setScaleBar"
-QT_MOC_LITERAL(30, 352, 10), // "updateSnap"
-QT_MOC_LITERAL(31, 363, 18), // "setLabelMapVisible"
-QT_MOC_LITERAL(32, 382, 16), // "setDetailVisible"
-QT_MOC_LITERAL(33, 399, 13), // "setChangedMpp"
-QT_MOC_LITERAL(34, 413, 3), // "mpp"
-QT_MOC_LITERAL(35, 417, 11), // "scalingTime"
-QT_MOC_LITERAL(36, 429, 1), // "x"
-QT_MOC_LITERAL(37, 431, 12), // "zoomFinished"
-QT_MOC_LITERAL(38, 444, 23), // "onActionDeleteSelection"
-QT_MOC_LITERAL(39, 468, 9) // "updateFPS"
+QT_MOC_LITERAL(18, 174, 16), // "perimeterUpdated"
+QT_MOC_LITERAL(19, 191, 9), // "perimeter"
+QT_MOC_LITERAL(20, 201, 23), // "areaAndPerimeterUpdated"
+QT_MOC_LITERAL(21, 225, 4), // "Area"
+QT_MOC_LITERAL(22, 230, 6), // "moveTo"
+QT_MOC_LITERAL(23, 237, 3), // "pos"
+QT_MOC_LITERAL(24, 241, 20), // "onFieldOfViewChanged"
+QT_MOC_LITERAL(25, 262, 24), // "onForegroundImageChanged"
+QT_MOC_LITERAL(26, 287, 35), // "std::weak_ptr<MultiResolution..."
+QT_MOC_LITERAL(27, 323, 7), // "for_img"
+QT_MOC_LITERAL(28, 331, 5), // "scale"
+QT_MOC_LITERAL(29, 337, 18), // "setFileWidgetState"
+QT_MOC_LITERAL(30, 356, 5), // "state"
+QT_MOC_LITERAL(31, 362, 17), // "setMiniMapVisible"
+QT_MOC_LITERAL(32, 380, 15), // "setCoverageArea"
+QT_MOC_LITERAL(33, 396, 11), // "setScaleBar"
+QT_MOC_LITERAL(34, 408, 10), // "updateSnap"
+QT_MOC_LITERAL(35, 419, 18), // "setLabelMapVisible"
+QT_MOC_LITERAL(36, 438, 16), // "setDetailVisible"
+QT_MOC_LITERAL(37, 455, 13), // "setChangedMpp"
+QT_MOC_LITERAL(38, 469, 3), // "mpp"
+QT_MOC_LITERAL(39, 473, 23), // "onActionDeleteSelection"
+QT_MOC_LITERAL(40, 497, 11), // "scalingTime"
+QT_MOC_LITERAL(41, 509, 1), // "x"
+QT_MOC_LITERAL(42, 511, 12), // "zoomFinished"
+QT_MOC_LITERAL(43, 524, 19), // "handleItemSelection"
+QT_MOC_LITERAL(44, 544, 14), // "QGraphicsItem*"
+QT_MOC_LITERAL(45, 559, 4), // "item"
+QT_MOC_LITERAL(46, 564, 9) // "updateFPS"
 
     },
     "PathologyViewer\0fieldOfViewChanged\0\0"
     "FOV\0level\0updateBBox\0backgroundChannelChanged\0"
     "channelNr\0rightClicked\0viewShow\0pix\0"
     "factorTrans\0factor\0initOver\0mppTrans\0"
-    "num\0fpsUpdated\0fps\0moveTo\0pos\0"
-    "onFieldOfViewChanged\0onForegroundImageChanged\0"
+    "num\0fpsUpdated\0fps\0perimeterUpdated\0"
+    "perimeter\0areaAndPerimeterUpdated\0"
+    "Area\0moveTo\0pos\0onFieldOfViewChanged\0"
+    "onForegroundImageChanged\0"
     "std::weak_ptr<MultiResolutionImage>\0"
     "for_img\0scale\0setFileWidgetState\0state\0"
     "setMiniMapVisible\0setCoverageArea\0"
     "setScaleBar\0updateSnap\0setLabelMapVisible\0"
     "setDetailVisible\0setChangedMpp\0mpp\0"
-    "scalingTime\0x\0zoomFinished\0"
-    "onActionDeleteSelection\0updateFPS"
+    "onActionDeleteSelection\0scalingTime\0"
+    "x\0zoomFinished\0handleItemSelection\0"
+    "QGraphicsItem*\0item\0updateFPS"
 };
 #undef QT_MOC_LITERAL
 
@@ -96,40 +106,43 @@ static const uint qt_meta_data_PathologyViewer[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      24,   14, // methods
+      27,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       9,       // signalCount
+      11,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,  134,    2, 0x06 /* Public */,
-       5,    1,  139,    2, 0x06 /* Public */,
-       6,    1,  142,    2, 0x06 /* Public */,
-       8,    0,  145,    2, 0x06 /* Public */,
-       9,    1,  146,    2, 0x06 /* Public */,
-      11,    1,  149,    2, 0x06 /* Public */,
-      13,    0,  152,    2, 0x06 /* Public */,
-      14,    1,  153,    2, 0x06 /* Public */,
-      16,    1,  156,    2, 0x06 /* Public */,
+       1,    2,  149,    2, 0x06 /* Public */,
+       5,    1,  154,    2, 0x06 /* Public */,
+       6,    1,  157,    2, 0x06 /* Public */,
+       8,    0,  160,    2, 0x06 /* Public */,
+       9,    1,  161,    2, 0x06 /* Public */,
+      11,    1,  164,    2, 0x06 /* Public */,
+      13,    0,  167,    2, 0x06 /* Public */,
+      14,    1,  168,    2, 0x06 /* Public */,
+      16,    1,  171,    2, 0x06 /* Public */,
+      18,    1,  174,    2, 0x06 /* Public */,
+      20,    2,  177,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      18,    1,  159,    2, 0x0a /* Public */,
-      20,    2,  162,    2, 0x0a /* Public */,
-      21,    2,  167,    2, 0x0a /* Public */,
-      25,    1,  172,    2, 0x0a /* Public */,
-      27,    1,  175,    2, 0x0a /* Public */,
-      28,    1,  178,    2, 0x0a /* Public */,
-      29,    1,  181,    2, 0x0a /* Public */,
-      30,    0,  184,    2, 0x0a /* Public */,
-      31,    0,  185,    2, 0x0a /* Public */,
-      32,    0,  186,    2, 0x0a /* Public */,
-      33,    1,  187,    2, 0x0a /* Public */,
-      35,    1,  190,    2, 0x08 /* Private */,
-      37,    0,  193,    2, 0x08 /* Private */,
-      38,    0,  194,    2, 0x08 /* Private */,
-      39,    0,  195,    2, 0x08 /* Private */,
+      22,    1,  182,    2, 0x0a /* Public */,
+      24,    2,  185,    2, 0x0a /* Public */,
+      25,    2,  190,    2, 0x0a /* Public */,
+      29,    1,  195,    2, 0x0a /* Public */,
+      31,    1,  198,    2, 0x0a /* Public */,
+      32,    1,  201,    2, 0x0a /* Public */,
+      33,    1,  204,    2, 0x0a /* Public */,
+      34,    0,  207,    2, 0x0a /* Public */,
+      35,    0,  208,    2, 0x0a /* Public */,
+      36,    0,  209,    2, 0x0a /* Public */,
+      37,    1,  210,    2, 0x0a /* Public */,
+      39,    0,  213,    2, 0x0a /* Public */,
+      40,    1,  214,    2, 0x08 /* Private */,
+      42,    0,  217,    2, 0x08 /* Private */,
+      43,    1,  218,    2, 0x08 /* Private */,
+      46,    0,  221,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QRectF, QMetaType::UInt,    3,    4,
@@ -141,22 +154,25 @@ static const uint qt_meta_data_PathologyViewer[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Float,   15,
     QMetaType::Void, QMetaType::Int,   17,
+    QMetaType::Void, QMetaType::Float,   19,
+    QMetaType::Void, QMetaType::Float, QMetaType::Float,   19,   21,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QPointF,   19,
+    QMetaType::Void, QMetaType::QPointF,   23,
     QMetaType::Void, QMetaType::QRectF, QMetaType::UInt,    3,    4,
-    QMetaType::Void, 0x80000000 | 22, QMetaType::Float,   23,   24,
-    QMetaType::Void, QMetaType::Bool,   26,
-    QMetaType::Void, QMetaType::Bool,   26,
-    QMetaType::Void, QMetaType::Bool,   26,
-    QMetaType::Void, QMetaType::Bool,   26,
+    QMetaType::Void, 0x80000000 | 26, QMetaType::Float,   27,   28,
+    QMetaType::Void, QMetaType::Bool,   30,
+    QMetaType::Void, QMetaType::Bool,   30,
+    QMetaType::Void, QMetaType::Bool,   30,
+    QMetaType::Void, QMetaType::Bool,   30,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Float,   34,
-    QMetaType::Void, QMetaType::QReal,   36,
+    QMetaType::Void, QMetaType::Float,   38,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QReal,   41,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 44,   45,
     QMetaType::Void,
 
        0        // eod
@@ -177,21 +193,24 @@ void PathologyViewer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 6: _t->initOver(); break;
         case 7: _t->mppTrans((*reinterpret_cast< float(*)>(_a[1]))); break;
         case 8: _t->fpsUpdated((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: _t->moveTo((*reinterpret_cast< const QPointF(*)>(_a[1]))); break;
-        case 10: _t->onFieldOfViewChanged((*reinterpret_cast< const QRectF(*)>(_a[1])),(*reinterpret_cast< const uint(*)>(_a[2]))); break;
-        case 11: _t->onForegroundImageChanged((*reinterpret_cast< std::weak_ptr<MultiResolutionImage>(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2]))); break;
-        case 12: _t->setFileWidgetState((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 13: _t->setMiniMapVisible((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 14: _t->setCoverageArea((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 15: _t->setScaleBar((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 16: _t->updateSnap(); break;
-        case 17: _t->setLabelMapVisible(); break;
-        case 18: _t->setDetailVisible(); break;
-        case 19: _t->setChangedMpp((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 20: _t->scalingTime((*reinterpret_cast< qreal(*)>(_a[1]))); break;
-        case 21: _t->zoomFinished(); break;
+        case 9: _t->perimeterUpdated((*reinterpret_cast< float(*)>(_a[1]))); break;
+        case 10: _t->areaAndPerimeterUpdated((*reinterpret_cast< float(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2]))); break;
+        case 11: _t->moveTo((*reinterpret_cast< const QPointF(*)>(_a[1]))); break;
+        case 12: _t->onFieldOfViewChanged((*reinterpret_cast< const QRectF(*)>(_a[1])),(*reinterpret_cast< const uint(*)>(_a[2]))); break;
+        case 13: _t->onForegroundImageChanged((*reinterpret_cast< std::weak_ptr<MultiResolutionImage>(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2]))); break;
+        case 14: _t->setFileWidgetState((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 15: _t->setMiniMapVisible((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 16: _t->setCoverageArea((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 17: _t->setScaleBar((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 18: _t->updateSnap(); break;
+        case 19: _t->setLabelMapVisible(); break;
+        case 20: _t->setDetailVisible(); break;
+        case 21: _t->setChangedMpp((*reinterpret_cast< float(*)>(_a[1]))); break;
         case 22: _t->onActionDeleteSelection(); break;
-        case 23: _t->updateFPS(); break;
+        case 23: _t->scalingTime((*reinterpret_cast< qreal(*)>(_a[1]))); break;
+        case 24: _t->zoomFinished(); break;
+        case 25: _t->handleItemSelection((*reinterpret_cast< QGraphicsItem*(*)>(_a[1]))); break;
+        case 26: _t->updateFPS(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -259,6 +278,20 @@ void PathologyViewer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
                 return;
             }
         }
+        {
+            using _t = void (PathologyViewer::*)(float );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&PathologyViewer::perimeterUpdated)) {
+                *result = 9;
+                return;
+            }
+        }
+        {
+            using _t = void (PathologyViewer::*)(float , float );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&PathologyViewer::areaAndPerimeterUpdated)) {
+                *result = 10;
+                return;
+            }
+        }
     }
 }
 
@@ -291,13 +324,13 @@ int PathologyViewer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 24)
+        if (_id < 27)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 24;
+        _id -= 27;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 24)
+        if (_id < 27)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 24;
+        _id -= 27;
     }
     return _id;
 }
@@ -361,6 +394,20 @@ void PathologyViewer::fpsUpdated(int _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 8, _a);
+}
+
+// SIGNAL 9
+void PathologyViewer::perimeterUpdated(float _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 9, _a);
+}
+
+// SIGNAL 10
+void PathologyViewer::areaAndPerimeterUpdated(float _t1, float _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
+    QMetaObject::activate(this, &staticMetaObject, 10, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE
