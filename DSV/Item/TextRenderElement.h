@@ -31,7 +31,11 @@
 #include"RenderElement.h"
 #include<QGraphicsTextItem>
 #include<QGraphicsScene>
+#include<QGraphicsView>
 #include <QKeyEvent>
+#include <QEvent>
+#include <QInputMethodEvent>
+#include <QFocusEvent>
 
 /**
  * @brief   文本渲染元素类
@@ -112,13 +116,8 @@ public:
      */
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override
     {
-        if (toPlainText() == QStringLiteral("双击输入内容"))
-        {
-            setPlainText(""); 
-        }
-        setTextInteractionFlags(Qt::TextEditable | Qt::TextSelectableByKeyboard);
-        setCursor(QCursor(Qt::ArrowCursor));
-        QGraphicsTextItem::mouseDoubleClickEvent(event);
+        // 双击事件现在主要由sceneEvent处理，这里只做基本处理
+        event->accept();
     }
     
     /**
@@ -132,12 +131,17 @@ public:
      */
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override
     {
-        //setTextInteractionFlags(Qt::NoTextInteraction);
-        if (textInteractionFlags() != Qt::NoTextInteraction &&
-            !boundingRect().contains(event->pos())) {
-            clearFocus();
+        // 鼠标按下事件现在主要由sceneEvent处理，这里只做基本处理
+        if (textInteractionFlags() != Qt::NoTextInteraction) {
+            // 在编辑模式下，只处理文本区域内的点击
+            if (isPointInTextArea(event->pos())) {
+                QGraphicsTextItem::mousePressEvent(event);
+            } else {
+                event->accept();
+            }
+        } else {
+            QGraphicsTextItem::mousePressEvent(event);
         }
-        QGraphicsTextItem::mousePressEvent(event);
     }
     
     /**
@@ -146,19 +150,10 @@ public:
      * @details 处理焦点失去事件：
      *          - 如果文本为空，则设置为默认提示文本
      *          - 禁用文本交互，退出编辑模式
-     * 
+     *
      * @note    该函数是QGraphicsTextItem虚函数的重写
      */
-    virtual void focusOutEvent(QFocusEvent* event)
-    {
-        QGraphicsTextItem::focusOutEvent(event);
-        if (toPlainText().isEmpty())
-        {
-            setPlainText(QStringLiteral("双击输入内容"));
-        }
-        //QGraphicsTextItem::focusOutEvent(event);
-        setTextInteractionFlags(Qt::NoTextInteraction);
-    }
+    virtual void focusOutEvent(QFocusEvent* event) override;
     
     /**
      * @brief   鼠标悬停进入事件
@@ -184,10 +179,42 @@ public:
      * @param   option      绘制选项
      * @param   widget      绘制目标窗口
      * @details 自定义绘制文本，提供更好的视觉效果
-     * 
+     *
      * @note    该函数是QGraphicsTextItem虚函数的重写
      */
     virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
+
+    /**
+     * @brief   检查点是否在有效的文本区域内
+     * @param   pos   本地坐标系中的点
+     * @return  如果点在有效区域内返回true
+     * @details 考虑到ItemIgnoresTransformations的影响，提供更精确的边界检测
+     */
+    bool isPointInTextArea(const QPointF& pos) const;
+
+    /**
+     * @brief   计算编辑模式下的最佳字体大小
+     * @return  适合当前缩放级别的字体大小
+     * @details 基于屏幕尺寸计算合适的字体大小，确保输入框大小合理
+     */
+    int calculateEditFontSize() const;
+
+    /**
+     * @brief   设置编辑模式的文本框大小
+     * @details 直接控制文本框的显示大小，使其相对于屏幕大小合理
+     */
+    void setupEditMode();
+
+protected:
+    /**
+     * @brief   场景事件处理
+     * @param   event   场景事件
+     * @details 重写场景事件处理，防止在ItemIgnoresTransformations模式下的坐标问题
+     */
+    bool sceneEvent(QEvent* event) override;
+
+private:
+
     
     /**
      * @brief   键盘按下事件
@@ -195,17 +222,15 @@ public:
      * @details 处理键盘按下事件：
      *          - 如果按下回车键，则清除焦点，确认输入
      *          - 其他按键按默认方式处理
-     * 
+     *
      * @note    该函数是QGraphicsTextItem虚函数的重写
      */
-    void keyPressEvent(QKeyEvent* event)
-    {
-        // 处理回车键确认输入
-        if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
-            clearFocus(); // 主动释放焦点
-            event->accept();
-            return;
-        }
-        QGraphicsTextItem::keyPressEvent(event);
-    }
+    void keyPressEvent(QKeyEvent* event) override;
+
+    /**
+     * @brief   输入法事件处理
+     * @param   event   输入法事件对象
+     * @details 处理输入法事件，防止输入时视角偏移
+     */
+    void inputMethodEvent(QInputMethodEvent* event) override;
 };
