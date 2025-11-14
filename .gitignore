@@ -7,6 +7,8 @@
 x64/
 DSV/x64/
 [Bb]in/
+!Env/bin/
+!Env/bin/**
 [Oo]bj/
 [Bb]uild/
 ipch/
