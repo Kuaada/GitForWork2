@@ -1,19 +1,19 @@
-/**
+ï»¿/**
  * @file    MultiResolutionImage.h
- * @brief   ¶à·Ö±æÂÊÍ¼Ïñ³éÏó»ùÀà£¬Ìá¹©¶à²ã¼¶Í¼ÏñÊı¾İµÄ·ÃÎÊ½Ó¿Ú
+ * @brief   å¤šåˆ†è¾¨ç‡å›¾åƒæŠ½è±¡åŸºç±»ï¼Œæä¾›å¤šå±‚çº§å›¾åƒæ•°æ®çš„è®¿é—®æ¥å£
  * @author  [JianZhang] ([])
  * @date    2025-05-19
  * @version 1.0.0
- * @details ¸ÃÀàÊµÏÖÁË¶à·Ö±æÂÊÍ¼ÏñµÄºËĞÄ¹¦ÄÜ£¬°üÀ¨£º
- *          - ¶à²ã¼¶Í¼ÏñÊı¾İµÄ´æ´¢ºÍ¹ÜÀí
- *          - ÍßÆ¬»º´æ»úÖÆºÍÄÚ´æ¹ÜÀí
- *          - Ïß³Ì°²È«µÄÊı¾İ·ÃÎÊ
- *          - Í¼ÏñÔªÊı¾İºÍÊôĞÔ¹ÜÀí
- *          - ZÆ½ÃæºÍÍ¨µÀÖ§³Ö
- *          ¸ÃÀàÊÇDSVÏîÄ¿ÖĞÍ¼Ïñ´¦ÀíµÄºËĞÄ³éÏó²ã£¬Îª²»Í¬µÄÍ¼Ïñ¸ñÊ½
- *          Ìá¹©Í³Ò»µÄ½Ó¿Ú£¬Ö§³Ö¸ßĞ§µÄÍ¼ÏñÊı¾İ·ÃÎÊºÍ´¦Àí¡£
+ * @details è¯¥ç±»å®ç°äº†å¤šåˆ†è¾¨ç‡å›¾åƒçš„æ ¸å¿ƒåŠŸèƒ½ï¼ŒåŒ…æ‹¬ï¼š
+ *          - å¤šå±‚çº§å›¾åƒæ•°æ®çš„å­˜å‚¨å’Œç®¡ç†
+ *          - ç“¦ç‰‡ç¼“å­˜æœºåˆ¶å’Œå†…å­˜ç®¡ç†
+ *          - çº¿ç¨‹å®‰å…¨çš„æ•°æ®è®¿é—®
+ *          - å›¾åƒå…ƒæ•°æ®å’Œå±æ€§ç®¡ç†
+ *          - Zå¹³é¢å’Œé€šé“æ”¯æŒ
+ *          è¯¥ç±»æ˜¯DSVé¡¹ç›®ä¸­å›¾åƒå¤„ç†çš„æ ¸å¿ƒæŠ½è±¡å±‚ï¼Œä¸ºä¸åŒçš„å›¾åƒæ ¼å¼
+ *          æä¾›ç»Ÿä¸€çš„æ¥å£ï¼Œæ”¯æŒé«˜æ•ˆçš„å›¾åƒæ•°æ®è®¿é—®å’Œå¤„ç†ã€‚
  *
- * @note    ¸ÃÀàÊÇÏß³Ì°²È«µÄ£¬Ö§³Ö¶àÏß³Ì²¢·¢·ÃÎÊ
+ * @note    è¯¥ç±»æ˜¯çº¿ç¨‹å®‰å…¨çš„ï¼Œæ”¯æŒå¤šçº¿ç¨‹å¹¶å‘è®¿é—®
  * @see     ImageSource, OpenSlideImage, TileCache, Patch
  */
 
@@ -28,26 +28,26 @@
 
  /**
   * @class  MultiResolutionImage
-  * @brief  ¶à·Ö±æÂÊÍ¼Ïñ³éÏó»ùÀà£¬Ìá¹©¶à²ã¼¶Í¼ÏñÊı¾İµÄ·ÃÎÊ½Ó¿Ú
-  * @details ¸ÃÀàÊÇDSVÏîÄ¿ÖĞÍ¼Ïñ´¦ÀíµÄºËĞÄ³éÏó²ã£¬¼Ì³Ğ×ÔImageSource£¬
-  *          Îª²»Í¬µÄÍ¼Ïñ¸ñÊ½Ìá¹©Í³Ò»µÄ½Ó¿Ú¡£Ö§³Ö¶à·Ö±æÂÊ²ã¼¶¡¢ZÆ½Ãæ¡¢
-  *          ¶àÍ¨µÀµÈ¸ß¼¶¹¦ÄÜ£¬²¢Ìá¹©Ïß³Ì°²È«µÄÊı¾İ·ÃÎÊ»úÖÆ¡£
+  * @brief  å¤šåˆ†è¾¨ç‡å›¾åƒæŠ½è±¡åŸºç±»ï¼Œæä¾›å¤šå±‚çº§å›¾åƒæ•°æ®çš„è®¿é—®æ¥å£
+  * @details è¯¥ç±»æ˜¯DSVé¡¹ç›®ä¸­å›¾åƒå¤„ç†çš„æ ¸å¿ƒæŠ½è±¡å±‚ï¼Œç»§æ‰¿è‡ªImageSourceï¼Œ
+  *          ä¸ºä¸åŒçš„å›¾åƒæ ¼å¼æä¾›ç»Ÿä¸€çš„æ¥å£ã€‚æ”¯æŒå¤šåˆ†è¾¨ç‡å±‚çº§ã€Zå¹³é¢ã€
+  *          å¤šé€šé“ç­‰é«˜çº§åŠŸèƒ½ï¼Œå¹¶æä¾›çº¿ç¨‹å®‰å…¨çš„æ•°æ®è®¿é—®æœºåˆ¶ã€‚
   *
-  *          Ö÷Òª¹¦ÄÜ°üÀ¨£º
-  *          - ¶à²ã¼¶Í¼ÏñÊı¾İµÄ´æ´¢ºÍ·ÃÎÊ
-  *          - ÖÇÄÜ»º´æ»úÖÆ£¬Ìá¸ßÊı¾İ·ÃÎÊĞ§ÂÊ
-  *          - Ïß³Ì°²È«µÄÊı¾İ¶ÁĞ´²Ù×÷
-  *          - Í¼ÏñÔªÊı¾İºÍÊôĞÔ¹ÜÀí
-  *          - Ö§³Ö²»Í¬Êı¾İÀàĞÍµÄÍ¼ÏñÊı¾İ
+  *          ä¸»è¦åŠŸèƒ½åŒ…æ‹¬ï¼š
+  *          - å¤šå±‚çº§å›¾åƒæ•°æ®çš„å­˜å‚¨å’Œè®¿é—®
+  *          - æ™ºèƒ½ç¼“å­˜æœºåˆ¶ï¼Œæé«˜æ•°æ®è®¿é—®æ•ˆç‡
+  *          - çº¿ç¨‹å®‰å…¨çš„æ•°æ®è¯»å†™æ“ä½œ
+  *          - å›¾åƒå…ƒæ•°æ®å’Œå±æ€§ç®¡ç†
+  *          - æ”¯æŒä¸åŒæ•°æ®ç±»å‹çš„å›¾åƒæ•°æ®
   *
-  * @note   ¸ÃÀàÊÇ³éÏó»ùÀà£¬²»ÄÜÖ±½ÓÊµÀı»¯£¬ĞèÒªÅÉÉúÀàÊµÏÖ¾ßÌå¹¦ÄÜ
+  * @note   è¯¥ç±»æ˜¯æŠ½è±¡åŸºç±»ï¼Œä¸èƒ½ç›´æ¥å®ä¾‹åŒ–ï¼Œéœ€è¦æ´¾ç”Ÿç±»å®ç°å…·ä½“åŠŸèƒ½
   * @example
-  *          // Ê¹ÓÃÊ¾Àı
+  *          // ä½¿ç”¨ç¤ºä¾‹
   *          std::shared_ptr<MultiResolutionImage> img = std::make_shared<OpenSlideImage>();
   *          if (img->initialize("path/to/image.svs")) {
   *              auto dimensions = img->getDimensions();
   *              auto levels = img->getNumberOfLevels();
-  *              // »ñÈ¡Í¼ÏñÊı¾İ
+  *              // è·å–å›¾åƒæ•°æ®
   *              unsigned char* data = new unsigned char[width * height * 3];
   *              img->getRawRegion<unsigned char>(0, 0, width, height, 0, data);
   *          }
@@ -57,209 +57,209 @@ class MultiResolutionImage : public ImageSource
 {
 public:
     /**
-     * @brief   Ä¬ÈÏ¹¹Ôìº¯Êı
-     * @details ³õÊ¼»¯¶à·Ö±æÂÊÍ¼Ïñ¶ÔÏó£¬ÉèÖÃÄ¬ÈÏ×´Ì¬ºÍ³ÉÔ±±äÁ¿
+     * @brief   é»˜è®¤æ„é€ å‡½æ•°
+     * @details åˆå§‹åŒ–å¤šåˆ†è¾¨ç‡å›¾åƒå¯¹è±¡ï¼Œè®¾ç½®é»˜è®¤çŠ¶æ€å’Œæˆå‘˜å˜é‡
      */
     MultiResolutionImage();
 
     /**
-     * @brief   ĞéÎö¹¹º¯Êı
-     * @details È·±£ÅÉÉúÀà¶ÔÏóÄÜ¹»ÕıÈ·ÊÍ·Å×ÊÔ´£¬°üÀ¨»º´æºÍ»¥³âËø
+     * @brief   è™šææ„å‡½æ•°
+     * @details ç¡®ä¿æ´¾ç”Ÿç±»å¯¹è±¡èƒ½å¤Ÿæ­£ç¡®é‡Šæ”¾èµ„æºï¼ŒåŒ…æ‹¬ç¼“å­˜å’Œäº’æ–¥é”
      */
     virtual ~MultiResolutionImage();
 
     /**
-     * @brief   ¿ËÂ¡Í¼Ïñ¶ÔÏó
-     * @details ´´½¨µ±Ç°Í¼Ïñ¶ÔÏóµÄÉî¿½±´£¬°üÀ¨ËùÓĞÊı¾İºÍ×´Ì¬
+     * @brief   å…‹éš†å›¾åƒå¯¹è±¡
+     * @details åˆ›å»ºå½“å‰å›¾åƒå¯¹è±¡çš„æ·±æ‹·è´ï¼ŒåŒ…æ‹¬æ‰€æœ‰æ•°æ®å’ŒçŠ¶æ€
      *
-     * @return  ĞÂ´´½¨µÄÍ¼Ïñ¶ÔÏóÖ¸Õë£¬µ÷ÓÃÕß¸ºÔğÊÍ·ÅÄÚ´æ
-     * @note    ¸Ãº¯ÊıÊÇĞéº¯Êı£¬ÅÉÉúÀà¿ÉÒÔÖØĞ´ÒÔÊµÏÖÌØ¶¨µÄ¿ËÂ¡Âß¼­
+     * @return  æ–°åˆ›å»ºçš„å›¾åƒå¯¹è±¡æŒ‡é’ˆï¼Œè°ƒç”¨è€…è´Ÿè´£é‡Šæ”¾å†…å­˜
+     * @note    è¯¥å‡½æ•°æ˜¯è™šå‡½æ•°ï¼Œæ´¾ç”Ÿç±»å¯ä»¥é‡å†™ä»¥å®ç°ç‰¹å®šçš„å…‹éš†é€»è¾‘
      */
     ImageSource* clone();
 
     /**
-     * @brief   ³õÊ¼»¯Í¼ÏñÎÄ¼ş
-     * @details ¸ù¾İÎÄ¼şÂ·¾¶³õÊ¼»¯Í¼Ïñ£¬µ÷ÓÃ¾ßÌåµÄÅÉÉúÀàÊµÏÖ
+     * @brief   åˆå§‹åŒ–å›¾åƒæ–‡ä»¶
+     * @details æ ¹æ®æ–‡ä»¶è·¯å¾„åˆå§‹åŒ–å›¾åƒï¼Œè°ƒç”¨å…·ä½“çš„æ´¾ç”Ÿç±»å®ç°
      *
-     * @param   imagePath Í¼ÏñÎÄ¼şÂ·¾¶
-     * @return  true±íÊ¾³õÊ¼»¯³É¹¦£¬false±íÊ¾Ê§°Ü
-     * @note    ¸Ãº¯Êı»áµ÷ÓÃinitializeTypeĞéº¯Êı½øĞĞ¾ßÌåµÄ³õÊ¼»¯
+     * @param   imagePath å›¾åƒæ–‡ä»¶è·¯å¾„
+     * @return  trueè¡¨ç¤ºåˆå§‹åŒ–æˆåŠŸï¼Œfalseè¡¨ç¤ºå¤±è´¥
+     * @note    è¯¥å‡½æ•°ä¼šè°ƒç”¨initializeTypeè™šå‡½æ•°è¿›è¡Œå…·ä½“çš„åˆå§‹åŒ–
      * @see     initializeType
      */
     bool initialize(const std::string& imagePath);
 
     /**
-     * @brief   ³õÊ¼»¯Í¼ÏñÀàĞÍ£¨´¿Ğéº¯Êı£©
-     * @details ÓÉÅÉÉúÀàÊµÏÖµÄÍ¼ÏñÀàĞÍÌØ¶¨³õÊ¼»¯º¯Êı
+     * @brief   åˆå§‹åŒ–å›¾åƒç±»å‹ï¼ˆçº¯è™šå‡½æ•°ï¼‰
+     * @details ç”±æ´¾ç”Ÿç±»å®ç°çš„å›¾åƒç±»å‹ç‰¹å®šåˆå§‹åŒ–å‡½æ•°
      *
-     * @param   imagePath Í¼ÏñÎÄ¼şÂ·¾¶
-     * @return  true±íÊ¾³õÊ¼»¯³É¹¦£¬false±íÊ¾Ê§°Ü
-     * @note    ¸Ãº¯ÊıÊÇ´¿Ğéº¯Êı£¬±ØĞëÓÉÅÉÉúÀàÊµÏÖ
+     * @param   imagePath å›¾åƒæ–‡ä»¶è·¯å¾„
+     * @return  trueè¡¨ç¤ºåˆå§‹åŒ–æˆåŠŸï¼Œfalseè¡¨ç¤ºå¤±è´¥
+     * @note    è¯¥å‡½æ•°æ˜¯çº¯è™šå‡½æ•°ï¼Œå¿…é¡»ç”±æ´¾ç”Ÿç±»å®ç°
      * @see     OpenSlideImage::initializeType
      */
     virtual bool initializeType(const std::string& imagePath) = 0;
 
     /**
-     * @brief   »ñÈ¡ZÆ½ÃæÊıÁ¿
-     * @details »ñÈ¡Í¼ÏñÖĞZÆ½Ãæ£¨Éî¶È²ã£©µÄÊıÁ¿
+     * @brief   è·å–Zå¹³é¢æ•°é‡
+     * @details è·å–å›¾åƒä¸­Zå¹³é¢ï¼ˆæ·±åº¦å±‚ï¼‰çš„æ•°é‡
      *
-     * @return  ZÆ½ÃæÊıÁ¿£¬Í¨³£Îª1£¨2DÍ¼Ïñ£©
+     * @return  Zå¹³é¢æ•°é‡ï¼Œé€šå¸¸ä¸º1ï¼ˆ2Då›¾åƒï¼‰
      */
     int getNumberOfZPlanes() const;
 
     /**
-     * @brief   ÉèÖÃµ±Ç°ZÆ½ÃæË÷Òı
-     * @details ÉèÖÃµ±Ç°Òª·ÃÎÊµÄZÆ½ÃæË÷Òı
+     * @brief   è®¾ç½®å½“å‰Zå¹³é¢ç´¢å¼•
+     * @details è®¾ç½®å½“å‰è¦è®¿é—®çš„Zå¹³é¢ç´¢å¼•
      *
-     * @param   zPlaneIndex ZÆ½ÃæË÷Òı
-     * @note    Ë÷Òı±ØĞëÔÚÓĞĞ§·¶Î§ÄÚ£¨0µ½getNumberOfZPlanes()-1£©
+     * @param   zPlaneIndex Zå¹³é¢ç´¢å¼•
+     * @note    ç´¢å¼•å¿…é¡»åœ¨æœ‰æ•ˆèŒƒå›´å†…ï¼ˆ0åˆ°getNumberOfZPlanes()-1ï¼‰
      */
     void setCurrentZPlaneIndex(const unsigned int& zPlaneIndex);
 
     /**
-     * @brief   »ñÈ¡µ±Ç°ZÆ½ÃæË÷Òı
-     * @details »ñÈ¡µ±Ç°ÕıÔÚ·ÃÎÊµÄZÆ½ÃæË÷Òı
+     * @brief   è·å–å½“å‰Zå¹³é¢ç´¢å¼•
+     * @details è·å–å½“å‰æ­£åœ¨è®¿é—®çš„Zå¹³é¢ç´¢å¼•
      *
-     * @return  µ±Ç°ZÆ½ÃæË÷Òı
+     * @return  å½“å‰Zå¹³é¢ç´¢å¼•
      */
     unsigned int getCurrentZPlaneIndex() const;
 
     /**
-     * @brief   »ñÈ¡Í¼ÏñÊôĞÔ
-     * @details »ñÈ¡Í¼ÏñµÄÔªÊı¾İÊôĞÔ£¬Èç·Å´ó±¶Êı¡¢É¨ÃèÒÇĞÅÏ¢µÈ
+     * @brief   è·å–å›¾åƒå±æ€§
+     * @details è·å–å›¾åƒçš„å…ƒæ•°æ®å±æ€§ï¼Œå¦‚æ”¾å¤§å€æ•°ã€æ‰«æä»ªä¿¡æ¯ç­‰
      *
-     * @param   propertyName ÊôĞÔÃû³Æ
-     * @return  ÊôĞÔÖµ×Ö·û´®£¬Èç¹ûÊôĞÔ²»´æÔÚÔò·µ»Ø¿Õ×Ö·û´®
-     * @note    ¸Ãº¯ÊıÊÇĞéº¯Êı£¬ÅÉÉúÀà¿ÉÒÔÖØĞ´ÒÔÌá¹©ÌØ¶¨µÄÊôĞÔ·ÃÎÊ
+     * @param   propertyName å±æ€§åç§°
+     * @return  å±æ€§å€¼å­—ç¬¦ä¸²ï¼Œå¦‚æœå±æ€§ä¸å­˜åœ¨åˆ™è¿”å›ç©ºå­—ç¬¦ä¸²
+     * @note    è¯¥å‡½æ•°æ˜¯è™šå‡½æ•°ï¼Œæ´¾ç”Ÿç±»å¯ä»¥é‡å†™ä»¥æä¾›ç‰¹å®šçš„å±æ€§è®¿é—®
      */
     virtual std::string getProperty(const std::string& propertyName) { return std::string(); };
 
     /**
-     * @brief   »ñÈ¡»º´æ´óĞ¡
-     * @details »ñÈ¡µ±Ç°Í¼Ïñ»º´æµÄ´óĞ¡£¨×Ö½ÚÊı£©
+     * @brief   è·å–ç¼“å­˜å¤§å°
+     * @details è·å–å½“å‰å›¾åƒç¼“å­˜çš„å¤§å°ï¼ˆå­—èŠ‚æ•°ï¼‰
      *
-     * @return  »º´æ´óĞ¡£¨×Ö½Ú£©
+     * @return  ç¼“å­˜å¤§å°ï¼ˆå­—èŠ‚ï¼‰
      */
     virtual const unsigned long long getCacheSize();
 
     /**
-     * @brief   ÉèÖÃ»º´æ´óĞ¡
-     * @details ÉèÖÃÍ¼Ïñ»º´æµÄ×î´ó´óĞ¡£¬Ó°ÏìÄÚ´æÊ¹ÓÃºÍĞÔÄÜ
+     * @brief   è®¾ç½®ç¼“å­˜å¤§å°
+     * @details è®¾ç½®å›¾åƒç¼“å­˜çš„æœ€å¤§å¤§å°ï¼Œå½±å“å†…å­˜ä½¿ç”¨å’Œæ€§èƒ½
      *
-     * @param   cacheSize ĞÂµÄ»º´æ´óĞ¡£¨×Ö½Ú£©
-     * @note    ½Ï´óµÄ»º´æ¿ÉÒÔÌá¸ß·ÃÎÊËÙ¶È£¬µ«»áÔö¼ÓÄÚ´æÊ¹ÓÃ
+     * @param   cacheSize æ–°çš„ç¼“å­˜å¤§å°ï¼ˆå­—èŠ‚ï¼‰
+     * @note    è¾ƒå¤§çš„ç¼“å­˜å¯ä»¥æé«˜è®¿é—®é€Ÿåº¦ï¼Œä½†ä¼šå¢åŠ å†…å­˜ä½¿ç”¨
      */
     virtual void setCacheSize(const unsigned long long cacheSize);
 
     /**
-     * @brief   »ñÈ¡²ã¼¶ÊıÁ¿
-     * @details »ñÈ¡¶à·Ö±æÂÊÍ¼ÏñÖĞ²»Í¬Ëõ·Å¼¶±ğµÄÊıÁ¿
+     * @brief   è·å–å±‚çº§æ•°é‡
+     * @details è·å–å¤šåˆ†è¾¨ç‡å›¾åƒä¸­ä¸åŒç¼©æ”¾çº§åˆ«çš„æ•°é‡
      *
-     * @return  ²ã¼¶ÊıÁ¿
-     * @note    ²ã¼¶0Í¨³£ÊÇ×î¸ß·Ö±æÂÊ£¬²ã¼¶ÊıÔ½´ó·Ö±æÂÊÔ½µÍ
+     * @return  å±‚çº§æ•°é‡
+     * @note    å±‚çº§0é€šå¸¸æ˜¯æœ€é«˜åˆ†è¾¨ç‡ï¼Œå±‚çº§æ•°è¶Šå¤§åˆ†è¾¨ç‡è¶Šä½
      */
     virtual const int getNumberOfLevels() const;
 
     /**
-     * @brief   »ñÈ¡Í¼Ïñ³ß´ç
-     * @details »ñÈ¡Ô­Ê¼Í¼Ïñ£¨×î¸ß·Ö±æÂÊ£©µÄ³ß´çĞÅÏ¢
+     * @brief   è·å–å›¾åƒå°ºå¯¸
+     * @details è·å–åŸå§‹å›¾åƒï¼ˆæœ€é«˜åˆ†è¾¨ç‡ï¼‰çš„å°ºå¯¸ä¿¡æ¯
      *
-     * @return  °üº¬Í¼Ïñ³ß´çµÄÏòÁ¿£¬Í¨³£Îª[¿í¶È, ¸ß¶È]
-     * @note    ¸Ãº¯Êı¼Ì³Ğ×ÔImageSource
+     * @return  åŒ…å«å›¾åƒå°ºå¯¸çš„å‘é‡ï¼Œé€šå¸¸ä¸º[å®½åº¦, é«˜åº¦]
+     * @note    è¯¥å‡½æ•°ç»§æ‰¿è‡ªImageSource
      */
     virtual const std::vector<unsigned long long> getDimensions() const;
 
     /**
-     * @brief   »ñÈ¡Ö¸¶¨²ã¼¶µÄ³ß´ç
-     * @details »ñÈ¡Ö¸¶¨Ëõ·Å¼¶±ğµÄÍ¼Ïñ³ß´ç
+     * @brief   è·å–æŒ‡å®šå±‚çº§çš„å°ºå¯¸
+     * @details è·å–æŒ‡å®šç¼©æ”¾çº§åˆ«çš„å›¾åƒå°ºå¯¸
      *
-     * @param   level ²ã¼¶Ë÷Òı
-     * @return  Ö¸¶¨²ã¼¶µÄÍ¼Ïñ³ß´çÏòÁ¿
-     * @note    ²ã¼¶Ë÷Òı±ØĞëÔÚÓĞĞ§·¶Î§ÄÚ
+     * @param   level å±‚çº§ç´¢å¼•
+     * @return  æŒ‡å®šå±‚çº§çš„å›¾åƒå°ºå¯¸å‘é‡
+     * @note    å±‚çº§ç´¢å¼•å¿…é¡»åœ¨æœ‰æ•ˆèŒƒå›´å†…
      */
     virtual const std::vector<unsigned long long> getLevelDimensions(const unsigned int& level) const;
 
     /**
-     * @brief   »ñÈ¡²ã¼¶ÏÂ²ÉÑùÒò×Ó
-     * @details »ñÈ¡Ö¸¶¨²ã¼¶Ïà¶ÔÓÚÔ­Ê¼Í¼ÏñµÄÏÂ²ÉÑùÒò×Ó
+     * @brief   è·å–å±‚çº§ä¸‹é‡‡æ ·å› å­
+     * @details è·å–æŒ‡å®šå±‚çº§ç›¸å¯¹äºåŸå§‹å›¾åƒçš„ä¸‹é‡‡æ ·å› å­
      *
-     * @param   level ²ã¼¶Ë÷Òı
-     * @return  ÏÂ²ÉÑùÒò×Ó£¬±íÊ¾¸Ã²ã¼¶Ïà¶ÔÓÚÔ­Ê¼Í¼ÏñµÄËõ·Å±ÈÀı
-     * @note    ÏÂ²ÉÑùÒò×ÓÔ½´ó£¬Í¼Ïñ·Ö±æÂÊÔ½µÍ
+     * @param   level å±‚çº§ç´¢å¼•
+     * @return  ä¸‹é‡‡æ ·å› å­ï¼Œè¡¨ç¤ºè¯¥å±‚çº§ç›¸å¯¹äºåŸå§‹å›¾åƒçš„ç¼©æ”¾æ¯”ä¾‹
+     * @note    ä¸‹é‡‡æ ·å› å­è¶Šå¤§ï¼Œå›¾åƒåˆ†è¾¨ç‡è¶Šä½
      */
     virtual const double getLevelDownsample(const unsigned int& level) const;
 
     /**
-     * @brief   »ñÈ¡×î¼Ñ²ã¼¶
-     * @details ¸ù¾İÄ¿±êÏÂ²ÉÑùÒò×ÓÕÒµ½×îºÏÊÊµÄ²ã¼¶
+     * @brief   è·å–æœ€ä½³å±‚çº§
+     * @details æ ¹æ®ç›®æ ‡ä¸‹é‡‡æ ·å› å­æ‰¾åˆ°æœ€åˆé€‚çš„å±‚çº§
      *
-     * @param   downsample Ä¿±êÏÂ²ÉÑùÒò×Ó
-     * @return  ×î¼Ñ²ã¼¶µÄË÷Òı
-     * @note    ·µ»ØµÄ²ã¼¶µÄÏÂ²ÉÑùÒò×Ó×î½Ó½üµ«²»Ğ¡ÓÚÄ¿±êÖµ
+     * @param   downsample ç›®æ ‡ä¸‹é‡‡æ ·å› å­
+     * @return  æœ€ä½³å±‚çº§çš„ç´¢å¼•
+     * @note    è¿”å›çš„å±‚çº§çš„ä¸‹é‡‡æ ·å› å­æœ€æ¥è¿‘ä½†ä¸å°äºç›®æ ‡å€¼
      */
     virtual const int getBestLevelForDownSample(const double& downsample) const;
 
     /**
-     * @brief   »ñÈ¡Í¨µÀ×îĞ¡Öµ£¨´¿Ğéº¯Êı£©
-     * @details »ñÈ¡Ö¸¶¨Í¨µÀ»òËùÓĞÍ¨µÀµÄÊı¾İ×îĞ¡Öµ
+     * @brief   è·å–é€šé“æœ€å°å€¼ï¼ˆçº¯è™šå‡½æ•°ï¼‰
+     * @details è·å–æŒ‡å®šé€šé“æˆ–æ‰€æœ‰é€šé“çš„æ•°æ®æœ€å°å€¼
      *
-     * @param   channel Í¨µÀË÷Òı£¬-1±íÊ¾ËùÓĞÍ¨µÀ
-     * @return  Êı¾İ×îĞ¡Öµ
-     * @note    ¸Ãº¯ÊıÊÇ´¿Ğéº¯Êı£¬±ØĞëÓÉÅÉÉúÀàÊµÏÖ
+     * @param   channel é€šé“ç´¢å¼•ï¼Œ-1è¡¨ç¤ºæ‰€æœ‰é€šé“
+     * @return  æ•°æ®æœ€å°å€¼
+     * @note    è¯¥å‡½æ•°æ˜¯çº¯è™šå‡½æ•°ï¼Œå¿…é¡»ç”±æ´¾ç”Ÿç±»å®ç°
      */
     virtual double getMinValue(int channel = -1) = 0;
 
     /**
-     * @brief   »ñÈ¡Í¨µÀ×î´óÖµ£¨´¿Ğéº¯Êı£©
-     * @details »ñÈ¡Ö¸¶¨Í¨µÀ»òËùÓĞÍ¨µÀµÄÊı¾İ×î´óÖµ
+     * @brief   è·å–é€šé“æœ€å¤§å€¼ï¼ˆçº¯è™šå‡½æ•°ï¼‰
+     * @details è·å–æŒ‡å®šé€šé“æˆ–æ‰€æœ‰é€šé“çš„æ•°æ®æœ€å¤§å€¼
      *
-     * @param   channel Í¨µÀË÷Òı£¬-1±íÊ¾ËùÓĞÍ¨µÀ
-     * @return  Êı¾İ×î´óÖµ
-     * @note    ¸Ãº¯ÊıÊÇ´¿Ğéº¯Êı£¬±ØĞëÓÉÅÉÉúÀàÊµÏÖ
+     * @param   channel é€šé“ç´¢å¼•ï¼Œ-1è¡¨ç¤ºæ‰€æœ‰é€šé“
+     * @return  æ•°æ®æœ€å¤§å€¼
+     * @note    è¯¥å‡½æ•°æ˜¯çº¯è™šå‡½æ•°ï¼Œå¿…é¡»ç”±æ´¾ç”Ÿç±»å®ç°
      */
     virtual double getMaxValue(int channel = -1) = 0;
 
     /**
-     * @brief   »ñÈ¡ÎÄ¼şÀàĞÍ
-     * @details »ñÈ¡Í¼ÏñÎÄ¼şµÄ¸ñÊ½ÀàĞÍ
+     * @brief   è·å–æ–‡ä»¶ç±»å‹
+     * @details è·å–å›¾åƒæ–‡ä»¶çš„æ ¼å¼ç±»å‹
      *
-     * @return  ÎÄ¼şÀàĞÍ×Ö·û´®
+     * @return  æ–‡ä»¶ç±»å‹å­—ç¬¦ä¸²
      */
     const std::string getFileType() const;
 
     /**
-     * @brief   »ñÈ¡±êÇ©Í¼Ïñ£¨´¿Ğéº¯Êı£©
-     * @details »ñÈ¡Í¼ÏñµÄ±êÇ©»òËõÂÔÍ¼
+     * @brief   è·å–æ ‡ç­¾å›¾åƒï¼ˆçº¯è™šå‡½æ•°ï¼‰
+     * @details è·å–å›¾åƒçš„æ ‡ç­¾æˆ–ç¼©ç•¥å›¾
      *
-     * @return  QImage¸ñÊ½µÄ±êÇ©Í¼Ïñ
-     * @note    ¸Ãº¯ÊıÊÇ´¿Ğéº¯Êı£¬±ØĞëÓÉÅÉÉúÀàÊµÏÖ
+     * @return  QImageæ ¼å¼çš„æ ‡ç­¾å›¾åƒ
+     * @note    è¯¥å‡½æ•°æ˜¯çº¯è™šå‡½æ•°ï¼Œå¿…é¡»ç”±æ´¾ç”Ÿç±»å®ç°
      */
     virtual const QImage getLabel() = 0;
 
     /**
-     * @brief   »ñÈ¡Í¼ÏñÊôĞÔÁĞ±í£¨´¿Ğéº¯Êı£©
-     * @details »ñÈ¡Í¼ÏñµÄËùÓĞÔªÊı¾İÊôĞÔ
+     * @brief   è·å–å›¾åƒå±æ€§åˆ—è¡¨ï¼ˆçº¯è™šå‡½æ•°ï¼‰
+     * @details è·å–å›¾åƒçš„æ‰€æœ‰å…ƒæ•°æ®å±æ€§
      *
-     * @return  ÊôĞÔĞÅÏ¢ÏòÁ¿
-     * @note    ¸Ãº¯ÊıÊÇ´¿Ğéº¯Êı£¬±ØĞëÓÉÅÉÉúÀàÊµÏÖ
+     * @return  å±æ€§ä¿¡æ¯å‘é‡
+     * @note    è¯¥å‡½æ•°æ˜¯çº¯è™šå‡½æ•°ï¼Œå¿…é¡»ç”±æ´¾ç”Ÿç±»å®ç°
      */
     virtual const std::vector<SlideColorManagement::PropertyInfo> getProperties() = 0;
 
     /**
-     * @brief   »ñÈ¡Í¼Ïñ¿éÊı¾İ
-     * @details »ñÈ¡Ö¸¶¨ÇøÓòµÄÍ¼ÏñÊı¾İ£¬·µ»ØPatch¶ÔÏó
+     * @brief   è·å–å›¾åƒå—æ•°æ®
+     * @details è·å–æŒ‡å®šåŒºåŸŸçš„å›¾åƒæ•°æ®ï¼Œè¿”å›Patchå¯¹è±¡
      *
-     * @tparam  T Êı¾İÀàĞÍÄ£°å²ÎÊı
-     * @param   startX ÆğÊ¼X×ø±ê
-     * @param   startY ÆğÊ¼Y×ø±ê
-     * @param   width ÇøÓò¿í¶È
-     * @param   height ÇøÓò¸ß¶È
-     * @param   level ²ã¼¶Ë÷Òı
-     * @return  Patch<T>¶ÔÏó£¬°üº¬Í¼ÏñÊı¾İºÍÔªĞÅÏ¢
-     * @note    ¸Ãº¯Êı»á×Ô¶¯´¦ÀíÄÚ´æ·ÖÅäºÍÊı¾İ¿½±´
+     * @tparam  T æ•°æ®ç±»å‹æ¨¡æ¿å‚æ•°
+     * @param   startX èµ·å§‹Xåæ ‡
+     * @param   startY èµ·å§‹Yåæ ‡
+     * @param   width åŒºåŸŸå®½åº¦
+     * @param   height åŒºåŸŸé«˜åº¦
+     * @param   level å±‚çº§ç´¢å¼•
+     * @return  Patch<T>å¯¹è±¡ï¼ŒåŒ…å«å›¾åƒæ•°æ®å’Œå…ƒä¿¡æ¯
+     * @note    è¯¥å‡½æ•°ä¼šè‡ªåŠ¨å¤„ç†å†…å­˜åˆ†é…å’Œæ•°æ®æ‹·è´
      * @see     Patch, getRawRegion
      * @example
-     *          // Ê¹ÓÃÊ¾Àı
+     *          // ä½¿ç”¨ç¤ºä¾‹
      *          auto patch = img->getPatch<unsigned char>(0, 0, 512, 512, 0);
      *          auto data = patch.getData();
      *          auto dimensions = patch.getDimensions();
@@ -268,70 +268,70 @@ public:
     Patch<T> getPatch(const long long& startX, const long long& startY, const unsigned long long& width,
         const unsigned long long& height, const unsigned int& level)
     {
-        // ÉèÖÃÍ¼Ïñ¿éÎ¬¶È
+        // è®¾ç½®å›¾åƒå—ç»´åº¦
         std::vector<unsigned long long> dims(3, 0);
         dims[0] = width;
         dims[1] = height;
         dims[2] = _samplesPerPixel;
 
-        // ·ÖÅäÄÚ´æ²¢»ñÈ¡Ô­Ê¼Êı¾İ
+        // åˆ†é…å†…å­˜å¹¶è·å–åŸå§‹æ•°æ®
         T* data = new T[width * height * _samplesPerPixel];
         getRawRegion<T>(startX, startY, width, height, level, data);
 
-        // ¼ÆËãÍ¼Ïñ¿éµÄÎïÀí¼ä¾à
+        // è®¡ç®—å›¾åƒå—çš„ç‰©ç†é—´è·
         std::vector<double> patchSpacing(_spacing.size(), 1.0);
         double levelDownsample = this->getLevelDownsample(level);
         for (unsigned int i = 0; i < _spacing.size(); ++i) {
             patchSpacing[i] = _spacing[i] * levelDownsample;
         }
 
-        // »ñÈ¡Í¨µÀµÄ×îĞ¡ÖµºÍ×î´óÖµ
+        // è·å–é€šé“çš„æœ€å°å€¼å’Œæœ€å¤§å€¼
         std::vector<double> minValues, maxValues;
         for (unsigned int i = 0; i < this->getSamplesPerPixel(); ++i) {
             minValues.push_back(this->getMinValue(i));
             maxValues.push_back(this->getMaxValue(i));
         }
 
-        // ´´½¨²¢·µ»ØPatch¶ÔÏó
+        // åˆ›å»ºå¹¶è¿”å›Patchå¯¹è±¡
         Patch<T> patch = Patch<T>(dims, this->getColorType(), data, true, minValues, maxValues);
         patch.setSpacing(patchSpacing);
         return patch;
     }
 
     /**
-     * @brief   »ñÈ¡Ô­Ê¼Í¼ÏñÇøÓòÊı¾İ
-     * @details »ñÈ¡Ö¸¶¨ÇøÓòµÄÔ­Ê¼Í¼ÏñÊı¾İ£¬Ö§³Ö¶àÖÖÊı¾İÀàĞÍ¡£
-     *          ¸Ãº¯Êı»á¸ù¾İÍ¼ÏñµÄÊµ¼ÊÊı¾İÀàĞÍ½øĞĞÏàÓ¦µÄ×ª»»£¬
-     *          È·±£·µ»ØµÄÊı¾İ¸ñÊ½ÕıÈ·¡£×¢Òâ£¬¶ÔÓÚint32 ARGBÊı¾İ£¬
-     *          OpenSlideÊ¹ÓÃARGBÑÕÉ«Ë³Ğò£¬¶øWindowsÍ¨³£Ê¹ÓÃBGRA¡£
+     * @brief   è·å–åŸå§‹å›¾åƒåŒºåŸŸæ•°æ®
+     * @details è·å–æŒ‡å®šåŒºåŸŸçš„åŸå§‹å›¾åƒæ•°æ®ï¼Œæ”¯æŒå¤šç§æ•°æ®ç±»å‹ã€‚
+     *          è¯¥å‡½æ•°ä¼šæ ¹æ®å›¾åƒçš„å®é™…æ•°æ®ç±»å‹è¿›è¡Œç›¸åº”çš„è½¬æ¢ï¼Œ
+     *          ç¡®ä¿è¿”å›çš„æ•°æ®æ ¼å¼æ­£ç¡®ã€‚æ³¨æ„ï¼Œå¯¹äºint32 ARGBæ•°æ®ï¼Œ
+     *          OpenSlideä½¿ç”¨ARGBé¢œè‰²é¡ºåºï¼Œè€ŒWindowsé€šå¸¸ä½¿ç”¨BGRAã€‚
      *
-     * @tparam  T Ä¿±êÊı¾İÀàĞÍÄ£°å²ÎÊı
-     * @param   startX ÆğÊ¼X×ø±ê
-     * @param   startY ÆğÊ¼Y×ø±ê
-     * @param   width ÇøÓò¿í¶È
-     * @param   height ÇøÓò¸ß¶È
-     * @param   level ²ã¼¶Ë÷Òı
-     * @param   data Êä³öÊı¾İÖ¸Õë£¬µ÷ÓÃÕß¸ºÔğ·ÖÅä×ã¹»µÄÄÚ´æ
-     * @note    µ÷ÓÃÕß±ØĞëÈ·±£dataÖ¸ÕëÖ¸Ïò×ã¹»´óµÄÄÚ´æ¿Õ¼ä
+     * @tparam  T ç›®æ ‡æ•°æ®ç±»å‹æ¨¡æ¿å‚æ•°
+     * @param   startX èµ·å§‹Xåæ ‡
+     * @param   startY èµ·å§‹Yåæ ‡
+     * @param   width åŒºåŸŸå®½åº¦
+     * @param   height åŒºåŸŸé«˜åº¦
+     * @param   level å±‚çº§ç´¢å¼•
+     * @param   data è¾“å‡ºæ•°æ®æŒ‡é’ˆï¼Œè°ƒç”¨è€…è´Ÿè´£åˆ†é…è¶³å¤Ÿçš„å†…å­˜
+     * @note    è°ƒç”¨è€…å¿…é¡»ç¡®ä¿dataæŒ‡é’ˆæŒ‡å‘è¶³å¤Ÿå¤§çš„å†…å­˜ç©ºé—´
      * @see     readDataFromImage
      * @example
-     *          // Ê¹ÓÃÊ¾Àı
+     *          // ä½¿ç”¨ç¤ºä¾‹
      *          unsigned char* data = new unsigned char[width * height * 3];
      *          img->getRawRegion<unsigned char>(0, 0, width, height, 0, data);
-     *          // Ê¹ÓÃÊı¾İ...
+     *          // ä½¿ç”¨æ•°æ®...
      *          delete[] data;
      */
     template <typename T>
     void getRawRegion(const long long& startX, const long long& startY, const unsigned long long& width,
         const unsigned long long& height, const unsigned int& level, T*& data) {
-        // ¼ì²é²ã¼¶Ë÷ÒıÊÇ·ñÓĞĞ§
+        // æ£€æŸ¥å±‚çº§ç´¢å¼•æ˜¯å¦æœ‰æ•ˆ
         if (level >= getNumberOfLevels()) {
             return;
         }
 
         unsigned int nrSamples = getSamplesPerPixel();
 
-        // ¸ù¾İÍ¼ÏñÊı¾İÀàĞÍ½øĞĞÏàÓ¦µÄ´¦Àí
+        // æ ¹æ®å›¾åƒæ•°æ®ç±»å‹è¿›è¡Œç›¸åº”çš„å¤„ç†
         if (this->getDataType() == SlideColorManagement::DataType::Float) {
             float* temp = (float*)readDataFromImage(startX, startY, width, height, level);
             std::copy(temp, temp + width * height * nrSamples, data);
@@ -355,81 +355,81 @@ public:
     }
 
 protected:
-    // Ïß³Ì°²È«Ïà¹Ø³ÉÔ±
+    // çº¿ç¨‹å®‰å…¨ç›¸å…³æˆå‘˜
     /**
-     * @brief ÎÄ¼ş´ò¿ª/¹Ø±Õ»¥³âËø
-     * @details unique_ptrÊÇ¶ÀÕ¼ËùÓĞÈ¨µÄ£¬Í¬Ò»Ê±¼äÖ»ÄÜÓĞÒ»¸öunique_ptr
-     *          Ö¸Ïòstd::shared_mutex£¬È·±£¶àÏß³ÌÍ¬Ê±Ö»ÄÜÒÔÖ»¶Á·½Ê½·ÃÎÊ£¬
-     *          Ğ´²Ù×÷ĞèÒª¶ÀÕ¼·ÃÎÊ
+     * @brief æ–‡ä»¶æ‰“å¼€/å…³é—­äº’æ–¥é”
+     * @details unique_ptræ˜¯ç‹¬å æ‰€æœ‰æƒçš„ï¼ŒåŒä¸€æ—¶é—´åªèƒ½æœ‰ä¸€ä¸ªunique_ptr
+     *          æŒ‡å‘std::shared_mutexï¼Œç¡®ä¿å¤šçº¿ç¨‹åŒæ—¶åªèƒ½ä»¥åªè¯»æ–¹å¼è®¿é—®ï¼Œ
+     *          å†™æ“ä½œéœ€è¦ç‹¬å è®¿é—®
      */
     std::unique_ptr<std::shared_mutex> _openCloseMutex;
 
     /**
-     * @brief »º´æ»¥³âËø
-     * @details Ö¸ÏòmutexµÄunique_ptr£¬È·±£»º´æ²Ù×÷µÄÏß³Ì°²È«
+     * @brief ç¼“å­˜äº’æ–¥é”
+     * @details æŒ‡å‘mutexçš„unique_ptrï¼Œç¡®ä¿ç¼“å­˜æ“ä½œçš„çº¿ç¨‹å®‰å…¨
      */
     std::unique_ptr<std::mutex> m_cacheMutex;
 
     /**
-     * @brief »º´æ¶ÔÏó
-     * @details Ö¸ÏòÈÎÒâÀàĞÍµÄvoid*µÄshared_ptr£¬ÊµÏÖÒ»¸öÍ¨ÓÃµÄ»º´æ½Ó¿Ú£¬
-     *          Ö§³Ö¶àÏß³Ì¹²Ïí·ÃÎÊ»º´æ¶ÔÏó
+     * @brief ç¼“å­˜å¯¹è±¡
+     * @details æŒ‡å‘ä»»æ„ç±»å‹çš„void*çš„shared_ptrï¼Œå®ç°ä¸€ä¸ªé€šç”¨çš„ç¼“å­˜æ¥å£ï¼Œ
+     *          æ”¯æŒå¤šçº¿ç¨‹å…±äº«è®¿é—®ç¼“å­˜å¯¹è±¡
      */
     std::shared_ptr<void> m_cache;
 
-    // Í¼ÏñÊı¾İÏà¹Ø³ÉÔ±
-    /** @brief ¸÷²ã¼¶µÄÍ¼Ïñ³ß´ç£¬Ã¿¸öÔªËØ°üº¬[¿í¶È, ¸ß¶È] */
+    // å›¾åƒæ•°æ®ç›¸å…³æˆå‘˜
+    /** @brief å„å±‚çº§çš„å›¾åƒå°ºå¯¸ï¼Œæ¯ä¸ªå…ƒç´ åŒ…å«[å®½åº¦, é«˜åº¦] */
     std::vector<std::vector<unsigned long long> > _levelDimensions;
 
-    /** @brief ²ã¼¶ÊıÁ¿ */
+    /** @brief å±‚çº§æ•°é‡ */
     unsigned int _numberOfLevels;
 
-    /** @brief ZÆ½ÃæÊıÁ¿ */
+    /** @brief Zå¹³é¢æ•°é‡ */
     unsigned int m_numberOfZPlanes;
 
-    /** @brief µ±Ç°ZÆ½ÃæË÷Òı */
+    /** @brief å½“å‰Zå¹³é¢ç´¢å¼• */
     unsigned int m_currentZPlaneIndex;
 
-    /** @brief Í¼ÏñÊôĞÔĞÅÏ¢ÁĞ±í */
+    /** @brief å›¾åƒå±æ€§ä¿¡æ¯åˆ—è¡¨ */
     std::vector<SlideColorManagement::PropertyInfo> _properties;
 
-    /** @brief »º´æ´óĞ¡£¨×Ö½Ú£© */
+    /** @brief ç¼“å­˜å¤§å°ï¼ˆå­—èŠ‚ï¼‰ */
     unsigned long long m_cacheSize;
 
-    /** @brief ÎÄ¼şÀàĞÍ×Ö·û´® */
+    /** @brief æ–‡ä»¶ç±»å‹å­—ç¬¦ä¸² */
     std::string _fileType;
 
-    /** @brief ÎÄ¼şÂ·¾¶ */
+    /** @brief æ–‡ä»¶è·¯å¾„ */
     std::string m_filePath;
 
     /**
-     * @brief   ÇåÀí×ÊÔ´£¨Ğéº¯Êı£©
-     * @details ÇåÀíÍ¼ÏñÏà¹ØµÄ×ÊÔ´£¬ÈçÎÄ¼ş¾ä±ú¡¢»º´æµÈ
-     * @note    ¸Ãº¯ÊıÊÇĞéº¯Êı£¬ÅÉÉúÀà¿ÉÒÔÖØĞ´ÒÔÊµÏÖÌØ¶¨µÄÇåÀíÂß¼­
+     * @brief   æ¸…ç†èµ„æºï¼ˆè™šå‡½æ•°ï¼‰
+     * @details æ¸…ç†å›¾åƒç›¸å…³çš„èµ„æºï¼Œå¦‚æ–‡ä»¶å¥æŸ„ã€ç¼“å­˜ç­‰
+     * @note    è¯¥å‡½æ•°æ˜¯è™šå‡½æ•°ï¼Œæ´¾ç”Ÿç±»å¯ä»¥é‡å†™ä»¥å®ç°ç‰¹å®šçš„æ¸…ç†é€»è¾‘
      */
     virtual void cleanup();
 
     /**
-     * @brief   ´ÓÍ¼Ïñ¶ÁÈ¡Êı¾İ£¨´¿Ğéº¯Êı£©
-     * @details ´ÓÍ¼ÏñÖĞ¶ÁÈ¡Ö¸¶¨ÇøÓòµÄÔ­Ê¼Êı¾İ
+     * @brief   ä»å›¾åƒè¯»å–æ•°æ®ï¼ˆçº¯è™šå‡½æ•°ï¼‰
+     * @details ä»å›¾åƒä¸­è¯»å–æŒ‡å®šåŒºåŸŸçš„åŸå§‹æ•°æ®
      *
-     * @param   startX ÆğÊ¼X×ø±ê
-     * @param   startY ÆğÊ¼Y×ø±ê
-     * @param   width ÇøÓò¿í¶È
-     * @param   height ÇøÓò¸ß¶È
-     * @param   level ²ã¼¶Ë÷Òı
-     * @return  Ö¸ÏòÔ­Ê¼Êı¾İµÄvoidÖ¸Õë£¬µ÷ÓÃÕß¸ºÔğÊÍ·ÅÄÚ´æ
-     * @note    ¸Ãº¯ÊıÊÇ´¿Ğéº¯Êı£¬±ØĞëÓÉÅÉÉúÀàÊµÏÖ
+     * @param   startX èµ·å§‹Xåæ ‡
+     * @param   startY èµ·å§‹Yåæ ‡
+     * @param   width åŒºåŸŸå®½åº¦
+     * @param   height åŒºåŸŸé«˜åº¦
+     * @param   level å±‚çº§ç´¢å¼•
+     * @return  æŒ‡å‘åŸå§‹æ•°æ®çš„voidæŒ‡é’ˆï¼Œè°ƒç”¨è€…è´Ÿè´£é‡Šæ”¾å†…å­˜
+     * @note    è¯¥å‡½æ•°æ˜¯çº¯è™šå‡½æ•°ï¼Œå¿…é¡»ç”±æ´¾ç”Ÿç±»å®ç°
      */
     virtual void* readDataFromImage(const long long& startX, const long long& startY, const unsigned long long& width,
         const unsigned long long& height, const unsigned int& level) = 0;
 
     /**
-     * @brief   ´´½¨»º´æ£¨Ä£°åº¯Êı£©
-     * @details ¸ù¾İÖ¸¶¨µÄÊı¾İÀàĞÍ´´½¨ÏàÓ¦µÄ»º´æ¶ÔÏó
+     * @brief   åˆ›å»ºç¼“å­˜ï¼ˆæ¨¡æ¿å‡½æ•°ï¼‰
+     * @details æ ¹æ®æŒ‡å®šçš„æ•°æ®ç±»å‹åˆ›å»ºç›¸åº”çš„ç¼“å­˜å¯¹è±¡
      *
-     * @tparam  T »º´æÊı¾İÀàĞÍ
-     * @note    Ö»ÓĞµ±Í¼ÏñÓĞĞ§Ê±²Å»á´´½¨»º´æ
+     * @tparam  T ç¼“å­˜æ•°æ®ç±»å‹
+     * @note    åªæœ‰å½“å›¾åƒæœ‰æ•ˆæ—¶æ‰ä¼šåˆ›å»ºç¼“å­˜
      * @see     TileCache
      */
     template <typename T> void createCache() {
@@ -439,31 +439,31 @@ protected:
     }
 };
 
-// Ä£°åÌØ»¯ÉùÃ÷
+// æ¨¡æ¿ç‰¹åŒ–å£°æ˜
 /**
- * @brief   getRawRegionº¯ÊıµÄunsigned charÌØ»¯°æ±¾
- * @details Îªunsigned charÀàĞÍÌá¹©ÓÅ»¯µÄÊµÏÖ
+ * @brief   getRawRegionå‡½æ•°çš„unsigned charç‰¹åŒ–ç‰ˆæœ¬
+ * @details ä¸ºunsigned charç±»å‹æä¾›ä¼˜åŒ–çš„å®ç°
  */
 template <> void MultiResolutionImage::getRawRegion(const long long& startX, const long long& startY, const unsigned long long& width,
     const unsigned long long& height, const unsigned int& level, unsigned char*& data);
 
 /**
- * @brief   getRawRegionº¯ÊıµÄunsigned shortÌØ»¯°æ±¾
- * @details Îªunsigned shortÀàĞÍÌá¹©ÓÅ»¯µÄÊµÏÖ
+ * @brief   getRawRegionå‡½æ•°çš„unsigned shortç‰¹åŒ–ç‰ˆæœ¬
+ * @details ä¸ºunsigned shortç±»å‹æä¾›ä¼˜åŒ–çš„å®ç°
  */
 template <> void MultiResolutionImage::getRawRegion(const long long& startX, const long long& startY, const unsigned long long& width,
     const unsigned long long& height, const unsigned int& level, unsigned short*& data);
 
 /**
- * @brief   getRawRegionº¯ÊıµÄunsigned intÌØ»¯°æ±¾
- * @details Îªunsigned intÀàĞÍÌá¹©ÓÅ»¯µÄÊµÏÖ
+ * @brief   getRawRegionå‡½æ•°çš„unsigned intç‰¹åŒ–ç‰ˆæœ¬
+ * @details ä¸ºunsigned intç±»å‹æä¾›ä¼˜åŒ–çš„å®ç°
  */
 template <> void MultiResolutionImage::getRawRegion(const long long& startX, const long long& startY, const unsigned long long& width,
     const unsigned long long& height, const unsigned int& level, unsigned int*& data);
 
 /**
- * @brief   getRawRegionº¯ÊıµÄfloatÌØ»¯°æ±¾
- * @details ÎªfloatÀàĞÍÌá¹©ÓÅ»¯µÄÊµÏÖ
+ * @brief   getRawRegionå‡½æ•°çš„floatç‰¹åŒ–ç‰ˆæœ¬
+ * @details ä¸ºfloatç±»å‹æä¾›ä¼˜åŒ–çš„å®ç°
  */
 template <> void MultiResolutionImage::getRawRegion(const long long& startX, const long long& startY, const unsigned long long& width,
     const unsigned long long& height, const unsigned int& level, float*& data);

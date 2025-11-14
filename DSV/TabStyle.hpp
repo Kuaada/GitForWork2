@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QProxyStyle>
 #include <QStyleOptionTab>
@@ -8,9 +8,9 @@
 #include <QTabWidget>
 
 class TabStyle : public QProxyStyle {
-    Qt::Orientation m_orientation; // ĞÂÔö³ÉÔ±±äÁ¿ÓÃÓÚ´æ´¢·½Ïò
+    Qt::Orientation m_orientation; // æ–°å¢æˆå‘˜å˜é‡ç”¨äºå­˜å‚¨æ–¹å‘
 public:
-    // ¹¹Ôìº¯Êı£¬½ÓÊÕÒ»¸öQStyleÖ¸ÕëºÍ·½Ïò×÷Îª²ÎÊı
+    // æ„é€ å‡½æ•°ï¼Œæ¥æ”¶ä¸€ä¸ªQStyleæŒ‡é’ˆå’Œæ–¹å‘ä½œä¸ºå‚æ•°
     TabStyle(QStyle* style = nullptr, Qt::Orientation orientation = Qt::Horizontal)
         : QProxyStyle(style), m_orientation(orientation) {
     }
@@ -21,7 +21,7 @@ public:
         if (element == QStyle::CE_TabBarTabLabel) {
             if (const QStyleOptionTab* tab = qstyleoption_cast<const QStyleOptionTab*>(option)) {
                 QRect controlRect = tab->rect;
-                // È·±£»æÖÆÇøÓò²»»á³¬³ö tab ·¶Î§
+                // ç¡®ä¿ç»˜åˆ¶åŒºåŸŸä¸ä¼šè¶…å‡º tab èŒƒå›´
                 painter->setClipRect(controlRect);
 
                 QString tabText;
@@ -44,22 +44,22 @@ public:
                 painter->setPen(pen);
                 painter->drawText(controlRect, tabText, textOption);
 
-                painter->setClipping(false); // »Ö¸´²Ã¼ô×´Ì¬
+                painter->setClipping(false); // æ¢å¤è£å‰ªçŠ¶æ€
             }
         }
     }
-    // ÖØĞ´drawItemTextº¯Êı£¬º¯ÊıÌåÎª¿Õ
+    // é‡å†™drawItemTextå‡½æ•°ï¼Œå‡½æ•°ä½“ä¸ºç©º
     void drawItemText(QPainter* painter, const QRect& rect, int flags, const QPalette& pal, bool enabled, const QString& text, QPalette::ColorRole textRole = QPalette::NoRole) const override {
-        // ²»½øĞĞÎÄ±¾»æÖÆ£¬½«»æÖÆ¹¤×÷·Åµ½drawControlÖĞ
+        // ä¸è¿›è¡Œæ–‡æœ¬ç»˜åˆ¶ï¼Œå°†ç»˜åˆ¶å·¥ä½œæ”¾åˆ°drawControlä¸­
       
     }
 
-    // ÖØĞ´sizeFromContentsº¯Êı£¬ÓÃÓÚ¼ÆËã¿Ø¼şÄÚÈİËùĞèµÄ´óĞ¡
+    // é‡å†™sizeFromContentså‡½æ•°ï¼Œç”¨äºè®¡ç®—æ§ä»¶å†…å®¹æ‰€éœ€çš„å¤§å°
     QSize sizeFromContents(QStyle::ContentsType type, const QStyleOption* option, const QSize& contentsSize, const QWidget* widget = nullptr) const override {
         QSize size = contentsSize;
         if (type == QStyle::CT_TabBarTab) {
             if (m_orientation == Qt::Vertical) {
-                // ¸üĞ¡µÄµ÷Õû·ù¶È
+                // æ›´å°çš„è°ƒæ•´å¹…åº¦
                 size.rwidth() += 2;
                 size.rheight() += 5;
             }

@@ -1,20 +1,20 @@
-/**
+ï»¿/**
  * @file    TileManager.h
- * @brief   ÍßÆ¬¹ÜÀíÆ÷Àà£¬¸ºÔğ¶à·Ö±æÂÊÍ¼ÏñµÄÍßÆ¬¼ÓÔØ¡¢»º´æºÍäÖÈ¾¹ÜÀí
+ * @brief   ç“¦ç‰‡ç®¡ç†å™¨ç±»ï¼Œè´Ÿè´£å¤šåˆ†è¾¨ç‡å›¾åƒçš„ç“¦ç‰‡åŠ è½½ã€ç¼“å­˜å’Œæ¸²æŸ“ç®¡ç†
  * @author  [JianZhang] ([])
  * @date    2025-01-19
  * @version 1.0.0
- * @details ¸ÃÎÄ¼şÊµÏÖÁËDSVÏîÄ¿µÄÍßÆ¬¹ÜÀíÏµÍ³£¬°üÀ¨£º
- *          - ¶à·Ö±æÂÊÍ¼ÏñµÄÍßÆ¬·Ö¸îºÍ¹ÜÀí
- *          - ÍßÆ¬¼ÓÔØºÍ»º´æ²ßÂÔ
- *          - ÊÓ³¡£¨FOV£©Ïà¹ØµÄÍßÆ¬µ÷¶È
- *          - ÍßÆ¬¸²¸Ç¶È¸ú×ÙºÍ¹ÜÀí
- *          - Ç°¾°ÍßÆ¬äÖÈ¾¹ÜÀí
- *          - ÓëIOÏß³ÌºÍÍ¼ĞÎ³¡¾°µÄĞ­µ÷
- *          ¸ÃÀàÊÇDSVÏîÄ¿ÖĞÍ¼ÏñÏÔÊ¾ĞÔÄÜµÄºËĞÄ×é¼ş£¬
- *          Í¨¹ıÖÇÄÜµÄÍßÆ¬¹ÜÀíÊµÏÖ¸ßĞ§µÄ´óÍ¼Ïñä¯ÀÀ¡£
+ * @details è¯¥æ–‡ä»¶å®ç°äº†DSVé¡¹ç›®çš„ç“¦ç‰‡ç®¡ç†ç³»ç»Ÿï¼ŒåŒ…æ‹¬ï¼š
+ *          - å¤šåˆ†è¾¨ç‡å›¾åƒçš„ç“¦ç‰‡åˆ†å‰²å’Œç®¡ç†
+ *          - ç“¦ç‰‡åŠ è½½å’Œç¼“å­˜ç­–ç•¥
+ *          - è§†åœºï¼ˆFOVï¼‰ç›¸å…³çš„ç“¦ç‰‡è°ƒåº¦
+ *          - ç“¦ç‰‡è¦†ç›–åº¦è·Ÿè¸ªå’Œç®¡ç†
+ *          - å‰æ™¯ç“¦ç‰‡æ¸²æŸ“ç®¡ç†
+ *          - ä¸IOçº¿ç¨‹å’Œå›¾å½¢åœºæ™¯çš„åè°ƒ
+ *          è¯¥ç±»æ˜¯DSVé¡¹ç›®ä¸­å›¾åƒæ˜¾ç¤ºæ€§èƒ½çš„æ ¸å¿ƒç»„ä»¶ï¼Œ
+ *          é€šè¿‡æ™ºèƒ½çš„ç“¦ç‰‡ç®¡ç†å®ç°é«˜æ•ˆçš„å¤§å›¾åƒæµè§ˆã€‚
  *
- * @note    ¸ÃÀà¼Ì³Ğ×ÔQObject£¬Ö§³ÖQtµÄĞÅºÅ²Û»úÖÆ
+ * @note    è¯¥ç±»ç»§æ‰¿è‡ªQObjectï¼Œæ”¯æŒQtçš„ä¿¡å·æ§½æœºåˆ¶
  * @see     MultiResolutionImage, IOThread, WSITileGraphicsItem, WSITileGraphicsItemCache
  */
 
@@ -29,7 +29,7 @@
 #include <sstream>
 #include <QPointer>
 
- // Ç°ÏòÉùÃ÷
+ // å‰å‘å£°æ˜
 class IOThread;
 class MultiResolutionImage;
 class ImageSource;
@@ -38,26 +38,26 @@ class WSITileGraphicsItemCache;
 
 /**
  * @class  TileManager
- * @brief  ÍßÆ¬¹ÜÀíÆ÷Àà£¬¸ºÔğ¶à·Ö±æÂÊÍ¼ÏñµÄÍßÆ¬¼ÓÔØ¡¢»º´æºÍäÖÈ¾¹ÜÀí
- * @details ¸ÃÀàÊÇDSVÏîÄ¿ÖĞÍßÆ¬ÏµÍ³µÄºËĞÄ×é¼ş£¬¸ºÔğ¹ÜÀí¶à·Ö±æÂÊÍ¼ÏñµÄ
- *          ÍßÆ¬·Ö¸î¡¢¼ÓÔØ¡¢»º´æºÍäÖÈ¾¡£Í¨¹ıÖÇÄÜµÄÍßÆ¬µ÷¶È²ßÂÔ£¬ÊµÏÖ
- *          ¸ßĞ§µÄ´óÍ¼Ïñä¯ÀÀ£¬Ö§³ÖÊÓ³¡Ïà¹ØµÄÍßÆ¬¼ÓÔØºÍ¸²¸Ç¶È¸ú×Ù¡£
+ * @brief  ç“¦ç‰‡ç®¡ç†å™¨ç±»ï¼Œè´Ÿè´£å¤šåˆ†è¾¨ç‡å›¾åƒçš„ç“¦ç‰‡åŠ è½½ã€ç¼“å­˜å’Œæ¸²æŸ“ç®¡ç†
+ * @details è¯¥ç±»æ˜¯DSVé¡¹ç›®ä¸­ç“¦ç‰‡ç³»ç»Ÿçš„æ ¸å¿ƒç»„ä»¶ï¼Œè´Ÿè´£ç®¡ç†å¤šåˆ†è¾¨ç‡å›¾åƒçš„
+ *          ç“¦ç‰‡åˆ†å‰²ã€åŠ è½½ã€ç¼“å­˜å’Œæ¸²æŸ“ã€‚é€šè¿‡æ™ºèƒ½çš„ç“¦ç‰‡è°ƒåº¦ç­–ç•¥ï¼Œå®ç°
+ *          é«˜æ•ˆçš„å¤§å›¾åƒæµè§ˆï¼Œæ”¯æŒè§†åœºç›¸å…³çš„ç“¦ç‰‡åŠ è½½å’Œè¦†ç›–åº¦è·Ÿè¸ªã€‚
  *
- *          Ö÷Òª¹¦ÄÜ°üÀ¨£º
- *          - ¶à·Ö±æÂÊÍßÆ¬·Ö¸îºÍ¹ÜÀí
- *          - ÊÓ³¡Ïà¹ØµÄÍßÆ¬µ÷¶È
- *          - ÍßÆ¬¸²¸Ç¶È¸ú×ÙºÍ¿ÉÊÓ»¯
- *          - Ç°¾°ÍßÆ¬äÖÈ¾¹ÜÀí
- *          - ÓëIOÏß³ÌµÄÒì²½Ğ­µ÷
- *          - ÍßÆ¬»º´æ²ßÂÔ¹ÜÀí
+ *          ä¸»è¦åŠŸèƒ½åŒ…æ‹¬ï¼š
+ *          - å¤šåˆ†è¾¨ç‡ç“¦ç‰‡åˆ†å‰²å’Œç®¡ç†
+ *          - è§†åœºç›¸å…³çš„ç“¦ç‰‡è°ƒåº¦
+ *          - ç“¦ç‰‡è¦†ç›–åº¦è·Ÿè¸ªå’Œå¯è§†åŒ–
+ *          - å‰æ™¯ç“¦ç‰‡æ¸²æŸ“ç®¡ç†
+ *          - ä¸IOçº¿ç¨‹çš„å¼‚æ­¥åè°ƒ
+ *          - ç“¦ç‰‡ç¼“å­˜ç­–ç•¥ç®¡ç†
  *
- * @note   ¸ÃÀà¼Ì³Ğ×ÔQObject£¬Ö§³ÖQtµÄĞÅºÅ²Û»úÖÆ
+ * @note   è¯¥ç±»ç»§æ‰¿è‡ªQObjectï¼Œæ”¯æŒQtçš„ä¿¡å·æ§½æœºåˆ¶
  * @example
- *          // Ê¹ÓÃÊ¾Àı
+ *          // ä½¿ç”¨ç¤ºä¾‹
  *          auto image = std::make_shared<MultiResolutionImage>();
  *          TileManager* manager = new TileManager(image, 256, 0, ioThread, cache, scene);
  *
- *          // ¼ÓÔØÖ¸¶¨ÊÓ³¡µÄÍßÆ¬
+ *          // åŠ è½½æŒ‡å®šè§†åœºçš„ç“¦ç‰‡
  *          QRectF fov(0, 0, 1000, 1000);
  *          manager->loadTilesForFieldOfView(fov, 0);
  * @see     MultiResolutionImage, IOThread, WSITileGraphicsItem
@@ -66,305 +66,305 @@ class TileManager : public QObject {
     Q_OBJECT
 
 private:
-    /** @brief ¸÷²ã¼¶µÄÏÂ²ÉÑùÒò×ÓÊı×é */
+    /** @brief å„å±‚çº§çš„ä¸‹é‡‡æ ·å› å­æ•°ç»„ */
     std::vector<float> _levelDownsamples;
 
-    /** @brief ¸÷²ã¼¶µÄÍ¼Ïñ³ß´çÊı×é£¬Ã¿¸öÔªËØ°üº¬[¿í¶È, ¸ß¶È] */
+    /** @brief å„å±‚çº§çš„å›¾åƒå°ºå¯¸æ•°ç»„ï¼Œæ¯ä¸ªå…ƒç´ åŒ…å«[å®½åº¦, é«˜åº¦] */
     std::vector<std::vector<unsigned long long> > _levelDimensions;
 
-    /** @brief ÍßÆ¬´óĞ¡£¨ÏñËØ£© */
+    /** @brief ç“¦ç‰‡å¤§å°ï¼ˆåƒç´ ï¼‰ */
     unsigned int _tileSize;
 
-    /** @brief ×îºóÒ»¸öÊÓ³¡£¨Field of View£©µÄ¾ØĞÎÇøÓò */
+    /** @brief æœ€åä¸€ä¸ªè§†åœºï¼ˆField of Viewï¼‰çš„çŸ©å½¢åŒºåŸŸ */
     QRect _lastFOV;
 
-    /** @brief ×îºóÒ»¸öÇëÇóµÄ²ã¼¶ */
+    /** @brief æœ€åä¸€ä¸ªè¯·æ±‚çš„å±‚çº§ */
     unsigned int _lastLevel;
 
-    /** @brief ×îºóÒ»¸öäÖÈ¾²ã¼¶ */
+    /** @brief æœ€åä¸€ä¸ªæ¸²æŸ“å±‚çº§ */
     unsigned int _lastRenderLevel;
 
     /**
-     * @brief ÍßÆ¬¸²¸Ç¶ÈÓ³Éä±í
-     * @details Èı¼¶Ó³Éä£º²ã¼¶ -> X×ø±ê -> Y×ø±ê -> ¸²¸Ç¶ÈÖµ
-     *          ÓÃÓÚ¸ú×ÙÃ¿¸öÍßÆ¬µÄ¼ÓÔØºÍäÖÈ¾×´Ì¬
+     * @brief ç“¦ç‰‡è¦†ç›–åº¦æ˜ å°„è¡¨
+     * @details ä¸‰çº§æ˜ å°„ï¼šå±‚çº§ -> Xåæ ‡ -> Yåæ ‡ -> è¦†ç›–åº¦å€¼
+     *          ç”¨äºè·Ÿè¸ªæ¯ä¸ªç“¦ç‰‡çš„åŠ è½½å’Œæ¸²æŸ“çŠ¶æ€
      */
     std::map<unsigned int, std::map<int, std::map<int, unsigned char> > > _coverage;
 
-    /** @brief IOÏß³ÌÖ¸Õë£¬ÓÃÓÚÒì²½ÍßÆ¬¼ÓÔØ */
+    /** @brief IOçº¿ç¨‹æŒ‡é’ˆï¼Œç”¨äºå¼‚æ­¥ç“¦ç‰‡åŠ è½½ */
     QPointer<IOThread> _ioThread;
 
-    /** @brief ÍßÆ¬Í¼ĞÎÏî»º´æÖ¸Õë */
+    /** @brief ç“¦ç‰‡å›¾å½¢é¡¹ç¼“å­˜æŒ‡é’ˆ */
     QPointer<WSITileGraphicsItemCache> _cache;
 
-    /** @brief QtÍ¼ĞÎ³¡¾°Ö¸Õë */
+    /** @brief Qtå›¾å½¢åœºæ™¯æŒ‡é’ˆ */
     QPointer<QGraphicsScene> _scene;
 
-    /** @brief ¸²¸Ç¶ÈµØÍ¼µÄ»æÖÆÂ·¾¶Êı×é */
+    /** @brief è¦†ç›–åº¦åœ°å›¾çš„ç»˜åˆ¶è·¯å¾„æ•°ç»„ */
     std::vector<QPainterPath> _coverageMaps;
 
-    /** @brief ¸²¸Ç¶ÈµØÍ¼»º´æÄ£Ê½±êÖ¾ */
+    /** @brief è¦†ç›–åº¦åœ°å›¾ç¼“å­˜æ¨¡å¼æ ‡å¿— */
     bool _coverageMapCacheMode;
 
-    /** @brief Ç°¾°ÍßÆ¬Í¸Ã÷¶È */
+    /** @brief å‰æ™¯ç“¦ç‰‡é€æ˜åº¦ */
     float _foregroundOpacity;
 
-    /** @brief ÊÇ·ñäÖÈ¾Ç°¾°ÍßÆ¬±êÖ¾ */
+    /** @brief æ˜¯å¦æ¸²æŸ“å‰æ™¯ç“¦ç‰‡æ ‡å¿— */
     bool _renderForeground;
 
     /**
-     * @brief   ½«ÏñËØ×ø±ê×ª»»ÎªÍßÆ¬×ø±ê
-     * @details ¸ù¾İÖ¸¶¨µÄ²ã¼¶½«ÏñËØ×ø±ê×ª»»Îª¶ÔÓ¦µÄÍßÆ¬×ø±ê
+     * @brief   å°†åƒç´ åæ ‡è½¬æ¢ä¸ºç“¦ç‰‡åæ ‡
+     * @details æ ¹æ®æŒ‡å®šçš„å±‚çº§å°†åƒç´ åæ ‡è½¬æ¢ä¸ºå¯¹åº”çš„ç“¦ç‰‡åæ ‡
      *
-     * @param   coordinate ÏñËØ×ø±ê
-     * @param   level ²ã¼¶Ë÷Òı
-     * @return  ÍßÆ¬×ø±ê
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¼ÆËãÏñËØÎ»ÖÃ¶ÔÓ¦µÄÍßÆ¬Ë÷Òı
+     * @param   coordinate åƒç´ åæ ‡
+     * @param   level å±‚çº§ç´¢å¼•
+     * @return  ç“¦ç‰‡åæ ‡
+     * @note    è¯¥å‡½æ•°ç”¨äºè®¡ç®—åƒç´ ä½ç½®å¯¹åº”çš„ç“¦ç‰‡ç´¢å¼•
      */
     QPoint pixelCoordinatesToTileCoordinates(QPointF coordinate, unsigned int level);
 
     /**
-     * @brief   ½«ÍßÆ¬×ø±ê×ª»»ÎªÏñËØ×ø±ê
-     * @details ¸ù¾İÖ¸¶¨µÄ²ã¼¶½«ÍßÆ¬×ø±ê×ª»»Îª¶ÔÓ¦µÄÏñËØ×ø±ê
+     * @brief   å°†ç“¦ç‰‡åæ ‡è½¬æ¢ä¸ºåƒç´ åæ ‡
+     * @details æ ¹æ®æŒ‡å®šçš„å±‚çº§å°†ç“¦ç‰‡åæ ‡è½¬æ¢ä¸ºå¯¹åº”çš„åƒç´ åæ ‡
      *
-     * @param   coordinate ÍßÆ¬×ø±ê
-     * @param   level ²ã¼¶Ë÷Òı
-     * @return  ÏñËØ×ø±ê
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¼ÆËãÍßÆ¬Ë÷Òı¶ÔÓ¦µÄÏñËØÎ»ÖÃ
+     * @param   coordinate ç“¦ç‰‡åæ ‡
+     * @param   level å±‚çº§ç´¢å¼•
+     * @return  åƒç´ åæ ‡
+     * @note    è¯¥å‡½æ•°ç”¨äºè®¡ç®—ç“¦ç‰‡ç´¢å¼•å¯¹åº”çš„åƒç´ ä½ç½®
      */
     QPointF tileCoordinatesToPixelCoordinates(QPoint coordinate, unsigned int level);
 
     /**
-     * @brief   »ñÈ¡Ö¸¶¨²ã¼¶µÄÍßÆ¬ÊıÁ¿
-     * @details ¼ÆËãÖ¸¶¨²ã¼¶ÔÚXºÍY·½ÏòÉÏµÄÍßÆ¬ÊıÁ¿
+     * @brief   è·å–æŒ‡å®šå±‚çº§çš„ç“¦ç‰‡æ•°é‡
+     * @details è®¡ç®—æŒ‡å®šå±‚çº§åœ¨Xå’ŒYæ–¹å‘ä¸Šçš„ç“¦ç‰‡æ•°é‡
      *
-     * @param   level ²ã¼¶Ë÷Òı
-     * @return  ÍßÆ¬ÊıÁ¿£¬x()ÎªX·½ÏòÊıÁ¿£¬y()ÎªY·½ÏòÊıÁ¿
+     * @param   level å±‚çº§ç´¢å¼•
+     * @return  ç“¦ç‰‡æ•°é‡ï¼Œx()ä¸ºXæ–¹å‘æ•°é‡ï¼Œy()ä¸ºYæ–¹å‘æ•°é‡
      */
     QPoint getLevelTiles(unsigned int level);
 
     /**
-     * @brief   Ë½ÓĞ¿½±´¹¹Ôìº¯Êı
-     * @details ½ûÓÃ¿½±´¹¹Ôì£¬È·±£TileManager¶ÔÏóµÄÎ¨Ò»ĞÔ
+     * @brief   ç§æœ‰æ‹·è´æ„é€ å‡½æ•°
+     * @details ç¦ç”¨æ‹·è´æ„é€ ï¼Œç¡®ä¿TileManagerå¯¹è±¡çš„å”¯ä¸€æ€§
      *
-     * @param   that Òª¿½±´µÄTileManager¶ÔÏó
-     * @note    ¸Ã¹¹Ôìº¯ÊıÊÇË½ÓĞµÄ£¬·ÀÖ¹ÒâÍâ¿½±´
+     * @param   that è¦æ‹·è´çš„TileManagerå¯¹è±¡
+     * @note    è¯¥æ„é€ å‡½æ•°æ˜¯ç§æœ‰çš„ï¼Œé˜²æ­¢æ„å¤–æ‹·è´
      */
     TileManager(const TileManager& that);
 
 signals:
     /**
-     * @brief   ¸²¸Ç¶È¸üĞÂĞÅºÅ
-     * @details µ±ÍßÆ¬¸²¸Ç¶È·¢Éú±ä»¯Ê±·¢³ö´ËĞÅºÅ
-     * @note    ¸ÃĞÅºÅÓÃÓÚÍ¨ÖªUI¸üĞÂ¸²¸Ç¶ÈÏÔÊ¾
+     * @brief   è¦†ç›–åº¦æ›´æ–°ä¿¡å·
+     * @details å½“ç“¦ç‰‡è¦†ç›–åº¦å‘ç”Ÿå˜åŒ–æ—¶å‘å‡ºæ­¤ä¿¡å·
+     * @note    è¯¥ä¿¡å·ç”¨äºé€šçŸ¥UIæ›´æ–°è¦†ç›–åº¦æ˜¾ç¤º
      */
     void coverageUpdated();
 
 public:
     /**
-     * @brief   ¹¹Ôìº¯Êı
-     * @details ´´½¨ÍßÆ¬¹ÜÀíÆ÷¶ÔÏó£¬³õÊ¼»¯¶à·Ö±æÂÊÍ¼Ïñ¡¢ÍßÆ¬´óĞ¡¡¢
-     *          IOÏß³Ì¡¢»º´æºÍÍ¼ĞÎ³¡¾°µÈ×é¼ş
+     * @brief   æ„é€ å‡½æ•°
+     * @details åˆ›å»ºç“¦ç‰‡ç®¡ç†å™¨å¯¹è±¡ï¼Œåˆå§‹åŒ–å¤šåˆ†è¾¨ç‡å›¾åƒã€ç“¦ç‰‡å¤§å°ã€
+     *          IOçº¿ç¨‹ã€ç¼“å­˜å’Œå›¾å½¢åœºæ™¯ç­‰ç»„ä»¶
      *
-     * @param   img ¶à·Ö±æÂÊÍ¼Ïñ¶ÔÏóµÄ¹²ÏíÖ¸Õë
-     * @param   tileSize ÍßÆ¬´óĞ¡£¨ÏñËØ£©
-     * @param   lastRenderLevel ×îºóäÖÈ¾²ã¼¶
-     * @param   renderThread IOäÖÈ¾Ïß³ÌÖ¸Õë
-     * @param   _cache ÍßÆ¬Í¼ĞÎÏî»º´æÖ¸Õë
-     * @param   scene QtÍ¼ĞÎ³¡¾°Ö¸Õë
-     * @note    ¹¹Ôìº¯Êı»á³õÊ¼»¯ËùÓĞ³ÉÔ±±äÁ¿£¬È·±£itemÖ¸ÕëÎªNULL
+     * @param   img å¤šåˆ†è¾¨ç‡å›¾åƒå¯¹è±¡çš„å…±äº«æŒ‡é’ˆ
+     * @param   tileSize ç“¦ç‰‡å¤§å°ï¼ˆåƒç´ ï¼‰
+     * @param   lastRenderLevel æœ€åæ¸²æŸ“å±‚çº§
+     * @param   renderThread IOæ¸²æŸ“çº¿ç¨‹æŒ‡é’ˆ
+     * @param   _cache ç“¦ç‰‡å›¾å½¢é¡¹ç¼“å­˜æŒ‡é’ˆ
+     * @param   scene Qtå›¾å½¢åœºæ™¯æŒ‡é’ˆ
+     * @note    æ„é€ å‡½æ•°ä¼šåˆå§‹åŒ–æ‰€æœ‰æˆå‘˜å˜é‡ï¼Œç¡®ä¿itemæŒ‡é’ˆä¸ºNULL
      */
     TileManager(std::shared_ptr<MultiResolutionImage> img, unsigned int tileSize, unsigned int lastRenderLevel, IOThread* renderThread, WSITileGraphicsItemCache* _cache, QGraphicsScene* scene);
 
     /**
-     * @brief   Îö¹¹º¯Êı
-     * @details ÇåÀíÍßÆ¬¹ÜÀíÆ÷×ÊÔ´£¬°üÀ¨ÍßÆ¬»º´æºÍIOÏß³Ì
-     * @note    Îö¹¹º¯Êı»á×Ô¶¯ÇåÀíËùÓĞÏà¹ØµÄ×ÊÔ´
+     * @brief   ææ„å‡½æ•°
+     * @details æ¸…ç†ç“¦ç‰‡ç®¡ç†å™¨èµ„æºï¼ŒåŒ…æ‹¬ç“¦ç‰‡ç¼“å­˜å’ŒIOçº¿ç¨‹
+     * @note    ææ„å‡½æ•°ä¼šè‡ªåŠ¨æ¸…ç†æ‰€æœ‰ç›¸å…³çš„èµ„æº
      */
     ~TileManager();
 
     /**
-     * @brief   ¼ÓÔØÖ¸¶¨²ã¼¶µÄËùÓĞÍßÆ¬
-     * @details Ô¤¼ÓÔØÖ¸¶¨²ã¼¶µÄËùÓĞÍßÆ¬£¬ÓÃÓÚÈ«Í¼Ô¤ÀÀ»òÀëÏß´¦Àí
+     * @brief   åŠ è½½æŒ‡å®šå±‚çº§çš„æ‰€æœ‰ç“¦ç‰‡
+     * @details é¢„åŠ è½½æŒ‡å®šå±‚çº§çš„æ‰€æœ‰ç“¦ç‰‡ï¼Œç”¨äºå…¨å›¾é¢„è§ˆæˆ–ç¦»çº¿å¤„ç†
      *
-     * @param   level Òª¼ÓÔØµÄ²ã¼¶Ë÷Òı
-     * @note    ¸Ã²Ù×÷»áÏûºÄ´óÁ¿ÄÚ´æ£¬Çë½÷É÷Ê¹ÓÃ
+     * @param   level è¦åŠ è½½çš„å±‚çº§ç´¢å¼•
+     * @note    è¯¥æ“ä½œä¼šæ¶ˆè€—å¤§é‡å†…å­˜ï¼Œè¯·è°¨æ…ä½¿ç”¨
      * @see     loadTilesForFieldOfView
      */
     void loadAllTilesForLevel(unsigned int level);
 
     /**
-     * @brief   ¼ÓÔØÖ¸¶¨ÊÓ³¡µÄÍßÆ¬
-     * @details ¸ù¾İÊÓ³¡¾ØĞÎºÍ²ã¼¶¼ÓÔØÏàÓ¦µÄÍßÆ¬£¬ÊµÏÖÊÓ³¡Ïà¹ØµÄÍßÆ¬µ÷¶È
+     * @brief   åŠ è½½æŒ‡å®šè§†åœºçš„ç“¦ç‰‡
+     * @details æ ¹æ®è§†åœºçŸ©å½¢å’Œå±‚çº§åŠ è½½ç›¸åº”çš„ç“¦ç‰‡ï¼Œå®ç°è§†åœºç›¸å…³çš„ç“¦ç‰‡è°ƒåº¦
      *
-     * @param   FOV ÊÓ³¡¾ØĞÎ£¨ÏñËØ×ø±ê£©
-     * @param   level ²ã¼¶Ë÷Òı
-     * @note    ¸Ãº¯Êı»áÖÇÄÜµ÷¶ÈÍßÆ¬¼ÓÔØ£¬ÓÅÏÈ¼ÓÔØÊÓ³¡ÄÚµÄÍßÆ¬
+     * @param   FOV è§†åœºçŸ©å½¢ï¼ˆåƒç´ åæ ‡ï¼‰
+     * @param   level å±‚çº§ç´¢å¼•
+     * @note    è¯¥å‡½æ•°ä¼šæ™ºèƒ½è°ƒåº¦ç“¦ç‰‡åŠ è½½ï¼Œä¼˜å…ˆåŠ è½½è§†åœºå†…çš„ç“¦ç‰‡
      * @see     loadAllTilesForLevel, reloadLastFOV
      */
     void loadTilesForFieldOfView(const QRectF& FOV, const unsigned int level);
 
     /**
-     * @brief   ¸üĞÂÍßÆ¬Ç°¾°
-     * @details ¸üĞÂËùÓĞÒÑ¼ÓÔØÍßÆ¬µÄÇ°¾°äÖÈ¾£¬Ó¦ÓÃµ±Ç°µÄÍ¸Ã÷¶ÈÉèÖÃ
-     * @note    ¸Ãº¯Êı»á±éÀúËùÓĞÍßÆ¬²¢¸üĞÂÆäÇ°¾°ÏÔÊ¾
+     * @brief   æ›´æ–°ç“¦ç‰‡å‰æ™¯
+     * @details æ›´æ–°æ‰€æœ‰å·²åŠ è½½ç“¦ç‰‡çš„å‰æ™¯æ¸²æŸ“ï¼Œåº”ç”¨å½“å‰çš„é€æ˜åº¦è®¾ç½®
+     * @note    è¯¥å‡½æ•°ä¼šéå†æ‰€æœ‰ç“¦ç‰‡å¹¶æ›´æ–°å…¶å‰æ™¯æ˜¾ç¤º
      * @see     onForegroundOpacityChanged
      */
     void updateTileForegounds();
 
     /**
-     * @brief   ÖØÖÃÖ¸¶¨²ã¼¶µÄ¸²¸Ç¶È
-     * @details Çå³ıÖ¸¶¨²ã¼¶µÄËùÓĞÍßÆ¬¸²¸Ç¶ÈĞÅÏ¢
+     * @brief   é‡ç½®æŒ‡å®šå±‚çº§çš„è¦†ç›–åº¦
+     * @details æ¸…é™¤æŒ‡å®šå±‚çº§çš„æ‰€æœ‰ç“¦ç‰‡è¦†ç›–åº¦ä¿¡æ¯
      *
-     * @param   level ÒªÖØÖÃµÄ²ã¼¶Ë÷Òı
-     * @note    ¸Ã²Ù×÷»áÇå³ı¸Ã²ã¼¶µÄËùÓĞ¸²¸Ç¶È¼ÇÂ¼
+     * @param   level è¦é‡ç½®çš„å±‚çº§ç´¢å¼•
+     * @note    è¯¥æ“ä½œä¼šæ¸…é™¤è¯¥å±‚çº§çš„æ‰€æœ‰è¦†ç›–åº¦è®°å½•
      * @see     setCoverage, providesCoverage
      */
     void resetCoverage(unsigned int level);
 
     /**
-     * @brief   »ñÈ¡ÍßÆ¬¸²¸Ç¶È
-     * @details »ñÈ¡Ö¸¶¨ÍßÆ¬µÄ¸²¸Ç¶ÈÖµ£¬ÓÃÓÚ¸ú×ÙÍßÆ¬µÄ¼ÓÔØ×´Ì¬
+     * @brief   è·å–ç“¦ç‰‡è¦†ç›–åº¦
+     * @details è·å–æŒ‡å®šç“¦ç‰‡çš„è¦†ç›–åº¦å€¼ï¼Œç”¨äºè·Ÿè¸ªç“¦ç‰‡çš„åŠ è½½çŠ¶æ€
      *
-     * @param   level ²ã¼¶Ë÷Òı
-     * @param   tile_x ÍßÆ¬X×ø±ê£¬-1±íÊ¾²éÑ¯Õû¸ö²ã¼¶
-     * @param   tile_y ÍßÆ¬Y×ø±ê£¬-1±íÊ¾²éÑ¯Õû¸ö²ã¼¶
-     * @return  ¸²¸Ç¶ÈÖµ£¬0±íÊ¾Î´¸²¸Ç£¬255±íÊ¾ÍêÈ«¸²¸Ç
-     * @note    ¸Ãº¯ÊıÓÃÓÚ²éÑ¯ÍßÆ¬µÄ¼ÓÔØºÍäÖÈ¾×´Ì¬
+     * @param   level å±‚çº§ç´¢å¼•
+     * @param   tile_x ç“¦ç‰‡Xåæ ‡ï¼Œ-1è¡¨ç¤ºæŸ¥è¯¢æ•´ä¸ªå±‚çº§
+     * @param   tile_y ç“¦ç‰‡Yåæ ‡ï¼Œ-1è¡¨ç¤ºæŸ¥è¯¢æ•´ä¸ªå±‚çº§
+     * @return  è¦†ç›–åº¦å€¼ï¼Œ0è¡¨ç¤ºæœªè¦†ç›–ï¼Œ255è¡¨ç¤ºå®Œå…¨è¦†ç›–
+     * @note    è¯¥å‡½æ•°ç”¨äºæŸ¥è¯¢ç“¦ç‰‡çš„åŠ è½½å’Œæ¸²æŸ“çŠ¶æ€
      * @see     setCoverage, isCovered
      */
     unsigned char providesCoverage(unsigned int level, int tile_x = -1, int tile_y = -1);
 
     /**
-     * @brief   ¼ì²éÍßÆ¬ÊÇ·ñÒÑ¸²¸Ç
-     * @details ¼ì²éÖ¸¶¨ÍßÆ¬ÊÇ·ñÒÑ¾­¼ÓÔØºÍäÖÈ¾Íê³É
+     * @brief   æ£€æŸ¥ç“¦ç‰‡æ˜¯å¦å·²è¦†ç›–
+     * @details æ£€æŸ¥æŒ‡å®šç“¦ç‰‡æ˜¯å¦å·²ç»åŠ è½½å’Œæ¸²æŸ“å®Œæˆ
      *
-     * @param   level ²ã¼¶Ë÷Òı
-     * @param   tile_x ÍßÆ¬X×ø±ê£¬-1±íÊ¾¼ì²éÕû¸ö²ã¼¶
-     * @param   tile_y ÍßÆ¬Y×ø±ê£¬-1±íÊ¾¼ì²éÕû¸ö²ã¼¶
-     * @return  true±íÊ¾ÒÑ¸²¸Ç£¬false±íÊ¾Î´¸²¸Ç
-     * @note    ¸Ãº¯ÊıÊÇprovidesCoverageµÄ²¼¶û°æ±¾
+     * @param   level å±‚çº§ç´¢å¼•
+     * @param   tile_x ç“¦ç‰‡Xåæ ‡ï¼Œ-1è¡¨ç¤ºæ£€æŸ¥æ•´ä¸ªå±‚çº§
+     * @param   tile_y ç“¦ç‰‡Yåæ ‡ï¼Œ-1è¡¨ç¤ºæ£€æŸ¥æ•´ä¸ªå±‚çº§
+     * @return  trueè¡¨ç¤ºå·²è¦†ç›–ï¼Œfalseè¡¨ç¤ºæœªè¦†ç›–
+     * @note    è¯¥å‡½æ•°æ˜¯providesCoverageçš„å¸ƒå°”ç‰ˆæœ¬
      * @see     providesCoverage, setCoverage
      */
     bool isCovered(unsigned int level, int tile_x = -1, int tile_y = -1);
 
     /**
-     * @brief   ÉèÖÃÍßÆ¬¸²¸Ç¶È
-     * @details ÉèÖÃÖ¸¶¨ÍßÆ¬µÄ¸²¸Ç¶ÈÖµ£¬ÓÃÓÚ¸ú×ÙÍßÆ¬µÄ¼ÓÔØ×´Ì¬
+     * @brief   è®¾ç½®ç“¦ç‰‡è¦†ç›–åº¦
+     * @details è®¾ç½®æŒ‡å®šç“¦ç‰‡çš„è¦†ç›–åº¦å€¼ï¼Œç”¨äºè·Ÿè¸ªç“¦ç‰‡çš„åŠ è½½çŠ¶æ€
      *
-     * @param   level ²ã¼¶Ë÷Òı
-     * @param   tile_x ÍßÆ¬X×ø±ê
-     * @param   tile_y ÍßÆ¬Y×ø±ê
-     * @param   covers ¸²¸Ç¶ÈÖµ£¨0-255£©
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¸üĞÂÍßÆ¬µÄ¼ÓÔØºÍäÖÈ¾×´Ì¬
+     * @param   level å±‚çº§ç´¢å¼•
+     * @param   tile_x ç“¦ç‰‡Xåæ ‡
+     * @param   tile_y ç“¦ç‰‡Yåæ ‡
+     * @param   covers è¦†ç›–åº¦å€¼ï¼ˆ0-255ï¼‰
+     * @note    è¯¥å‡½æ•°ç”¨äºæ›´æ–°ç“¦ç‰‡çš„åŠ è½½å’Œæ¸²æŸ“çŠ¶æ€
      * @see     providesCoverage, resetCoverage
      */
     void setCoverage(unsigned int level, int tile_x, int tile_y, unsigned char covers);
 
     /**
-     * @brief   »ñÈ¡¸²¸Ç¶ÈµØÍ¼
-     * @details »ñÈ¡ËùÓĞ²ã¼¶µÄ¸²¸Ç¶ÈµØÍ¼»æÖÆÂ·¾¶£¬ÓÃÓÚ¿ÉÊÓ»¯ÏÔÊ¾
+     * @brief   è·å–è¦†ç›–åº¦åœ°å›¾
+     * @details è·å–æ‰€æœ‰å±‚çº§çš„è¦†ç›–åº¦åœ°å›¾ç»˜åˆ¶è·¯å¾„ï¼Œç”¨äºå¯è§†åŒ–æ˜¾ç¤º
      *
-     * @return  ¸²¸Ç¶ÈµØÍ¼µÄ»æÖÆÂ·¾¶Êı×é
-     * @note    ·µ»ØµÄÂ·¾¶¿ÉÒÔÓÃÓÚÔÚUIÖĞ»æÖÆ¸²¸Ç¶È¿ÉÊÓ»¯
+     * @return  è¦†ç›–åº¦åœ°å›¾çš„ç»˜åˆ¶è·¯å¾„æ•°ç»„
+     * @note    è¿”å›çš„è·¯å¾„å¯ä»¥ç”¨äºåœ¨UIä¸­ç»˜åˆ¶è¦†ç›–åº¦å¯è§†åŒ–
      * @see     setCoverageMapModeToCache, setCoverageMapModeToVisited
      */
     std::vector<QPainterPath> getCoverageMaps();
 
     /**
-     * @brief   ÉèÖÃ¸²¸Ç¶ÈµØÍ¼Ä£Ê½Îª»º´æÄ£Ê½
-     * @details ½«¸²¸Ç¶ÈµØÍ¼Ä£Ê½ÉèÖÃÎªÏÔÊ¾»º´æÖĞµÄÍßÆ¬
-     * @note    ¸ÃÄ£Ê½»áÏÔÊ¾ËùÓĞÒÑ»º´æµÄÍßÆ¬
+     * @brief   è®¾ç½®è¦†ç›–åº¦åœ°å›¾æ¨¡å¼ä¸ºç¼“å­˜æ¨¡å¼
+     * @details å°†è¦†ç›–åº¦åœ°å›¾æ¨¡å¼è®¾ç½®ä¸ºæ˜¾ç¤ºç¼“å­˜ä¸­çš„ç“¦ç‰‡
+     * @note    è¯¥æ¨¡å¼ä¼šæ˜¾ç¤ºæ‰€æœ‰å·²ç¼“å­˜çš„ç“¦ç‰‡
      * @see     setCoverageMapModeToVisited, getCoverageMaps
      */
     void setCoverageMapModeToCache();
 
     /**
-     * @brief   ÉèÖÃ¸²¸Ç¶ÈµØÍ¼Ä£Ê½Îª·ÃÎÊÄ£Ê½
-     * @details ½«¸²¸Ç¶ÈµØÍ¼Ä£Ê½ÉèÖÃÎªÏÔÊ¾ÒÑ·ÃÎÊµÄÍßÆ¬
-     * @note    ¸ÃÄ£Ê½»áÏÔÊ¾ËùÓĞÒÑ·ÃÎÊ¹ıµÄÍßÆ¬
+     * @brief   è®¾ç½®è¦†ç›–åº¦åœ°å›¾æ¨¡å¼ä¸ºè®¿é—®æ¨¡å¼
+     * @details å°†è¦†ç›–åº¦åœ°å›¾æ¨¡å¼è®¾ç½®ä¸ºæ˜¾ç¤ºå·²è®¿é—®çš„ç“¦ç‰‡
+     * @note    è¯¥æ¨¡å¼ä¼šæ˜¾ç¤ºæ‰€æœ‰å·²è®¿é—®è¿‡çš„ç“¦ç‰‡
      * @see     setCoverageMapModeToCache, getCoverageMaps
      */
     void setCoverageMapModeToVisited();
 
     /**
-     * @brief   Çå¿ÕËùÓĞÍßÆ¬
-     * @details Çå¿ÕËùÓĞÒÑ¼ÓÔØµÄÍßÆ¬ºÍ»º´æ£¬ÊÍ·ÅÄÚ´æ
-     * @note    ¸Ã²Ù×÷»áÇå³ıËùÓĞÍßÆ¬Êı¾İ£¬Çë½÷É÷Ê¹ÓÃ
+     * @brief   æ¸…ç©ºæ‰€æœ‰ç“¦ç‰‡
+     * @details æ¸…ç©ºæ‰€æœ‰å·²åŠ è½½çš„ç“¦ç‰‡å’Œç¼“å­˜ï¼Œé‡Šæ”¾å†…å­˜
+     * @note    è¯¥æ“ä½œä¼šæ¸…é™¤æ‰€æœ‰ç“¦ç‰‡æ•°æ®ï¼Œè¯·è°¨æ…ä½¿ç”¨
      * @see     refresh
      */
     void clear();
 
     /**
-     * @brief   Ë¢ĞÂÍßÆ¬ÏÔÊ¾
-     * @details Ë¢ĞÂËùÓĞÍßÆ¬µÄÏÔÊ¾£¬ÖØĞÂäÖÈ¾µ±Ç°ÊÓ³¡
-     * @note    ¸Ãº¯Êı»áÖØĞÂ¼ÓÔØµ±Ç°ÊÓ³¡µÄÍßÆ¬
+     * @brief   åˆ·æ–°ç“¦ç‰‡æ˜¾ç¤º
+     * @details åˆ·æ–°æ‰€æœ‰ç“¦ç‰‡çš„æ˜¾ç¤ºï¼Œé‡æ–°æ¸²æŸ“å½“å‰è§†åœº
+     * @note    è¯¥å‡½æ•°ä¼šé‡æ–°åŠ è½½å½“å‰è§†åœºçš„ç“¦ç‰‡
      * @see     clear, reloadLastFOV
      */
     void refresh();
 
     /**
-     * @brief   ÖØĞÂ¼ÓÔØ×îºóÒ»¸öÊÓ³¡
-     * @details ÖØĞÂ¼ÓÔØ×îºóÒ»¸öÇëÇóµÄÊÓ³¡ÍßÆ¬
-     * @note    ¸Ãº¯ÊıÓÃÓÚÖØĞÂ¼ÓÔØÖ®Ç°ÇëÇóµÄÊÓ³¡
+     * @brief   é‡æ–°åŠ è½½æœ€åä¸€ä¸ªè§†åœº
+     * @details é‡æ–°åŠ è½½æœ€åä¸€ä¸ªè¯·æ±‚çš„è§†åœºç“¦ç‰‡
+     * @note    è¯¥å‡½æ•°ç”¨äºé‡æ–°åŠ è½½ä¹‹å‰è¯·æ±‚çš„è§†åœº
      * @see     loadTilesForFieldOfView, refresh
      */
     void reloadLastFOV();
 
 public slots:
     /**
-     * @brief   Ç°¾°ÍßÆ¬äÖÈ¾Íê³É²Ûº¯Êı
-     * @details µ±Ç°¾°ÍßÆ¬äÖÈ¾Íê³ÉÊ±µ÷ÓÃ´Ë²Ûº¯Êı
+     * @brief   å‰æ™¯ç“¦ç‰‡æ¸²æŸ“å®Œæˆæ§½å‡½æ•°
+     * @details å½“å‰æ™¯ç“¦ç‰‡æ¸²æŸ“å®Œæˆæ—¶è°ƒç”¨æ­¤æ§½å‡½æ•°
      *
-     * @param   tile äÖÈ¾Íê³ÉµÄÍßÆ¬ÏñËØÍ¼
-     * @param   tileX ÍßÆ¬X×ø±ê
-     * @param   tileY ÍßÆ¬Y×ø±ê
-     * @param   tileLevel ÍßÆ¬²ã¼¶
-     * @note    ¸Ã²Ûº¯ÊıÓÉIOÏß³Ìµ÷ÓÃ£¬ÓÃÓÚÍ¨ÖªäÖÈ¾Íê³É
+     * @param   tile æ¸²æŸ“å®Œæˆçš„ç“¦ç‰‡åƒç´ å›¾
+     * @param   tileX ç“¦ç‰‡Xåæ ‡
+     * @param   tileY ç“¦ç‰‡Yåæ ‡
+     * @param   tileLevel ç“¦ç‰‡å±‚çº§
+     * @note    è¯¥æ§½å‡½æ•°ç”±IOçº¿ç¨‹è°ƒç”¨ï¼Œç”¨äºé€šçŸ¥æ¸²æŸ“å®Œæˆ
      */
     void onForegroundTileRendered(QPixmap* tile, unsigned int tileX, unsigned int tileY, unsigned int tileLevel);
 
     /**
-     * @brief   ÍßÆ¬¼ÓÔØÍê³É²Ûº¯Êı
-     * @details µ±ÍßÆ¬¼ÓÔØÍê³ÉÊ±µ÷ÓÃ´Ë²Ûº¯Êı
+     * @brief   ç“¦ç‰‡åŠ è½½å®Œæˆæ§½å‡½æ•°
+     * @details å½“ç“¦ç‰‡åŠ è½½å®Œæˆæ—¶è°ƒç”¨æ­¤æ§½å‡½æ•°
      *
-     * @param   tile ¼ÓÔØÍê³ÉµÄÍßÆ¬ÏñËØÍ¼
-     * @param   tileX ÍßÆ¬X×ø±ê
-     * @param   tileY ÍßÆ¬Y×ø±ê
-     * @param   tileSize ÍßÆ¬´óĞ¡
-     * @param   tileByteSize ÍßÆ¬×Ö½Ú´óĞ¡
-     * @param   tileLevel ÍßÆ¬²ã¼¶
-     * @param   foregroundTile Ç°¾°ÍßÆ¬Í¼ÏñÔ´
-     * @param   foregroundPixmap Ç°¾°ÍßÆ¬ÏñËØÍ¼
-     * @note    ¸Ã²Ûº¯ÊıÓÉIOÏß³Ìµ÷ÓÃ£¬ÓÃÓÚÍ¨Öª¼ÓÔØÍê³É
+     * @param   tile åŠ è½½å®Œæˆçš„ç“¦ç‰‡åƒç´ å›¾
+     * @param   tileX ç“¦ç‰‡Xåæ ‡
+     * @param   tileY ç“¦ç‰‡Yåæ ‡
+     * @param   tileSize ç“¦ç‰‡å¤§å°
+     * @param   tileByteSize ç“¦ç‰‡å­—èŠ‚å¤§å°
+     * @param   tileLevel ç“¦ç‰‡å±‚çº§
+     * @param   foregroundTile å‰æ™¯ç“¦ç‰‡å›¾åƒæº
+     * @param   foregroundPixmap å‰æ™¯ç“¦ç‰‡åƒç´ å›¾
+     * @note    è¯¥æ§½å‡½æ•°ç”±IOçº¿ç¨‹è°ƒç”¨ï¼Œç”¨äºé€šçŸ¥åŠ è½½å®Œæˆ
      */
     void onTileLoaded(QPixmap* tile, unsigned int tileX, unsigned int tileY, unsigned int tileSize, unsigned int tileByteSize, unsigned int tileLevel, ImageSource* foregroundTile, QPixmap* foregroundPixmap);
 
     /**
-     * @brief   ÍßÆ¬ÒÆ³ı²Ûº¯Êı
-     * @details µ±ÍßÆ¬´Ó»º´æÖĞÒÆ³ıÊ±µ÷ÓÃ´Ë²Ûº¯Êı
+     * @brief   ç“¦ç‰‡ç§»é™¤æ§½å‡½æ•°
+     * @details å½“ç“¦ç‰‡ä»ç¼“å­˜ä¸­ç§»é™¤æ—¶è°ƒç”¨æ­¤æ§½å‡½æ•°
      *
-     * @param   tile ±»ÒÆ³ıµÄÍßÆ¬Í¼ĞÎÏî
-     * @note    ¸Ã²Ûº¯ÊıÓÉ»º´æÏµÍ³µ÷ÓÃ£¬ÓÃÓÚÍ¨ÖªÍßÆ¬ÒÆ³ı
+     * @param   tile è¢«ç§»é™¤çš„ç“¦ç‰‡å›¾å½¢é¡¹
+     * @note    è¯¥æ§½å‡½æ•°ç”±ç¼“å­˜ç³»ç»Ÿè°ƒç”¨ï¼Œç”¨äºé€šçŸ¥ç“¦ç‰‡ç§»é™¤
      */
     void onTileRemoved(WSITileGraphicsItem* tile);
 
     /**
-     * @brief   Ç°¾°Í¸Ã÷¶È¸Ä±ä²Ûº¯Êı
-     * @details µ±Ç°¾°ÍßÆ¬Í¸Ã÷¶ÈÉèÖÃ¸Ä±äÊ±µ÷ÓÃ´Ë²Ûº¯Êı
+     * @brief   å‰æ™¯é€æ˜åº¦æ”¹å˜æ§½å‡½æ•°
+     * @details å½“å‰æ™¯ç“¦ç‰‡é€æ˜åº¦è®¾ç½®æ”¹å˜æ—¶è°ƒç”¨æ­¤æ§½å‡½æ•°
      *
-     * @param   opacity ĞÂµÄÍ¸Ã÷¶ÈÖµ£¨0.0-1.0£©
-     * @note    ¸Ã²Ûº¯Êı»á¸üĞÂËùÓĞÍßÆ¬µÄÇ°¾°Í¸Ã÷¶È
+     * @param   opacity æ–°çš„é€æ˜åº¦å€¼ï¼ˆ0.0-1.0ï¼‰
+     * @note    è¯¥æ§½å‡½æ•°ä¼šæ›´æ–°æ‰€æœ‰ç“¦ç‰‡çš„å‰æ™¯é€æ˜åº¦
      * @see     updateTileForegounds
      */
     void onForegroundOpacityChanged(float opacity);
 
     /**
-     * @brief   Ç°¾°äÖÈ¾¿ª¹Ø¸Ä±ä²Ûº¯Êı
-     * @details µ±Ç°¾°ÍßÆ¬äÖÈ¾¿ª¹Ø×´Ì¬¸Ä±äÊ±µ÷ÓÃ´Ë²Ûº¯Êı
+     * @brief   å‰æ™¯æ¸²æŸ“å¼€å…³æ”¹å˜æ§½å‡½æ•°
+     * @details å½“å‰æ™¯ç“¦ç‰‡æ¸²æŸ“å¼€å…³çŠ¶æ€æ”¹å˜æ—¶è°ƒç”¨æ­¤æ§½å‡½æ•°
      *
-     * @param   renderForeground ÊÇ·ñäÖÈ¾Ç°¾°ÍßÆ¬
-     * @note    ¸Ã²Ûº¯Êı»á¸üĞÂÇ°¾°ÍßÆ¬µÄÏÔÊ¾×´Ì¬
+     * @param   renderForeground æ˜¯å¦æ¸²æŸ“å‰æ™¯ç“¦ç‰‡
+     * @note    è¯¥æ§½å‡½æ•°ä¼šæ›´æ–°å‰æ™¯ç“¦ç‰‡çš„æ˜¾ç¤ºçŠ¶æ€
      */
     void onRenderForegroundChanged(bool renderForeground);
 };

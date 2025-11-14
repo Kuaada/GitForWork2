@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    UtilityFunctions.h
  * @brief   图像处理工具函数集合，提供常用的图像操作和转换功能
  * @author  [JianZhang] ([])

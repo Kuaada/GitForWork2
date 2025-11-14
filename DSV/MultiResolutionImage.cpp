@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file MultiResolutionImage.cpp
  * @brief 多分辨率图像基类实现文件
  * @details 该文件实现了MultiResolutionImage基类的所有功能，包括：
@@ -75,8 +75,18 @@ template <> void MultiResolutionImage::getRawRegion(const long long& startX, con
 		delete[] temp;
 	}
 	else if (this->getDataType() == SlideColorManagement::DataType::UChar) {
-		delete[] data;
-		data = (unsigned char*)readDataFromImage(startX, startY, width, height, level);
+		unsigned char* temp = (unsigned char*)readDataFromImage(startX, startY, width, height, level);
+		if (temp) {
+			std::copy(temp, temp + width * height * nrSamples, data);
+			delete[] temp;
+		} else {
+			// 如果读取失败，填充背景色
+			for (unsigned long long i = 0; i < width * height * nrSamples; i += 3) {
+				data[i] = 255;     // R - 白色背景
+				data[i + 1] = 255; // G
+				data[i + 2] = 255; // B
+			}
+		}
 	}
 	else if (this->getDataType() == SlideColorManagement::DataType::UInt16) {
 		unsigned short* temp = (unsigned short*)readDataFromImage(startX, startY, width, height, level);

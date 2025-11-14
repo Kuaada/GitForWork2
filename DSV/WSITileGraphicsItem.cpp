@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file WSITileGraphicsItem.cpp
  * @brief WSI瓦片图形项实现文件
  * @details 该文件实现了数字病理切片瓦片的图形项功能，包括：

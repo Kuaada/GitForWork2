@@ -1,19 +1,19 @@
-/**
+ï»¿/**
  * @file    MultiResolutionImageFactory.h
- * @brief   ¶à·Ö±æÂÊÍ¼Ïñ¹¤³§Àà£¬ÊµÏÖÍ¼Ïñ¸ñÊ½µÄ×Ô¶¯Ê¶±ğºÍ¼ÓÔØ
+ * @brief   å¤šåˆ†è¾¨ç‡å›¾åƒå·¥å‚ç±»ï¼Œå®ç°å›¾åƒæ ¼å¼çš„è‡ªåŠ¨è¯†åˆ«å’ŒåŠ è½½
  * @author  [JianZhang] ([])
  * @date    2025-01-19
  * @version 1.0.0
- * @details ¸ÃÎÄ¼şÊµÏÖÁËDSVÏîÄ¿µÄÍ¼Ïñ¹¤³§Ä£Ê½£¬°üÀ¨£º
- *          - ¶à·Ö±æÂÊÍ¼Ïñ¹¤³§»ùÀà
- *          - Í¼Ïñ¸ñÊ½×Ô¶¯Ê¶±ğºÍ×¢²á»úÖÆ
- *          - Ö§³Ö¶àÖÖÍ¼Ïñ¸ñÊ½µÄÀ©Õ¹¼ÓÔØ
- *          - ¹¤³§ÓÅÏÈ¼¶¹ÜÀí
- *          - OpenSlideÍ¼Ïñ¸ñÊ½µÄ×¨ÃÅÊµÏÖ
- *          ¸ÃÉè¼ÆÔÊĞíÏµÍ³¶¯Ì¬¼ÓÔØ²»Í¬¸ñÊ½µÄÍ¼ÏñÎÄ¼ş£¬
- *          Í¨¹ıÎÄ¼şÀ©Õ¹Ãû×Ô¶¯Ñ¡ÔñºÏÊÊµÄ¹¤³§½øĞĞ´¦Àí¡£
+ * @details è¯¥æ–‡ä»¶å®ç°äº†DSVé¡¹ç›®çš„å›¾åƒå·¥å‚æ¨¡å¼ï¼ŒåŒ…æ‹¬ï¼š
+ *          - å¤šåˆ†è¾¨ç‡å›¾åƒå·¥å‚åŸºç±»
+ *          - å›¾åƒæ ¼å¼è‡ªåŠ¨è¯†åˆ«å’Œæ³¨å†Œæœºåˆ¶
+ *          - æ”¯æŒå¤šç§å›¾åƒæ ¼å¼çš„æ‰©å±•åŠ è½½
+ *          - å·¥å‚ä¼˜å…ˆçº§ç®¡ç†
+ *          - OpenSlideå›¾åƒæ ¼å¼çš„ä¸“é—¨å®ç°
+ *          è¯¥è®¾è®¡å…è®¸ç³»ç»ŸåŠ¨æ€åŠ è½½ä¸åŒæ ¼å¼çš„å›¾åƒæ–‡ä»¶ï¼Œ
+ *          é€šè¿‡æ–‡ä»¶æ‰©å±•åè‡ªåŠ¨é€‰æ‹©åˆé€‚çš„å·¥å‚è¿›è¡Œå¤„ç†ã€‚
  *
- * @note    ¸ÃÎÄ¼şÊµÏÖÁË¹¤³§Ä£Ê½ºÍ²ßÂÔÄ£Ê½µÄ½áºÏ
+ * @note    è¯¥æ–‡ä»¶å®ç°äº†å·¥å‚æ¨¡å¼å’Œç­–ç•¥æ¨¡å¼çš„ç»“åˆ
  * @see     MultiResolutionImage, OpenSlideImage
  */
 
@@ -24,29 +24,29 @@
 #include <vector> 
 #include <set>
 
- // Ç°ÏòÉùÃ÷
+ // å‰å‘å£°æ˜
 class MultiResolutionImage;
 
 /**
  * @class  MultiResolutionImageFactory
- * @brief  ¶à·Ö±æÂÊÍ¼Ïñ¹¤³§»ùÀà£¬ÊµÏÖÍ¼Ïñ¸ñÊ½µÄ×Ô¶¯Ê¶±ğºÍ¼ÓÔØ
- * @details ¸ÃÀàÊµÏÖÁË¹¤³§Ä£Ê½£¬ÓÃÓÚ¸ù¾İÎÄ¼şÀ©Õ¹Ãû×Ô¶¯´´½¨
- *          ÏàÓ¦ÀàĞÍµÄ¶à·Ö±æÂÊÍ¼Ïñ¶ÔÏó¡£Ö§³Ö¶¯Ì¬×¢²áĞÂµÄÍ¼Ïñ¸ñÊ½£¬
- *          ²¢¾ßÓĞÓÅÏÈ¼¶¹ÜÀí»úÖÆ£¬È·±£Ñ¡ÔñºÏÊÊµÄ¹¤³§´¦ÀíÌØ¶¨ÎÄ¼ş¡£
+ * @brief  å¤šåˆ†è¾¨ç‡å›¾åƒå·¥å‚åŸºç±»ï¼Œå®ç°å›¾åƒæ ¼å¼çš„è‡ªåŠ¨è¯†åˆ«å’ŒåŠ è½½
+ * @details è¯¥ç±»å®ç°äº†å·¥å‚æ¨¡å¼ï¼Œç”¨äºæ ¹æ®æ–‡ä»¶æ‰©å±•åè‡ªåŠ¨åˆ›å»º
+ *          ç›¸åº”ç±»å‹çš„å¤šåˆ†è¾¨ç‡å›¾åƒå¯¹è±¡ã€‚æ”¯æŒåŠ¨æ€æ³¨å†Œæ–°çš„å›¾åƒæ ¼å¼ï¼Œ
+ *          å¹¶å…·æœ‰ä¼˜å…ˆçº§ç®¡ç†æœºåˆ¶ï¼Œç¡®ä¿é€‰æ‹©åˆé€‚çš„å·¥å‚å¤„ç†ç‰¹å®šæ–‡ä»¶ã€‚
  *
- *          Ö÷Òª¹¦ÄÜ°üÀ¨£º
- *          - Í¼Ïñ¸ñÊ½×Ô¶¯Ê¶±ğºÍ×¢²á
- *          - ¹¤³§ÓÅÏÈ¼¶¹ÜÀí
- *          - Ö§³ÖµÄÎÄ¼şÀ©Õ¹Ãû¹ÜÀí
- *          - ¾²Ì¬¹¤³§×¢²á±íÎ¬»¤
- *          - Í¼Ïñ¶ÔÏóµÄ´´½¨ºÍ³õÊ¼»¯
+ *          ä¸»è¦åŠŸèƒ½åŒ…æ‹¬ï¼š
+ *          - å›¾åƒæ ¼å¼è‡ªåŠ¨è¯†åˆ«å’Œæ³¨å†Œ
+ *          - å·¥å‚ä¼˜å…ˆçº§ç®¡ç†
+ *          - æ”¯æŒçš„æ–‡ä»¶æ‰©å±•åç®¡ç†
+ *          - é™æ€å·¥å‚æ³¨å†Œè¡¨ç»´æŠ¤
+ *          - å›¾åƒå¯¹è±¡çš„åˆ›å»ºå’Œåˆå§‹åŒ–
  *
- * @note   ¸ÃÀàÊÇ³éÏó»ùÀà£¬²»ÄÜÖ±½ÓÊµÀı»¯
+ * @note   è¯¥ç±»æ˜¯æŠ½è±¡åŸºç±»ï¼Œä¸èƒ½ç›´æ¥å®ä¾‹åŒ–
  * @example
- *          // Ê¹ÓÃÊ¾Àı
+ *          // ä½¿ç”¨ç¤ºä¾‹
  *          MultiResolutionImage* img = MultiResolutionImageFactory::openImage("image.svs");
  *          if (img) {
- *              // Ê¹ÓÃÍ¼Ïñ¶ÔÏó
+ *              // ä½¿ç”¨å›¾åƒå¯¹è±¡
  *              img->initialize("image.svs");
  *          }
  * @see     MultiResolutionImage, OpenSlideImageFactory
@@ -55,53 +55,53 @@ class MultiResolutionImageFactory
 {
 public:
     /**
-     * @brief   ¹¹Ôìº¯Êı
-     * @details ´´½¨Í¼Ïñ¹¤³§ÊµÀı£¬ÉèÖÃ¹¤³§Ãû³Æ¡¢Ö§³ÖµÄÎÄ¼şÀ©Õ¹ÃûºÍÓÅÏÈ¼¶
+     * @brief   æ„é€ å‡½æ•°
+     * @details åˆ›å»ºå›¾åƒå·¥å‚å®ä¾‹ï¼Œè®¾ç½®å·¥å‚åç§°ã€æ”¯æŒçš„æ–‡ä»¶æ‰©å±•åå’Œä¼˜å…ˆçº§
      *
-     * @param   factoryName ¹¤³§Ãû³Æ£¬ÓÃÓÚ±êÊ¶²»Í¬µÄÍ¼Ïñ¸ñÊ½´¦ÀíÆ÷
-     * @param   supported_extensions Ö§³ÖµÄÎÄ¼şÀ©Õ¹Ãû¼¯ºÏ
-     * @param   priority ¹¤³§ÓÅÏÈ¼¶£¬ÊıÖµÔ½Ğ¡ÓÅÏÈ¼¶Ô½¸ß
-     * @note    ¹¹Ôìº¯Êı»á×Ô¶¯½«¹¤³§×¢²áµ½È«¾Ö×¢²á±íÖĞ
+     * @param   factoryName å·¥å‚åç§°ï¼Œç”¨äºæ ‡è¯†ä¸åŒçš„å›¾åƒæ ¼å¼å¤„ç†å™¨
+     * @param   supported_extensions æ”¯æŒçš„æ–‡ä»¶æ‰©å±•åé›†åˆ
+     * @param   priority å·¥å‚ä¼˜å…ˆçº§ï¼Œæ•°å€¼è¶Šå°ä¼˜å…ˆçº§è¶Šé«˜
+     * @note    æ„é€ å‡½æ•°ä¼šè‡ªåŠ¨å°†å·¥å‚æ³¨å†Œåˆ°å…¨å±€æ³¨å†Œè¡¨ä¸­
      */
     MultiResolutionImageFactory(const std::string& factoryName, const std::set<std::string>& supported_extensions, const unsigned int priority);
 
     /**
-     * @brief   ´ò¿ªÍ¼ÏñÎÄ¼ş£¨¾²Ì¬·½·¨£©
-     * @details ¸ù¾İÎÄ¼şÃû×Ô¶¯Ñ¡ÔñºÏÊÊµÄ¹¤³§À´´ò¿ªÍ¼ÏñÎÄ¼ş¡£
-     *          ÏµÍ³»á¸ù¾İÎÄ¼şÀ©Õ¹Ãû²éÕÒÖ§³Ö¸Ã¸ñÊ½µÄ¹¤³§£¬
-     *          ²¢°´ÕÕÓÅÏÈ¼¶Ñ¡Ôñ×îºÏÊÊµÄ¹¤³§½øĞĞ´¦Àí¡£
+     * @brief   æ‰“å¼€å›¾åƒæ–‡ä»¶ï¼ˆé™æ€æ–¹æ³•ï¼‰
+     * @details æ ¹æ®æ–‡ä»¶åè‡ªåŠ¨é€‰æ‹©åˆé€‚çš„å·¥å‚æ¥æ‰“å¼€å›¾åƒæ–‡ä»¶ã€‚
+     *          ç³»ç»Ÿä¼šæ ¹æ®æ–‡ä»¶æ‰©å±•åæŸ¥æ‰¾æ”¯æŒè¯¥æ ¼å¼çš„å·¥å‚ï¼Œ
+     *          å¹¶æŒ‰ç…§ä¼˜å…ˆçº§é€‰æ‹©æœ€åˆé€‚çš„å·¥å‚è¿›è¡Œå¤„ç†ã€‚
      *
-     * @param   fileName Í¼ÏñÎÄ¼şÂ·¾¶
-     * @param   factoryName Ö¸¶¨µÄ¹¤³§Ãû³Æ£¬Ä¬ÈÏÎª"default"
-     * @return  ³É¹¦Ê±·µ»ØÍ¼Ïñ¶ÔÏóÖ¸Õë£¬Ê§°ÜÊ±·µ»Ønullptr
-     * @note    µ÷ÓÃÕß¸ºÔğÊÍ·Å·µ»ØµÄÍ¼Ïñ¶ÔÏóÄÚ´æ
+     * @param   fileName å›¾åƒæ–‡ä»¶è·¯å¾„
+     * @param   factoryName æŒ‡å®šçš„å·¥å‚åç§°ï¼Œé»˜è®¤ä¸º"default"
+     * @return  æˆåŠŸæ—¶è¿”å›å›¾åƒå¯¹è±¡æŒ‡é’ˆï¼Œå¤±è´¥æ—¶è¿”å›nullptr
+     * @note    è°ƒç”¨è€…è´Ÿè´£é‡Šæ”¾è¿”å›çš„å›¾åƒå¯¹è±¡å†…å­˜
      * @see     openImageWithFactory
      * @example
-     *          // ×Ô¶¯Ê¶±ğ¸ñÊ½
+     *          // è‡ªåŠ¨è¯†åˆ«æ ¼å¼
      *          MultiResolutionImage* img1 = MultiResolutionImageFactory::openImage("image.svs");
-     *          // Ö¸¶¨¹¤³§
+     *          // æŒ‡å®šå·¥å‚
      *          MultiResolutionImage* img2 = MultiResolutionImageFactory::openImage("image.tiff", "openslide");
      */
     static MultiResolutionImage* openImage(const std::string& fileName, const std::string factoryName = std::string("default"));
 
     /**
-     * @brief   ×¢²áÍâ²¿ÎÄ¼ş¸ñÊ½£¨¾²Ì¬·½·¨£©
-     * @details ×¢²áÏµÍ³ÖĞ¿ÉÓÃµÄÍâ²¿Í¼Ïñ¸ñÊ½Ö§³Ö¡£
-     *          ¸Ã·½·¨»áÉ¨ÃèÏµÍ³ÖĞ¿ÉÓÃµÄÍ¼Ïñ¸ñÊ½¿â£¬
-     *          ²¢×Ô¶¯×¢²áÖ§³ÖµÄÎÄ¼ş¸ñÊ½µ½¹¤³§ÏµÍ³ÖĞ¡£
+     * @brief   æ³¨å†Œå¤–éƒ¨æ–‡ä»¶æ ¼å¼ï¼ˆé™æ€æ–¹æ³•ï¼‰
+     * @details æ³¨å†Œç³»ç»Ÿä¸­å¯ç”¨çš„å¤–éƒ¨å›¾åƒæ ¼å¼æ”¯æŒã€‚
+     *          è¯¥æ–¹æ³•ä¼šæ‰«æç³»ç»Ÿä¸­å¯ç”¨çš„å›¾åƒæ ¼å¼åº“ï¼Œ
+     *          å¹¶è‡ªåŠ¨æ³¨å†Œæ”¯æŒçš„æ–‡ä»¶æ ¼å¼åˆ°å·¥å‚ç³»ç»Ÿä¸­ã€‚
      *
-     * @note    ¸Ã·½·¨Í¨³£ÔÚÏµÍ³³õÊ¼»¯Ê±µ÷ÓÃÒ»´Î
+     * @note    è¯¥æ–¹æ³•é€šå¸¸åœ¨ç³»ç»Ÿåˆå§‹åŒ–æ—¶è°ƒç”¨ä¸€æ¬¡
      * @see     _externalFormatsRegistered
      */
     static void registerExternalFileFormats();
 
     /**
-     * @brief   »ñÈ¡ÒÑ¼ÓÔØµÄ¹¤³§ºÍÖ§³ÖµÄÀ©Õ¹Ãû£¨¾²Ì¬·½·¨£©
-     * @details ·µ»ØËùÓĞÒÑ×¢²áµÄ¹¤³§¼°ÆäÖ§³ÖµÄÎÄ¼şÀ©Õ¹ÃûÁĞ±í¡£
-     *          ÓÃÓÚÏµÍ³Õï¶ÏºÍÓÃ»§½çÃæÏÔÊ¾Ö§³ÖµÄÎÄ¼ş¸ñÊ½¡£
+     * @brief   è·å–å·²åŠ è½½çš„å·¥å‚å’Œæ”¯æŒçš„æ‰©å±•åï¼ˆé™æ€æ–¹æ³•ï¼‰
+     * @details è¿”å›æ‰€æœ‰å·²æ³¨å†Œçš„å·¥å‚åŠå…¶æ”¯æŒçš„æ–‡ä»¶æ‰©å±•ååˆ—è¡¨ã€‚
+     *          ç”¨äºç³»ç»Ÿè¯Šæ–­å’Œç”¨æˆ·ç•Œé¢æ˜¾ç¤ºæ”¯æŒçš„æ–‡ä»¶æ ¼å¼ã€‚
      *
-     * @return  °üº¬¹¤³§Ãû³ÆºÍÀ©Õ¹Ãû¼¯ºÏµÄÏòÁ¿¶Ô
-     * @note    ·µ»ØµÄÊı¾İ¿ÉÒÔÓÃÓÚ¹¹½¨ÎÄ¼ş¹ıÂËÆ÷»ò¸ñÊ½ÁĞ±í
+     * @return  åŒ…å«å·¥å‚åç§°å’Œæ‰©å±•åé›†åˆçš„å‘é‡å¯¹
+     * @note    è¿”å›çš„æ•°æ®å¯ä»¥ç”¨äºæ„å»ºæ–‡ä»¶è¿‡æ»¤å™¨æˆ–æ ¼å¼åˆ—è¡¨
      * @example
      *          auto factories = MultiResolutionImageFactory::getLoadedFactoriesAndSupportedExtensions();
      *          for (const auto& factory : factories) {
@@ -114,12 +114,12 @@ public:
     static std::vector<std::pair<std::string, std::set<std::string> > > getLoadedFactoriesAndSupportedExtensions();
 
     /**
-     * @brief   »ñÈ¡ËùÓĞÖ§³ÖµÄÀ©Õ¹Ãû£¨¾²Ì¬·½·¨£©
-     * @details ·µ»ØÏµÍ³ÖĞËùÓĞ¹¤³§Ö§³ÖµÄÎÄ¼şÀ©Õ¹Ãû¼¯ºÏ¡£
-     *          ÓÃÓÚ¹¹½¨ÎÄ¼şÑ¡Ôñ¶Ô»°¿òµÄ¹ıÂËÆ÷¡£
+     * @brief   è·å–æ‰€æœ‰æ”¯æŒçš„æ‰©å±•åï¼ˆé™æ€æ–¹æ³•ï¼‰
+     * @details è¿”å›ç³»ç»Ÿä¸­æ‰€æœ‰å·¥å‚æ”¯æŒçš„æ–‡ä»¶æ‰©å±•åé›†åˆã€‚
+     *          ç”¨äºæ„å»ºæ–‡ä»¶é€‰æ‹©å¯¹è¯æ¡†çš„è¿‡æ»¤å™¨ã€‚
      *
-     * @return  ËùÓĞÖ§³ÖµÄÎÄ¼şÀ©Õ¹Ãû¼¯ºÏ
-     * @note    ·µ»ØµÄÀ©Õ¹Ãû²»°üº¬ÖØ¸´Ïî
+     * @return  æ‰€æœ‰æ”¯æŒçš„æ–‡ä»¶æ‰©å±•åé›†åˆ
+     * @note    è¿”å›çš„æ‰©å±•åä¸åŒ…å«é‡å¤é¡¹
      * @example
      *          auto extensions = MultiResolutionImageFactory::getAllSupportedExtensions();
      *          std::string filter = "Supported Files (";
@@ -131,128 +131,128 @@ public:
     static std::set<std::string> getAllSupportedExtensions();
 
     /**
-     * @brief   ¹¤³§±È½Ï²Ù×÷·û
-     * @details ¸ù¾İ¹¤³§ÓÅÏÈ¼¶½øĞĞ±È½Ï£¬ÓÃÓÚ¹¤³§ÅÅĞò¡£
-     *          ÓÅÏÈ¼¶ÊıÖµÔ½Ğ¡£¬¹¤³§ÓÅÏÈ¼¶Ô½¸ß¡£
+     * @brief   å·¥å‚æ¯”è¾ƒæ“ä½œç¬¦
+     * @details æ ¹æ®å·¥å‚ä¼˜å…ˆçº§è¿›è¡Œæ¯”è¾ƒï¼Œç”¨äºå·¥å‚æ’åºã€‚
+     *          ä¼˜å…ˆçº§æ•°å€¼è¶Šå°ï¼Œå·¥å‚ä¼˜å…ˆçº§è¶Šé«˜ã€‚
      *
-     * @param   other Òª±È½ÏµÄÁíÒ»¸ö¹¤³§¶ÔÏó
-     * @return  true±íÊ¾µ±Ç°¹¤³§ÓÅÏÈ¼¶¸ü¸ß£¬false±íÊ¾otherÓÅÏÈ¼¶¸ü¸ß
-     * @note    ¸Ã²Ù×÷·ûÓÃÓÚ¹¤³§×¢²á±íÖĞµÄÅÅĞò
+     * @param   other è¦æ¯”è¾ƒçš„å¦ä¸€ä¸ªå·¥å‚å¯¹è±¡
+     * @return  trueè¡¨ç¤ºå½“å‰å·¥å‚ä¼˜å…ˆçº§æ›´é«˜ï¼Œfalseè¡¨ç¤ºotherä¼˜å…ˆçº§æ›´é«˜
+     * @note    è¯¥æ“ä½œç¬¦ç”¨äºå·¥å‚æ³¨å†Œè¡¨ä¸­çš„æ’åº
      */
     bool operator< (const MultiResolutionImageFactory& other) const;
 
 protected:
     /**
-     * @brief ¹¤³§×¢²á±íÀàĞÍ¶¨Òå
-     * @details Ê¹ÓÃmap´æ´¢¹¤³§Ãû³Æµ½¹¤³§¶ÔÏóºÍÀ©Õ¹ÃûµÄÓ³Éä¹ØÏµ
+     * @brief å·¥å‚æ³¨å†Œè¡¨ç±»å‹å®šä¹‰
+     * @details ä½¿ç”¨mapå­˜å‚¨å·¥å‚åç§°åˆ°å·¥å‚å¯¹è±¡å’Œæ‰©å±•åçš„æ˜ å°„å…³ç³»
      */
     typedef std::map<std::string, std::pair<std::set<std::string>, MultiResolutionImageFactory*> > FactoryMap;
 
     /**
-     * @brief   »ñÈ¡¹¤³§×¢²á±íÒıÓÃ£¨¾²Ì¬·½·¨£©
-     * @details ·µ»ØÈ«¾Ö¹¤³§×¢²á±íµÄÒıÓÃ£¬ÓÃÓÚ¹ÜÀíËùÓĞÒÑ×¢²áµÄ¹¤³§
+     * @brief   è·å–å·¥å‚æ³¨å†Œè¡¨å¼•ç”¨ï¼ˆé™æ€æ–¹æ³•ï¼‰
+     * @details è¿”å›å…¨å±€å·¥å‚æ³¨å†Œè¡¨çš„å¼•ç”¨ï¼Œç”¨äºç®¡ç†æ‰€æœ‰å·²æ³¨å†Œçš„å·¥å‚
      *
-     * @return  ¹¤³§×¢²á±íµÄÒıÓÃ
-     * @note    ¸Ã·½·¨ÊÇprotectedµÄ£¬Ö»ÔÊĞíÅÉÉúÀà·ÃÎÊ
+     * @return  å·¥å‚æ³¨å†Œè¡¨çš„å¼•ç”¨
+     * @note    è¯¥æ–¹æ³•æ˜¯protectedçš„ï¼Œåªå…è®¸æ´¾ç”Ÿç±»è®¿é—®
      */
     static FactoryMap& registry();
 
     /**
-     * @brief   Ìí¼ÓÖ§³ÖµÄÀ©Õ¹Ãû£¨¾²Ì¬·½·¨£©
-     * @details ½«ĞÂµÄÎÄ¼şÀ©Õ¹ÃûÌí¼Óµ½È«¾ÖÖ§³ÖµÄÀ©Õ¹Ãû¼¯ºÏÖĞ
+     * @brief   æ·»åŠ æ”¯æŒçš„æ‰©å±•åï¼ˆé™æ€æ–¹æ³•ï¼‰
+     * @details å°†æ–°çš„æ–‡ä»¶æ‰©å±•åæ·»åŠ åˆ°å…¨å±€æ”¯æŒçš„æ‰©å±•åé›†åˆä¸­
      *
-     * @param   extensions ÒªÌí¼ÓµÄÎÄ¼şÀ©Õ¹Ãû¼¯ºÏ
-     * @note    ¸Ã·½·¨»á×Ô¶¯È¥ÖØ£¬±ÜÃâÖØ¸´Ìí¼ÓÏàÍ¬µÄÀ©Õ¹Ãû
+     * @param   extensions è¦æ·»åŠ çš„æ–‡ä»¶æ‰©å±•åé›†åˆ
+     * @note    è¯¥æ–¹æ³•ä¼šè‡ªåŠ¨å»é‡ï¼Œé¿å…é‡å¤æ·»åŠ ç›¸åŒçš„æ‰©å±•å
      */
     static void addSupportedExtensions(const std::set<std::string>& extensions);
 
     /**
-     * @brief   Ê¹ÓÃÖ¸¶¨¹¤³§´ò¿ªÍ¼Ïñ£¨¾²Ì¬·½·¨£©
-     * @details Ê¹ÓÃÖ¸¶¨µÄ¹¤³§¶ÔÏóÀ´´ò¿ªÍ¼ÏñÎÄ¼ş
+     * @brief   ä½¿ç”¨æŒ‡å®šå·¥å‚æ‰“å¼€å›¾åƒï¼ˆé™æ€æ–¹æ³•ï¼‰
+     * @details ä½¿ç”¨æŒ‡å®šçš„å·¥å‚å¯¹è±¡æ¥æ‰“å¼€å›¾åƒæ–‡ä»¶
      *
-     * @param   fileName Í¼ÏñÎÄ¼şÂ·¾¶
-     * @param   factory ÒªÊ¹ÓÃµÄ¹¤³§¶ÔÏóÖ¸Õë
-     * @return  ³É¹¦Ê±·µ»ØÍ¼Ïñ¶ÔÏóÖ¸Õë£¬Ê§°ÜÊ±·µ»Ønullptr
-     * @note    ¸Ã·½·¨»áµ÷ÓÃ¹¤³§µÄreadImage·½·¨
+     * @param   fileName å›¾åƒæ–‡ä»¶è·¯å¾„
+     * @param   factory è¦ä½¿ç”¨çš„å·¥å‚å¯¹è±¡æŒ‡é’ˆ
+     * @return  æˆåŠŸæ—¶è¿”å›å›¾åƒå¯¹è±¡æŒ‡é’ˆï¼Œå¤±è´¥æ—¶è¿”å›nullptr
+     * @note    è¯¥æ–¹æ³•ä¼šè°ƒç”¨å·¥å‚çš„readImageæ–¹æ³•
      * @see     readImage
      */
     static MultiResolutionImage* openImageWithFactory(const std::string& fileName, const MultiResolutionImageFactory* factory);
 
     /**
-     * @brief   ¶ÁÈ¡Í¼ÏñÎÄ¼ş£¨´¿Ğéº¯Êı£©
-     * @details ÓÉÅÉÉúÀàÊµÏÖµÄÍ¼Ïñ¶ÁÈ¡Âß¼­
+     * @brief   è¯»å–å›¾åƒæ–‡ä»¶ï¼ˆçº¯è™šå‡½æ•°ï¼‰
+     * @details ç”±æ´¾ç”Ÿç±»å®ç°çš„å›¾åƒè¯»å–é€»è¾‘
      *
-     * @param   fileName Í¼ÏñÎÄ¼şÂ·¾¶
-     * @return  ³É¹¦Ê±·µ»ØÍ¼Ïñ¶ÔÏóÖ¸Õë£¬Ê§°ÜÊ±·µ»Ønullptr
-     * @note    ¸Ãº¯ÊıÊÇ´¿Ğéº¯Êı£¬±ØĞëÓÉÅÉÉúÀàÊµÏÖ
+     * @param   fileName å›¾åƒæ–‡ä»¶è·¯å¾„
+     * @return  æˆåŠŸæ—¶è¿”å›å›¾åƒå¯¹è±¡æŒ‡é’ˆï¼Œå¤±è´¥æ—¶è¿”å›nullptr
+     * @note    è¯¥å‡½æ•°æ˜¯çº¯è™šå‡½æ•°ï¼Œå¿…é¡»ç”±æ´¾ç”Ÿç±»å®ç°
      * @see     OpenSlideImageFactory::readImage
      */
     virtual MultiResolutionImage* readImage(const std::string& fileName) const = 0;
 
     /**
-     * @brief   ¼ì²éÊÇ·ñ¿ÉÒÔ¶ÁÈ¡Í¼Ïñ£¨´¿Ğéº¯Êı£©
-     * @details ¼ì²éÖ¸¶¨µÄÎÄ¼şÊÇ·ñ¿ÉÒÔ±»µ±Ç°¹¤³§¶ÁÈ¡
+     * @brief   æ£€æŸ¥æ˜¯å¦å¯ä»¥è¯»å–å›¾åƒï¼ˆçº¯è™šå‡½æ•°ï¼‰
+     * @details æ£€æŸ¥æŒ‡å®šçš„æ–‡ä»¶æ˜¯å¦å¯ä»¥è¢«å½“å‰å·¥å‚è¯»å–
      *
-     * @param   fileName Í¼ÏñÎÄ¼şÂ·¾¶
-     * @return  true±íÊ¾¿ÉÒÔ¶ÁÈ¡£¬false±íÊ¾²»ÄÜ¶ÁÈ¡
-     * @note    ¸Ãº¯ÊıÊÇ´¿Ğéº¯Êı£¬±ØĞëÓÉÅÉÉúÀàÊµÏÖ
+     * @param   fileName å›¾åƒæ–‡ä»¶è·¯å¾„
+     * @return  trueè¡¨ç¤ºå¯ä»¥è¯»å–ï¼Œfalseè¡¨ç¤ºä¸èƒ½è¯»å–
+     * @note    è¯¥å‡½æ•°æ˜¯çº¯è™šå‡½æ•°ï¼Œå¿…é¡»ç”±æ´¾ç”Ÿç±»å®ç°
      * @see     OpenSlideImageFactory::canReadImage
      */
     virtual bool canReadImage(const std::string& fileName) const = 0;
 
 private:
-    /** @brief Íâ²¿¸ñÊ½ÊÇ·ñÒÑ×¢²áµÄ±êÖ¾ */
+    /** @brief å¤–éƒ¨æ ¼å¼æ˜¯å¦å·²æ³¨å†Œçš„æ ‡å¿— */
     static bool _externalFormatsRegistered;
 
-    /** @brief ËùÓĞÖ§³ÖµÄÎÄ¼şÀ©Õ¹Ãû¼¯ºÏ */
+    /** @brief æ‰€æœ‰æ”¯æŒçš„æ–‡ä»¶æ‰©å±•åé›†åˆ */
     static std::set<std::string> _allSupportedExtensions;
 
-    /** @brief ¹¤³§Ãû³Æ */
+    /** @brief å·¥å‚åç§° */
     const std::string _factoryName;
 
-    /** @brief ¹¤³§ÓÅÏÈ¼¶£¬ÊıÖµÔ½Ğ¡ÓÅÏÈ¼¶Ô½¸ß */
+    /** @brief å·¥å‚ä¼˜å…ˆçº§ï¼Œæ•°å€¼è¶Šå°ä¼˜å…ˆçº§è¶Šé«˜ */
     const unsigned int _priority;
 };
 
 /**
  * @class  MultiResolutionImageReader
- * @brief  ¶à·Ö±æÂÊÍ¼Ïñ¶ÁÈ¡Æ÷£¬Ìá¹©¼ò»¯µÄÍ¼Ïñ¼ÓÔØ½Ó¿Ú
- * @details ¸ÃÀàÊÇ¶ÔMultiResolutionImageFactoryµÄ·â×°£¬Ìá¹©¸ü¼òµ¥µÄ
- *          Í¼Ïñ¼ÓÔØ½Ó¿Ú¡£Ö÷ÒªÓÃÓÚÓ¦ÓÃ³ÌĞò²ãÃæµÄÍ¼ÏñÎÄ¼ş¼ÓÔØ¡£
+ * @brief  å¤šåˆ†è¾¨ç‡å›¾åƒè¯»å–å™¨ï¼Œæä¾›ç®€åŒ–çš„å›¾åƒåŠ è½½æ¥å£
+ * @details è¯¥ç±»æ˜¯å¯¹MultiResolutionImageFactoryçš„å°è£…ï¼Œæä¾›æ›´ç®€å•çš„
+ *          å›¾åƒåŠ è½½æ¥å£ã€‚ä¸»è¦ç”¨äºåº”ç”¨ç¨‹åºå±‚é¢çš„å›¾åƒæ–‡ä»¶åŠ è½½ã€‚
  *
- * @note    ¸ÃÀàÊÇ¹¤¾ßÀà£¬Ìá¹©±ã½İµÄÍ¼Ïñ¼ÓÔØ¹¦ÄÜ
+ * @note    è¯¥ç±»æ˜¯å·¥å…·ç±»ï¼Œæä¾›ä¾¿æ·çš„å›¾åƒåŠ è½½åŠŸèƒ½
  * @see     MultiResolutionImageFactory
  * @example
- *          // Ê¹ÓÃÊ¾Àı
+ *          // ä½¿ç”¨ç¤ºä¾‹
  *          MultiResolutionImageReader reader;
  *          MultiResolutionImage* img = reader.open("image.svs");
  *          if (img) {
- *              // Ê¹ÓÃÍ¼Ïñ¶ÔÏó
+ *              // ä½¿ç”¨å›¾åƒå¯¹è±¡
  *          }
  */
 class MultiResolutionImageReader
 {
 public:
     /**
-     * @brief   Ä¬ÈÏ¹¹Ôìº¯Êı
-     * @details ´´½¨Í¼Ïñ¶ÁÈ¡Æ÷ÊµÀı
+     * @brief   é»˜è®¤æ„é€ å‡½æ•°
+     * @details åˆ›å»ºå›¾åƒè¯»å–å™¨å®ä¾‹
      */
     MultiResolutionImageReader();
 
     /**
-     * @brief   Îö¹¹º¯Êı
-     * @details ÇåÀíÍ¼Ïñ¶ÁÈ¡Æ÷×ÊÔ´
+     * @brief   ææ„å‡½æ•°
+     * @details æ¸…ç†å›¾åƒè¯»å–å™¨èµ„æº
      */
     ~MultiResolutionImageReader();
 
     /**
-     * @brief   ´ò¿ªÍ¼ÏñÎÄ¼ş
-     * @details Ê¹ÓÃ¹¤³§Ä£Ê½´ò¿ªÖ¸¶¨µÄÍ¼ÏñÎÄ¼ş
+     * @brief   æ‰“å¼€å›¾åƒæ–‡ä»¶
+     * @details ä½¿ç”¨å·¥å‚æ¨¡å¼æ‰“å¼€æŒ‡å®šçš„å›¾åƒæ–‡ä»¶
      *
-     * @param   fileName Í¼ÏñÎÄ¼şÂ·¾¶
-     * @param   factoryName Ö¸¶¨µÄ¹¤³§Ãû³Æ£¬Ä¬ÈÏÎª"default"
-     * @return  ³É¹¦Ê±·µ»ØÍ¼Ïñ¶ÔÏóÖ¸Õë£¬Ê§°ÜÊ±·µ»Ønullptr
-     * @note    µ÷ÓÃÕß¸ºÔğÊÍ·Å·µ»ØµÄÍ¼Ïñ¶ÔÏóÄÚ´æ
+     * @param   fileName å›¾åƒæ–‡ä»¶è·¯å¾„
+     * @param   factoryName æŒ‡å®šçš„å·¥å‚åç§°ï¼Œé»˜è®¤ä¸º"default"
+     * @return  æˆåŠŸæ—¶è¿”å›å›¾åƒå¯¹è±¡æŒ‡é’ˆï¼Œå¤±è´¥æ—¶è¿”å›nullptr
+     * @note    è°ƒç”¨è€…è´Ÿè´£é‡Šæ”¾è¿”å›çš„å›¾åƒå¯¹è±¡å†…å­˜
      * @see     MultiResolutionImageFactory::openImage
      */
     MultiResolutionImage* open(const std::string& fileName, const std::string factoryName = std::string("default"));
@@ -260,57 +260,57 @@ public:
 
 /**
  * @class  OpenSlideImageFactory
- * @brief  OpenSlideÍ¼Ïñ¸ñÊ½¹¤³§£¬×¨ÃÅ´¦ÀíOpenSlide¸ñÊ½µÄÍ¼ÏñÎÄ¼ş
- * @details ¸ÃÀàÊÇMultiResolutionImageFactoryµÄ¾ßÌåÊµÏÖ£¬×¨ÃÅÓÃÓÚ
- *          ´¦ÀíOpenSlide¸ñÊ½µÄÍ¼ÏñÎÄ¼ş£¨Èç.svs, .tiffµÈ£©¡£
- *          Ö§³ÖAperio¡¢Hamamatsu¡¢LeicaµÈÉ¨ÃèÒÇÉú³ÉµÄÊı×Ö²¡ÀíÍ¼Ïñ¡£
+ * @brief  OpenSlideå›¾åƒæ ¼å¼å·¥å‚ï¼Œä¸“é—¨å¤„ç†OpenSlideæ ¼å¼çš„å›¾åƒæ–‡ä»¶
+ * @details è¯¥ç±»æ˜¯MultiResolutionImageFactoryçš„å…·ä½“å®ç°ï¼Œä¸“é—¨ç”¨äº
+ *          å¤„ç†OpenSlideæ ¼å¼çš„å›¾åƒæ–‡ä»¶ï¼ˆå¦‚.svs, .tiffç­‰ï¼‰ã€‚
+ *          æ”¯æŒAperioã€Hamamatsuã€Leicaç­‰æ‰«æä»ªç”Ÿæˆçš„æ•°å­—ç—…ç†å›¾åƒã€‚
  *
- * @note    ¸ÃÀà»á×Ô¶¯×¢²áµ½¹¤³§ÏµÍ³ÖĞ
+ * @note    è¯¥ç±»ä¼šè‡ªåŠ¨æ³¨å†Œåˆ°å·¥å‚ç³»ç»Ÿä¸­
  * @see     MultiResolutionImageFactory, OpenSlideImage
  * @example
- *          // Ê¹ÓÃÊ¾Àı
+ *          // ä½¿ç”¨ç¤ºä¾‹
  *          OpenSlideImageFactory factory;
  *          MultiResolutionImage* img = factory.readImage("pathology.svs");
  */
 class OpenSlideImageFactory : public MultiResolutionImageFactory {
 public:
     /**
-     * @brief   ¹¹Ôìº¯Êı
-     * @details ´´½¨OpenSlideÍ¼Ïñ¹¤³§£¬ÉèÖÃÖ§³ÖµÄÎÄ¼şÀ©Õ¹ÃûºÍÓÅÏÈ¼¶
-     * @note    ¹¹Ôìº¯Êı»á×Ô¶¯×¢²áµ½¹¤³§ÏµÍ³ÖĞ
+     * @brief   æ„é€ å‡½æ•°
+     * @details åˆ›å»ºOpenSlideå›¾åƒå·¥å‚ï¼Œè®¾ç½®æ”¯æŒçš„æ–‡ä»¶æ‰©å±•åå’Œä¼˜å…ˆçº§
+     * @note    æ„é€ å‡½æ•°ä¼šè‡ªåŠ¨æ³¨å†Œåˆ°å·¥å‚ç³»ç»Ÿä¸­
      */
     OpenSlideImageFactory();
 
 private:
     /**
-     * @brief   ¶ÁÈ¡OpenSlideÍ¼ÏñÎÄ¼ş
-     * @details ÊµÏÖOpenSlide¸ñÊ½Í¼ÏñÎÄ¼şµÄ¶ÁÈ¡Âß¼­
+     * @brief   è¯»å–OpenSlideå›¾åƒæ–‡ä»¶
+     * @details å®ç°OpenSlideæ ¼å¼å›¾åƒæ–‡ä»¶çš„è¯»å–é€»è¾‘
      *
-     * @param   fileName Í¼ÏñÎÄ¼şÂ·¾¶
-     * @return  ³É¹¦Ê±·µ»ØOpenSlideImage¶ÔÏóÖ¸Õë£¬Ê§°ÜÊ±·µ»Ønullptr
-     * @note    ¸Ãº¯Êı»á¼ì²éÎÄ¼ş¸ñÊ½²¢´´½¨ÏàÓ¦µÄÍ¼Ïñ¶ÔÏó
+     * @param   fileName å›¾åƒæ–‡ä»¶è·¯å¾„
+     * @return  æˆåŠŸæ—¶è¿”å›OpenSlideImageå¯¹è±¡æŒ‡é’ˆï¼Œå¤±è´¥æ—¶è¿”å›nullptr
+     * @note    è¯¥å‡½æ•°ä¼šæ£€æŸ¥æ–‡ä»¶æ ¼å¼å¹¶åˆ›å»ºç›¸åº”çš„å›¾åƒå¯¹è±¡
      * @see     OpenSlideImage
      */
     MultiResolutionImage* readImage(const std::string& fileName) const;
 
     /**
-     * @brief   ¼ì²éÊÇ·ñ¿ÉÒÔ¶ÁÈ¡OpenSlideÍ¼Ïñ
-     * @details ¼ì²éÖ¸¶¨ÎÄ¼şÊÇ·ñÎªOpenSlideÖ§³ÖµÄ¸ñÊ½
+     * @brief   æ£€æŸ¥æ˜¯å¦å¯ä»¥è¯»å–OpenSlideå›¾åƒ
+     * @details æ£€æŸ¥æŒ‡å®šæ–‡ä»¶æ˜¯å¦ä¸ºOpenSlideæ”¯æŒçš„æ ¼å¼
      *
-     * @param   fileName Í¼ÏñÎÄ¼şÂ·¾¶
-     * @return  true±íÊ¾¿ÉÒÔ¶ÁÈ¡£¬false±íÊ¾²»ÄÜ¶ÁÈ¡
-     * @note    ¸Ãº¯Êı»á¼ì²éÎÄ¼şÀ©Õ¹ÃûºÍÎÄ¼şÍ·ĞÅÏ¢
+     * @param   fileName å›¾åƒæ–‡ä»¶è·¯å¾„
+     * @return  trueè¡¨ç¤ºå¯ä»¥è¯»å–ï¼Œfalseè¡¨ç¤ºä¸èƒ½è¯»å–
+     * @note    è¯¥å‡½æ•°ä¼šæ£€æŸ¥æ–‡ä»¶æ‰©å±•åå’Œæ–‡ä»¶å¤´ä¿¡æ¯
      */
     bool canReadImage(const std::string& fileName) const;
 };
 
 /**
- * @brief   ÎÄ¼şÀàĞÍ¼ÓÔØº¯Êı£¨C½Ó¿Ú£©
- * @details ÓÃÓÚ¶¯Ì¬¼ÓÔØÍâ²¿ÎÄ¼ş¸ñÊ½Ö§³ÖµÄC½Ó¿Úº¯Êı¡£
- *          ¸Ãº¯ÊıÍ¨³£ÔÚÏµÍ³³õÊ¼»¯Ê±±»µ÷ÓÃ£¬ÓÃÓÚ×¢²á
- *          ÏµÍ³ÖĞ¿ÉÓÃµÄÍ¼Ïñ¸ñÊ½¿â¡£
+ * @brief   æ–‡ä»¶ç±»å‹åŠ è½½å‡½æ•°ï¼ˆCæ¥å£ï¼‰
+ * @details ç”¨äºåŠ¨æ€åŠ è½½å¤–éƒ¨æ–‡ä»¶æ ¼å¼æ”¯æŒçš„Cæ¥å£å‡½æ•°ã€‚
+ *          è¯¥å‡½æ•°é€šå¸¸åœ¨ç³»ç»Ÿåˆå§‹åŒ–æ—¶è¢«è°ƒç”¨ï¼Œç”¨äºæ³¨å†Œ
+ *          ç³»ç»Ÿä¸­å¯ç”¨çš„å›¾åƒæ ¼å¼åº“ã€‚
  *
- * @note    ¸Ãº¯ÊıÊ¹ÓÃextern "C"ÉùÃ÷£¬È·±£CÓïÑÔ¼æÈİĞÔ
+ * @note    è¯¥å‡½æ•°ä½¿ç”¨extern "C"å£°æ˜ï¼Œç¡®ä¿Cè¯­è¨€å…¼å®¹æ€§
  * @see     registerExternalFileFormats
  */
 extern "C" {

@@ -1,4 +1,4 @@
-#include "MiniMap.h"  
+﻿#include "MiniMap.h"  
 
 #include <QPixmap>
 #include <QPainter>

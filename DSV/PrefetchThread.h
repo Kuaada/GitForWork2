@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    PrefetchThread.h
  * @brief   预取线程类，负责异步预加载图像瓦片
  * @author  [JianZhang]

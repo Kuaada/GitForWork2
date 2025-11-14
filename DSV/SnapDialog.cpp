@@ -1,4 +1,4 @@
-#include "SnapDialog.h"
+﻿#include "SnapDialog.h"
 
 
 SnapDialog::SnapDialog(QWidget *parent)
@@ -23,6 +23,8 @@ SnapDialog::SnapDialog(QWidget *parent)
 	setWindowOpacity(0.0);
 	QPushButton* save = this->findChild<QPushButton*>("SavePic");
 	connect(save, &QPushButton::clicked, m_SnapWidget, &SnapWidget::saveSnap);
+	QPushButton* saveTiff = this->findChild<QPushButton*>("SaveTIFF");
+	connect(saveTiff, &QPushButton::clicked, m_SnapWidget, &SnapWidget::saveTIFFSnap);
 }
 
 void SnapDialog::drawPic(const QPixmap& pix)
@@ -85,11 +87,18 @@ void SnapDialog::initUi()
 	minimap->setObjectName(QStringLiteral("miniMap"));
 	minimap->setChecked(true);
 	minimap->setFixedHeight(50);
+
+	QPushButton* changePos = new QPushButton(QStringLiteral("位置"),this);
+	changePos->setObjectName(QStringLiteral("changePos"));
+	changePos->setFixedHeight(30);
+	changePos->setFixedWidth(75);
+
 	left0->addWidget(labelInfo0,1);
 	left0->addWidget(scalebar,1);
 	left0->addWidget(label,1);
 	left0->addWidget(minimap,1);
-
+	left0->addSpacing(2);
+	left0->addWidget(changePos, 0.8);
 	//left1布局
 	QVBoxLayout* left1 = new QVBoxLayout();
 	QLabel* labelInfo1 = new QLabel(QStringLiteral("保存"), this);
@@ -103,9 +112,10 @@ void SnapDialog::initUi()
 
 	QHBoxLayout* H1 = new QHBoxLayout(this);
 	QPushButton* SaveTIFF = new QPushButton(this);
+	SaveTIFF->setObjectName(QStringLiteral("SaveTIFF"));
 	QLabel* label1 = new QLabel(QStringLiteral("保存视图为TIFF"), this);
-	SaveTIFF->setEnabled(false);
-	label1->setEnabled(false);
+	SaveTIFF->setEnabled(true);
+	label1->setEnabled(true);
 	H1->addWidget(SaveTIFF);
 	H1->addWidget(label1);
 

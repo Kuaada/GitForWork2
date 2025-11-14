@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file MultiResolutionImageFactory.cpp
  * @brief 多分辨率图像工厂类实现文件
  * @details 该文件实现了多分辨率图像工厂模式，用于创建和管理不同类型的多分辨率图像

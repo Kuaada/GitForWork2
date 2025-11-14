@@ -59,6 +59,7 @@
  * // 按回车键确认输入
  * @endcode
  */
+
 class TextRenderElement :public QGraphicsTextItem, public RenderElement
 {
 public:

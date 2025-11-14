@@ -1,19 +1,19 @@
-/**
+ï»¿/**
  * @file    OpenSlideImage.h
- * @brief   OpenSlideÍ¼Ïñ¸ñÊ½ÊµÏÖÀà£¬Ö§³ÖÊı×Ö²¡ÀíÍ¼Ïñ¸ñÊ½
+ * @brief   OpenSlideå›¾åƒæ ¼å¼å®ç°ç±»ï¼Œæ”¯æŒæ•°å­—ç—…ç†å›¾åƒæ ¼å¼
  * @author  [JianZhang] ([])
  * @date    2025-01-19
  * @version 1.0.0
- * @details ¸ÃÎÄ¼şÊµÏÖÁËDSVÏîÄ¿µÄOpenSlideÍ¼Ïñ¸ñÊ½Ö§³Ö£¬°üÀ¨£º
- *          - OpenSlide¿âµÄ¼¯³ÉºÍ·â×°
- *          - Êı×Ö²¡ÀíÍ¼Ïñ¸ñÊ½µÄ¶ÁÈ¡ºÍ´¦Àí
- *          - ¶à·Ö±æÂÊÍ¼ÏñÊı¾İµÄ·ÃÎÊ
- *          - Í¼ÏñÔªÊı¾İºÍÊôĞÔµÄ»ñÈ¡
- *          - ±³¾°É«ºÍ´íÎó×´Ì¬¹ÜÀí
- *          ¸ÃÀàÊÇDSVÏîÄ¿ÖĞÍ¼ÏñÊı¾İ·ÃÎÊµÄºËĞÄÊµÏÖ£¬
- *          Ö§³ÖAperio¡¢Hamamatsu¡¢LeicaµÈÉ¨ÃèÒÇÉú³ÉµÄÊı×Ö²¡ÀíÍ¼Ïñ¸ñÊ½¡£
+ * @details è¯¥æ–‡ä»¶å®ç°äº†DSVé¡¹ç›®çš„OpenSlideå›¾åƒæ ¼å¼æ”¯æŒï¼ŒåŒ…æ‹¬ï¼š
+ *          - OpenSlideåº“çš„é›†æˆå’Œå°è£…
+ *          - æ•°å­—ç—…ç†å›¾åƒæ ¼å¼çš„è¯»å–å’Œå¤„ç†
+ *          - å¤šåˆ†è¾¨ç‡å›¾åƒæ•°æ®çš„è®¿é—®
+ *          - å›¾åƒå…ƒæ•°æ®å’Œå±æ€§çš„è·å–
+ *          - èƒŒæ™¯è‰²å’Œé”™è¯¯çŠ¶æ€ç®¡ç†
+ *          è¯¥ç±»æ˜¯DSVé¡¹ç›®ä¸­å›¾åƒæ•°æ®è®¿é—®çš„æ ¸å¿ƒå®ç°ï¼Œ
+ *          æ”¯æŒAperioã€Hamamatsuã€Leicaç­‰æ‰«æä»ªç”Ÿæˆçš„æ•°å­—ç—…ç†å›¾åƒæ ¼å¼ã€‚
  *
- * @note    ¸ÃÀàÒÀÀµOpenSlide¿â£¬ĞèÒªÈ·±£OpenSlide¿âÕıÈ·°²×°
+ * @note    è¯¥ç±»ä¾èµ–OpenSlideåº“ï¼Œéœ€è¦ç¡®ä¿OpenSlideåº“æ­£ç¡®å®‰è£…
  * @see     MultiResolutionImage, openslide_t
  */
 
@@ -21,33 +21,33 @@
 #include "MultiResolutionImage.h"
 #include <QImage>
 
- // OpenSlide¿âµÄÇ°ÏòÉùÃ÷
+ // OpenSlideåº“çš„å‰å‘å£°æ˜
 struct _openslide;
 typedef struct _openslide openslide_t;
 
 /**
  * @class  OpenSlideImage
- * @brief  OpenSlideÍ¼Ïñ¸ñÊ½ÊµÏÖÀà£¬Ö§³ÖÊı×Ö²¡ÀíÍ¼Ïñ¸ñÊ½
- * @details ¸ÃÀàÊÇMultiResolutionImageµÄ¾ßÌåÊµÏÖ£¬×¨ÃÅÓÃÓÚ´¦Àí
- *          OpenSlideÖ§³ÖµÄÊı×Ö²¡ÀíÍ¼Ïñ¸ñÊ½¡£OpenSlideÊÇÒ»¸ö¿ªÔ´¿â£¬
- *          Ö§³Ö¶àÖÖÊı×Ö²¡ÀíÍ¼Ïñ¸ñÊ½£¬°üÀ¨Aperio (.svs)¡¢Hamamatsu (.ndpi)¡¢
- *          Leica (.scn)¡¢MIRAX (.mrxs)µÈ¡£
+ * @brief  OpenSlideå›¾åƒæ ¼å¼å®ç°ç±»ï¼Œæ”¯æŒæ•°å­—ç—…ç†å›¾åƒæ ¼å¼
+ * @details è¯¥ç±»æ˜¯MultiResolutionImageçš„å…·ä½“å®ç°ï¼Œä¸“é—¨ç”¨äºå¤„ç†
+ *          OpenSlideæ”¯æŒçš„æ•°å­—ç—…ç†å›¾åƒæ ¼å¼ã€‚OpenSlideæ˜¯ä¸€ä¸ªå¼€æºåº“ï¼Œ
+ *          æ”¯æŒå¤šç§æ•°å­—ç—…ç†å›¾åƒæ ¼å¼ï¼ŒåŒ…æ‹¬Aperio (.svs)ã€Hamamatsu (.ndpi)ã€
+ *          Leica (.scn)ã€MIRAX (.mrxs)ç­‰ã€‚
  *
- *          Ö÷Òª¹¦ÄÜ°üÀ¨£º
- *          - Êı×Ö²¡ÀíÍ¼ÏñÎÄ¼şµÄ¶ÁÈ¡ºÍ½âÎö
- *          - ¶à·Ö±æÂÊ²ã¼¶Êı¾İµÄ·ÃÎÊ
- *          - Í¼ÏñÔªÊı¾İºÍÊôĞÔµÄ»ñÈ¡
- *          - ±³¾°É«ºÍ´íÎó×´Ì¬¹ÜÀí
- *          - ÓëOpenSlide¿âµÄµ×²ã½»»¥
+ *          ä¸»è¦åŠŸèƒ½åŒ…æ‹¬ï¼š
+ *          - æ•°å­—ç—…ç†å›¾åƒæ–‡ä»¶çš„è¯»å–å’Œè§£æ
+ *          - å¤šåˆ†è¾¨ç‡å±‚çº§æ•°æ®çš„è®¿é—®
+ *          - å›¾åƒå…ƒæ•°æ®å’Œå±æ€§çš„è·å–
+ *          - èƒŒæ™¯è‰²å’Œé”™è¯¯çŠ¶æ€ç®¡ç†
+ *          - ä¸OpenSlideåº“çš„åº•å±‚äº¤äº’
  *
- * @note   ¸ÃÀàÊÇÏß³Ì°²È«µÄ£¬Ö§³Ö¶àÏß³Ì²¢·¢·ÃÎÊ
+ * @note   è¯¥ç±»æ˜¯çº¿ç¨‹å®‰å…¨çš„ï¼Œæ”¯æŒå¤šçº¿ç¨‹å¹¶å‘è®¿é—®
  * @example
- *          // Ê¹ÓÃÊ¾Àı
+ *          // ä½¿ç”¨ç¤ºä¾‹
  *          OpenSlideImage* image = new OpenSlideImage();
  *          if (image->initializeType("pathology.svs")) {
  *              auto dimensions = image->getDimensions();
  *              auto levels = image->getNumberOfLevels();
- *              // »ñÈ¡Í¼ÏñÊı¾İ
+ *              // è·å–å›¾åƒæ•°æ®
  *              unsigned char* data = new unsigned char[width * height * 3];
  *              image->getRawRegion<unsigned char>(0, 0, width, height, 0, data);
  *          }
@@ -57,75 +57,75 @@ class OpenSlideImage : public MultiResolutionImage
 {
 public:
     /**
-     * @brief   Ä¬ÈÏ¹¹Ôìº¯Êı
-     * @details ´´½¨OpenSlideÍ¼Ïñ¶ÔÏó£¬³õÊ¼»¯OpenSlide¿â¾ä±úºÍ³ÉÔ±±äÁ¿
-     * @note    ¹¹Ôìº¯Êı²»»á´ò¿ªÍ¼ÏñÎÄ¼ş£¬ĞèÒªµ÷ÓÃinitializeTypeÀ´¼ÓÔØÍ¼Ïñ
+     * @brief   é»˜è®¤æ„é€ å‡½æ•°
+     * @details åˆ›å»ºOpenSlideå›¾åƒå¯¹è±¡ï¼Œåˆå§‹åŒ–OpenSlideåº“å¥æŸ„å’Œæˆå‘˜å˜é‡
+     * @note    æ„é€ å‡½æ•°ä¸ä¼šæ‰“å¼€å›¾åƒæ–‡ä»¶ï¼Œéœ€è¦è°ƒç”¨initializeTypeæ¥åŠ è½½å›¾åƒ
      */
     OpenSlideImage();
 
     /**
-     * @brief   Îö¹¹º¯Êı
-     * @details ÇåÀíOpenSlide¿â¾ä±úºÍÏà¹Ø×ÊÔ´£¬È·±£²»»á·¢ÉúÄÚ´æĞ¹Â©
-     * @note    Îö¹¹º¯Êı»á×Ô¶¯µ÷ÓÃcleanup()·½·¨
+     * @brief   ææ„å‡½æ•°
+     * @details æ¸…ç†OpenSlideåº“å¥æŸ„å’Œç›¸å…³èµ„æºï¼Œç¡®ä¿ä¸ä¼šå‘ç”Ÿå†…å­˜æ³„æ¼
+     * @note    ææ„å‡½æ•°ä¼šè‡ªåŠ¨è°ƒç”¨cleanup()æ–¹æ³•
      */
     ~OpenSlideImage();
 
     /**
-     * @brief   ³õÊ¼»¯OpenSlideÍ¼ÏñÎÄ¼ş
-     * @details Ê¹ÓÃOpenSlide¿â´ò¿ªÖ¸¶¨µÄÍ¼ÏñÎÄ¼ş£¬½âÎöÍ¼Ïñ¸ñÊ½£¬
-     *          »ñÈ¡¶à·Ö±æÂÊ²ã¼¶ĞÅÏ¢ºÍÔªÊı¾İ¡£¸Ã·½·¨»áÑéÖ¤ÎÄ¼ş¸ñÊ½
-     *          ²¢ÉèÖÃÏàÓ¦µÄÍ¼ÏñÊôĞÔ¡£
+     * @brief   åˆå§‹åŒ–OpenSlideå›¾åƒæ–‡ä»¶
+     * @details ä½¿ç”¨OpenSlideåº“æ‰“å¼€æŒ‡å®šçš„å›¾åƒæ–‡ä»¶ï¼Œè§£æå›¾åƒæ ¼å¼ï¼Œ
+     *          è·å–å¤šåˆ†è¾¨ç‡å±‚çº§ä¿¡æ¯å’Œå…ƒæ•°æ®ã€‚è¯¥æ–¹æ³•ä¼šéªŒè¯æ–‡ä»¶æ ¼å¼
+     *          å¹¶è®¾ç½®ç›¸åº”çš„å›¾åƒå±æ€§ã€‚
      *
-     * @param   imagePath Í¼ÏñÎÄ¼şÂ·¾¶
-     * @return  true±íÊ¾³õÊ¼»¯³É¹¦£¬false±íÊ¾Ê§°Ü
-     * @note    ¸Ã·½·¨»áµ÷ÓÃOpenSlide¿âµÄopenslide_openº¯Êı
+     * @param   imagePath å›¾åƒæ–‡ä»¶è·¯å¾„
+     * @return  trueè¡¨ç¤ºåˆå§‹åŒ–æˆåŠŸï¼Œfalseè¡¨ç¤ºå¤±è´¥
+     * @note    è¯¥æ–¹æ³•ä¼šè°ƒç”¨OpenSlideåº“çš„openslide_openå‡½æ•°
      * @see     openslide_open, cleanup
      * @example
-     *          // Ê¹ÓÃÊ¾Àı
+     *          // ä½¿ç”¨ç¤ºä¾‹
      *          OpenSlideImage image;
      *          if (image.initializeType("sample.svs")) {
-     *              std::cout << "Í¼Ïñ¼ÓÔØ³É¹¦" << std::endl;
+     *              std::cout << "å›¾åƒåŠ è½½æˆåŠŸ" << std::endl;
      *          } else {
-     *              std::cout << "Í¼Ïñ¼ÓÔØÊ§°Ü: " << image.getOpenSlideErrorState() << std::endl;
+     *              std::cout << "å›¾åƒåŠ è½½å¤±è´¥: " << image.getOpenSlideErrorState() << std::endl;
      *          }
      */
     bool initializeType(const std::string& imagePath);
 
     /**
-     * @brief   »ñÈ¡Í¨µÀ×îĞ¡Öµ
-     * @details ·µ»ØÖ¸¶¨Í¨µÀµÄ×îĞ¡Öµ¡£¶ÔÓÚOpenSlideÍ¼Ïñ£¬
-     *          Í¨³£Ê¹ÓÃ8Î»»ò16Î»Êı¾İ£¬×îĞ¡ÖµÍ¨³£Îª0¡£
+     * @brief   è·å–é€šé“æœ€å°å€¼
+     * @details è¿”å›æŒ‡å®šé€šé“çš„æœ€å°å€¼ã€‚å¯¹äºOpenSlideå›¾åƒï¼Œ
+     *          é€šå¸¸ä½¿ç”¨8ä½æˆ–16ä½æ•°æ®ï¼Œæœ€å°å€¼é€šå¸¸ä¸º0ã€‚
      *
-     * @param   channel Í¨µÀË÷Òı£¬-1±íÊ¾ËùÓĞÍ¨µÀ
-     * @return  Í¨µÀ×îĞ¡Öµ£¬Í¨³£Îª0
-     * @note    ¸Ãº¯ÊıÊÇĞéº¯ÊıµÄÖØĞ´ÊµÏÖ
+     * @param   channel é€šé“ç´¢å¼•ï¼Œ-1è¡¨ç¤ºæ‰€æœ‰é€šé“
+     * @return  é€šé“æœ€å°å€¼ï¼Œé€šå¸¸ä¸º0
+     * @note    è¯¥å‡½æ•°æ˜¯è™šå‡½æ•°çš„é‡å†™å®ç°
      * @see     getMaxValue
      */
     double getMinValue(int channel = -1) { return 0.; }
 
     /**
-     * @brief   »ñÈ¡Í¨µÀ×î´óÖµ
-     * @details ·µ»ØÖ¸¶¨Í¨µÀµÄ×î´óÖµ¡£¶ÔÓÚOpenSlideÍ¼Ïñ£¬
-     *          Í¨³£Ê¹ÓÃ8Î»»ò16Î»Êı¾İ£¬×î´óÖµÍ¨³£Îª255£¨8Î»£©»ò65535£¨16Î»£©¡£
+     * @brief   è·å–é€šé“æœ€å¤§å€¼
+     * @details è¿”å›æŒ‡å®šé€šé“çš„æœ€å¤§å€¼ã€‚å¯¹äºOpenSlideå›¾åƒï¼Œ
+     *          é€šå¸¸ä½¿ç”¨8ä½æˆ–16ä½æ•°æ®ï¼Œæœ€å¤§å€¼é€šå¸¸ä¸º255ï¼ˆ8ä½ï¼‰æˆ–65535ï¼ˆ16ä½ï¼‰ã€‚
      *
-     * @param   channel Í¨µÀË÷Òı£¬-1±íÊ¾ËùÓĞÍ¨µÀ
-     * @return  Í¨µÀ×î´óÖµ£¬Í¨³£Îª255
-     * @note    ¸Ãº¯ÊıÊÇĞéº¯ÊıµÄÖØĞ´ÊµÏÖ
+     * @param   channel é€šé“ç´¢å¼•ï¼Œ-1è¡¨ç¤ºæ‰€æœ‰é€šé“
+     * @return  é€šé“æœ€å¤§å€¼ï¼Œé€šå¸¸ä¸º255
+     * @note    è¯¥å‡½æ•°æ˜¯è™šå‡½æ•°çš„é‡å†™å®ç°
      * @see     getMinValue
      */
     double getMaxValue(int channel = -1) { return 255.; }
 
     /**
-     * @brief   »ñÈ¡Í¼ÏñÊôĞÔ
-     * @details »ñÈ¡OpenSlideÍ¼ÏñµÄÔªÊı¾İÊôĞÔ£¬ÈçÉ¨ÃèÒÇĞÅÏ¢¡¢·Å´ó±¶Êı¡¢
-     *          Í¼Ïñ³ß´ç¡¢ÑÕÉ«ĞÅÏ¢µÈ¡£ÕâĞ©ÊôĞÔÀ´×ÔOpenSlide¿âµÄÔªÊı¾İ¡£
+     * @brief   è·å–å›¾åƒå±æ€§
+     * @details è·å–OpenSlideå›¾åƒçš„å…ƒæ•°æ®å±æ€§ï¼Œå¦‚æ‰«æä»ªä¿¡æ¯ã€æ”¾å¤§å€æ•°ã€
+     *          å›¾åƒå°ºå¯¸ã€é¢œè‰²ä¿¡æ¯ç­‰ã€‚è¿™äº›å±æ€§æ¥è‡ªOpenSlideåº“çš„å…ƒæ•°æ®ã€‚
      *
-     * @param   propertyName ÊôĞÔÃû³Æ
-     * @return  ÊôĞÔÖµ×Ö·û´®£¬Èç¹ûÊôĞÔ²»´æÔÚÔò·µ»Ø¿Õ×Ö·û´®
-     * @note    ¸Ãº¯Êı»áµ÷ÓÃOpenSlide¿âµÄopenslide_get_property_valueº¯Êı
+     * @param   propertyName å±æ€§åç§°
+     * @return  å±æ€§å€¼å­—ç¬¦ä¸²ï¼Œå¦‚æœå±æ€§ä¸å­˜åœ¨åˆ™è¿”å›ç©ºå­—ç¬¦ä¸²
+     * @note    è¯¥å‡½æ•°ä¼šè°ƒç”¨OpenSlideåº“çš„openslide_get_property_valueå‡½æ•°
      * @see     openslide_get_property_value, getProperties
      * @example
-     *          // Ê¹ÓÃÊ¾Àı
+     *          // ä½¿ç”¨ç¤ºä¾‹
      *          std::string scanner = image.getProperty("openslide.vendor");
      *          std::string magnification = image.getProperty("openslide.objective-power");
      *          std::string mpp = image.getProperty("openslide.mpp-x");
@@ -133,43 +133,43 @@ public:
     std::string getProperty(const std::string& propertyName);
 
     /**
-     * @brief   »ñÈ¡OpenSlide´íÎó×´Ì¬
-     * @details ·µ»ØOpenSlide¿âµÄµ±Ç°´íÎó×´Ì¬ĞÅÏ¢¡£µ±OpenSlide²Ù×÷
-     *          Ê§°ÜÊ±£¬¿ÉÒÔÊ¹ÓÃ´Ëº¯Êı»ñÈ¡ÏêÏ¸µÄ´íÎóĞÅÏ¢¡£
+     * @brief   è·å–OpenSlideé”™è¯¯çŠ¶æ€
+     * @details è¿”å›OpenSlideåº“çš„å½“å‰é”™è¯¯çŠ¶æ€ä¿¡æ¯ã€‚å½“OpenSlideæ“ä½œ
+     *          å¤±è´¥æ—¶ï¼Œå¯ä»¥ä½¿ç”¨æ­¤å‡½æ•°è·å–è¯¦ç»†çš„é”™è¯¯ä¿¡æ¯ã€‚
      *
-     * @return  ´íÎó×´Ì¬×Ö·û´®£¬Èç¹ûÃ»ÓĞ´íÎóÔò·µ»Ø¿Õ×Ö·û´®
-     * @note    ¸Ãº¯Êı»áµ÷ÓÃOpenSlide¿âµÄopenslide_get_errorº¯Êı
+     * @return  é”™è¯¯çŠ¶æ€å­—ç¬¦ä¸²ï¼Œå¦‚æœæ²¡æœ‰é”™è¯¯åˆ™è¿”å›ç©ºå­—ç¬¦ä¸²
+     * @note    è¯¥å‡½æ•°ä¼šè°ƒç”¨OpenSlideåº“çš„openslide_get_errorå‡½æ•°
      * @see     openslide_get_error
      * @example
-     *          // Ê¹ÓÃÊ¾Àı
+     *          // ä½¿ç”¨ç¤ºä¾‹
      *          if (!image.initializeType("invalid.svs")) {
      *              std::string error = image.getOpenSlideErrorState();
-     *              std::cout << "OpenSlide´íÎó: " << error << std::endl;
+     *              std::cout << "OpenSlideé”™è¯¯: " << error << std::endl;
      *          }
      */
     std::string getOpenSlideErrorState();
 
     /**
-     * @brief   ÉèÖÃ»º´æ´óĞ¡
-     * @details ÉèÖÃOpenSlideÍ¼ÏñµÄ»º´æ´óĞ¡£¬Ó°ÏìÄÚ´æÊ¹ÓÃºÍĞÔÄÜ¡£
-     *          ½Ï´óµÄ»º´æ¿ÉÒÔÌá¸ß·ÃÎÊËÙ¶È£¬µ«»áÔö¼ÓÄÚ´æÊ¹ÓÃ¡£
+     * @brief   è®¾ç½®ç¼“å­˜å¤§å°
+     * @details è®¾ç½®OpenSlideå›¾åƒçš„ç¼“å­˜å¤§å°ï¼Œå½±å“å†…å­˜ä½¿ç”¨å’Œæ€§èƒ½ã€‚
+     *          è¾ƒå¤§çš„ç¼“å­˜å¯ä»¥æé«˜è®¿é—®é€Ÿåº¦ï¼Œä½†ä¼šå¢åŠ å†…å­˜ä½¿ç”¨ã€‚
      *
-     * @param   cacheSize ĞÂµÄ»º´æ´óĞ¡£¨×Ö½Ú£©
-     * @note    ¸Ãº¯Êı»áµ÷ÓÃ¸¸ÀàµÄsetCacheSize·½·¨
+     * @param   cacheSize æ–°çš„ç¼“å­˜å¤§å°ï¼ˆå­—èŠ‚ï¼‰
+     * @note    è¯¥å‡½æ•°ä¼šè°ƒç”¨çˆ¶ç±»çš„setCacheSizeæ–¹æ³•
      * @see     MultiResolutionImage::setCacheSize
      */
     void setCacheSize(const unsigned long long cacheSize);
 
     /**
-     * @brief   »ñÈ¡±êÇ©Í¼Ïñ
-     * @details »ñÈ¡OpenSlideÍ¼ÏñµÄ±êÇ©»òËõÂÔÍ¼¡£±êÇ©Í¼ÏñÍ¨³£ÊÇÒ»¸ö
-     *          µÍ·Ö±æÂÊµÄ¸ÅÀÀÍ¼Ïñ£¬ÓÃÓÚ¿ìËÙÔ¤ÀÀÕû¸ö²¡ÀíÇĞÆ¬¡£
+     * @brief   è·å–æ ‡ç­¾å›¾åƒ
+     * @details è·å–OpenSlideå›¾åƒçš„æ ‡ç­¾æˆ–ç¼©ç•¥å›¾ã€‚æ ‡ç­¾å›¾åƒé€šå¸¸æ˜¯ä¸€ä¸ª
+     *          ä½åˆ†è¾¨ç‡çš„æ¦‚è§ˆå›¾åƒï¼Œç”¨äºå¿«é€Ÿé¢„è§ˆæ•´ä¸ªç—…ç†åˆ‡ç‰‡ã€‚
      *
-     * @return  QImage¸ñÊ½µÄ±êÇ©Í¼Ïñ
-     * @note    ¸Ãº¯ÊıÊÇĞéº¯ÊıµÄÖØĞ´ÊµÏÖ
+     * @return  QImageæ ¼å¼çš„æ ‡ç­¾å›¾åƒ
+     * @note    è¯¥å‡½æ•°æ˜¯è™šå‡½æ•°çš„é‡å†™å®ç°
      * @see     openslide_read_associated_image
      * @example
-     *          // Ê¹ÓÃÊ¾Àı
+     *          // ä½¿ç”¨ç¤ºä¾‹
      *          QImage label = image.getLabel();
      *          if (!label.isNull()) {
      *              label.save("label.png");
@@ -178,16 +178,16 @@ public:
     const QImage getLabel();
 
     /**
-     * @brief   »ñÈ¡Í¼ÏñÊôĞÔÁĞ±í
-     * @details »ñÈ¡OpenSlideÍ¼ÏñµÄËùÓĞÔªÊı¾İÊôĞÔ£¬°üÀ¨É¨ÃèÒÇĞÅÏ¢¡¢
-     *          Í¼Ïñ²ÎÊı¡¢ÑÕÉ«ĞÅÏ¢µÈ¡£·µ»ØµÄÊôĞÔĞÅÏ¢¿ÉÒÔÓÃÓÚ
-     *          Í¼Ïñ·ÖÎöºÍ´¦Àí¡£
+     * @brief   è·å–å›¾åƒå±æ€§åˆ—è¡¨
+     * @details è·å–OpenSlideå›¾åƒçš„æ‰€æœ‰å…ƒæ•°æ®å±æ€§ï¼ŒåŒ…æ‹¬æ‰«æä»ªä¿¡æ¯ã€
+     *          å›¾åƒå‚æ•°ã€é¢œè‰²ä¿¡æ¯ç­‰ã€‚è¿”å›çš„å±æ€§ä¿¡æ¯å¯ä»¥ç”¨äº
+     *          å›¾åƒåˆ†æå’Œå¤„ç†ã€‚
      *
-     * @return  °üº¬ËùÓĞÊôĞÔĞÅÏ¢µÄÏòÁ¿
-     * @note    ¸Ãº¯ÊıÊÇĞéº¯ÊıµÄÖØĞ´ÊµÏÖ
+     * @return  åŒ…å«æ‰€æœ‰å±æ€§ä¿¡æ¯çš„å‘é‡
+     * @note    è¯¥å‡½æ•°æ˜¯è™šå‡½æ•°çš„é‡å†™å®ç°
      * @see     getProperty, SlideColorManagement::PropertyInfo
      * @example
-     *          // Ê¹ÓÃÊ¾Àı
+     *          // ä½¿ç”¨ç¤ºä¾‹
      *          auto properties = image.getProperties();
      *          for (const auto& prop : properties) {
      *              std::cout << prop.name << ": " << prop.value << std::endl;
@@ -197,52 +197,52 @@ public:
 
 protected:
     /**
-     * @brief   ÇåÀí×ÊÔ´
-     * @details ÇåÀíOpenSlide¿â¾ä±úºÍÏà¹Ø×ÊÔ´£¬ÊÍ·ÅÄÚ´æ¡£
-     *          ¸Ã·½·¨ÔÚÎö¹¹º¯ÊıÖĞ×Ô¶¯µ÷ÓÃ£¬Ò²¿ÉÒÔÊÖ¶¯µ÷ÓÃ¡£
-     * @note    ¸Ãº¯ÊıÊÇĞéº¯ÊıµÄÖØĞ´ÊµÏÖ
+     * @brief   æ¸…ç†èµ„æº
+     * @details æ¸…ç†OpenSlideåº“å¥æŸ„å’Œç›¸å…³èµ„æºï¼Œé‡Šæ”¾å†…å­˜ã€‚
+     *          è¯¥æ–¹æ³•åœ¨ææ„å‡½æ•°ä¸­è‡ªåŠ¨è°ƒç”¨ï¼Œä¹Ÿå¯ä»¥æ‰‹åŠ¨è°ƒç”¨ã€‚
+     * @note    è¯¥å‡½æ•°æ˜¯è™šå‡½æ•°çš„é‡å†™å®ç°
      * @see     openslide_close
      */
     void cleanup();
 
     /**
-     * @brief   ´ÓÍ¼Ïñ¶ÁÈ¡Êı¾İ
-     * @details ´ÓOpenSlideÍ¼ÏñÖĞ¶ÁÈ¡Ö¸¶¨ÇøÓòµÄÔ­Ê¼Êı¾İ¡£¸Ã·½·¨
-     *          »áµ÷ÓÃOpenSlide¿âµÄopenslide_read_regionº¯ÊıÀ´
-     *          »ñÈ¡Ö¸¶¨²ã¼¶ºÍÇøÓòµÄÍ¼ÏñÊı¾İ¡£
+     * @brief   ä»å›¾åƒè¯»å–æ•°æ®
+     * @details ä»OpenSlideå›¾åƒä¸­è¯»å–æŒ‡å®šåŒºåŸŸçš„åŸå§‹æ•°æ®ã€‚è¯¥æ–¹æ³•
+     *          ä¼šè°ƒç”¨OpenSlideåº“çš„openslide_read_regionå‡½æ•°æ¥
+     *          è·å–æŒ‡å®šå±‚çº§å’ŒåŒºåŸŸçš„å›¾åƒæ•°æ®ã€‚
      *
-     * @param   startX ÆğÊ¼X×ø±ê
-     * @param   startY ÆğÊ¼Y×ø±ê
-     * @param   width ÇøÓò¿í¶È
-     * @param   height ÇøÓò¸ß¶È
-     * @param   level ²ã¼¶Ë÷Òı
-     * @return  Ö¸ÏòÔ­Ê¼Êı¾İµÄvoidÖ¸Õë£¬µ÷ÓÃÕß¸ºÔğÊÍ·ÅÄÚ´æ
-     * @note    ¸Ãº¯ÊıÊÇ´¿Ğéº¯ÊıµÄÖØĞ´ÊµÏÖ
+     * @param   startX èµ·å§‹Xåæ ‡
+     * @param   startY èµ·å§‹Yåæ ‡
+     * @param   width åŒºåŸŸå®½åº¦
+     * @param   height åŒºåŸŸé«˜åº¦
+     * @param   level å±‚çº§ç´¢å¼•
+     * @return  æŒ‡å‘åŸå§‹æ•°æ®çš„voidæŒ‡é’ˆï¼Œè°ƒç”¨è€…è´Ÿè´£é‡Šæ”¾å†…å­˜
+     * @note    è¯¥å‡½æ•°æ˜¯çº¯è™šå‡½æ•°çš„é‡å†™å®ç°
      * @see     openslide_read_region, getRawRegion
      * @example
-     *          // Ê¹ÓÃÊ¾Àı
+     *          // ä½¿ç”¨ç¤ºä¾‹
      *          void* data = image.readDataFromImage(0, 0, 512, 512, 0);
      *          if (data) {
-     *              // Ê¹ÓÃÊı¾İ...
+     *              // ä½¿ç”¨æ•°æ®...
      *              delete[] data;
      *          }
      */
     void* readDataFromImage(const long long& startX, const long long& startY, const unsigned long long& width,
         const unsigned long long& height, const unsigned int& level);
 
-    /** @brief OpenSlide¿â¾ä±ú£¬ÓÃÓÚÓëOpenSlide¿â½»»¥ */
+    /** @brief OpenSlideåº“å¥æŸ„ï¼Œç”¨äºä¸OpenSlideåº“äº¤äº’ */
     openslide_t* _slide;
 
 private:
-    /** @brief OpenSlide´íÎó×´Ì¬×Ö·û´®£¬¼ÇÂ¼×î½üµÄ´íÎóĞÅÏ¢ */
+    /** @brief OpenSlideé”™è¯¯çŠ¶æ€å­—ç¬¦ä¸²ï¼Œè®°å½•æœ€è¿‘çš„é”™è¯¯ä¿¡æ¯ */
     std::string _errorState;
 
-    /** @brief ±³¾°É«ºìÉ«·ÖÁ¿ */
+    /** @brief èƒŒæ™¯è‰²çº¢è‰²åˆ†é‡ */
     unsigned char _bg_r;
 
-    /** @brief ±³¾°É«ÂÌÉ«·ÖÁ¿ */
+    /** @brief èƒŒæ™¯è‰²ç»¿è‰²åˆ†é‡ */
     unsigned char _bg_g;
 
-    /** @brief ±³¾°É«À¶É«·ÖÁ¿ */
+    /** @brief èƒŒæ™¯è‰²è“è‰²åˆ†é‡ */
     unsigned char _bg_b;
 };

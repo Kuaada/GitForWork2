@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_PathologyViewer_t {
-    QByteArrayData data[47];
-    char stringdata0[574];
+    QByteArrayData data[50];
+    char stringdata0[625];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -72,13 +72,16 @@ QT_MOC_LITERAL(36, 438, 16), // "setDetailVisible"
 QT_MOC_LITERAL(37, 455, 13), // "setChangedMpp"
 QT_MOC_LITERAL(38, 469, 3), // "mpp"
 QT_MOC_LITERAL(39, 473, 23), // "onActionDeleteSelection"
-QT_MOC_LITERAL(40, 497, 11), // "scalingTime"
-QT_MOC_LITERAL(41, 509, 1), // "x"
-QT_MOC_LITERAL(42, 511, 12), // "zoomFinished"
-QT_MOC_LITERAL(43, 524, 19), // "handleItemSelection"
-QT_MOC_LITERAL(44, 544, 14), // "QGraphicsItem*"
-QT_MOC_LITERAL(45, 559, 4), // "item"
-QT_MOC_LITERAL(46, 564, 9) // "updateFPS"
+QT_MOC_LITERAL(40, 497, 13), // "changeViewPos"
+QT_MOC_LITERAL(41, 511, 26), // "changeViewPosWithAnimation"
+QT_MOC_LITERAL(42, 538, 9), // "clockwise"
+QT_MOC_LITERAL(43, 548, 11), // "scalingTime"
+QT_MOC_LITERAL(44, 560, 1), // "x"
+QT_MOC_LITERAL(45, 562, 12), // "zoomFinished"
+QT_MOC_LITERAL(46, 575, 19), // "handleItemSelection"
+QT_MOC_LITERAL(47, 595, 14), // "QGraphicsItem*"
+QT_MOC_LITERAL(48, 610, 4), // "item"
+QT_MOC_LITERAL(49, 615, 9) // "updateFPS"
 
     },
     "PathologyViewer\0fieldOfViewChanged\0\0"
@@ -94,9 +97,11 @@ QT_MOC_LITERAL(46, 564, 9) // "updateFPS"
     "setMiniMapVisible\0setCoverageArea\0"
     "setScaleBar\0updateSnap\0setLabelMapVisible\0"
     "setDetailVisible\0setChangedMpp\0mpp\0"
-    "onActionDeleteSelection\0scalingTime\0"
-    "x\0zoomFinished\0handleItemSelection\0"
-    "QGraphicsItem*\0item\0updateFPS"
+    "onActionDeleteSelection\0changeViewPos\0"
+    "changeViewPosWithAnimation\0clockwise\0"
+    "scalingTime\0x\0zoomFinished\0"
+    "handleItemSelection\0QGraphicsItem*\0"
+    "item\0updateFPS"
 };
 #undef QT_MOC_LITERAL
 
@@ -106,7 +111,7 @@ static const uint qt_meta_data_PathologyViewer[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      27,   14, // methods
+      30,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -114,35 +119,38 @@ static const uint qt_meta_data_PathologyViewer[] = {
       11,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,  149,    2, 0x06 /* Public */,
-       5,    1,  154,    2, 0x06 /* Public */,
-       6,    1,  157,    2, 0x06 /* Public */,
-       8,    0,  160,    2, 0x06 /* Public */,
-       9,    1,  161,    2, 0x06 /* Public */,
-      11,    1,  164,    2, 0x06 /* Public */,
-      13,    0,  167,    2, 0x06 /* Public */,
-      14,    1,  168,    2, 0x06 /* Public */,
-      16,    1,  171,    2, 0x06 /* Public */,
-      18,    1,  174,    2, 0x06 /* Public */,
-      20,    2,  177,    2, 0x06 /* Public */,
+       1,    2,  164,    2, 0x06 /* Public */,
+       5,    1,  169,    2, 0x06 /* Public */,
+       6,    1,  172,    2, 0x06 /* Public */,
+       8,    0,  175,    2, 0x06 /* Public */,
+       9,    1,  176,    2, 0x06 /* Public */,
+      11,    1,  179,    2, 0x06 /* Public */,
+      13,    0,  182,    2, 0x06 /* Public */,
+      14,    1,  183,    2, 0x06 /* Public */,
+      16,    1,  186,    2, 0x06 /* Public */,
+      18,    1,  189,    2, 0x06 /* Public */,
+      20,    2,  192,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      22,    1,  182,    2, 0x0a /* Public */,
-      24,    2,  185,    2, 0x0a /* Public */,
-      25,    2,  190,    2, 0x0a /* Public */,
-      29,    1,  195,    2, 0x0a /* Public */,
-      31,    1,  198,    2, 0x0a /* Public */,
-      32,    1,  201,    2, 0x0a /* Public */,
-      33,    1,  204,    2, 0x0a /* Public */,
-      34,    0,  207,    2, 0x0a /* Public */,
-      35,    0,  208,    2, 0x0a /* Public */,
-      36,    0,  209,    2, 0x0a /* Public */,
-      37,    1,  210,    2, 0x0a /* Public */,
-      39,    0,  213,    2, 0x0a /* Public */,
-      40,    1,  214,    2, 0x08 /* Private */,
-      42,    0,  217,    2, 0x08 /* Private */,
-      43,    1,  218,    2, 0x08 /* Private */,
-      46,    0,  221,    2, 0x08 /* Private */,
+      22,    1,  197,    2, 0x0a /* Public */,
+      24,    2,  200,    2, 0x0a /* Public */,
+      25,    2,  205,    2, 0x0a /* Public */,
+      29,    1,  210,    2, 0x0a /* Public */,
+      31,    1,  213,    2, 0x0a /* Public */,
+      32,    1,  216,    2, 0x0a /* Public */,
+      33,    1,  219,    2, 0x0a /* Public */,
+      34,    0,  222,    2, 0x0a /* Public */,
+      35,    0,  223,    2, 0x0a /* Public */,
+      36,    0,  224,    2, 0x0a /* Public */,
+      37,    1,  225,    2, 0x0a /* Public */,
+      39,    0,  228,    2, 0x0a /* Public */,
+      40,    0,  229,    2, 0x0a /* Public */,
+      41,    1,  230,    2, 0x0a /* Public */,
+      41,    0,  233,    2, 0x2a /* Public | MethodCloned */,
+      43,    1,  234,    2, 0x08 /* Private */,
+      45,    0,  237,    2, 0x08 /* Private */,
+      46,    1,  238,    2, 0x08 /* Private */,
+      49,    0,  241,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QRectF, QMetaType::UInt,    3,    4,
@@ -170,9 +178,12 @@ static const uint qt_meta_data_PathologyViewer[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Float,   38,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QReal,   41,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 44,   45,
+    QMetaType::Void, QMetaType::Bool,   42,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QReal,   44,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 47,   48,
     QMetaType::Void,
 
        0        // eod
@@ -207,10 +218,13 @@ void PathologyViewer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 20: _t->setDetailVisible(); break;
         case 21: _t->setChangedMpp((*reinterpret_cast< float(*)>(_a[1]))); break;
         case 22: _t->onActionDeleteSelection(); break;
-        case 23: _t->scalingTime((*reinterpret_cast< qreal(*)>(_a[1]))); break;
-        case 24: _t->zoomFinished(); break;
-        case 25: _t->handleItemSelection((*reinterpret_cast< QGraphicsItem*(*)>(_a[1]))); break;
-        case 26: _t->updateFPS(); break;
+        case 23: _t->changeViewPos(); break;
+        case 24: _t->changeViewPosWithAnimation((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 25: _t->changeViewPosWithAnimation(); break;
+        case 26: _t->scalingTime((*reinterpret_cast< qreal(*)>(_a[1]))); break;
+        case 27: _t->zoomFinished(); break;
+        case 28: _t->handleItemSelection((*reinterpret_cast< QGraphicsItem*(*)>(_a[1]))); break;
+        case 29: _t->updateFPS(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -324,13 +338,13 @@ int PathologyViewer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 27)
+        if (_id < 30)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 27;
+        _id -= 30;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 27)
+        if (_id < 30)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 27;
+        _id -= 30;
     }
     return _id;
 }

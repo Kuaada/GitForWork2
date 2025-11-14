@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file main.cpp
  * @brief DSV数字病理切片查看器主程序入口
  * @details 该文件是DSV应用程序的主入口点，负责：

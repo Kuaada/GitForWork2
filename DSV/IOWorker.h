@@ -1,20 +1,20 @@
-/**
+ï»¿/**
  * @file    IOWorker.h
- * @brief   IO¹¤×÷Ïß³ÌÀà£¬¸ºÔğ¾ßÌåµÄÍßÆ¬¼ÓÔØºÍäÖÈ¾ÈÎÎñÖ´ĞĞ
+ * @brief   IOå·¥ä½œçº¿ç¨‹ç±»ï¼Œè´Ÿè´£å…·ä½“çš„ç“¦ç‰‡åŠ è½½å’Œæ¸²æŸ“ä»»åŠ¡æ‰§è¡Œ
  * @author  [JianZhang] ([])
  * @date    2025-01-19
  * @version 1.0.0
- * @details ¸ÃÎÄ¼şÊµÏÖÁËDSVÏîÄ¿µÄ¾ßÌåIO´¦Àí¹¤×÷Ïß³Ì£¬°üÀ¨£º
- *          - ÍßÆ¬Êı¾İµÄÊµ¼Ê¼ÓÔØºÍ»º´æ
- *          - ÍßÆ¬äÖÈ¾µÄ¾ßÌåÊµÏÖºÍºÏ³É
- *          - ±³¾°ºÍÇ°¾°Í¼ÏñµÄ´¦Àí
- *          - ÑÕÉ«Í¨µÀºÍLUTµÄÓ¦ÓÃ
- *          - ÓëIOThreadµÄĞ­µ÷ºÍÍ¨ĞÅ
- *          - Ä£°å»¯µÄÍ¼Ïñ´¦ÀíËã·¨
- *          ¸ÃÀàÊÇDSVÏîÄ¿ÖĞĞÔÄÜÓÅ»¯µÄÖ´ĞĞµ¥Ôª£¬
- *          Í¨¹ı¶àÏß³Ì²¢ĞĞ´¦ÀíÊµÏÖ¸ßĞ§µÄÍ¼Ïñä¯ÀÀ¡£
+ * @details è¯¥æ–‡ä»¶å®ç°äº†DSVé¡¹ç›®çš„å…·ä½“IOå¤„ç†å·¥ä½œçº¿ç¨‹ï¼ŒåŒ…æ‹¬ï¼š
+ *          - ç“¦ç‰‡æ•°æ®çš„å®é™…åŠ è½½å’Œç¼“å­˜
+ *          - ç“¦ç‰‡æ¸²æŸ“çš„å…·ä½“å®ç°å’Œåˆæˆ
+ *          - èƒŒæ™¯å’Œå‰æ™¯å›¾åƒçš„å¤„ç†
+ *          - é¢œè‰²é€šé“å’ŒLUTçš„åº”ç”¨
+ *          - ä¸IOThreadçš„åè°ƒå’Œé€šä¿¡
+ *          - æ¨¡æ¿åŒ–çš„å›¾åƒå¤„ç†ç®—æ³•
+ *          è¯¥ç±»æ˜¯DSVé¡¹ç›®ä¸­æ€§èƒ½ä¼˜åŒ–çš„æ‰§è¡Œå•å…ƒï¼Œ
+ *          é€šè¿‡å¤šçº¿ç¨‹å¹¶è¡Œå¤„ç†å®ç°é«˜æ•ˆçš„å›¾åƒæµè§ˆã€‚
  *
- * @note    ¸ÃÀà¼Ì³Ğ×ÔQThread£¬ÔËĞĞÔÚ¶ÀÁ¢µÄ¹¤×÷Ïß³ÌÖĞ
+ * @note    è¯¥ç±»ç»§æ‰¿è‡ªQThreadï¼Œè¿è¡Œåœ¨ç‹¬ç«‹çš„å·¥ä½œçº¿ç¨‹ä¸­
  * @see     IOThread, ThreadJob, MultiResolutionImage, Patch
  */
 
@@ -26,7 +26,7 @@
 #include "SlideColorManagement.h"
 #include "Patch.h"
 
- // Ç°ÏòÉùÃ÷
+ // å‰å‘å£°æ˜
 class MultiResolutionImage;
 class IOJob;
 class RenderJob;
@@ -34,38 +34,38 @@ class IOThread;
 
 /**
  * @class  IOWorker
- * @brief  IO¹¤×÷Ïß³ÌÀà£¬¸ºÔğ¾ßÌåµÄÍßÆ¬¼ÓÔØºÍäÖÈ¾ÈÎÎñÖ´ĞĞ
- * @details ¸ÃÀàÊÇDSVÏîÄ¿ÖĞÒì²½IO´¦ÀíµÄ¾ßÌåÖ´ĞĞµ¥Ôª£¬¸ºÔğ£º
- *          - ´ÓÈÎÎñ¶ÓÁĞÖĞ»ñÈ¡²¢Ö´ĞĞÍßÆ¬´¦ÀíÈÎÎñ
- *          - ´Ó¶à·Ö±æÂÊÍ¼ÏñÖĞ¼ÓÔØÖ¸¶¨Î»ÖÃµÄÍßÆ¬Êı¾İ
- *          - ½«ÍßÆ¬Êı¾İäÖÈ¾ÎªQPixmap¸ñÊ½
- *          - ´¦Àí±³¾°ºÍÇ°¾°Í¼ÏñµÄºÏ³ÉäÖÈ¾
- *          - Ó¦ÓÃÑÕÉ«Í¨µÀºÍLUTÉèÖÃ
- *          - Í¨¹ıĞÅºÅ»úÖÆÓëÖ÷Ïß³ÌÍ¨ĞÅ
+ * @brief  IOå·¥ä½œçº¿ç¨‹ç±»ï¼Œè´Ÿè´£å…·ä½“çš„ç“¦ç‰‡åŠ è½½å’Œæ¸²æŸ“ä»»åŠ¡æ‰§è¡Œ
+ * @details è¯¥ç±»æ˜¯DSVé¡¹ç›®ä¸­å¼‚æ­¥IOå¤„ç†çš„å…·ä½“æ‰§è¡Œå•å…ƒï¼Œè´Ÿè´£ï¼š
+ *          - ä»ä»»åŠ¡é˜Ÿåˆ—ä¸­è·å–å¹¶æ‰§è¡Œç“¦ç‰‡å¤„ç†ä»»åŠ¡
+ *          - ä»å¤šåˆ†è¾¨ç‡å›¾åƒä¸­åŠ è½½æŒ‡å®šä½ç½®çš„ç“¦ç‰‡æ•°æ®
+ *          - å°†ç“¦ç‰‡æ•°æ®æ¸²æŸ“ä¸ºQPixmapæ ¼å¼
+ *          - å¤„ç†èƒŒæ™¯å’Œå‰æ™¯å›¾åƒçš„åˆæˆæ¸²æŸ“
+ *          - åº”ç”¨é¢œè‰²é€šé“å’ŒLUTè®¾ç½®
+ *          - é€šè¿‡ä¿¡å·æœºåˆ¶ä¸ä¸»çº¿ç¨‹é€šä¿¡
  *
- *          Ö÷Òª¹¦ÄÜ°üÀ¨£º
- *          - ÈÎÎñÖ´ĞĞ£º´¦ÀíIOJobºÍRenderJobÁ½ÖÖÈÎÎñÀàĞÍ
- *          - Í¼Ïñ¼ÓÔØ£º´Ó¶à·Ö±æÂÊÍ¼ÏñÖĞÌáÈ¡ÍßÆ¬Êı¾İ
- *          - Í¼ÏñäÖÈ¾£º½«Ô­Ê¼Êı¾İ×ª»»ÎªÏÔÊ¾¸ñÊ½
- *          - Í¼ÏñºÏ³É£º±³¾°ºÍÇ°¾°Í¼ÏñµÄµş¼Ó´¦Àí
- *          - ¶¯Ì¬ÅäÖÃ£ºÖ§³ÖÍ¨µÀºÍLUTµÄ¶¯Ì¬ÇĞ»»
- *          - Ïß³Ì°²È«£ºÊ¹ÓÃ»¥³âËø±£»¤¹²Ïí×ÊÔ´
+ *          ä¸»è¦åŠŸèƒ½åŒ…æ‹¬ï¼š
+ *          - ä»»åŠ¡æ‰§è¡Œï¼šå¤„ç†IOJobå’ŒRenderJobä¸¤ç§ä»»åŠ¡ç±»å‹
+ *          - å›¾åƒåŠ è½½ï¼šä»å¤šåˆ†è¾¨ç‡å›¾åƒä¸­æå–ç“¦ç‰‡æ•°æ®
+ *          - å›¾åƒæ¸²æŸ“ï¼šå°†åŸå§‹æ•°æ®è½¬æ¢ä¸ºæ˜¾ç¤ºæ ¼å¼
+ *          - å›¾åƒåˆæˆï¼šèƒŒæ™¯å’Œå‰æ™¯å›¾åƒçš„å åŠ å¤„ç†
+ *          - åŠ¨æ€é…ç½®ï¼šæ”¯æŒé€šé“å’ŒLUTçš„åŠ¨æ€åˆ‡æ¢
+ *          - çº¿ç¨‹å®‰å…¨ï¼šä½¿ç”¨äº’æ–¥é”ä¿æŠ¤å…±äº«èµ„æº
  *
- * @note   ¸ÃÀà¼Ì³Ğ×ÔQThread£¬ÔËĞĞÔÚ¶ÀÁ¢µÄ¹¤×÷Ïß³ÌÖĞ
+ * @note   è¯¥ç±»ç»§æ‰¿è‡ªQThreadï¼Œè¿è¡Œåœ¨ç‹¬ç«‹çš„å·¥ä½œçº¿ç¨‹ä¸­
  * @example
- *          // Ê¹ÓÃÊ¾Àı
+ *          // ä½¿ç”¨ç¤ºä¾‹
  *          IOThread* ioThread = new IOThread(parent, 4);
  *          IOWorker* worker = new IOWorker(ioThread);
  *
- *          // ÉèÖÃÍ¼ÏñÔ´
+ *          // è®¾ç½®å›¾åƒæº
  *          worker->setBackgroundImage(backgroundImage);
  *          worker->setForegroundImage(foregroundImage, 0.5);
  *
- *          // ÉèÖÃÏÔÊ¾²ÎÊı
+ *          // è®¾ç½®æ˜¾ç¤ºå‚æ•°
  *          worker->setBackgroundChannel(0);
  *          worker->setLUT(SlideColorManagement::LUT::HOT);
  *
- *          // Æô¶¯¹¤×÷Ïß³Ì
+ *          // å¯åŠ¨å·¥ä½œçº¿ç¨‹
  *          worker->start();
  * @see     IOThread, ThreadJob, MultiResolutionImage, Patch
  */
@@ -75,211 +75,211 @@ class IOWorker : public QThread
 
 public:
     /**
-     * @brief   ¹¹Ôìº¯Êı
-     * @details ´´½¨IO¹¤×÷Ïß³Ì¶ÔÏó£¬³õÊ¼»¯Ïß³Ì²ÎÊıºÍ×ÊÔ´
+     * @brief   æ„é€ å‡½æ•°
+     * @details åˆ›å»ºIOå·¥ä½œçº¿ç¨‹å¯¹è±¡ï¼Œåˆå§‹åŒ–çº¿ç¨‹å‚æ•°å’Œèµ„æº
      *
-     * @param   thread IOÏß³Ì¹ÜÀíÆ÷Ö¸Õë£¬ÓÃÓÚ»ñÈ¡ÈÎÎñºÍÅäÖÃ
-     * @note    ¹¹Ôìº¯Êı»á³õÊ¼»¯ËùÓĞ³ÉÔ±±äÁ¿£¬µ«²»»áÆô¶¯Ïß³Ì
+     * @param   thread IOçº¿ç¨‹ç®¡ç†å™¨æŒ‡é’ˆï¼Œç”¨äºè·å–ä»»åŠ¡å’Œé…ç½®
+     * @note    æ„é€ å‡½æ•°ä¼šåˆå§‹åŒ–æ‰€æœ‰æˆå‘˜å˜é‡ï¼Œä½†ä¸ä¼šå¯åŠ¨çº¿ç¨‹
      * @see     ~IOWorker, start
      */
     IOWorker(IOThread* thread);
 
     /**
-     * @brief   Îö¹¹º¯Êı
-     * @details ÇåÀíIO¹¤×÷Ïß³Ì×ÊÔ´£¬È·±£Ïß³ÌÕıÈ·Í£Ö¹
-     * @note    Îö¹¹º¯Êı»áµ÷ÓÃabort()È·±£Ïß³Ì°²È«Í£Ö¹
+     * @brief   ææ„å‡½æ•°
+     * @details æ¸…ç†IOå·¥ä½œçº¿ç¨‹èµ„æºï¼Œç¡®ä¿çº¿ç¨‹æ­£ç¡®åœæ­¢
+     * @note    ææ„å‡½æ•°ä¼šè°ƒç”¨abort()ç¡®ä¿çº¿ç¨‹å®‰å…¨åœæ­¢
      * @see     abort
      */
     ~IOWorker();
 
     /**
-     * @brief   ÖĞÖ¹Ïß³ÌÖ´ĞĞ
-     * @details ÉèÖÃÖĞÖ¹±êÖ¾£¬Í¨ÖªÏß³ÌÍ£Ö¹´¦ÀíÈÎÎñ
-     * @note    ¸Ãº¯Êı»áµÈ´ıÏß³ÌÍê³Éµ±Ç°ÈÎÎñºóÍ£Ö¹
+     * @brief   ä¸­æ­¢çº¿ç¨‹æ‰§è¡Œ
+     * @details è®¾ç½®ä¸­æ­¢æ ‡å¿—ï¼Œé€šçŸ¥çº¿ç¨‹åœæ­¢å¤„ç†ä»»åŠ¡
+     * @note    è¯¥å‡½æ•°ä¼šç­‰å¾…çº¿ç¨‹å®Œæˆå½“å‰ä»»åŠ¡ååœæ­¢
      * @see     ~IOWorker
      */
     void abort();
 
     /**
-     * @brief   ÉèÖÃ±³¾°Í¼ÏñÍ¨µÀ
-     * @details ÉèÖÃ±³¾°Í¼ÏñµÄÏÔÊ¾Í¨µÀË÷Òı
+     * @brief   è®¾ç½®èƒŒæ™¯å›¾åƒé€šé“
+     * @details è®¾ç½®èƒŒæ™¯å›¾åƒçš„æ˜¾ç¤ºé€šé“ç´¢å¼•
      *
-     * @param   channel Í¨µÀË÷Òı
-     * @note    ¸ÃÉèÖÃ»áÓ°ÏìºóĞøµÄÍßÆ¬äÖÈ¾
+     * @param   channel é€šé“ç´¢å¼•
+     * @note    è¯¥è®¾ç½®ä¼šå½±å“åç»­çš„ç“¦ç‰‡æ¸²æŸ“
      * @see     setForegroundChannel, setLUT
      */
     void setBackgroundChannel(int channel);
 
     /**
-     * @brief   ÉèÖÃÇ°¾°Í¼ÏñÍ¨µÀ
-     * @details ÉèÖÃÇ°¾°Í¼ÏñµÄÏÔÊ¾Í¨µÀË÷Òı
+     * @brief   è®¾ç½®å‰æ™¯å›¾åƒé€šé“
+     * @details è®¾ç½®å‰æ™¯å›¾åƒçš„æ˜¾ç¤ºé€šé“ç´¢å¼•
      *
-     * @param   channel Í¨µÀË÷Òı
-     * @note    ¸ÃÉèÖÃ»áÓ°ÏìºóĞøµÄÍßÆ¬äÖÈ¾
+     * @param   channel é€šé“ç´¢å¼•
+     * @note    è¯¥è®¾ç½®ä¼šå½±å“åç»­çš„ç“¦ç‰‡æ¸²æŸ“
      * @see     setBackgroundChannel, setLUT
      */
     void setForegroundChannel(int channel);
 
     /**
-     * @brief   ÉèÖÃÑÕÉ«²éÕÒ±í£¨LUT£©
-     * @details ÉèÖÃÓÃÓÚÍ¼ÏñÑÕÉ«Ó³ÉäµÄ²éÕÒ±í
+     * @brief   è®¾ç½®é¢œè‰²æŸ¥æ‰¾è¡¨ï¼ˆLUTï¼‰
+     * @details è®¾ç½®ç”¨äºå›¾åƒé¢œè‰²æ˜ å°„çš„æŸ¥æ‰¾è¡¨
      *
-     * @param   LUTname LUT¶ÔÏó£¬¶¨ÒåÑÕÉ«Ó³Éä¹æÔò
-     * @note    ¸ÃÉèÖÃ»áÓ°ÏìºóĞøµÄÍßÆ¬äÖÈ¾ÑÕÉ«
+     * @param   LUTname LUTå¯¹è±¡ï¼Œå®šä¹‰é¢œè‰²æ˜ å°„è§„åˆ™
+     * @note    è¯¥è®¾ç½®ä¼šå½±å“åç»­çš„ç“¦ç‰‡æ¸²æŸ“é¢œè‰²
      * @see     setBackgroundChannel, setForegroundChannel
      */
     void setLUT(const SlideColorManagement::LUT& LUTname);
 
     /**
-     * @brief   ÉèÖÃ±³¾°Í¼Ïñ
-     * @details ÉèÖÃÓÃÓÚÍßÆ¬¼ÓÔØµÄ±³¾°¶à·Ö±æÂÊÍ¼Ïñ
+     * @brief   è®¾ç½®èƒŒæ™¯å›¾åƒ
+     * @details è®¾ç½®ç”¨äºç“¦ç‰‡åŠ è½½çš„èƒŒæ™¯å¤šåˆ†è¾¨ç‡å›¾åƒ
      *
-     * @param   bck_img ±³¾°Í¼ÏñµÄÈõÒıÓÃÖ¸Õë
-     * @note    Ê¹ÓÃÈõÒıÓÃ±ÜÃâÑ­»·ÒıÓÃ£¬Í¼Ïñ¶ÔÏóÓÉÍâ²¿¹ÜÀí
+     * @param   bck_img èƒŒæ™¯å›¾åƒçš„å¼±å¼•ç”¨æŒ‡é’ˆ
+     * @note    ä½¿ç”¨å¼±å¼•ç”¨é¿å…å¾ªç¯å¼•ç”¨ï¼Œå›¾åƒå¯¹è±¡ç”±å¤–éƒ¨ç®¡ç†
      * @see     setForegroundImage
      */
     void setBackgroundImage(std::weak_ptr<MultiResolutionImage> bck_img);
 
     /**
-     * @brief   ÉèÖÃÇ°¾°Í¼Ïñ
-     * @details ÉèÖÃÓÃÓÚÍßÆ¬äÖÈ¾µÄÇ°¾°¶à·Ö±æÂÊÍ¼Ïñ
+     * @brief   è®¾ç½®å‰æ™¯å›¾åƒ
+     * @details è®¾ç½®ç”¨äºç“¦ç‰‡æ¸²æŸ“çš„å‰æ™¯å¤šåˆ†è¾¨ç‡å›¾åƒ
      *
-     * @param   for_img Ç°¾°Í¼ÏñµÄÈõÒıÓÃÖ¸Õë
-     * @param   scale Ç°¾°Í¼ÏñµÄËõ·ÅÒò×Ó£¬Ä¬ÈÏÎª1.0
-     * @note    Ç°¾°Í¼ÏñÖ»ÄÜÓë±³¾°Í¼ÏñÏàÍ¬´óĞ¡»ò¸üĞ¡
+     * @param   for_img å‰æ™¯å›¾åƒçš„å¼±å¼•ç”¨æŒ‡é’ˆ
+     * @param   scale å‰æ™¯å›¾åƒçš„ç¼©æ”¾å› å­ï¼Œé»˜è®¤ä¸º1.0
+     * @note    å‰æ™¯å›¾åƒåªèƒ½ä¸èƒŒæ™¯å›¾åƒç›¸åŒå¤§å°æˆ–æ›´å°
      * @see     setBackgroundImage
      */
     void setForegroundImage(std::weak_ptr<MultiResolutionImage> for_img, float scale = 1.);
 
 signals:
     /**
-     * @brief   ÍßÆ¬¼ÓÔØÍê³ÉĞÅºÅ
-     * @details µ±ÍßÆ¬Êı¾İ¼ÓÔØÍê³ÉÊ±·¢³ö´ËĞÅºÅ
+     * @brief   ç“¦ç‰‡åŠ è½½å®Œæˆä¿¡å·
+     * @details å½“ç“¦ç‰‡æ•°æ®åŠ è½½å®Œæˆæ—¶å‘å‡ºæ­¤ä¿¡å·
      *
-     * @param   tile ¼ÓÔØÍê³ÉµÄÍßÆ¬ÏñËØÍ¼
-     * @param   tileX ÍßÆ¬X×ø±ê
-     * @param   tileY ÍßÆ¬Y×ø±ê
-     * @param   tileSize ÍßÆ¬´óĞ¡
-     * @param   tileByteSize ÍßÆ¬×Ö½Ú´óĞ¡
-     * @param   tileLevel ÍßÆ¬²ã¼¶
-     * @param   foregroundTile Ç°¾°ÍßÆ¬Í¼ÏñÔ´Ö¸Õë£¬Ä¬ÈÏÎªNULL
-     * @param   foregroundPixmap Ç°¾°ÍßÆ¬ÏñËØÍ¼£¬Ä¬ÈÏÎªNULL
-     * @note    ¸ÃĞÅºÅÓÉÖ÷Ïß³Ì½ÓÊÕ£¬ÓÃÓÚ¸üĞÂUIÏÔÊ¾
+     * @param   tile åŠ è½½å®Œæˆçš„ç“¦ç‰‡åƒç´ å›¾
+     * @param   tileX ç“¦ç‰‡Xåæ ‡
+     * @param   tileY ç“¦ç‰‡Yåæ ‡
+     * @param   tileSize ç“¦ç‰‡å¤§å°
+     * @param   tileByteSize ç“¦ç‰‡å­—èŠ‚å¤§å°
+     * @param   tileLevel ç“¦ç‰‡å±‚çº§
+     * @param   foregroundTile å‰æ™¯ç“¦ç‰‡å›¾åƒæºæŒ‡é’ˆï¼Œé»˜è®¤ä¸ºNULL
+     * @param   foregroundPixmap å‰æ™¯ç“¦ç‰‡åƒç´ å›¾ï¼Œé»˜è®¤ä¸ºNULL
+     * @note    è¯¥ä¿¡å·ç”±ä¸»çº¿ç¨‹æ¥æ”¶ï¼Œç”¨äºæ›´æ–°UIæ˜¾ç¤º
      * @see     foregroundTileRendered
      */
     void tileLoaded(QPixmap* tile, unsigned int tileX, unsigned int tileY, unsigned int tileSize, unsigned int tileByteSize, unsigned int tileLevel, ImageSource* foregroundTile = NULL, QPixmap* foregroundPixmap = NULL);
 
     /**
-     * @brief   Ç°¾°ÍßÆ¬äÖÈ¾Íê³ÉĞÅºÅ
-     * @details µ±Ç°¾°ÍßÆ¬äÖÈ¾Íê³ÉÊ±·¢³ö´ËĞÅºÅ
+     * @brief   å‰æ™¯ç“¦ç‰‡æ¸²æŸ“å®Œæˆä¿¡å·
+     * @details å½“å‰æ™¯ç“¦ç‰‡æ¸²æŸ“å®Œæˆæ—¶å‘å‡ºæ­¤ä¿¡å·
      *
-     * @param   tile äÖÈ¾Íê³ÉµÄÇ°¾°ÍßÆ¬ÏñËØÍ¼
-     * @param   tileX ÍßÆ¬X×ø±ê
-     * @param   tileY ÍßÆ¬Y×ø±ê
-     * @param   tileLevel ÍßÆ¬²ã¼¶
-     * @note    ¸ÃĞÅºÅÓÉÖ÷Ïß³Ì½ÓÊÕ£¬ÓÃÓÚ¸üĞÂÇ°¾°ÏÔÊ¾
+     * @param   tile æ¸²æŸ“å®Œæˆçš„å‰æ™¯ç“¦ç‰‡åƒç´ å›¾
+     * @param   tileX ç“¦ç‰‡Xåæ ‡
+     * @param   tileY ç“¦ç‰‡Yåæ ‡
+     * @param   tileLevel ç“¦ç‰‡å±‚çº§
+     * @note    è¯¥ä¿¡å·ç”±ä¸»çº¿ç¨‹æ¥æ”¶ï¼Œç”¨äºæ›´æ–°å‰æ™¯æ˜¾ç¤º
      * @see     tileLoaded
      */
     void foregroundTileRendered(QPixmap* tile, unsigned int tileX, unsigned int tileY, unsigned int tileLevel);
 
 protected:
     /**
-     * @brief   Ïß³ÌÖ÷Ö´ĞĞº¯Êı
-     * @details Ïß³ÌÆô¶¯ºóÖ´ĞĞµÄÖ÷Ñ­»·£¬¸ºÔğ´ÓÈÎÎñ¶ÓÁĞ»ñÈ¡ÈÎÎñ²¢Ö´ĞĞ
-     * @note    ¸Ãº¯ÊıÊÇQThreadµÄĞéº¯Êı£¬ÓÉstart()µ÷ÓÃ
+     * @brief   çº¿ç¨‹ä¸»æ‰§è¡Œå‡½æ•°
+     * @details çº¿ç¨‹å¯åŠ¨åæ‰§è¡Œçš„ä¸»å¾ªç¯ï¼Œè´Ÿè´£ä»ä»»åŠ¡é˜Ÿåˆ—è·å–ä»»åŠ¡å¹¶æ‰§è¡Œ
+     * @note    è¯¥å‡½æ•°æ˜¯QThreadçš„è™šå‡½æ•°ï¼Œç”±start()è°ƒç”¨
      * @see     abort, executeIOJob, executeRenderJob
      */
     void run();
 
 private:
-    /** @brief ±£»¤¹²Ïí×ÊÔ´µÄ»¥³âËø */
+    /** @brief ä¿æŠ¤å…±äº«èµ„æºçš„äº’æ–¥é” */
     QMutex mutex;
 
-    /** @brief ±³¾°Í¼ÏñµÄÈõÒıÓÃÖ¸Õë */
+    /** @brief èƒŒæ™¯å›¾åƒçš„å¼±å¼•ç”¨æŒ‡é’ˆ */
     std::weak_ptr<MultiResolutionImage> _bck_img;
 
-    /** @brief Ç°¾°Í¼ÏñµÄÈõÒıÓÃÖ¸Õë */
+    /** @brief å‰æ™¯å›¾åƒçš„å¼±å¼•ç”¨æŒ‡é’ˆ */
     std::weak_ptr<MultiResolutionImage> _for_img;
 
-    /** @brief Ïß³ÌÖĞÖ¹±êÖ¾£¬true±íÊ¾ĞèÒªÍ£Ö¹Ïß³Ì */
+    /** @brief çº¿ç¨‹ä¸­æ­¢æ ‡å¿—ï¼Œtrueè¡¨ç¤ºéœ€è¦åœæ­¢çº¿ç¨‹ */
     bool _abort;
 
-    /** @brief ±³¾°Í¼Ïñµ±Ç°ÏÔÊ¾µÄÍ¨µÀË÷Òı */
+    /** @brief èƒŒæ™¯å›¾åƒå½“å‰æ˜¾ç¤ºçš„é€šé“ç´¢å¼• */
     int _backgroundChannel;
 
-    /** @brief Ç°¾°Í¼Ïñµ±Ç°ÏÔÊ¾µÄÍ¨µÀË÷Òı */
+    /** @brief å‰æ™¯å›¾åƒå½“å‰æ˜¾ç¤ºçš„é€šé“ç´¢å¼• */
     int _foregroundChannel;
 
     /**
-     * @brief Ç°¾°Í¼ÏñÏà¶ÔÓÚ±³¾°Í¼ÏñµÄËõ·ÅÒò×Ó
-     * @details Ç°¾°Í¼ÏñÖ»ÄÜÓë±³¾°Í¼ÏñÏàÍ¬´óĞ¡»ò¸üĞ¡£¬Òò´Ë¸ÃÖµ·¶Î§Îª1µ½ÕıÎŞÇî
-     * @note    ¸ÃÖµÓÃÓÚ¼ÆËãÇ°¾°ÍßÆ¬ÔÚ±³¾°ÍßÆ¬ÖĞµÄÎ»ÖÃºÍ´óĞ¡
+     * @brief å‰æ™¯å›¾åƒç›¸å¯¹äºèƒŒæ™¯å›¾åƒçš„ç¼©æ”¾å› å­
+     * @details å‰æ™¯å›¾åƒåªèƒ½ä¸èƒŒæ™¯å›¾åƒç›¸åŒå¤§å°æˆ–æ›´å°ï¼Œå› æ­¤è¯¥å€¼èŒƒå›´ä¸º1åˆ°æ­£æ— ç©·
+     * @note    è¯¥å€¼ç”¨äºè®¡ç®—å‰æ™¯ç“¦ç‰‡åœ¨èƒŒæ™¯ç“¦ç‰‡ä¸­çš„ä½ç½®å’Œå¤§å°
      */
     float _foregroundImageScale;
 
-    /** @brief µ±Ç°Ê¹ÓÃµÄÑÕÉ«²éÕÒ±í£¨LUT£© */
+    /** @brief å½“å‰ä½¿ç”¨çš„é¢œè‰²æŸ¥æ‰¾è¡¨ï¼ˆLUTï¼‰ */
     SlideColorManagement::LUT _LUT;
 
     /**
-     * @brief   Ö´ĞĞIOÈÎÎñ
-     * @details ´¦ÀíÍßÆ¬Êı¾İ¼ÓÔØÈÎÎñ£¬´Ó¶à·Ö±æÂÊÍ¼ÏñÖĞÌáÈ¡ÍßÆ¬Êı¾İ
+     * @brief   æ‰§è¡ŒIOä»»åŠ¡
+     * @details å¤„ç†ç“¦ç‰‡æ•°æ®åŠ è½½ä»»åŠ¡ï¼Œä»å¤šåˆ†è¾¨ç‡å›¾åƒä¸­æå–ç“¦ç‰‡æ•°æ®
      *
-     * @param   job IOÈÎÎñ¶ÔÏóÖ¸Õë
-     * @return  true±íÊ¾ÈÎÎñÖ´ĞĞ³É¹¦£¬false±íÊ¾Ê§°Ü
-     * @note    ¸Ãº¯Êı»á·¢³ötileLoadedĞÅºÅÍ¨ÖªÖ÷Ïß³Ì
+     * @param   job IOä»»åŠ¡å¯¹è±¡æŒ‡é’ˆ
+     * @return  trueè¡¨ç¤ºä»»åŠ¡æ‰§è¡ŒæˆåŠŸï¼Œfalseè¡¨ç¤ºå¤±è´¥
+     * @note    è¯¥å‡½æ•°ä¼šå‘å‡ºtileLoadedä¿¡å·é€šçŸ¥ä¸»çº¿ç¨‹
      * @see     executeRenderJob, tileLoaded
      */
     bool executeIOJob(IOJob* job);
 
     /**
-     * @brief   Ö´ĞĞäÖÈ¾ÈÎÎñ
-     * @details ´¦ÀíÍßÆ¬äÖÈ¾ÈÎÎñ£¬½«Ç°¾°ÍßÆ¬Óë±³¾°ÍßÆ¬½øĞĞºÏ³É
+     * @brief   æ‰§è¡Œæ¸²æŸ“ä»»åŠ¡
+     * @details å¤„ç†ç“¦ç‰‡æ¸²æŸ“ä»»åŠ¡ï¼Œå°†å‰æ™¯ç“¦ç‰‡ä¸èƒŒæ™¯ç“¦ç‰‡è¿›è¡Œåˆæˆ
      *
-     * @param   job äÖÈ¾ÈÎÎñ¶ÔÏóÖ¸Õë
-     * @return  true±íÊ¾ÈÎÎñÖ´ĞĞ³É¹¦£¬false±íÊ¾Ê§°Ü
-     * @note    ¸Ãº¯Êı»á·¢³öforegroundTileRenderedĞÅºÅÍ¨ÖªÖ÷Ïß³Ì
+     * @param   job æ¸²æŸ“ä»»åŠ¡å¯¹è±¡æŒ‡é’ˆ
+     * @return  trueè¡¨ç¤ºä»»åŠ¡æ‰§è¡ŒæˆåŠŸï¼Œfalseè¡¨ç¤ºå¤±è´¥
+     * @note    è¯¥å‡½æ•°ä¼šå‘å‡ºforegroundTileRenderedä¿¡å·é€šçŸ¥ä¸»çº¿ç¨‹
      * @see     executeIOJob, foregroundTileRendered
      */
     bool executeRenderJob(RenderJob* job);
 
     /**
-     * @brief   äÖÈ¾±³¾°Í¼ÏñÍßÆ¬
-     * @details ½«¶à·Ö±æÂÊÍ¼ÏñÖĞµÄÍßÆ¬Êı¾İäÖÈ¾ÎªQPixmap¸ñÊ½
+     * @brief   æ¸²æŸ“èƒŒæ™¯å›¾åƒç“¦ç‰‡
+     * @details å°†å¤šåˆ†è¾¨ç‡å›¾åƒä¸­çš„ç“¦ç‰‡æ•°æ®æ¸²æŸ“ä¸ºQPixmapæ ¼å¼
      *
-     * @tparam  T Í¼ÏñÊı¾İÀàĞÍ£¨Èçunsigned char, unsigned shortµÈ£©
-     * @param   local_bck_img ±³¾°Í¼Ïñ¶ÔÏóµÄ¹²ÏíÖ¸Õë
-     * @param   currentJob µ±Ç°IOÈÎÎñ¶ÔÏóÖ¸Õë
-     * @param   colorType ÑÕÉ«ÀàĞÍ£¬¾ö¶¨äÖÈ¾·½Ê½
-     * @return  äÖÈ¾Íê³ÉµÄÍßÆ¬ÏñËØÍ¼Ö¸Õë
-     * @note    ¸Ãº¯ÊıÊÇÄ£°åº¯Êı£¬Ö§³Ö²»Í¬µÄÍ¼ÏñÊı¾İÀàĞÍ
+     * @tparam  T å›¾åƒæ•°æ®ç±»å‹ï¼ˆå¦‚unsigned char, unsigned shortç­‰ï¼‰
+     * @param   local_bck_img èƒŒæ™¯å›¾åƒå¯¹è±¡çš„å…±äº«æŒ‡é’ˆ
+     * @param   currentJob å½“å‰IOä»»åŠ¡å¯¹è±¡æŒ‡é’ˆ
+     * @param   colorType é¢œè‰²ç±»å‹ï¼Œå†³å®šæ¸²æŸ“æ–¹å¼
+     * @return  æ¸²æŸ“å®Œæˆçš„ç“¦ç‰‡åƒç´ å›¾æŒ‡é’ˆ
+     * @note    è¯¥å‡½æ•°æ˜¯æ¨¡æ¿å‡½æ•°ï¼Œæ”¯æŒä¸åŒçš„å›¾åƒæ•°æ®ç±»å‹
      * @see     getForegroundTile, renderForegroundImage
      */
     template <typename T>
     QPixmap* renderBackgroundImage(std::shared_ptr<MultiResolutionImage> local_bck_img, const IOJob* currentJob, SlideColorManagement::ColorType colorType);
 
     /**
-     * @brief   »ñÈ¡Ç°¾°ÍßÆ¬Êı¾İ
-     * @details ´ÓÇ°¾°¶à·Ö±æÂÊÍ¼ÏñÖĞÌáÈ¡Ö¸¶¨Î»ÖÃµÄÍßÆ¬Êı¾İ
+     * @brief   è·å–å‰æ™¯ç“¦ç‰‡æ•°æ®
+     * @details ä»å‰æ™¯å¤šåˆ†è¾¨ç‡å›¾åƒä¸­æå–æŒ‡å®šä½ç½®çš„ç“¦ç‰‡æ•°æ®
      *
-     * @tparam  T Í¼ÏñÊı¾İÀàĞÍ£¨Èçunsigned char, unsigned shortµÈ£©
-     * @param   local_for_img Ç°¾°Í¼Ïñ¶ÔÏóµÄ¹²ÏíÖ¸Õë
-     * @param   currentJob µ±Ç°IOÈÎÎñ¶ÔÏóÖ¸Õë
-     * @return  Ç°¾°ÍßÆ¬Êı¾İ²¹¶¡¶ÔÏóÖ¸Õë
-     * @note    ¸Ãº¯ÊıÊÇÄ£°åº¯Êı£¬Ö§³Ö²»Í¬µÄÍ¼ÏñÊı¾İÀàĞÍ
+     * @tparam  T å›¾åƒæ•°æ®ç±»å‹ï¼ˆå¦‚unsigned char, unsigned shortç­‰ï¼‰
+     * @param   local_for_img å‰æ™¯å›¾åƒå¯¹è±¡çš„å…±äº«æŒ‡é’ˆ
+     * @param   currentJob å½“å‰IOä»»åŠ¡å¯¹è±¡æŒ‡é’ˆ
+     * @return  å‰æ™¯ç“¦ç‰‡æ•°æ®è¡¥ä¸å¯¹è±¡æŒ‡é’ˆ
+     * @note    è¯¥å‡½æ•°æ˜¯æ¨¡æ¿å‡½æ•°ï¼Œæ”¯æŒä¸åŒçš„å›¾åƒæ•°æ®ç±»å‹
      * @see     renderBackgroundImage, renderForegroundImage
      */
     template<typename T>
     Patch<T>* getForegroundTile(std::shared_ptr<MultiResolutionImage> local_for_img, const IOJob* currentJob);
 
     /**
-     * @brief   äÖÈ¾Ç°¾°Í¼ÏñÍßÆ¬
-     * @details ½«Ç°¾°ÍßÆ¬Êı¾İäÖÈ¾ÎªQPixmap¸ñÊ½
+     * @brief   æ¸²æŸ“å‰æ™¯å›¾åƒç“¦ç‰‡
+     * @details å°†å‰æ™¯ç“¦ç‰‡æ•°æ®æ¸²æŸ“ä¸ºQPixmapæ ¼å¼
      *
-     * @tparam  T Í¼ÏñÊı¾İÀàĞÍ£¨Èçunsigned char, unsigned shortµÈ£©
-     * @param   foregroundTile Ç°¾°ÍßÆ¬Êı¾İ²¹¶¡¶ÔÏóÖ¸Õë
-     * @param   backgroundTileSize ±³¾°ÍßÆ¬´óĞ¡£¬ÓÃÓÚËõ·ÅÇ°¾°ÍßÆ¬
-     * @return  äÖÈ¾Íê³ÉµÄÇ°¾°ÍßÆ¬ÏñËØÍ¼Ö¸Õë
-     * @note    ¸Ãº¯ÊıÊÇÄ£°åº¯Êı£¬Ö§³Ö²»Í¬µÄÍ¼ÏñÊı¾İÀàĞÍ
+     * @tparam  T å›¾åƒæ•°æ®ç±»å‹ï¼ˆå¦‚unsigned char, unsigned shortç­‰ï¼‰
+     * @param   foregroundTile å‰æ™¯ç“¦ç‰‡æ•°æ®è¡¥ä¸å¯¹è±¡æŒ‡é’ˆ
+     * @param   backgroundTileSize èƒŒæ™¯ç“¦ç‰‡å¤§å°ï¼Œç”¨äºç¼©æ”¾å‰æ™¯ç“¦ç‰‡
+     * @return  æ¸²æŸ“å®Œæˆçš„å‰æ™¯ç“¦ç‰‡åƒç´ å›¾æŒ‡é’ˆ
+     * @note    è¯¥å‡½æ•°æ˜¯æ¨¡æ¿å‡½æ•°ï¼Œæ”¯æŒä¸åŒçš„å›¾åƒæ•°æ®ç±»å‹
      * @see     renderBackgroundImage, getForegroundTile
      */
     template<typename T>

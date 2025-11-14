@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file WSITileGraphicsItemCache.cpp
  * @brief WSI瓦片图形项缓存实现文件
  * @details 该文件实现了瓦片图形项的LRU缓存管理功能，包括：

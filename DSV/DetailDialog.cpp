@@ -1,4 +1,4 @@
-#include "DetailDialog.h"
+ï»¿#include "DetailDialog.h"
 #include <QDebug>
 DetailDialog::DetailDialog(QWidget *parent, const std::vector<SlideColorManagement::PropertyInfo>& properties)
 	: QDialog(parent),m_properties(properties)
@@ -14,49 +14,49 @@ DetailDialog::~DetailDialog()
 void DetailDialog::initUi()
 {
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
-    this->setWindowTitle(QStringLiteral("ÏêÇéÐÅÏ¢"));
+    this->setWindowTitle(QStringLiteral("è¯¦æƒ…ä¿¡æ¯"));
     this->setFixedSize(200, 200);
-    // ´´½¨´¹Ö±²¼¾Ö
+    // åˆ›å»ºåž‚ç›´å¸ƒå±€
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
-    // ÓÃÓÚ¼ÇÂ¼ÊÇ·ñÒÑ¾­Ìí¼ÓÁËÄ³Ð©ÐÅÏ¢µÄ±êÖ¾
+    // ç”¨äºŽè®°å½•æ˜¯å¦å·²ç»æ·»åŠ äº†æŸäº›ä¿¡æ¯çš„æ ‡å¿—
     bool addedWidth = false;
     bool addedHeight = false;
 
-    // ±éÀúÊôÐÔÐÅÏ¢
+    // éåŽ†å±žæ€§ä¿¡æ¯
     for (const auto& prop : m_properties) {
-        // Ñ°ÕÒ¶ÔÓ¦µÄ±È½ÏÖØÒªµÄ²ÎÊý
+        // å¯»æ‰¾å¯¹åº”çš„æ¯”è¾ƒé‡è¦çš„å‚æ•°
         if (prop.name == "aperio.AppMag") {
-            QString data = QStringLiteral("ÔöÒæ£º") + QString::number(prop.numericValue);
+            QString data = QStringLiteral("å¢žç›Šï¼š") + QString::number(prop.numericValue);
             QLabel* appMag = new QLabel(data, this);
             mainLayout->addWidget(appMag);
         }
         else if (prop.name == "aperio.MPP") {
-            QString data = QStringLiteral("Ã¿ÏñËØÎ¢Ã×Êý£º") + QString::number(prop.numericValue);
+            QString data = QStringLiteral("æ¯åƒç´ å¾®ç±³æ•°ï¼š") + QString::number(prop.numericValue);
             m_MPP = prop.numericValue;
             QLabel* appMag = new QLabel(data, this);
             mainLayout->addWidget(appMag);
         }
         else if ((prop.name == "aperio.OriginalWidth" || prop.name == "openslide.level[0].width") && !addedWidth) {
-            QString data = QStringLiteral("Í¼Ïñ¿í¶È£º") + QString::number(prop.numericValue);
+            QString data = QStringLiteral("å›¾åƒå®½åº¦ï¼š") + QString::number(prop.numericValue);
             QLabel* appMag = new QLabel(data, this);
             mainLayout->addWidget(appMag);
-            addedWidth = true; // ±ê¼ÇÒÑÌí¼Ó¿í¶ÈÐÅÏ¢
+            addedWidth = true; // æ ‡è®°å·²æ·»åŠ å®½åº¦ä¿¡æ¯
         }
         else if ((prop.name == "aperio.Originalheight" || prop.name == "openslide.level[0].height") && !addedHeight) {
-            QString data = QStringLiteral("Í¼Ïñ¸ß¶È£º") + QString::number(prop.numericValue);
+            QString data = QStringLiteral("å›¾åƒé«˜åº¦ï¼š") + QString::number(prop.numericValue);
             QLabel* appMag = new QLabel(data, this);
             mainLayout->addWidget(appMag);
-            addedHeight = true; // ±ê¼ÇÒÑÌí¼Ó¸ß¶ÈÐÅÏ¢
+            addedHeight = true; // æ ‡è®°å·²æ·»åŠ é«˜åº¦ä¿¡æ¯
         }
         else if (prop.name == "openslide.level-count") {
-            QString data = QStringLiteral("Í¼Ïñ²ã¼¶£º") + QString::number(prop.numericValue);
+            QString data = QStringLiteral("å›¾åƒå±‚çº§ï¼š") + QString::number(prop.numericValue);
             QLabel* appMag = new QLabel(data, this);
             mainLayout->addWidget(appMag);
         }
     }
 
-    // ÉèÖÃÖ÷²¼¾Ö
+    // è®¾ç½®ä¸»å¸ƒå±€
     this->setLayout(mainLayout);
 }
 

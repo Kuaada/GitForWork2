@@ -62,7 +62,7 @@ void MainWin::resizeEvent(QResizeEvent* event)
 		// 设定窗口高度阈值
 		const int heightThreshold = 786;
 		if (windowHeight > heightThreshold) {
-			FileTreeLabel->setText(QStringLiteral("FileTree"));
+			FileTreeLabel->setText(QStringLiteral("文件树"));
 		}
 		else {
 			FileTreeLabel->setText("");
@@ -91,6 +91,7 @@ void MainWin::resizeEvent(QResizeEvent* event)
 	// 调用父类的resizeEvent处理
 	QWidget::resizeEvent(event);
 }
+
 
 /**
  * @brief 初始化用户界面
@@ -211,6 +212,7 @@ void MainWin::initConnect()
 	
 	// 病理查看器MPP传输信号
 	PathologyViewer* view = this->findChild<PathologyViewer*>("pathologyView");
+
 	connect(view, &PathologyViewer::mppTrans, m_ToolBar, &CenteredToolBar::setMpp);
 	
 	// 视图显示信号
@@ -247,6 +249,10 @@ void MainWin::initConnect()
 	QCheckBox* minimap = m_SnapDialog->findChild<QCheckBox*>(QStringLiteral("miniMap"));
 	connect(minimap, &QCheckBox::toggled, view, &PathologyViewer::setMiniMapVisible);
 	
+	//位置按钮复选框
+	QPushButton* changeBtn = m_SnapDialog->findChild<QPushButton*>(QStringLiteral("changePos"));
+	connect(changeBtn, &QPushButton::clicked, view, &PathologyViewer::changeViewPos);
+
 	// 绘图工具栏按钮连接
 	QToolButton* cancel = m_PlotBar->findChild<QToolButton*>("Cancel");
 	connect(cancel, &QToolButton::clicked, [view]() {view->setMouseType(MouseType::Nothing);});

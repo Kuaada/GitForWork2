@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    CenteredToolBar.h
  * @brief   Centered toolbar class, providing drawing and operation tools
  * @author  [JianZhang] ([])

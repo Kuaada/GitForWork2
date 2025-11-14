@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file PathologyViewer.cpp
  * @brief 病理查看器实现文件
  * @details 实现数字病理切片查看器的核心显示功能，包括图像显示、缩放、平移、标注等
@@ -116,6 +116,10 @@ PathologyViewer::PathologyViewer(QWidget* parent) :
     m_mouseType = Nothing;
     setMouseTracking(true);  // 启用鼠标跟踪
     
+    // 初始化性能测量
+    m_fpsHistory.reserve(m_fpsHistorySize);
+    m_isFirstLoad = true;
+    
     // 连接自定义上下文菜单信号
     connect(this, &QGraphicsView::customContextMenuRequested,
         [this](const QPoint& pos) {
@@ -148,6 +152,8 @@ void PathologyViewer::setLabelMapVisible()
     {
         _labelWin->hide();
     }
+   
+    //changeViewPosWithAnimation();
     emit viewShow(this->grab());
 }
 
@@ -225,6 +231,7 @@ void PathologyViewer::resizeEvent(QResizeEvent* event) {
  * @details 处理鼠标滚轮缩放功能
  */
 void PathologyViewer::wheelEvent(QWheelEvent* event) {
+    m_zoomTimer.start();
     if (_PaintingState)
     {
         return;
@@ -304,6 +311,12 @@ void PathologyViewer::zoomFinished()
     else
         _numScheduledScalings++;
     emit factorTrans(float(transform().m11()));
+    
+    if (m_zoomTimer.isValid()) {
+        qint64 zoomTime = m_zoomTimer.elapsed();
+        qDebug() << "🔍 Zoom delay:" << zoomTime << "ms";
+    }
+    
     sender()->~QObject();
 }
 void PathologyViewer::handleItemSelection(QGraphicsItem* item)
@@ -338,6 +351,10 @@ void PathologyViewer::onFieldOfViewChanged(const QRectF& FOV, const unsigned int
     }
 }
 void PathologyViewer::initialize(std::shared_ptr<MultiResolutionImage> img) {
+    if (m_isFirstLoad) {
+        m_loadTimer.start();
+        qDebug() << "🚀 Image loading started...";
+    }
     close();
     setEnabled(true);
     _img = img;
@@ -437,6 +454,12 @@ void PathologyViewer::initializeImage(QGraphicsScene* scn, unsigned int tileSize
     double fac = _detailDialog->retMpp()/_sceneScale;
     m_pGraphicsScene->setPixelSize(fac);
     while (_ioThread->numberOfJobs() > 0) {
+    }
+    
+    if (m_isFirstLoad) {
+        qint64 loadTime = m_loadTimer.elapsed();
+        qDebug() << "⏱️ First To View:" << loadTime << "ms";
+        m_isFirstLoad = false;
     }
 }
 void PathologyViewer::initializeGUIComponents(unsigned int level) {
@@ -558,6 +581,7 @@ void PathologyViewer::togglePan(bool pan, const QPoint& startPos) {
         if (_pan) {
             return;
         }
+        m_panTimer.start();
         _pan = true;
         _prevPan = startPos;
         setCursor(Qt::ClosedHandCursor);
@@ -569,6 +593,11 @@ void PathologyViewer::togglePan(bool pan, const QPoint& startPos) {
         _pan = false;
         _prevPan = QPoint(0, 0);
         setCursor(Qt::ArrowCursor);
+        
+        if (m_panTimer.isValid()) {
+            qint64 panTime = m_panTimer.elapsed();
+            qDebug() << "🖱️ Pan delay:" << panTime << "ms";
+        }
     }
 }
 void PathologyViewer::pan(const QPoint& panTo) {
@@ -811,7 +840,9 @@ void PathologyViewer::setMouseType(MouseType type)
     }
     else if(m_mouseType ==Nothing)
     {
+        // 允许中键拖拽，但禁用左键拖拽
         setDragMode(QGraphicsView::NoDrag);
+        // 注意：我们通过自定义的中键事件处理来实现拖拽
     }
     else
     {
@@ -841,6 +872,7 @@ void PathologyViewer::mousePressEvent(QMouseEvent* event)
         case Nothing:
             if (event->button() == Qt::MiddleButton)
             {
+                // qDebug() << "🖱️ Middle button pressed at:" << event->pos();
                 togglePan(true, event->pos());
                 event->accept();
                 return;
@@ -949,8 +981,12 @@ void PathologyViewer::mousePressEvent(QMouseEvent* event)
             break;
         }
 
-        QGraphicsView::mousePressEvent(event);
     }
+    else
+    {
+        emit rightClicked();
+    }
+    QGraphicsView::mousePressEvent(event);
 }
 
 void PathologyViewer::mouseReleaseEvent(QMouseEvent* event)
@@ -965,6 +1001,7 @@ void PathologyViewer::mouseReleaseEvent(QMouseEvent* event)
     case Nothing:
         if (event->button() == Qt::MiddleButton)
         {
+            // qDebug() << "🖱️ Middle button released";
             togglePan(false);
             event->accept();
             return;
@@ -1047,6 +1084,7 @@ void PathologyViewer::mouseMoveEvent(QMouseEvent* event)
         QPointF imgLoc = this->mapToScene(event->pos()) / this->_sceneScale;
         qobject_cast<QMainWindow*>(this->parentWidget()->parentWidget())->statusBar()->showMessage(QStringLiteral("当前位置: (") + QString::number(imgLoc.x()) + QString(", ") + QString::number(imgLoc.y()) + QString(")"), 1000);
         if (this->_pan) {
+            // qDebug() << "🖱️ Panning to:" << event->pos();
             pan(event->pos());
             event->accept();
             return;
@@ -1132,6 +1170,154 @@ void PathologyViewer::contextMenuEvent(QContextMenuEvent* event) {
 void PathologyViewer::onActionDeleteSelection()
 {
     m_pGraphicsScene->deleteItems(m_pGraphicsScene->selectedItems());
+}
+
+#define DEBUGPOS 0
+
+void PathologyViewer::changeViewPos()
+{
+
+    if (DEBUGPOS) return;
+
+
+
+    // 定义四个角落的位置（考虑边距）
+    /*QPoint firstPos(0,0);*/
+    QPoint topRight(250,250);
+    QPoint bottomRight(500,500);
+    QPoint bottomLeft(750,750);
+
+    QVector<QPoint> firstPos;
+    firstPos.push_back(QPoint(0, 0));
+    firstPos.push_back(QPoint(50, 50));
+    firstPos.push_back(QPoint(50, 50));
+
+    QVector<QPoint> secondPos;
+    secondPos.push_back(QPoint(0, 980));
+    secondPos.push_back(QPoint(50 ,1250));
+    secondPos.push_back(QPoint(50, 1000));
+
+    QVector<QPoint> thirdPos;
+    thirdPos.push_back(QPoint(2250, 980));
+    thirdPos.push_back(QPoint(2250, 1250));
+    thirdPos.push_back(QPoint(2250, 1000));
+
+    // 保存当前三个控件的位置
+    static int rotationState = 0; // 0: 初始状态, 1: 顺时针旋转一次, 2: 顺时针旋转两次
+
+    // 根据旋转状态设置新的位置
+    switch (rotationState) {
+    case 0: 
+        _labelWin->setGeometry(QRect(firstPos[0], _labelWin->size()));
+        _scaleBar->setGeometry(QRect(secondPos[1], _scaleBar->size()));
+        //_map->setGeometry(QRect(thirdPos[2], _map->size()));
+        break;
+    case 1: 
+        _labelWin->setGeometry(QRect(secondPos[0], _labelWin->size()));
+        _scaleBar->setGeometry(QRect(secondPos[1], _scaleBar->size()));
+        //_map->setGeometry(QRect(thirdPos[0], _map->size()));
+        break;
+    case 2: 
+        _labelWin->setGeometry(QRect(thirdPos[0], _labelWin->size()));
+        _scaleBar->setGeometry(QRect(firstPos[1], _scaleBar->size()));
+        //_map->setGeometry(QRect(thirdPos[1], _map->size()));
+        break;
+    }
+
+    // 更新旋转状态，准备下一次旋转
+    rotationState = (rotationState + 1) % 3;
+
+
+}
+
+#include <QPropertyAnimation>
+
+void PathologyViewer::changeViewPosWithAnimation(bool clockwise)
+{
+    // 获取父控件(QGraphicsView)的尺寸
+    QRect parentRect = this->rect();
+
+    // 获取三个控件的当前尺寸
+    QSize labelWinSize = _labelWin->size();
+    QSize scaleBarSize = _scaleBar->size();
+    QSize mapSize = _map->size();
+
+    // 定义四个角落的位置
+    QPoint topLeft(0, 0);
+    QPoint topRight(parentRect.width() - labelWinSize.width(), 0);
+    QPoint bottomRight(parentRect.width() - mapSize.width(), parentRect.height() - mapSize.height());
+    QPoint bottomLeft(0, parentRect.height() - scaleBarSize.height());
+
+    // 保存当前三个控件的位置
+    static int rotationState = 0;
+
+    // 目标位置
+    QRect labelWinTarget, scaleBarTarget, mapTarget;
+
+    if (clockwise) {
+        // 顺时针旋转
+        switch (rotationState) {
+        case 0:
+            labelWinTarget = QRect(topLeft, labelWinSize);
+            scaleBarTarget = QRect(topRight, scaleBarSize);
+            mapTarget = QRect(bottomRight, mapSize);
+            break;
+        case 1:
+            labelWinTarget = QRect(topRight, labelWinSize);
+            scaleBarTarget = QRect(bottomRight, scaleBarSize);
+            mapTarget = QRect(bottomLeft, mapSize);
+            break;
+        case 2:
+            labelWinTarget = QRect(bottomRight, labelWinSize);
+            scaleBarTarget = QRect(bottomLeft, scaleBarSize);
+            mapTarget = QRect(topLeft, mapSize);
+            break;
+        }
+    }
+    else {
+        // 逆时针旋转
+        switch (rotationState) {
+        case 0:
+            labelWinTarget = QRect(topLeft, labelWinSize);
+            scaleBarTarget = QRect(bottomLeft, scaleBarSize);
+            mapTarget = QRect(bottomRight, mapSize);
+            break;
+        case 1:
+            labelWinTarget = QRect(bottomLeft, labelWinSize);
+            scaleBarTarget = QRect(bottomRight, scaleBarSize);
+            mapTarget = QRect(topRight, mapSize);
+            break;
+        case 2:
+            labelWinTarget = QRect(bottomRight, labelWinSize);
+            scaleBarTarget = QRect(topRight, scaleBarSize);
+            mapTarget = QRect(topLeft, mapSize);
+            break;
+        }
+    }
+
+    // 创建动画
+    QPropertyAnimation* labelAnim = new QPropertyAnimation(_labelWin, "geometry");
+    labelAnim->setDuration(300); // 300毫秒
+    labelAnim->setStartValue(_labelWin->geometry());
+    labelAnim->setEndValue(labelWinTarget);
+
+    QPropertyAnimation* scaleBarAnim = new QPropertyAnimation(_scaleBar, "geometry");
+    scaleBarAnim->setDuration(300);
+    scaleBarAnim->setStartValue(_scaleBar->geometry());
+    scaleBarAnim->setEndValue(scaleBarTarget);
+
+    QPropertyAnimation* mapAnim = new QPropertyAnimation(_map, "geometry");
+    mapAnim->setDuration(300);
+    mapAnim->setStartValue(_map->geometry());
+    mapAnim->setEndValue(mapTarget);
+
+    // 启动动画
+    labelAnim->start();
+    scaleBarAnim->start();
+    mapAnim->start();
+
+    // 更新旋转状态
+    rotationState = (rotationState + 1) % 3;
 }
 
 void PathologyViewer::paintEvent(QPaintEvent* event)

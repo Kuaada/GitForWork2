@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file OpenSlideImage.cpp
  * @brief OpenSlide图像实现文件
  * @details 该文件实现了基于OpenSlide库的数字病理切片图像读取功能
@@ -12,6 +12,7 @@
 #include <shared_mutex>
 #include "openslide/openslide.h"
 #include <sstream>
+#include <algorithm>
 
 /**
  * @brief 构造函数：初始化OpenSlide图像对象
@@ -86,7 +87,18 @@ bool OpenSlideImage::initializeType(const std::string& imagePath) {
         else {
             _errorState = "";
         }
-        if (_errorState.empty()) {
+        
+        // 对于某些已知的非致命错误，仍然尝试初始化
+        bool canContinue = _errorState.empty();
+        if (!canContinue && !_errorState.empty()) {
+            std::string errorStr(_errorState);
+            if (errorStr.find("Invalid tile byte count") != std::string::npos ||
+                errorStr.find("TIFFRGBAImageGet failed") != std::string::npos) {
+                canContinue = true;
+            }
+        }
+        
+        if (canContinue) {
             _numberOfLevels = openslide_get_level_count(_slide);
             _dataType = SlideColorManagement::DataType::UChar;
             _samplesPerPixel = 3;
@@ -162,6 +174,16 @@ std::string OpenSlideImage::getProperty(const std::string& propertyName) {
  * @details 使用OpenSlide库读取指定区域的图像数据，并将BGRA格式转换为RGB格式
  *          处理透明度信息，透明像素使用背景颜色填充
  */
+
+#include <QImage>
+#include <QDebug>
+#include <string>
+#include <cstring>
+#include <algorithm>
+
+ // 测试代码：保存图像以验证读取结果
+#define SAVE_TEST_IMAGE 0  // 定义宏来控制是否保存，1启用，0禁用
+
 void* OpenSlideImage::readDataFromImage(const long long& startX, const long long& startY, const unsigned long long& width,
     const unsigned long long& height, const unsigned int& level) {
 
@@ -171,7 +193,118 @@ void* OpenSlideImage::readDataFromImage(const long long& startX, const long long
 
     std::shared_lock<std::shared_mutex> l(*_openCloseMutex);
     unsigned int* temp = new unsigned int[width * height];
-    openslide_read_region(_slide, temp, startX, startY, level, width, height);
+    
+
+    
+    // 激进方案：智能句柄选择策略
+    openslide_t* readSlide = _slide;
+    bool usingTempSlide = false;
+    
+    // 检查主句柄是否可用
+    const char* preError = openslide_get_error(_slide);
+    if (preError) {
+        // qDebug() << "Main slide has error, trying temporary handle...";
+        readSlide = openslide_open(m_filePath.c_str());
+        if (readSlide) {
+            usingTempSlide = true;
+            // qDebug() << "Using temporary slide handle";
+        } else {
+            // qDebug() << "Failed to create temporary handle, using main slide anyway";
+            readSlide = _slide;
+        }
+    }
+    
+    // 读取数据
+    openslide_read_region(readSlide, temp, startX, startY, level, width, height);
+    
+    // 获取错误信息
+    const char* error = openslide_get_error(readSlide);
+    
+
+    
+    // 检查数据有效性（修复后的宽松策略）
+    bool hasValidData = false;
+    int nonZeroCount = 0;
+    int opaqueCount = 0;
+    uint32_t firstNonZero = 0;
+    
+    for (unsigned long long i = 0; i < width * height; ++i) {
+        if (temp[i] != 0) {
+            if (!hasValidData) {
+                firstNonZero = temp[i];
+                hasValidData = true;
+            }
+            nonZeroCount++;
+            
+            unsigned char alpha = (temp[i] >> 24) & 0xff;
+            if (alpha == 255) opaqueCount++;
+        }
+    }
+    
+    // 双重保障：如果没有有效数据且还没有使用临时句柄，尝试临时句柄
+    if (!hasValidData && !usingTempSlide) {
+        // qDebug() << "No valid data with main handle, trying temporary handle as fallback...";
+        
+        openslide_t* fallbackSlide = openslide_open(m_filePath.c_str());
+        if (fallbackSlide) {
+            // qDebug() << "Created fallback temporary handle, re-reading...";
+            
+            // 重新读取数据
+            memset(temp, 0, width * height * sizeof(uint32_t));
+            openslide_read_region(fallbackSlide, temp, startX, startY, level, width, height);
+            
+            // 重新检查数据
+            nonZeroCount = 0;
+            opaqueCount = 0;
+            hasValidData = false;
+            
+            for (unsigned long long i = 0; i < width * height; ++i) {
+                if (temp[i] != 0) {
+                    if (!hasValidData) {
+                        firstNonZero = temp[i];
+                        hasValidData = true;
+                    }
+                    nonZeroCount++;
+                    
+                    unsigned char alpha = (temp[i] >> 24) & 0xff;
+                    if (alpha == 255) opaqueCount++;
+                }
+            }
+            
+            openslide_close(fallbackSlide);
+            // qDebug() << "Closed fallback temporary handle";
+            
+            // if (hasValidData) {
+            //     qDebug() << "✅ Fallback temporary handle succeeded!";
+            // }
+        }
+    }
+    
+    // 清理主要的临时句柄
+    if (usingTempSlide && readSlide) {
+        openslide_close(readSlide);
+        // qDebug() << "Closed temporary slide handle";
+    }
+    
+    // 记录结果（注释掉详细调试信息）
+    // if (error) {
+    //     qDebug() << "OpenSlide reported error:" << error;
+    // }
+    // qDebug() << "Data analysis: NonZero=" << nonZeroCount << "/" << (width * height) << ", Opaque=" << opaqueCount;
+    
+    if (hasValidData) {
+        // unsigned char a = (firstNonZero >> 24) & 0xff;
+        // unsigned char r = (firstNonZero >> 16) & 0xff;
+        // unsigned char g = (firstNonZero >> 8) & 0xff;
+        // unsigned char b = firstNonZero & 0xff;
+        // qDebug() << "First pixel ARGB:" << (int)a << (int)r << (int)g << (int)b;
+        // qDebug() << "✅ Using valid data" << (error ? " (ignoring error)" : "");
+    } else {
+        // qDebug() << "❌ No valid data found, filling with white";
+        for (unsigned long long i = 0; i < width * height; ++i) {
+            temp[i] = 0xFFFFFFFF;  // 白色ARGB
+        }
+    }
 
     unsigned char* rgb = new unsigned char[width * height * 3];
     unsigned char* bgra = (unsigned char*)temp;
@@ -193,6 +326,7 @@ void* OpenSlideImage::readDataFromImage(const long long& startX, const long long
         }
     }
     delete[] temp;
+
     return rgb;
 }
 

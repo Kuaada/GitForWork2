@@ -1,21 +1,21 @@
-/**
+ï»¿/**
  * @file    PathologyViewer.h
- * @brief   ²¡ÀíÍ¼Ïñ²é¿´Æ÷Ö÷Àà£¬ÕûºÏÍ¼ÏñÏÔÊ¾¡¢½»»¥ºÍ±ê×¢¹¦ÄÜ
+ * @brief   ç—…ç†å›¾åƒæŸ¥çœ‹å™¨ä¸»ç±»ï¼Œæ•´åˆå›¾åƒæ˜¾ç¤ºã€äº¤äº’å’Œæ ‡æ³¨åŠŸèƒ½
  * @author  [JianZhang] ([])
  * @date    2025-01-19
  * @version 1.0.0
- * @details ¸ÃÎÄ¼şÊµÏÖÁËDSVÏîÄ¿µÄºËĞÄ²é¿´Æ÷¹¦ÄÜ£¬°üÀ¨£º
- *          - ¶à·Ö±æÂÊÍ¼ÏñµÄ¼ÓÔØºÍÏÔÊ¾
- *          - ÍßÆ¬¹ÜÀíºÍÒì²½¼ÓÔØ
- *          - ÓÃ»§½»»¥ºÍÊÓÍ¼¿ØÖÆ£¨Ëõ·Å¡¢Æ½ÒÆ¡¢Ğı×ª£©
- *          - ²âÁ¿ºÍ±ê×¢¹¦ÄÜ
- *          - Ç°¾°Í¼Ïñµş¼ÓºÍLUTÓ¦ÓÃ
- *          - ĞÔÄÜ¼à¿ØºÍFPSÏÔÊ¾
- *          - ÓëUI×é¼şµÄ¼¯³ÉºÍÍ¨ĞÅ
- *          ¸ÃÀàÊÇDSVÏîÄ¿µÄºËĞÄ×é¼ş£¬ÕûºÏÁËËùÓĞ¹¦ÄÜÄ£¿é£¬
- *          ÎªÓÃ»§Ìá¹©ÍêÕûµÄ²¡ÀíÍ¼Ïñä¯ÀÀºÍ±ê×¢ÌåÑé¡£
+ * @details è¯¥æ–‡ä»¶å®ç°äº†DSVé¡¹ç›®çš„æ ¸å¿ƒæŸ¥çœ‹å™¨åŠŸèƒ½ï¼ŒåŒ…æ‹¬ï¼š
+ *          - å¤šåˆ†è¾¨ç‡å›¾åƒçš„åŠ è½½å’Œæ˜¾ç¤º
+ *          - ç“¦ç‰‡ç®¡ç†å’Œå¼‚æ­¥åŠ è½½
+ *          - ç”¨æˆ·äº¤äº’å’Œè§†å›¾æ§åˆ¶ï¼ˆç¼©æ”¾ã€å¹³ç§»ã€æ—‹è½¬ï¼‰
+ *          - æµ‹é‡å’Œæ ‡æ³¨åŠŸèƒ½
+ *          - å‰æ™¯å›¾åƒå åŠ å’ŒLUTåº”ç”¨
+ *          - æ€§èƒ½ç›‘æ§å’ŒFPSæ˜¾ç¤º
+ *          - ä¸UIç»„ä»¶çš„é›†æˆå’Œé€šä¿¡
+ *          è¯¥ç±»æ˜¯DSVé¡¹ç›®çš„æ ¸å¿ƒç»„ä»¶ï¼Œæ•´åˆäº†æ‰€æœ‰åŠŸèƒ½æ¨¡å—ï¼Œ
+ *          ä¸ºç”¨æˆ·æä¾›å®Œæ•´çš„ç—…ç†å›¾åƒæµè§ˆå’Œæ ‡æ³¨ä½“éªŒã€‚
  *
- * @note    ¸ÃÀà¼Ì³Ğ×ÔQGraphicsView£¬ÊÇDSVÏîÄ¿µÄÖ÷ÒªÊÓÍ¼×é¼ş
+ * @note    è¯¥ç±»ç»§æ‰¿è‡ªQGraphicsViewï¼Œæ˜¯DSVé¡¹ç›®çš„ä¸»è¦è§†å›¾ç»„ä»¶
  * @see     TileManager, QImageGraphicScene, RenderElement, IOThread
  */
 
@@ -28,8 +28,10 @@
 #include <QContextMenuEvent>
 #include <QTimer>
 #include <QDebug>
+#include <QElapsedTimer>
+#include <QList>
 
- // Ç°ÏòÉùÃ÷
+ // å‰å‘å£°æ˜
 class MultiResolutionImage;
 class IOThread;
 class PrefetchThread;
@@ -52,62 +54,62 @@ class QMenu;
 
 /**
  * @enum   MouseType
- * @brief  Êó±ê²Ù×÷ÀàĞÍÃ¶¾Ù£¬¶¨Òå²»Í¬µÄ½»»¥Ä£Ê½
- * @details ¸ÃÃ¶¾Ù¶¨ÒåÁËÓÃ»§ÔÚÍ¼ÏñÉÏ¿ÉÒÔ½øĞĞµÄ¸÷ÖÖ²Ù×÷ÀàĞÍ£¬
- *          °üÀ¨»æÖÆ¹¤¾ß¡¢Ñ¡Ôñ¹¤¾ßµÈ¡£
+ * @brief  é¼ æ ‡æ“ä½œç±»å‹æšä¸¾ï¼Œå®šä¹‰ä¸åŒçš„äº¤äº’æ¨¡å¼
+ * @details è¯¥æšä¸¾å®šä¹‰äº†ç”¨æˆ·åœ¨å›¾åƒä¸Šå¯ä»¥è¿›è¡Œçš„å„ç§æ“ä½œç±»å‹ï¼Œ
+ *          åŒ…æ‹¬ç»˜åˆ¶å·¥å…·ã€é€‰æ‹©å·¥å…·ç­‰ã€‚
  */
 enum MouseType {
-    Nothing = -1,           // ÎŞ²Ù×÷×´Ì¬
-    Line = 0,               // Ö±Ïß»æÖÆ¹¤¾ß
-    Rect = 1,               // ¾ØĞÎ»æÖÆ¹¤¾ß
-    Ellipse = 2,            // ÍÖÔ²»æÖÆ¹¤¾ß
-    Text = 3,               // ÎÄ±¾±ê×¢¹¤¾ß
-    Contour = 4,            // ÂÖÀª»æÖÆ¹¤¾ß
-    RectangleSelection = 12 // ¾ØĞÎÑ¡Ôñ¹¤¾ß
+    Nothing = -1,           // æ— æ“ä½œçŠ¶æ€
+    Line = 0,               // ç›´çº¿ç»˜åˆ¶å·¥å…·
+    Rect = 1,               // çŸ©å½¢ç»˜åˆ¶å·¥å…·
+    Ellipse = 2,            // æ¤­åœ†ç»˜åˆ¶å·¥å…·
+    Text = 3,               // æ–‡æœ¬æ ‡æ³¨å·¥å…·
+    Contour = 4,            // è½®å»“ç»˜åˆ¶å·¥å…·
+    RectangleSelection = 12 // çŸ©å½¢é€‰æ‹©å·¥å…·
 };
 
 namespace SlideColorManagement {
-    struct LUT; // Ç°ÏòÉùÃ÷LUT½á¹¹Ìå
+    struct LUT; // å‰å‘å£°æ˜LUTç»“æ„ä½“
 }
 
 /**
  * @class  PathologyViewer
- * @brief  ²¡ÀíÍ¼Ïñ²é¿´Æ÷Ö÷Àà£¬ÕûºÏÍ¼ÏñÏÔÊ¾¡¢½»»¥ºÍ±ê×¢¹¦ÄÜ
- * @details ¸ÃÀàÊÇDSVÏîÄ¿µÄºËĞÄ²é¿´Æ÷Àà£¬¸ºÔğ£º
- *          - ¶à·Ö±æÂÊÍ¼ÏñµÄ¼ÓÔØ¡¢ÏÔÊ¾ºÍ¹ÜÀí
- *          - ÍßÆ¬ÏµÍ³µÄĞ­µ÷ºÍÒì²½¼ÓÔØ
- *          - ÓÃ»§½»»¥´¦Àí£¨Êó±ê¡¢¼üÅÌ¡¢¹öÂÖÊÂ¼ş£©
- *          - ÊÓÍ¼±ä»»£¨Ëõ·Å¡¢Æ½ÒÆ¡¢Ğı×ª£©
- *          - Ç°¾°Í¼Ïñµş¼ÓºÍÑÕÉ«¹ÜÀí
- *          - ²âÁ¿ºÍ±ê×¢¹¤¾ß
- *          - ĞÔÄÜ¼à¿ØºÍÓÅ»¯
- *          - ÓëUI×é¼şµÄÍ¨ĞÅºÍ¼¯³É
+ * @brief  ç—…ç†å›¾åƒæŸ¥çœ‹å™¨ä¸»ç±»ï¼Œæ•´åˆå›¾åƒæ˜¾ç¤ºã€äº¤äº’å’Œæ ‡æ³¨åŠŸèƒ½
+ * @details è¯¥ç±»æ˜¯DSVé¡¹ç›®çš„æ ¸å¿ƒæŸ¥çœ‹å™¨ç±»ï¼Œè´Ÿè´£ï¼š
+ *          - å¤šåˆ†è¾¨ç‡å›¾åƒçš„åŠ è½½ã€æ˜¾ç¤ºå’Œç®¡ç†
+ *          - ç“¦ç‰‡ç³»ç»Ÿçš„åè°ƒå’Œå¼‚æ­¥åŠ è½½
+ *          - ç”¨æˆ·äº¤äº’å¤„ç†ï¼ˆé¼ æ ‡ã€é”®ç›˜ã€æ»šè½®äº‹ä»¶ï¼‰
+ *          - è§†å›¾å˜æ¢ï¼ˆç¼©æ”¾ã€å¹³ç§»ã€æ—‹è½¬ï¼‰
+ *          - å‰æ™¯å›¾åƒå åŠ å’Œé¢œè‰²ç®¡ç†
+ *          - æµ‹é‡å’Œæ ‡æ³¨å·¥å…·
+ *          - æ€§èƒ½ç›‘æ§å’Œä¼˜åŒ–
+ *          - ä¸UIç»„ä»¶çš„é€šä¿¡å’Œé›†æˆ
  *
- *          Ö÷Òª¹¦ÄÜ°üÀ¨£º
- *          - Í¼ÏñÏÔÊ¾£ºÖ§³Ö¶à·Ö±æÂÊÍ¼ÏñµÄÁ÷³©ä¯ÀÀ
- *          - ½»»¥¿ØÖÆ£ºÊó±êÍÏ×§¡¢¹öÂÖËõ·Å¡¢¼üÅÌµ¼º½
- *          - ±ê×¢¹¤¾ß£ºÖ±Ïß¡¢¾ØĞÎ¡¢ÍÖÔ²¡¢ÎÄ±¾¡¢ÂÖÀªµÈ»æÖÆ¹¤¾ß
- *          - Ç°¾°µş¼Ó£ºÖ§³ÖÇ°¾°Í¼ÏñµÄÍ¸Ã÷µş¼ÓºÍLUTÓ¦ÓÃ
- *          - ĞÔÄÜÓÅ»¯£ºÍßÆ¬»º´æ¡¢Òì²½¼ÓÔØ¡¢FPS¼à¿Ø
- *          - ¸¨Öú¹¦ÄÜ£ºĞ¡µØÍ¼¡¢±ÈÀı³ß¡¢¸²¸Ç¶ÈÏÔÊ¾
+ *          ä¸»è¦åŠŸèƒ½åŒ…æ‹¬ï¼š
+ *          - å›¾åƒæ˜¾ç¤ºï¼šæ”¯æŒå¤šåˆ†è¾¨ç‡å›¾åƒçš„æµç•…æµè§ˆ
+ *          - äº¤äº’æ§åˆ¶ï¼šé¼ æ ‡æ‹–æ‹½ã€æ»šè½®ç¼©æ”¾ã€é”®ç›˜å¯¼èˆª
+ *          - æ ‡æ³¨å·¥å…·ï¼šç›´çº¿ã€çŸ©å½¢ã€æ¤­åœ†ã€æ–‡æœ¬ã€è½®å»“ç­‰ç»˜åˆ¶å·¥å…·
+ *          - å‰æ™¯å åŠ ï¼šæ”¯æŒå‰æ™¯å›¾åƒçš„é€æ˜å åŠ å’ŒLUTåº”ç”¨
+ *          - æ€§èƒ½ä¼˜åŒ–ï¼šç“¦ç‰‡ç¼“å­˜ã€å¼‚æ­¥åŠ è½½ã€FPSç›‘æ§
+ *          - è¾…åŠ©åŠŸèƒ½ï¼šå°åœ°å›¾ã€æ¯”ä¾‹å°ºã€è¦†ç›–åº¦æ˜¾ç¤º
  *
- * @note   ¸ÃÀà¼Ì³Ğ×ÔQGraphicsView£¬ÊÇDSVÏîÄ¿µÄÖ÷ÒªÊÓÍ¼×é¼ş
+ * @note   è¯¥ç±»ç»§æ‰¿è‡ªQGraphicsViewï¼Œæ˜¯DSVé¡¹ç›®çš„ä¸»è¦è§†å›¾ç»„ä»¶
  * @example
- *          // Ê¹ÓÃÊ¾Àı
+ *          // ä½¿ç”¨ç¤ºä¾‹
  *          PathologyViewer* viewer = new PathologyViewer(parent);
  *
- *          // ³õÊ¼»¯Í¼Ïñ
+ *          // åˆå§‹åŒ–å›¾åƒ
  *          viewer->initialize(multiResImage);
  *
- *          // ÉèÖÃ½»»¥²ÎÊı
+ *          // è®¾ç½®äº¤äº’å‚æ•°
  *          viewer->setZoomSensitivity(1.2f);
  *          viewer->setPanSensitivity(1.0f);
  *
- *          // ÉèÖÃÇ°¾°Í¼Ïñ
+ *          // è®¾ç½®å‰æ™¯å›¾åƒ
  *          viewer->setForegroundOpacity(0.7f);
  *          viewer->setForegroundChannel(1);
  *
- *          // ÉèÖÃ»æÖÆ¹¤¾ß
+ *          // è®¾ç½®ç»˜åˆ¶å·¥å…·
  *          viewer->setMouseType(MouseType::Rect);
  * @see     TileManager, QImageGraphicScene, RenderElement, IOThread
  */
@@ -116,794 +118,830 @@ class PathologyViewer : public QGraphicsView
     Q_OBJECT
 
 public:
-    /** @brief Ëõ·Åµ½³¡¾°×ø±êÎ»ÖÃ */
+    /** @brief ç¼©æ”¾åˆ°åœºæ™¯åæ ‡ä½ç½® */
     QPointF _zoomToScenePos;
 
-    /** @brief Ëõ·Åµ½ÊÓÍ¼×ø±êÎ»ÖÃ */
+    /** @brief ç¼©æ”¾åˆ°è§†å›¾åæ ‡ä½ç½® */
     QPointF _zoomToViewPos;
 
     /**
-     * @brief   ¹¹Ôìº¯Êı
-     * @details ´´½¨²¡ÀíÍ¼Ïñ²é¿´Æ÷¶ÔÏó
+     * @brief   æ„é€ å‡½æ•°
+     * @details åˆ›å»ºç—…ç†å›¾åƒæŸ¥çœ‹å™¨å¯¹è±¡
      *
-     * @param   parent ¸¸´°¿ÚÖ¸Õë£¬Ä¬ÈÏÎª0
-     * @note    ¹¹Ôìº¯Êı»á³õÊ¼»¯»ù±¾µÄUI×é¼şºÍ×´Ì¬
+     * @param   parent çˆ¶çª—å£æŒ‡é’ˆï¼Œé»˜è®¤ä¸º0
+     * @note    æ„é€ å‡½æ•°ä¼šåˆå§‹åŒ–åŸºæœ¬çš„UIç»„ä»¶å’ŒçŠ¶æ€
      * @see     ~PathologyViewer, initialize
      */
     PathologyViewer(QWidget* parent = 0);
 
     /**
-     * @brief   Îö¹¹º¯Êı
-     * @details ÇåÀí²¡ÀíÍ¼Ïñ²é¿´Æ÷×ÊÔ´
-     * @note    Îö¹¹º¯Êı»áÍ£Ö¹ËùÓĞÏß³Ì²¢ÇåÀí×ÊÔ´
+     * @brief   ææ„å‡½æ•°
+     * @details æ¸…ç†ç—…ç†å›¾åƒæŸ¥çœ‹å™¨èµ„æº
+     * @note    ææ„å‡½æ•°ä¼šåœæ­¢æ‰€æœ‰çº¿ç¨‹å¹¶æ¸…ç†èµ„æº
      * @see     close
      */
     ~PathologyViewer();
 
     /**
-     * @brief   ³õÊ¼»¯²é¿´Æ÷
-     * @details Ê¹ÓÃ¶à·Ö±æÂÊÍ¼Ïñ³õÊ¼»¯²é¿´Æ÷
+     * @brief   åˆå§‹åŒ–æŸ¥çœ‹å™¨
+     * @details ä½¿ç”¨å¤šåˆ†è¾¨ç‡å›¾åƒåˆå§‹åŒ–æŸ¥çœ‹å™¨
      *
-     * @param   img ¶à·Ö±æÂÊÍ¼Ïñ¶ÔÏóµÄ¹²ÏíÖ¸Õë
-     * @note    ¸Ãº¯Êı»áÉèÖÃÍ¼Ïñ¡¢³õÊ¼»¯ÍßÆ¬¹ÜÀíÆ÷µÈ×é¼ş
+     * @param   img å¤šåˆ†è¾¨ç‡å›¾åƒå¯¹è±¡çš„å…±äº«æŒ‡é’ˆ
+     * @note    è¯¥å‡½æ•°ä¼šè®¾ç½®å›¾åƒã€åˆå§‹åŒ–ç“¦ç‰‡ç®¡ç†å™¨ç­‰ç»„ä»¶
      * @see     close, reset
      */
     void initialize(std::shared_ptr<MultiResolutionImage> img);
 
     /**
-     * @brief   ¹Ø±Õ²é¿´Æ÷
-     * @details ¹Ø±Õµ±Ç°Í¼Ïñ²¢ÇåÀíÏà¹Ø×ÊÔ´
-     * @note    ¸Ãº¯Êı»áÍ£Ö¹ËùÓĞÏß³Ì²¢ÇåÀíÍ¼Ïñ×ÊÔ´
+     * @brief   å…³é—­æŸ¥çœ‹å™¨
+     * @details å…³é—­å½“å‰å›¾åƒå¹¶æ¸…ç†ç›¸å…³èµ„æº
+     * @note    è¯¥å‡½æ•°ä¼šåœæ­¢æ‰€æœ‰çº¿ç¨‹å¹¶æ¸…ç†å›¾åƒèµ„æº
      * @see     initialize
      */
     void close();
 
     /**
-     * @brief   »ñÈ¡Ëõ·ÅÁéÃô¶È
-     * @details ·µ»Øµ±Ç°µÄËõ·ÅÁéÃô¶ÈÉèÖÃ
+     * @brief   è·å–ç¼©æ”¾çµæ•åº¦
+     * @details è¿”å›å½“å‰çš„ç¼©æ”¾çµæ•åº¦è®¾ç½®
      *
-     * @return  Ëõ·ÅÁéÃô¶ÈÖµ
-     * @note    Ëõ·ÅÁéÃô¶ÈÓ°Ïì¹öÂÖËõ·ÅµÄÏìÓ¦ËÙ¶È
+     * @return  ç¼©æ”¾çµæ•åº¦å€¼
+     * @note    ç¼©æ”¾çµæ•åº¦å½±å“æ»šè½®ç¼©æ”¾çš„å“åº”é€Ÿåº¦
      * @see     setZoomSensitivity
      */
     float getZoomSensitivity() const;
 
     /**
-     * @brief   ÉèÖÃËõ·ÅÁéÃô¶È
-     * @details ÉèÖÃËõ·Å²Ù×÷µÄÁéÃô¶È
+     * @brief   è®¾ç½®ç¼©æ”¾çµæ•åº¦
+     * @details è®¾ç½®ç¼©æ”¾æ“ä½œçš„çµæ•åº¦
      *
-     * @param   zoomSensitivity ĞÂµÄËõ·ÅÁéÃô¶ÈÖµ
-     * @note    ÖµÔ½´ó£¬Ëõ·ÅÏìÓ¦Ô½Ãô¸Ğ
+     * @param   zoomSensitivity æ–°çš„ç¼©æ”¾çµæ•åº¦å€¼
+     * @note    å€¼è¶Šå¤§ï¼Œç¼©æ”¾å“åº”è¶Šæ•æ„Ÿ
      * @see     getZoomSensitivity
      */
     void setZoomSensitivity(float zoomSensitivity);
 
     /**
-     * @brief   ÉèÖÃÆ½ÒÆÁéÃô¶È
-     * @details ÉèÖÃÆ½ÒÆ²Ù×÷µÄÁéÃô¶È
+     * @brief   è®¾ç½®å¹³ç§»çµæ•åº¦
+     * @details è®¾ç½®å¹³ç§»æ“ä½œçš„çµæ•åº¦
      *
-     * @param   panSensitivity ĞÂµÄÆ½ÒÆÁéÃô¶ÈÖµ
-     * @note    ÖµÔ½´ó£¬Æ½ÒÆÏìÓ¦Ô½Ãô¸Ğ
+     * @param   panSensitivity æ–°çš„å¹³ç§»çµæ•åº¦å€¼
+     * @note    å€¼è¶Šå¤§ï¼Œå¹³ç§»å“åº”è¶Šæ•æ„Ÿ
      * @see     getPanSensitivity
      */
     void setPanSensitivity(float panSensitivity);
 
     /**
-     * @brief   »ñÈ¡Æ½ÒÆÁéÃô¶È
-     * @details ·µ»Øµ±Ç°µÄÆ½ÒÆÁéÃô¶ÈÉèÖÃ
+     * @brief   è·å–å¹³ç§»çµæ•åº¦
+     * @details è¿”å›å½“å‰çš„å¹³ç§»çµæ•åº¦è®¾ç½®
      *
-     * @return  Æ½ÒÆÁéÃô¶ÈÖµ
-     * @note    Æ½ÒÆÁéÃô¶ÈÓ°ÏìÊó±êÍÏ×§µÄÏìÓ¦ËÙ¶È
+     * @return  å¹³ç§»çµæ•åº¦å€¼
+     * @note    å¹³ç§»çµæ•åº¦å½±å“é¼ æ ‡æ‹–æ‹½çš„å“åº”é€Ÿåº¦
      * @see     setPanSensitivity
      */
     float getPanSensitivity() const;
 
     /**
-     * @brief   »ñÈ¡Ç°¾°Í¸Ã÷¶È
-     * @details ·µ»ØÇ°¾°Í¼ÏñµÄµ±Ç°Í¸Ã÷¶È
+     * @brief   è·å–å‰æ™¯é€æ˜åº¦
+     * @details è¿”å›å‰æ™¯å›¾åƒçš„å½“å‰é€æ˜åº¦
      *
-     * @return  Í¸Ã÷¶ÈÖµ£¨0.0-1.0£©
-     * @note    Í¸Ã÷¶ÈÓ°ÏìÇ°¾°Í¼ÏñµÄÏÔÊ¾Ğ§¹û
+     * @return  é€æ˜åº¦å€¼ï¼ˆ0.0-1.0ï¼‰
+     * @note    é€æ˜åº¦å½±å“å‰æ™¯å›¾åƒçš„æ˜¾ç¤ºæ•ˆæœ
      * @see     setForegroundOpacity
      */
     float getForegroundOpacity() const;
 
     /**
-     * @brief   ÉèÖÃÇ°¾°Í¸Ã÷¶È
-     * @details ÉèÖÃÇ°¾°Í¼ÏñµÄÍ¸Ã÷¶È
+     * @brief   è®¾ç½®å‰æ™¯é€æ˜åº¦
+     * @details è®¾ç½®å‰æ™¯å›¾åƒçš„é€æ˜åº¦
      *
-     * @param   opacity ĞÂµÄÍ¸Ã÷¶ÈÖµ£¨0.0-1.0£©
-     * @note    Í¸Ã÷¶ÈÉèÖÃ»áÓ°ÏìÇ°¾°Í¼ÏñµÄÏÔÊ¾Ğ§¹û
+     * @param   opacity æ–°çš„é€æ˜åº¦å€¼ï¼ˆ0.0-1.0ï¼‰
+     * @note    é€æ˜åº¦è®¾ç½®ä¼šå½±å“å‰æ™¯å›¾åƒçš„æ˜¾ç¤ºæ•ˆæœ
      * @see     getForegroundOpacity
      */
     void setForegroundOpacity(const float& opacity);
 
     /**
-     * @brief   ÉèÖÃÇ°¾°LUT
-     * @details ÉèÖÃÇ°¾°Í¼ÏñµÄÑÕÉ«²éÕÒ±í
+     * @brief   è®¾ç½®å‰æ™¯LUT
+     * @details è®¾ç½®å‰æ™¯å›¾åƒçš„é¢œè‰²æŸ¥æ‰¾è¡¨
      *
-     * @param   LUT ÑÕÉ«²éÕÒ±í¶ÔÏó
-     * @note    LUTÉèÖÃ»áÓ°ÏìÇ°¾°Í¼ÏñµÄÑÕÉ«ÏÔÊ¾
+     * @param   LUT é¢œè‰²æŸ¥æ‰¾è¡¨å¯¹è±¡
+     * @note    LUTè®¾ç½®ä¼šå½±å“å‰æ™¯å›¾åƒçš„é¢œè‰²æ˜¾ç¤º
      * @see     setForegroundChannel
      */
     void setForegroundLUT(const SlideColorManagement::LUT& LUT);
 
     /**
-     * @brief   ÉèÖÃÇ°¾°Í¨µÀ
-     * @details ÉèÖÃÇ°¾°Í¼ÏñµÄÏÔÊ¾Í¨µÀ
+     * @brief   è®¾ç½®å‰æ™¯é€šé“
+     * @details è®¾ç½®å‰æ™¯å›¾åƒçš„æ˜¾ç¤ºé€šé“
      *
-     * @param   channel Í¨µÀË÷Òı
-     * @note    Í¨µÀÉèÖÃ»áÓ°ÏìÇ°¾°Í¼ÏñµÄÏÔÊ¾ÄÚÈİ
+     * @param   channel é€šé“ç´¢å¼•
+     * @note    é€šé“è®¾ç½®ä¼šå½±å“å‰æ™¯å›¾åƒçš„æ˜¾ç¤ºå†…å®¹
      * @see     setForegroundLUT
      */
     void setForegroundChannel(unsigned int channel);
 
     /**
-     * @brief   ÉèÖÃÇ°¾°äÖÈ¾¿ª¹Ø
-     * @details ÆôÓÃ»ò½ûÓÃÇ°¾°Í¼ÏñµÄäÖÈ¾
+     * @brief   è®¾ç½®å‰æ™¯æ¸²æŸ“å¼€å…³
+     * @details å¯ç”¨æˆ–ç¦ç”¨å‰æ™¯å›¾åƒçš„æ¸²æŸ“
      *
-     * @param   enableForegroundRendering ÊÇ·ñÆôÓÃÇ°¾°äÖÈ¾
-     * @note    ¸ÃÉèÖÃ»áÓ°ÏìÇ°¾°Í¼ÏñµÄÏÔÊ¾×´Ì¬
+     * @param   enableForegroundRendering æ˜¯å¦å¯ç”¨å‰æ™¯æ¸²æŸ“
+     * @note    è¯¥è®¾ç½®ä¼šå½±å“å‰æ™¯å›¾åƒçš„æ˜¾ç¤ºçŠ¶æ€
      */
     void setEnableForegroundRendering(bool enableForegroundRendering);
 
     /**
-     * @brief   ÇĞ»»Æ½ÒÆÄ£Ê½
-     * @details ÆôÓÃ»ò½ûÓÃÆ½ÒÆÄ£Ê½
+     * @brief   åˆ‡æ¢å¹³ç§»æ¨¡å¼
+     * @details å¯ç”¨æˆ–ç¦ç”¨å¹³ç§»æ¨¡å¼
      *
-     * @param   pan ÊÇ·ñÆôÓÃÆ½ÒÆÄ£Ê½
-     * @param   startPos Æ½ÒÆÆğÊ¼Î»ÖÃ£¬Ä¬ÈÏÎª¿Õ
-     * @note    Æ½ÒÆÄ£Ê½ÔÊĞíÓÃ»§ÍÏ×§Í¼Ïñ
+     * @param   pan æ˜¯å¦å¯ç”¨å¹³ç§»æ¨¡å¼
+     * @param   startPos å¹³ç§»èµ·å§‹ä½ç½®ï¼Œé»˜è®¤ä¸ºç©º
+     * @note    å¹³ç§»æ¨¡å¼å…è®¸ç”¨æˆ·æ‹–æ‹½å›¾åƒ
      * @see     pan, isPanning
      */
     void togglePan(bool pan, const QPoint& startPos = QPoint());
 
     /**
-     * @brief   Ö´ĞĞÆ½ÒÆ²Ù×÷
-     * @details ½«ÊÓÍ¼Æ½ÒÆµ½Ö¸¶¨Î»ÖÃ
+     * @brief   æ‰§è¡Œå¹³ç§»æ“ä½œ
+     * @details å°†è§†å›¾å¹³ç§»åˆ°æŒ‡å®šä½ç½®
      *
-     * @param   panTo Ä¿±êÆ½ÒÆÎ»ÖÃ
-     * @note    ¸Ãº¯Êı»áÁ¢¼´Ö´ĞĞÆ½ÒÆ²Ù×÷
+     * @param   panTo ç›®æ ‡å¹³ç§»ä½ç½®
+     * @note    è¯¥å‡½æ•°ä¼šç«‹å³æ‰§è¡Œå¹³ç§»æ“ä½œ
      * @see     togglePan, isPanning
      */
     void pan(const QPoint& panTo);
 
     /**
-     * @brief   ¼ì²éÊÇ·ñÕıÔÚÆ½ÒÆ
-     * @details ·µ»Øµ±Ç°ÊÇ·ñ´¦ÓÚÆ½ÒÆÄ£Ê½
+     * @brief   æ£€æŸ¥æ˜¯å¦æ­£åœ¨å¹³ç§»
+     * @details è¿”å›å½“å‰æ˜¯å¦å¤„äºå¹³ç§»æ¨¡å¼
      *
-     * @return  true±íÊ¾ÕıÔÚÆ½ÒÆ£¬false±íÊ¾Î´Æ½ÒÆ
+     * @return  trueè¡¨ç¤ºæ­£åœ¨å¹³ç§»ï¼Œfalseè¡¨ç¤ºæœªå¹³ç§»
      * @see     togglePan, pan
      */
     bool isPanning();
 
     /**
-     * @brief   Ö´ĞĞËõ·Å²Ù×÷
-     * @details ¸ù¾İ²½ÊıÖ´ĞĞËõ·Å²Ù×÷
+     * @brief   æ‰§è¡Œç¼©æ”¾æ“ä½œ
+     * @details æ ¹æ®æ­¥æ•°æ‰§è¡Œç¼©æ”¾æ“ä½œ
      *
-     * @param   numSteps Ëõ·Å²½Êı£¬ÕıÊı·Å´ó£¬¸ºÊıËõĞ¡
-     * @note    Ëõ·Å²Ù×÷»á¸Ä±äÊÓÍ¼µÄÏÔÊ¾±ÈÀı
+     * @param   numSteps ç¼©æ”¾æ­¥æ•°ï¼Œæ­£æ•°æ”¾å¤§ï¼Œè´Ÿæ•°ç¼©å°
+     * @note    ç¼©æ”¾æ“ä½œä¼šæ”¹å˜è§†å›¾çš„æ˜¾ç¤ºæ¯”ä¾‹
      */
     void zoom(float numSteps);
 
     /**
-     * @brief   »ñÈ¡³¡¾°Ëõ·Å±ÈÀı
-     * @details ·µ»Øµ±Ç°³¡¾°µÄËõ·Å±ÈÀı
+     * @brief   è·å–åœºæ™¯ç¼©æ”¾æ¯”ä¾‹
+     * @details è¿”å›å½“å‰åœºæ™¯çš„ç¼©æ”¾æ¯”ä¾‹
      *
-     * @return  ³¡¾°Ëõ·Å±ÈÀı
-     * @note    Ëõ·Å±ÈÀı±íÊ¾µ±Ç°ÏÔÊ¾Ïà¶ÔÓÚÔ­Ê¼Í¼ÏñµÄ´óĞ¡
+     * @return  åœºæ™¯ç¼©æ”¾æ¯”ä¾‹
+     * @note    ç¼©æ”¾æ¯”ä¾‹è¡¨ç¤ºå½“å‰æ˜¾ç¤ºç›¸å¯¹äºåŸå§‹å›¾åƒçš„å¤§å°
      */
     float getSceneScale() { return _sceneScale; }
 
     /**
-     * @brief   »ñÈ¡»º´æ´óĞ¡
-     * @details ·µ»Øµ±Ç°ÍßÆ¬»º´æµÄ´óĞ¡
+     * @brief   è·å–ç¼“å­˜å¤§å°
+     * @details è¿”å›å½“å‰ç“¦ç‰‡ç¼“å­˜çš„å¤§å°
      *
-     * @return  »º´æ´óĞ¡£¨×Ö½Ú£©
-     * @note    »º´æ´óĞ¡Ó°ÏìÄÚ´æÊ¹ÓÃºÍĞÔÄÜ
+     * @return  ç¼“å­˜å¤§å°ï¼ˆå­—èŠ‚ï¼‰
+     * @note    ç¼“å­˜å¤§å°å½±å“å†…å­˜ä½¿ç”¨å’Œæ€§èƒ½
      * @see     setCacheSize
      */
     unsigned long long getCacheSize();
 
     /**
-     * @brief   ÉèÖÃ»º´æ´óĞ¡
-     * @details ÉèÖÃÍßÆ¬»º´æµÄ×î´ó´óĞ¡
+     * @brief   è®¾ç½®ç¼“å­˜å¤§å°
+     * @details è®¾ç½®ç“¦ç‰‡ç¼“å­˜çš„æœ€å¤§å¤§å°
      *
-     * @param   maxCacheSize ×î´ó»º´æ´óĞ¡£¨×Ö½Ú£©
-     * @note    »º´æ´óĞ¡ÉèÖÃ»áÓ°ÏìÄÚ´æÊ¹ÓÃºÍĞÔÄÜ
+     * @param   maxCacheSize æœ€å¤§ç¼“å­˜å¤§å°ï¼ˆå­—èŠ‚ï¼‰
+     * @note    ç¼“å­˜å¤§å°è®¾ç½®ä¼šå½±å“å†…å­˜ä½¿ç”¨å’Œæ€§èƒ½
      * @see     getCacheSize
      */
     void setCacheSize(unsigned long long& maxCacheSize);
 
     /**
-     * @brief   ¸üĞÂµ±Ç°ÊÓ³¡
-     * @details ¸üĞÂµ±Ç°ÏÔÊ¾µÄÊÓ³¡ĞÅÏ¢
-     * @note    ¸Ãº¯Êı»áÖØĞÂ¼ÆËãºÍ¸üĞÂÊÓ³¡Êı¾İ
+     * @brief   æ›´æ–°å½“å‰è§†åœº
+     * @details æ›´æ–°å½“å‰æ˜¾ç¤ºçš„è§†åœºä¿¡æ¯
+     * @note    è¯¥å‡½æ•°ä¼šé‡æ–°è®¡ç®—å’Œæ›´æ–°è§†åœºæ•°æ®
      */
     void updateCurrentFieldOfView();
 
     /**
-     * @brief   ÖØÖÃÊÓÍ¼
-     * @details ½«ÊÓÍ¼ÖØÖÃµ½³õÊ¼×´Ì¬
-     * @note    ¸Ãº¯Êı»áÖØÖÃËõ·Å¡¢Æ½ÒÆµÈÊÓÍ¼±ä»»
+     * @brief   é‡ç½®è§†å›¾
+     * @details å°†è§†å›¾é‡ç½®åˆ°åˆå§‹çŠ¶æ€
+     * @note    è¯¥å‡½æ•°ä¼šé‡ç½®ç¼©æ”¾ã€å¹³ç§»ç­‰è§†å›¾å˜æ¢
      * @see     resetTime, resetFinished
      */
     void reset();
 
     /**
-     * @brief   ÖØÖÃ¶¯»­Ê±¼ä
-     * @details ÖØÖÃÊÓÍ¼µÄ¶¯»­Ê±¼ä²ÎÊı
+     * @brief   é‡ç½®åŠ¨ç”»æ—¶é—´
+     * @details é‡ç½®è§†å›¾çš„åŠ¨ç”»æ—¶é—´å‚æ•°
      *
-     * @param   x Ê±¼ä²ÎÊı
-     * @note    ¸Ãº¯ÊıÓÃÓÚÖØÖÃ¶¯»­µÄ½ø¶È
+     * @param   x æ—¶é—´å‚æ•°
+     * @note    è¯¥å‡½æ•°ç”¨äºé‡ç½®åŠ¨ç”»çš„è¿›åº¦
      * @see     reset, resetFinished
      */
     void resetTime(qreal x);
 
     /**
-     * @brief   ÖØÖÃÍê³É
-     * @details ÖØÖÃ²Ù×÷Íê³ÉºóµÄ´¦Àí
-     * @note    ¸Ãº¯ÊıÔÚÖØÖÃ¶¯»­Íê³Éºóµ÷ÓÃ
+     * @brief   é‡ç½®å®Œæˆ
+     * @details é‡ç½®æ“ä½œå®Œæˆåçš„å¤„ç†
+     * @note    è¯¥å‡½æ•°åœ¨é‡ç½®åŠ¨ç”»å®Œæˆåè°ƒç”¨
      * @see     reset, resetTime
      */
     void resetFinished();
 
     /**
-     * @brief   Ëõ·Åµ½¹Ì¶¨±¶ÂÊ
-     * @details ½«ÊÓÍ¼Ëõ·Åµ½Ö¸¶¨µÄ¹Ì¶¨±¶ÂÊ
+     * @brief   ç¼©æ”¾åˆ°å›ºå®šå€ç‡
+     * @details å°†è§†å›¾ç¼©æ”¾åˆ°æŒ‡å®šçš„å›ºå®šå€ç‡
      *
-     * @param   targetMagnification Ä¿±ê±¶ÂÊ
-     * @note    ¸Ãº¯Êı»áÖ´ĞĞÆ½»¬µÄËõ·Å¶¯»­
+     * @param   targetMagnification ç›®æ ‡å€ç‡
+     * @note    è¯¥å‡½æ•°ä¼šæ‰§è¡Œå¹³æ»‘çš„ç¼©æ”¾åŠ¨ç”»
      * @see     zoomToFixedScaleTime, zoomToFixedScaleFinished
      */
     void zoomToFixedMagnification(float targetMagnification);
 
     /**
-     * @brief   ¹Ì¶¨Ëõ·Å¶¯»­Ê±¼ä
-     * @details ¹Ì¶¨Ëõ·Å¶¯»­µÄÊ±¼ä²ÎÊı
+     * @brief   å›ºå®šç¼©æ”¾åŠ¨ç”»æ—¶é—´
+     * @details å›ºå®šç¼©æ”¾åŠ¨ç”»çš„æ—¶é—´å‚æ•°
      *
-     * @param   x Ê±¼ä²ÎÊı
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¿ØÖÆËõ·Å¶¯»­µÄ½ø¶È
+     * @param   x æ—¶é—´å‚æ•°
+     * @note    è¯¥å‡½æ•°ç”¨äºæ§åˆ¶ç¼©æ”¾åŠ¨ç”»çš„è¿›åº¦
      * @see     zoomToFixedMagnification, zoomToFixedScaleFinished
      */
     void zoomToFixedScaleTime(qreal x);
 
     /**
-     * @brief   ¹Ì¶¨Ëõ·ÅÍê³É
-     * @details ¹Ì¶¨Ëõ·Å²Ù×÷Íê³ÉºóµÄ´¦Àí
-     * @note    ¸Ãº¯ÊıÔÚ¹Ì¶¨Ëõ·Å¶¯»­Íê³Éºóµ÷ÓÃ
+     * @brief   å›ºå®šç¼©æ”¾å®Œæˆ
+     * @details å›ºå®šç¼©æ”¾æ“ä½œå®Œæˆåçš„å¤„ç†
+     * @note    è¯¥å‡½æ•°åœ¨å›ºå®šç¼©æ”¾åŠ¨ç”»å®Œæˆåè°ƒç”¨
      * @see     zoomToFixedMagnification, zoomToFixedScaleTime
      */
     void zoomToFixedScaleFinished();
 
     /**
-     * @brief   ÉèÖÃ»æÖÆ×´Ì¬
-     * @details ÆôÓÃ»ò½ûÓÃ»æÖÆÄ£Ê½
+     * @brief   è®¾ç½®ç»˜åˆ¶çŠ¶æ€
+     * @details å¯ç”¨æˆ–ç¦ç”¨ç»˜åˆ¶æ¨¡å¼
      *
-     * @param   state »æÖÆ×´Ì¬£¬trueÆôÓÃ£¬false½ûÓÃ
-     * @note    »æÖÆ×´Ì¬Ó°ÏìÓÃ»§ÊÇ·ñ¿ÉÒÔ»æÖÆ±ê×¢
+     * @param   state ç»˜åˆ¶çŠ¶æ€ï¼Œtrueå¯ç”¨ï¼Œfalseç¦ç”¨
+     * @note    ç»˜åˆ¶çŠ¶æ€å½±å“ç”¨æˆ·æ˜¯å¦å¯ä»¥ç»˜åˆ¶æ ‡æ³¨
      */
     void setPaintState(bool state);
 
     /**
-     * @brief   ÉèÖÃÊó±êÀàĞÍ
-     * @details ÉèÖÃµ±Ç°µÄÊó±ê²Ù×÷ÀàĞÍ
+     * @brief   è®¾ç½®é¼ æ ‡ç±»å‹
+     * @details è®¾ç½®å½“å‰çš„é¼ æ ‡æ“ä½œç±»å‹
      *
-     * @param   type Êó±ê²Ù×÷ÀàĞÍÃ¶¾ÙÖµ
-     * @note    Êó±êÀàĞÍ¾ö¶¨ÁËÓÃ»§µÄ½»»¥Ä£Ê½
+     * @param   type é¼ æ ‡æ“ä½œç±»å‹æšä¸¾å€¼
+     * @note    é¼ æ ‡ç±»å‹å†³å®šäº†ç”¨æˆ·çš„äº¤äº’æ¨¡å¼
      * @see     MouseType
      */
     void setMouseType(MouseType type);
 
     /**
-     * @brief   ÉèÖÃÍ¼ĞÎ³¡¾°
-     * @details ÉèÖÃ²é¿´Æ÷Ê¹ÓÃµÄÍ¼ĞÎ³¡¾°
+     * @brief   è®¾ç½®å›¾å½¢åœºæ™¯
+     * @details è®¾ç½®æŸ¥çœ‹å™¨ä½¿ç”¨çš„å›¾å½¢åœºæ™¯
      *
-     * @param   pScene Í¼ĞÎ³¡¾°Ö¸Õë
-     * @note    Í¼ĞÎ³¡¾°¸ºÔğ¹ÜÀíäÖÈ¾ÔªËØ
+     * @param   pScene å›¾å½¢åœºæ™¯æŒ‡é’ˆ
+     * @note    å›¾å½¢åœºæ™¯è´Ÿè´£ç®¡ç†æ¸²æŸ“å…ƒç´ 
      * @see     QImageGraphicScene
      */
     void setGraphicsScene(QImageGraphicScene* pScene);
 
     /**
-     * @brief   »ñÈ¡µ±Ç°FPS
-     * @details ·µ»Øµ±Ç°µÄÖ¡ÂÊ
+     * @brief   è·å–å½“å‰FPS
+     * @details è¿”å›å½“å‰çš„å¸§ç‡
      *
-     * @return  µ±Ç°FPSÖµ
-     * @note    FPSÓÃÓÚ¼à¿Ø²é¿´Æ÷µÄĞÔÄÜ
+     * @return  å½“å‰FPSå€¼
+     * @note    FPSç”¨äºç›‘æ§æŸ¥çœ‹å™¨çš„æ€§èƒ½
      */
     int fps() const { return m_currentFPS; }
 
 signals:
     /**
-     * @brief   ÊÓ³¡¸Ä±äĞÅºÅ
-     * @details µ±ÊÓ³¡·¢Éú±ä»¯Ê±·¢³ö´ËĞÅºÅ
+     * @brief   è§†åœºæ”¹å˜ä¿¡å·
+     * @details å½“è§†åœºå‘ç”Ÿå˜åŒ–æ—¶å‘å‡ºæ­¤ä¿¡å·
      *
-     * @param   FOV ĞÂµÄÊÓ³¡¾ØĞÎ
-     * @param   level µ±Ç°²ã¼¶
-     * @note    ¸ÃĞÅºÅÓÃÓÚÍ¨ÖªÆäËû×é¼şÊÓ³¡±ä»¯
+     * @param   FOV æ–°çš„è§†åœºçŸ©å½¢
+     * @param   level å½“å‰å±‚çº§
+     * @note    è¯¥ä¿¡å·ç”¨äºé€šçŸ¥å…¶ä»–ç»„ä»¶è§†åœºå˜åŒ–
      */
     void fieldOfViewChanged(const QRectF& FOV, const unsigned int level);
 
     /**
-     * @brief   ¸üĞÂ±ß½ç¿òĞÅºÅ
-     * @details µ±ĞèÒª¸üĞÂ±ß½ç¿òÊ±·¢³ö´ËĞÅºÅ
+     * @brief   æ›´æ–°è¾¹ç•Œæ¡†ä¿¡å·
+     * @details å½“éœ€è¦æ›´æ–°è¾¹ç•Œæ¡†æ—¶å‘å‡ºæ­¤ä¿¡å·
      *
-     * @param   FOV ÊÓ³¡¾ØĞÎ
-     * @note    ¸ÃĞÅºÅÓÃÓÚ¸üĞÂUIÖĞµÄ±ß½ç¿òÏÔÊ¾
+     * @param   FOV è§†åœºçŸ©å½¢
+     * @note    è¯¥ä¿¡å·ç”¨äºæ›´æ–°UIä¸­çš„è¾¹ç•Œæ¡†æ˜¾ç¤º
      */
     void updateBBox(const QRectF& FOV);
 
     /**
-     * @brief   ±³¾°Í¨µÀ¸Ä±äĞÅºÅ
-     * @details µ±±³¾°Í¨µÀ¸Ä±äÊ±·¢³ö´ËĞÅºÅ
+     * @brief   èƒŒæ™¯é€šé“æ”¹å˜ä¿¡å·
+     * @details å½“èƒŒæ™¯é€šé“æ”¹å˜æ—¶å‘å‡ºæ­¤ä¿¡å·
      *
-     * @param   channelNr ĞÂµÄÍ¨µÀ±àºÅ
-     * @note    ¸ÃĞÅºÅÓÃÓÚÍ¨ÖªÆäËû×é¼şÍ¨µÀ±ä»¯
+     * @param   channelNr æ–°çš„é€šé“ç¼–å·
+     * @note    è¯¥ä¿¡å·ç”¨äºé€šçŸ¥å…¶ä»–ç»„ä»¶é€šé“å˜åŒ–
      */
     void backgroundChannelChanged(int channelNr);
 
     /**
-     * @brief   ÓÒ¼üµã»÷ĞÅºÅ
-     * @details µ±ÓÃ»§ÓÒ¼üµã»÷Ê±·¢³ö´ËĞÅºÅ
-     * @note    ¸ÃĞÅºÅÓÃÓÚ´¥·¢ÓÒ¼ü²Ëµ¥
+     * @brief   å³é”®ç‚¹å‡»ä¿¡å·
+     * @details å½“ç”¨æˆ·å³é”®ç‚¹å‡»æ—¶å‘å‡ºæ­¤ä¿¡å·
+     * @note    è¯¥ä¿¡å·ç”¨äºè§¦å‘å³é”®èœå•
      */
     void rightClicked();
 
     /**
-     * @brief   ÊÓÍ¼ÏÔÊ¾ĞÅºÅ
-     * @details µ±ĞèÒªÏÔÊ¾ÊÓÍ¼Ê±·¢³ö´ËĞÅºÅ
+     * @brief   è§†å›¾æ˜¾ç¤ºä¿¡å·
+     * @details å½“éœ€è¦æ˜¾ç¤ºè§†å›¾æ—¶å‘å‡ºæ­¤ä¿¡å·
      *
-     * @param   pix ÒªÏÔÊ¾µÄÏñËØÍ¼
-     * @note    ¸ÃĞÅºÅÓÃÓÚ¸üĞÂUIÖĞµÄÊÓÍ¼ÏÔÊ¾
+     * @param   pix è¦æ˜¾ç¤ºçš„åƒç´ å›¾
+     * @note    è¯¥ä¿¡å·ç”¨äºæ›´æ–°UIä¸­çš„è§†å›¾æ˜¾ç¤º
      */
     void viewShow(const QPixmap& pix);
 
     /**
-     * @brief   Òò×Ó±ä»»ĞÅºÅ
-     * @details µ±Ëõ·ÅÒò×Ó¸Ä±äÊ±·¢³ö´ËĞÅºÅ
+     * @brief   å› å­å˜æ¢ä¿¡å·
+     * @details å½“ç¼©æ”¾å› å­æ”¹å˜æ—¶å‘å‡ºæ­¤ä¿¡å·
      *
-     * @param   factor Ëõ·ÅÒò×Ó
-     * @note    ¸ÃĞÅºÅÓÃÓÚÍ¨ÖªÆäËû×é¼şËõ·Å±ä»¯
+     * @param   factor ç¼©æ”¾å› å­
+     * @note    è¯¥ä¿¡å·ç”¨äºé€šçŸ¥å…¶ä»–ç»„ä»¶ç¼©æ”¾å˜åŒ–
      */
     void factorTrans(float factor);
 
     /**
-     * @brief   ³õÊ¼»¯Íê³ÉĞÅºÅ
-     * @details µ±³õÊ¼»¯Íê³ÉÊ±·¢³ö´ËĞÅºÅ
-     * @note    ¸ÃĞÅºÅÓÃÓÚÍ¨ÖªÆäËû×é¼ş³õÊ¼»¯×´Ì¬
+     * @brief   åˆå§‹åŒ–å®Œæˆä¿¡å·
+     * @details å½“åˆå§‹åŒ–å®Œæˆæ—¶å‘å‡ºæ­¤ä¿¡å·
+     * @note    è¯¥ä¿¡å·ç”¨äºé€šçŸ¥å…¶ä»–ç»„ä»¶åˆå§‹åŒ–çŠ¶æ€
      */
     void initOver();
 
     /**
-     * @brief   Î¢Ã×Ã¿ÏñËØ±ä»»ĞÅºÅ
-     * @details µ±Î¢Ã×Ã¿ÏñËØÖµ¸Ä±äÊ±·¢³ö´ËĞÅºÅ
+     * @brief   å¾®ç±³æ¯åƒç´ å˜æ¢ä¿¡å·
+     * @details å½“å¾®ç±³æ¯åƒç´ å€¼æ”¹å˜æ—¶å‘å‡ºæ­¤ä¿¡å·
      *
-     * @param   num Î¢Ã×Ã¿ÏñËØÖµ
-     * @note    ¸ÃĞÅºÅÓÃÓÚÍ¨ÖªÆäËû×é¼ş±ÈÀı±ä»¯
+     * @param   num å¾®ç±³æ¯åƒç´ å€¼
+     * @note    è¯¥ä¿¡å·ç”¨äºé€šçŸ¥å…¶ä»–ç»„ä»¶æ¯”ä¾‹å˜åŒ–
      */
     void mppTrans(float num);
 
     /**
-     * @brief   FPS¸üĞÂĞÅºÅ
-     * @details µ±FPS¸üĞÂÊ±·¢³ö´ËĞÅºÅ
+     * @brief   FPSæ›´æ–°ä¿¡å·
+     * @details å½“FPSæ›´æ–°æ—¶å‘å‡ºæ­¤ä¿¡å·
      *
-     * @param   fps µ±Ç°FPSÖµ
-     * @note    ¸ÃĞÅºÅÓÃÓÚ¸üĞÂUIÖĞµÄFPSÏÔÊ¾
+     * @param   fps å½“å‰FPSå€¼
+     * @note    è¯¥ä¿¡å·ç”¨äºæ›´æ–°UIä¸­çš„FPSæ˜¾ç¤º
      */
     void fpsUpdated(int fps);
 
     /**
-    * @brief   ·µ»Ø»æÖÆÏî³¤¶ÈÖµ\ÖÜ³¤µÈ
-    * @details µ±»æÖÆÏî¸üĞÂ·¢ËÍÖµ
-    * @param   perimeter µ±Ç°\³¤¶ÈÖµÖÜ³¤Öµ
-    * @note    ¸ÃĞÅºÅÓÃÓÚ¸üĞÂUIÖĞµÄ»æÖÆÏîµÄÖÜ³¤\³¤¶È
+    * @brief   è¿”å›ç»˜åˆ¶é¡¹é•¿åº¦å€¼\å‘¨é•¿ç­‰
+    * @details å½“ç»˜åˆ¶é¡¹æ›´æ–°å‘é€å€¼
+    * @param   perimeter å½“å‰\é•¿åº¦å€¼å‘¨é•¿å€¼
+    * @note    è¯¥ä¿¡å·ç”¨äºæ›´æ–°UIä¸­çš„ç»˜åˆ¶é¡¹çš„å‘¨é•¿\é•¿åº¦
     */
     void perimeterUpdated(float perimeter);
     /**
-    * @brief   ·µ»Ø»æÖÆÏîÃæ»ı
-    * @details µ±Ö±Ïß¸üĞÂ»æÖÆµÄÊ±ºò·¢ËÍÖµ
-    * @param   Area µ±Ç°Ãæ»ıÖµ
-    * @note    ¸ÃĞÅºÅÓÃÓÚ¸üĞÂUIÖĞµÄ»æÖÆÏîµÄÃæ»ı
+    * @brief   è¿”å›ç»˜åˆ¶é¡¹é¢ç§¯
+    * @details å½“ç›´çº¿æ›´æ–°ç»˜åˆ¶çš„æ—¶å€™å‘é€å€¼
+    * @param   Area å½“å‰é¢ç§¯å€¼
+    * @note    è¯¥ä¿¡å·ç”¨äºæ›´æ–°UIä¸­çš„ç»˜åˆ¶é¡¹çš„é¢ç§¯
     */
     void areaAndPerimeterUpdated(float perimeter, float Area);
 
 
 public slots:
     /**
-     * @brief   ÒÆ¶¯µ½Ö¸¶¨Î»ÖÃ
-     * @details ½«ÊÓÍ¼ÖĞĞÄÒÆ¶¯µ½Ö¸¶¨Î»ÖÃ
+     * @brief   ç§»åŠ¨åˆ°æŒ‡å®šä½ç½®
+     * @details å°†è§†å›¾ä¸­å¿ƒç§»åŠ¨åˆ°æŒ‡å®šä½ç½®
      *
-     * @param   pos Ä¿±êÎ»ÖÃ
-     * @note    ¸Ãº¯Êı»áÆ½»¬µØÒÆ¶¯ÊÓÍ¼µ½Ö¸¶¨Î»ÖÃ
+     * @param   pos ç›®æ ‡ä½ç½®
+     * @note    è¯¥å‡½æ•°ä¼šå¹³æ»‘åœ°ç§»åŠ¨è§†å›¾åˆ°æŒ‡å®šä½ç½®
      */
     void moveTo(const QPointF& pos);
 
     /**
-     * @brief   ÊÓ³¡¸Ä±ä²Ûº¯Êı
-     * @details µ±ÊÓ³¡¸Ä±äÊ±µ÷ÓÃ´Ë²Ûº¯Êı
+     * @brief   è§†åœºæ”¹å˜æ§½å‡½æ•°
+     * @details å½“è§†åœºæ”¹å˜æ—¶è°ƒç”¨æ­¤æ§½å‡½æ•°
      *
-     * @param   FOV ĞÂµÄÊÓ³¡¾ØĞÎ
-     * @param   level µ±Ç°²ã¼¶
-     * @note    ¸Ã²Ûº¯ÊıÓÃÓÚ´¦ÀíÊÓ³¡±ä»¯
+     * @param   FOV æ–°çš„è§†åœºçŸ©å½¢
+     * @param   level å½“å‰å±‚çº§
+     * @note    è¯¥æ§½å‡½æ•°ç”¨äºå¤„ç†è§†åœºå˜åŒ–
      */
     void onFieldOfViewChanged(const QRectF& FOV, const unsigned int level);
 
     /**
-     * @brief   Ç°¾°Í¼Ïñ¸Ä±ä²Ûº¯Êı
-     * @details µ±Ç°¾°Í¼Ïñ¸Ä±äÊ±µ÷ÓÃ´Ë²Ûº¯Êı
+     * @brief   å‰æ™¯å›¾åƒæ”¹å˜æ§½å‡½æ•°
+     * @details å½“å‰æ™¯å›¾åƒæ”¹å˜æ—¶è°ƒç”¨æ­¤æ§½å‡½æ•°
      *
-     * @param   for_img Ç°¾°Í¼ÏñµÄÈõÒıÓÃ
-     * @param   scale Ç°¾°Í¼ÏñµÄËõ·ÅÒò×Ó
-     * @note    ¸Ã²Ûº¯ÊıÓÃÓÚ¸üĞÂÇ°¾°Í¼Ïñ
+     * @param   for_img å‰æ™¯å›¾åƒçš„å¼±å¼•ç”¨
+     * @param   scale å‰æ™¯å›¾åƒçš„ç¼©æ”¾å› å­
+     * @note    è¯¥æ§½å‡½æ•°ç”¨äºæ›´æ–°å‰æ™¯å›¾åƒ
      */
     void onForegroundImageChanged(std::weak_ptr<MultiResolutionImage> for_img, float scale);
 
     /**
-     * @brief   ÉèÖÃÎÄ¼ş´°¿Ú×´Ì¬
-     * @details ÉèÖÃÎÄ¼ş´°¿ÚµÄÏÔÊ¾×´Ì¬
+     * @brief   è®¾ç½®æ–‡ä»¶çª—å£çŠ¶æ€
+     * @details è®¾ç½®æ–‡ä»¶çª—å£çš„æ˜¾ç¤ºçŠ¶æ€
      *
-     * @param   state ÏÔÊ¾×´Ì¬£¬trueÏÔÊ¾£¬falseÒş²Ø
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¿ØÖÆÎÄ¼ş´°¿ÚµÄ¿É¼ûĞÔ
+     * @param   state æ˜¾ç¤ºçŠ¶æ€ï¼Œtrueæ˜¾ç¤ºï¼Œfalseéšè—
+     * @note    è¯¥å‡½æ•°ç”¨äºæ§åˆ¶æ–‡ä»¶çª—å£çš„å¯è§æ€§
      */
     void setFileWidgetState(bool state);
 
     /**
-     * @brief   ÉèÖÃĞ¡µØÍ¼¿É¼ûĞÔ
-     * @details ÉèÖÃĞ¡µØÍ¼µÄÏÔÊ¾×´Ì¬
+     * @brief   è®¾ç½®å°åœ°å›¾å¯è§æ€§
+     * @details è®¾ç½®å°åœ°å›¾çš„æ˜¾ç¤ºçŠ¶æ€
      *
-     * @param   state ÏÔÊ¾×´Ì¬£¬trueÏÔÊ¾£¬falseÒş²Ø
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¿ØÖÆĞ¡µØÍ¼µÄ¿É¼ûĞÔ
+     * @param   state æ˜¾ç¤ºçŠ¶æ€ï¼Œtrueæ˜¾ç¤ºï¼Œfalseéšè—
+     * @note    è¯¥å‡½æ•°ç”¨äºæ§åˆ¶å°åœ°å›¾çš„å¯è§æ€§
      */
     void setMiniMapVisible(bool state);
 
     /**
-     * @brief   ÉèÖÃ¸²¸Ç¶ÈÇøÓòÏÔÊ¾
-     * @details ÉèÖÃ¸²¸Ç¶ÈÇøÓòµÄÏÔÊ¾×´Ì¬
+     * @brief   è®¾ç½®è¦†ç›–åº¦åŒºåŸŸæ˜¾ç¤º
+     * @details è®¾ç½®è¦†ç›–åº¦åŒºåŸŸçš„æ˜¾ç¤ºçŠ¶æ€
      *
-     * @param   state ÏÔÊ¾×´Ì¬£¬trueÏÔÊ¾£¬falseÒş²Ø
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¿ØÖÆ¸²¸Ç¶ÈÇøÓòµÄ¿É¼ûĞÔ
+     * @param   state æ˜¾ç¤ºçŠ¶æ€ï¼Œtrueæ˜¾ç¤ºï¼Œfalseéšè—
+     * @note    è¯¥å‡½æ•°ç”¨äºæ§åˆ¶è¦†ç›–åº¦åŒºåŸŸçš„å¯è§æ€§
      */
     void setCoverageArea(bool state);
 
     /**
-     * @brief   ÉèÖÃ±ÈÀı³ßÏÔÊ¾
-     * @details ÉèÖÃ±ÈÀı³ßµÄÏÔÊ¾×´Ì¬
+     * @brief   è®¾ç½®æ¯”ä¾‹å°ºæ˜¾ç¤º
+     * @details è®¾ç½®æ¯”ä¾‹å°ºçš„æ˜¾ç¤ºçŠ¶æ€
      *
-     * @param   state ÏÔÊ¾×´Ì¬£¬trueÏÔÊ¾£¬falseÒş²Ø
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¿ØÖÆ±ÈÀı³ßµÄ¿É¼ûĞÔ
+     * @param   state æ˜¾ç¤ºçŠ¶æ€ï¼Œtrueæ˜¾ç¤ºï¼Œfalseéšè—
+     * @note    è¯¥å‡½æ•°ç”¨äºæ§åˆ¶æ¯”ä¾‹å°ºçš„å¯è§æ€§
      */
     void setScaleBar(bool state);
 
     /**
-     * @brief   ¸üĞÂ¿ìÕÕ
-     * @details ¸üĞÂµ±Ç°µÄ¿ìÕÕÏÔÊ¾
-     * @note    ¸Ãº¯ÊıÓÃÓÚË¢ĞÂ¿ìÕÕ¹¦ÄÜ
+     * @brief   æ›´æ–°å¿«ç…§
+     * @details æ›´æ–°å½“å‰çš„å¿«ç…§æ˜¾ç¤º
+     * @note    è¯¥å‡½æ•°ç”¨äºåˆ·æ–°å¿«ç…§åŠŸèƒ½
      */
     void updateSnap();
 
     /**
-     * @brief   ÉèÖÃ±êÇ©µØÍ¼¿É¼ûĞÔ
-     * @details ÉèÖÃ±êÇ©µØÍ¼µÄÏÔÊ¾×´Ì¬
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¿ØÖÆ±êÇ©µØÍ¼µÄ¿É¼ûĞÔ
+     * @brief   è®¾ç½®æ ‡ç­¾åœ°å›¾å¯è§æ€§
+     * @details è®¾ç½®æ ‡ç­¾åœ°å›¾çš„æ˜¾ç¤ºçŠ¶æ€
+     * @note    è¯¥å‡½æ•°ç”¨äºæ§åˆ¶æ ‡ç­¾åœ°å›¾çš„å¯è§æ€§
      */
     void setLabelMapVisible();
 
     /**
-     * @brief   ÉèÖÃÏêÇé´°¿Ú¿É¼ûĞÔ
-     * @details ÉèÖÃÏêÇé´°¿ÚµÄÏÔÊ¾×´Ì¬
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¿ØÖÆÏêÇé´°¿ÚµÄ¿É¼ûĞÔ
+     * @brief   è®¾ç½®è¯¦æƒ…çª—å£å¯è§æ€§
+     * @details è®¾ç½®è¯¦æƒ…çª—å£çš„æ˜¾ç¤ºçŠ¶æ€
+     * @note    è¯¥å‡½æ•°ç”¨äºæ§åˆ¶è¯¦æƒ…çª—å£çš„å¯è§æ€§
      */
     void setDetailVisible();
 
     /**
-     * @brief   ÉèÖÃÎ¢Ã×Ã¿ÏñËØÖµ
-     * @details ÉèÖÃµ±Ç°µÄÎ¢Ã×Ã¿ÏñËØÖµ
+     * @brief   è®¾ç½®å¾®ç±³æ¯åƒç´ å€¼
+     * @details è®¾ç½®å½“å‰çš„å¾®ç±³æ¯åƒç´ å€¼
      *
-     * @param   mpp Î¢Ã×Ã¿ÏñËØÖµ
-     * @note    ¸Ãº¯ÊıÓÃÓÚ¸üĞÂ±ÈÀıĞÅÏ¢
+     * @param   mpp å¾®ç±³æ¯åƒç´ å€¼
+     * @note    è¯¥å‡½æ•°ç”¨äºæ›´æ–°æ¯”ä¾‹ä¿¡æ¯
      */
     void setChangedMpp(float mpp);
     /**
-     * @brief   É¾³ıÑ¡Ôñ²Ûº¯Êı
-     * @details ´¦ÀíÉ¾³ıÑ¡ÔñµÄ²Ù×÷
-     * @note    ¸Ã²Ûº¯ÊıÓÃÓÚÉ¾³ıµ±Ç°Ñ¡ÖĞµÄÔªËØ
+     * @brief   åˆ é™¤é€‰æ‹©æ§½å‡½æ•°
+     * @details å¤„ç†åˆ é™¤é€‰æ‹©çš„æ“ä½œ
+     * @note    è¯¥æ§½å‡½æ•°ç”¨äºåˆ é™¤å½“å‰é€‰ä¸­çš„å…ƒç´ 
      */
     void onActionDeleteSelection();
 
+    /**
+     * @brief æ”¹å˜Viewä¸Šç›¸å…³æ§ä»¶çš„ä½ç½®
+     * @details æ”¹å˜æ§ä»¶ä½ç½®çš„æ“ä½œ
+     */
+    void changeViewPos();
+
+    /**
+     * @brief æ”¹å˜Viewä¸Šç›¸å…³æ§ä»¶çš„ä½ç½®
+     * @details ä»¥åŠ¨ç”»æ”¹å˜ä½ç½®
+     */
+    void changeViewPosWithAnimation(bool clockwise = true);
 private:
-    /** @brief ÊÇ·ñÊ×´ÎÓÒ¼üµã»÷£¬ÓÃÓÚ¹Ø±ÕÎÄ¼ş´°¿Ú */
+    /** @brief æ˜¯å¦é¦–æ¬¡å³é”®ç‚¹å‡»ï¼Œç”¨äºå…³é—­æ–‡ä»¶çª—å£ */
     bool _isFirstRightClick;
 
-    // Æ½ÒÆÏà¹Øº¯Êı
+    // å¹³ç§»ç›¸å…³å‡½æ•°
     /**
-     * @brief   Êó±êÒÆ¶¯ÊÂ¼ş´¦Àí
-     * @details ´¦ÀíÊó±êÒÆ¶¯ÊÂ¼ş£¬ÊµÏÖÆ½ÒÆºÍ»æÖÆ¹¦ÄÜ
+     * @brief   é¼ æ ‡ç§»åŠ¨äº‹ä»¶å¤„ç†
+     * @details å¤„ç†é¼ æ ‡ç§»åŠ¨äº‹ä»¶ï¼Œå®ç°å¹³ç§»å’Œç»˜åˆ¶åŠŸèƒ½
      *
-     * @param   event Êó±êÊÂ¼ş¶ÔÏó
-     * @note    ¸Ãº¯Êı´¦ÀíÊó±êÍÏ×§ºÍÊµÊ±»æÖÆ
+     * @param   event é¼ æ ‡äº‹ä»¶å¯¹è±¡
+     * @note    è¯¥å‡½æ•°å¤„ç†é¼ æ ‡æ‹–æ‹½å’Œå®æ—¶ç»˜åˆ¶
      */
     virtual void mouseMoveEvent(QMouseEvent* event);
 
     /**
-     * @brief   Êó±ê°´ÏÂÊÂ¼ş´¦Àí
-     * @details ´¦ÀíÊó±ê°´ÏÂÊÂ¼ş£¬¿ªÊ¼Æ½ÒÆ»ò»æÖÆ
+     * @brief   é¼ æ ‡æŒ‰ä¸‹äº‹ä»¶å¤„ç†
+     * @details å¤„ç†é¼ æ ‡æŒ‰ä¸‹äº‹ä»¶ï¼Œå¼€å§‹å¹³ç§»æˆ–ç»˜åˆ¶
      *
-     * @param   event Êó±êÊÂ¼ş¶ÔÏó
-     * @note    ¸Ãº¯Êı´¦ÀíÊó±ê°´ÏÂÊ±µÄ½»»¥
+     * @param   event é¼ æ ‡äº‹ä»¶å¯¹è±¡
+     * @note    è¯¥å‡½æ•°å¤„ç†é¼ æ ‡æŒ‰ä¸‹æ—¶çš„äº¤äº’
      */
     virtual void mousePressEvent(QMouseEvent* event);
 
     /**
-     * @brief   Êó±êÊÍ·ÅÊÂ¼ş´¦Àí
-     * @details ´¦ÀíÊó±êÊÍ·ÅÊÂ¼ş£¬½áÊøÆ½ÒÆ»ò»æÖÆ
+     * @brief   é¼ æ ‡é‡Šæ”¾äº‹ä»¶å¤„ç†
+     * @details å¤„ç†é¼ æ ‡é‡Šæ”¾äº‹ä»¶ï¼Œç»“æŸå¹³ç§»æˆ–ç»˜åˆ¶
      *
-     * @param   event Êó±êÊÂ¼ş¶ÔÏó
-     * @note    ¸Ãº¯Êı´¦ÀíÊó±êÊÍ·ÅÊ±µÄ½»»¥
+     * @param   event é¼ æ ‡äº‹ä»¶å¯¹è±¡
+     * @note    è¯¥å‡½æ•°å¤„ç†é¼ æ ‡é‡Šæ”¾æ—¶çš„äº¤äº’
      */
     virtual void mouseReleaseEvent(QMouseEvent* event);
 
     /**
-     * @brief   ´°¿Ú´óĞ¡¸Ä±äÊÂ¼ş´¦Àí
-     * @details ´¦Àí´°¿Ú´óĞ¡¸Ä±äÊÂ¼ş
+     * @brief   çª—å£å¤§å°æ”¹å˜äº‹ä»¶å¤„ç†
+     * @details å¤„ç†çª—å£å¤§å°æ”¹å˜äº‹ä»¶
      *
-     * @param   event ´óĞ¡¸Ä±äÊÂ¼ş¶ÔÏó
-     * @note    ¸Ãº¯Êı»áÖØĞÂµ÷ÕûÊÓÍ¼²¼¾Ö
+     * @param   event å¤§å°æ”¹å˜äº‹ä»¶å¯¹è±¡
+     * @note    è¯¥å‡½æ•°ä¼šé‡æ–°è°ƒæ•´è§†å›¾å¸ƒå±€
      */
     virtual void resizeEvent(QResizeEvent* event);
 
     /**
-     * @brief   ¼üÅÌ°´ÏÂÊÂ¼ş´¦Àí
-     * @details ´¦Àí¼üÅÌ°´ÏÂÊÂ¼ş£¬ºöÂÔ·½Ïò¼ü
+     * @brief   é”®ç›˜æŒ‰ä¸‹äº‹ä»¶å¤„ç†
+     * @details å¤„ç†é”®ç›˜æŒ‰ä¸‹äº‹ä»¶ï¼Œå¿½ç•¥æ–¹å‘é”®
      *
-     * @param   event ¼üÅÌÊÂ¼ş¶ÔÏó
-     * @note    ¸Ãº¯Êı»áºöÂÔ·½Ïò¼üÊÂ¼ş£¬ÆäËû°´¼ü°´Ä¬ÈÏ·½Ê½´¦Àí
+     * @param   event é”®ç›˜äº‹ä»¶å¯¹è±¡
+     * @note    è¯¥å‡½æ•°ä¼šå¿½ç•¥æ–¹å‘é”®äº‹ä»¶ï¼Œå…¶ä»–æŒ‰é”®æŒ‰é»˜è®¤æ–¹å¼å¤„ç†
      */
     void keyPressEvent(QKeyEvent* event) override {
-        // ¼ì²é°´¼üÊÇ·ñÎª·½Ïò¼ü
+        // æ£€æŸ¥æŒ‰é”®æ˜¯å¦ä¸ºæ–¹å‘é”®
         if (event->key() == Qt::Key_Left ||
             event->key() == Qt::Key_Right ||
             event->key() == Qt::Key_Up ||
             event->key() == Qt::Key_Down) {
-            // ºöÂÔÕâĞ©ÊÂ¼ş£¬²»½øĞĞÄ¬ÈÏ´¦Àí
+            // å¿½ç•¥è¿™äº›äº‹ä»¶ï¼Œä¸è¿›è¡Œé»˜è®¤å¤„ç†
             event->ignore();
             return;
         }
-        // ÆäËû°´¼ü°´Ä¬ÈÏ·½Ê½´¦Àí
+        // å…¶ä»–æŒ‰é”®æŒ‰é»˜è®¤æ–¹å¼å¤„ç†
         QGraphicsView::keyPressEvent(event);
     }
 
     /**
-     * @brief   ÓÒ¼ü²Ëµ¥ÊÂ¼ş´¦Àí
-     * @details ´¦ÀíÓÒ¼ü²Ëµ¥ÊÂ¼ş£¬ÏÔÊ¾ÉÏÏÂÎÄ²Ëµ¥
+     * @brief   å³é”®èœå•äº‹ä»¶å¤„ç†
+     * @details å¤„ç†å³é”®èœå•äº‹ä»¶ï¼Œæ˜¾ç¤ºä¸Šä¸‹æ–‡èœå•
      *
-     * @param   event ÓÒ¼ü²Ëµ¥ÊÂ¼ş¶ÔÏó
-     * @note    ¸Ãº¯Êı»áÏÔÊ¾×Ô¶¨ÒåµÄÓÒ¼ü²Ëµ¥
+     * @param   event å³é”®èœå•äº‹ä»¶å¯¹è±¡
+     * @note    è¯¥å‡½æ•°ä¼šæ˜¾ç¤ºè‡ªå®šä¹‰çš„å³é”®èœå•
      */
     void contextMenuEvent(QContextMenuEvent* event) override;
 
     /**
-     * @brief   ¹öÂÖÊÂ¼ş´¦Àí
-     * @details ´¦Àí¹öÂÖÊÂ¼ş£¬ÊµÏÖËõ·Å¹¦ÄÜ
+     * @brief   æ»šè½®äº‹ä»¶å¤„ç†
+     * @details å¤„ç†æ»šè½®äº‹ä»¶ï¼Œå®ç°ç¼©æ”¾åŠŸèƒ½
      *
-     * @param   event ¹öÂÖÊÂ¼ş¶ÔÏó
-     * @note    ¸Ãº¯Êı´¦ÀíÊó±ê¹öÂÖµÄËõ·Å²Ù×÷
+     * @param   event æ»šè½®äº‹ä»¶å¯¹è±¡
+     * @note    è¯¥å‡½æ•°å¤„ç†é¼ æ ‡æ»šè½®çš„ç¼©æ”¾æ“ä½œ
      */
     void wheelEvent(QWheelEvent* event);
 
-    // Ğ¡µØÍ¼Ïà¹Øº¯Êı
+    // å°åœ°å›¾ç›¸å…³å‡½æ•°
     /**
-     * @brief   ³õÊ¼»¯GUI×é¼ş
-     * @details ¸ù¾İ²ã¼¶³õÊ¼»¯GUI×é¼ş
+     * @brief   åˆå§‹åŒ–GUIç»„ä»¶
+     * @details æ ¹æ®å±‚çº§åˆå§‹åŒ–GUIç»„ä»¶
      *
-     * @param   level ²ã¼¶Ë÷Òı
-     * @note    ¸Ãº¯Êı»á³õÊ¼»¯Ğ¡µØÍ¼µÈGUI×é¼ş
+     * @param   level å±‚çº§ç´¢å¼•
+     * @note    è¯¥å‡½æ•°ä¼šåˆå§‹åŒ–å°åœ°å›¾ç­‰GUIç»„ä»¶
      */
     void initializeGUIComponents(unsigned int level);
 
     /**
-     * @brief   ³õÊ¼»¯Í¼Ïñ
-     * @details ³õÊ¼»¯Í¼ÏñÏÔÊ¾ºÍÍßÆ¬¹ÜÀí
+     * @brief   åˆå§‹åŒ–å›¾åƒ
+     * @details åˆå§‹åŒ–å›¾åƒæ˜¾ç¤ºå’Œç“¦ç‰‡ç®¡ç†
      *
-     * @param   scn Í¼ĞÎ³¡¾°Ö¸Õë
-     * @param   tileSize ÍßÆ¬´óĞ¡
-     * @param   lastLevel ×îºó²ã¼¶
-     * @note    ¸Ãº¯Êı»áÉèÖÃÍ¼ÏñºÍÍßÆ¬¹ÜÀíÆ÷
+     * @param   scn å›¾å½¢åœºæ™¯æŒ‡é’ˆ
+     * @param   tileSize ç“¦ç‰‡å¤§å°
+     * @param   lastLevel æœ€åå±‚çº§
+     * @note    è¯¥å‡½æ•°ä¼šè®¾ç½®å›¾åƒå’Œç“¦ç‰‡ç®¡ç†å™¨
      */
     void initializeImage(QGraphicsScene* scn, unsigned int tileSize, unsigned int lastLevel);
 
-    /** @brief ³¡¾°Ëõ·Å±ÈÀı */
+    /** @brief åœºæ™¯ç¼©æ”¾æ¯”ä¾‹ */
     float _sceneScale;
 
     /**
-     * @brief ¶à·Ö±æÂÊÍ¼Ïñ½Ó¿Ú
-     * @details Çë×¢Òâ£¬PathologyViewer²»Ó¦¸ÃĞŞ¸Ä_img
-     *          £¨ËüÊÇÔÚRenderThreadÖĞÓÉÓÚµ÷ÓÃreadRegion¶øĞŞ¸ÄµÄ£©£¬
-     *          ·ñÔò¿ÉÄÜ·¢Éú¾ºÌ¬Ìõ¼ş¡£
+     * @brief å¤šåˆ†è¾¨ç‡å›¾åƒæ¥å£
+     * @details è¯·æ³¨æ„ï¼ŒPathologyViewerä¸åº”è¯¥ä¿®æ”¹_img
+     *          ï¼ˆå®ƒæ˜¯åœ¨RenderThreadä¸­ç”±äºè°ƒç”¨readRegionè€Œä¿®æ”¹çš„ï¼‰ï¼Œ
+     *          å¦åˆ™å¯èƒ½å‘ç”Ÿç«æ€æ¡ä»¶ã€‚
      */
     std::shared_ptr<MultiResolutionImage> _img;
 
-    /** @brief Ç°¾°Í¼ÏñµÄÈõÒıÓÃ */
+    /** @brief å‰æ™¯å›¾åƒçš„å¼±å¼•ç”¨ */
     std::weak_ptr<MultiResolutionImage> _for_img;
 
-    /** @brief Ğ¡µØÍ¼×é¼şÖ¸Õë */
+    /** @brief å°åœ°å›¾ç»„ä»¶æŒ‡é’ˆ */
     MiniMap* _map;
 
-    /** @brief ±ÈÀı³ß×é¼şÖ¸Õë */
+    /** @brief æ¯”ä¾‹å°ºç»„ä»¶æŒ‡é’ˆ */
     ScaleBar* _scaleBar;
 
-    // Æ½ÒÆºÍËõ·Å¸ú×Ù³ÉÔ±
-    /** @brief Ëõ·ÅÁéÃô¶È */
+    // å¹³ç§»å’Œç¼©æ”¾è·Ÿè¸ªæˆå‘˜
+    /** @brief ç¼©æ”¾çµæ•åº¦ */
     float _zoomSensitivity;
 
-    /** @brief ¼Æ»®Ëõ·Å´ÎÊı */
+    /** @brief è®¡åˆ’ç¼©æ”¾æ¬¡æ•° */
     float _numScheduledScalings;
 
-    /** @brief Æ½ÒÆÁéÃô¶È */
+    /** @brief å¹³ç§»çµæ•åº¦ */
     float _panSensitivity;
 
-    /** @brief ÊÇ·ñÕıÔÚÆ½ÒÆ */
+    /** @brief æ˜¯å¦æ­£åœ¨å¹³ç§» */
     bool _pan;
 
-    /** @brief Ç°Ò»´ÎÆ½ÒÆÎ»ÖÃ */
+    /** @brief å‰ä¸€æ¬¡å¹³ç§»ä½ç½® */
     QPoint _prevPan;
 
-    // äÖÈ¾Ïà¹Ø³ÉÔ±
-    /** @brief IOÏß³ÌÖ¸Õë */
+    // æ¸²æŸ“ç›¸å…³æˆå‘˜
+    /** @brief IOçº¿ç¨‹æŒ‡é’ˆ */
     IOThread* _ioThread;
 
-    /** @brief ±³¾°Í¨µÀË÷Òı */
+    /** @brief èƒŒæ™¯é€šé“ç´¢å¼• */
     int _backgroundChannel;
 
-    /** @brief Ç°¾°Í¨µÀË÷Òı */
+    /** @brief å‰æ™¯é€šé“ç´¢å¼• */
     int _foregroundChannel;
 
-    /** @brief Í¸Ã÷¶ÈÖµ */
+    /** @brief é€æ˜åº¦å€¼ */
     float _opacity;
 
-    /** @brief LUTÃû³Æ */
+    /** @brief LUTåç§° */
     std::string _LUTname;
 
-    /** @brief Ç°¾°Í¼ÏñËõ·ÅÒò×Ó */
+    /** @brief å‰æ™¯å›¾åƒç¼©æ”¾å› å­ */
     float _foregroundImageScale;
 
-    /** @brief ÊÇ·ñäÖÈ¾Ç°¾° */
+    /** @brief æ˜¯å¦æ¸²æŸ“å‰æ™¯ */
     bool _renderForeground;
 
-    /** @brief Ô¤È¡Ïß³ÌÖ¸Õë */
+    /** @brief é¢„å–çº¿ç¨‹æŒ‡é’ˆ */
     PrefetchThread* _prefetchthread;
 
-    /** @brief ÍßÆ¬¹ÜÀíÆ÷Ö¸Õë */
+    /** @brief ç“¦ç‰‡ç®¡ç†å™¨æŒ‡é’ˆ */
     TileManager* _manager;
 
-    /** @brief »º´æ´óĞ¡ */
+    /** @brief ç¼“å­˜å¤§å° */
     unsigned long long _cacheSize;
 
-    /** @brief ÍßÆ¬Í¼ĞÎÏî»º´æÖ¸Õë */
+    /** @brief ç“¦ç‰‡å›¾å½¢é¡¹ç¼“å­˜æŒ‡é’ˆ */
     WSITileGraphicsItemCache* _cache;
 
-    // ³õÊ¼×´Ì¬
-    /** @brief ³õÊ¼±ä»»¾ØÕó */
+    // åˆå§‹çŠ¶æ€
+    /** @brief åˆå§‹å˜æ¢çŸ©é˜µ */
     QTransform _initialTransform;
 
-    /** @brief ³õÊ¼ÖĞĞÄÎ»ÖÃ */
+    /** @brief åˆå§‹ä¸­å¿ƒä½ç½® */
     QPointF _initialCenter;
 
-    // ¹Ì¶¨±¶ÂÊËõ·Å
-    /** @brief ¹Ì¶¨Ëõ·Å³õÊ¼ÖĞĞÄÎ»ÖÃ */
+    // å›ºå®šå€ç‡ç¼©æ”¾
+    /** @brief å›ºå®šç¼©æ”¾åˆå§‹ä¸­å¿ƒä½ç½® */
     QPointF _initialCenterFixedScale;
 
-    /** @brief Ä¿±ê±ä»»¾ØÕó */
+    /** @brief ç›®æ ‡å˜æ¢çŸ©é˜µ */
     QTransform _targetTransform;
 
-    // ¶Ô»°¿ò×é¼ş
-    /** @brief ÊäÈë¶Ô»°¿òÖ¸Õë */
+    // å¯¹è¯æ¡†ç»„ä»¶
+    /** @brief è¾“å…¥å¯¹è¯æ¡†æŒ‡é’ˆ */
     InputDialog* _InputDialog;
 
-    /** @brief ±êÇ©´°¿ÚÖ¸Õë */
+    /** @brief æ ‡ç­¾çª—å£æŒ‡é’ˆ */
     LabelWin* _labelWin;
 
-    /** @brief ÏêÇé¶Ô»°¿òÖ¸Õë */
+    /** @brief è¯¦æƒ…å¯¹è¯æ¡†æŒ‡é’ˆ */
     DetailDialog* _detailDialog;
 
-    /** @brief »æÖÆ×´Ì¬ */
+    /** @brief ç»˜åˆ¶çŠ¶æ€ */
     bool _PaintingState;
 
-    // »æÖÆÏà¹Ø³ÉÔ±
-    /** @brief ¶à±ßĞÎÊı¾İ */
+    // ç»˜åˆ¶ç›¸å…³æˆå‘˜
+    /** @brief å¤šè¾¹å½¢æ•°æ® */
     QPolygonF m_polygon;
 
-    /** @brief µ±Ç°Êó±êÀàĞÍ */
+    /** @brief å½“å‰é¼ æ ‡ç±»å‹ */
     MouseType m_mouseType;
 
-    /** @brief ÁÙÊ±Í¼ĞÎÏîÖ¸Õë */
+    /** @brief ä¸´æ—¶å›¾å½¢é¡¹æŒ‡é’ˆ */
     QGraphicsItem* m_pTempItem;
 
-    /** @brief ÓÒ¼ü²Ëµ¥Ö¸Õë */
+    /** @brief å³é”®èœå•æŒ‡é’ˆ */
     QMenu* m_contextMenu;
 
-    /** @brief É¾³ıÑ¡Ôñ¶¯×÷Ö¸Õë */
+    /** @brief åˆ é™¤é€‰æ‹©åŠ¨ä½œæŒ‡é’ˆ */
     QAction* m_actionDeleteSelection;
 
-    /** @brief Í¼ĞÎ³¡¾°Ö¸Õë */
+    /** @brief å›¾å½¢åœºæ™¯æŒ‡é’ˆ */
     QImageGraphicScene* m_pGraphicsScene;
 
-    /** @brief ÊµÊ±»æÖÆ»­±Ê */
+    /** @brief å®æ—¶ç»˜åˆ¶ç”»ç¬” */
     QPen m_penRealTime;
 
-    /** @brief Ô­Ê¼Î»ÖÃ */
+    /** @brief åŸå§‹ä½ç½® */
     QPoint m_ptOri;
 
-    /** @brief ÒÆ¶¯Î»ÖÃ */
+    /** @brief ç§»åŠ¨ä½ç½® */
     QPoint m_ptMove;
 
-    /** @brief ×ó¼üÊÇ·ñ°´ÏÂ */
+    /** @brief å·¦é”®æ˜¯å¦æŒ‰ä¸‹ */
     bool m_bLButtonDown = false;
 
     /**
-     * @brief   »æÖÆÊÂ¼ş´¦Àí
-     * @details ´¦Àí»æÖÆÊÂ¼ş£¬ÊµÏÖ×Ô¶¨Òå»æÖÆ
+     * @brief   ç»˜åˆ¶äº‹ä»¶å¤„ç†
+     * @details å¤„ç†ç»˜åˆ¶äº‹ä»¶ï¼Œå®ç°è‡ªå®šä¹‰ç»˜åˆ¶
      *
-     * @param   event »æÖÆÊÂ¼ş¶ÔÏó
-     * @note    ¸Ãº¯ÊıÓÃÓÚÊµÏÖ×Ô¶¨ÒåµÄ»æÖÆ¹¦ÄÜ
+     * @param   event ç»˜åˆ¶äº‹ä»¶å¯¹è±¡
+     * @note    è¯¥å‡½æ•°ç”¨äºå®ç°è‡ªå®šä¹‰çš„ç»˜åˆ¶åŠŸèƒ½
      */
     void paintEvent(QPaintEvent* event) override;
 
     /**
-     * @brief   ´´½¨ÓÒ¼ü²Ëµ¥
-     * @details ´´½¨ºÍ³õÊ¼»¯ÓÒ¼ü²Ëµ¥
-     * @note    ¸Ãº¯Êı»á´´½¨°üº¬¸÷ÖÖ²Ù×÷Ñ¡ÏîµÄÓÒ¼ü²Ëµ¥
+     * @brief   åˆ›å»ºå³é”®èœå•
+     * @details åˆ›å»ºå’Œåˆå§‹åŒ–å³é”®èœå•
+     * @note    è¯¥å‡½æ•°ä¼šåˆ›å»ºåŒ…å«å„ç§æ“ä½œé€‰é¡¹çš„å³é”®èœå•
      */
     void createContextMenu();
 
-    /** @brief FPS¶¨Ê±Æ÷ */
+    /** @brief FPSå®šæ—¶å™¨ */
     QTimer m_fpsTimer{ this };
 
-    /** @brief Ö¡¼ÆÊıÆ÷ */
+    /** @brief å¸§è®¡æ•°å™¨ */
     int m_frameCount;
 
-    /** @brief µ±Ç°FPSÖµ */
+    /** @brief å½“å‰FPSå€¼ */
     int m_currentFPS = 0;
+
+    /** @brief æ€§èƒ½æµ‹é‡ç›¸å…³æˆå‘˜å˜é‡ */
+    QElapsedTimer m_loadTimer;           // åŠ è½½è®¡æ—¶å™¨
+    QElapsedTimer m_zoomTimer;           // ç¼©æ”¾è®¡æ—¶å™¨  
+    QElapsedTimer m_panTimer;            // å¹³ç§»è®¡æ—¶å™¨
+    bool m_isFirstLoad = true;           // æ˜¯å¦é¦–æ¬¡åŠ è½½
+    QList<int> m_fpsHistory;             // FPSå†å²è®°å½•
+    int m_fpsHistorySize = 10;           // ä¿ç•™æœ€è¿‘10ç§’çš„FPS
 
 private slots:
     /**
-     * @brief   Ëõ·Å¶¯»­Ê±¼ä²Ûº¯Êı
-     * @details ´¦ÀíËõ·Å¶¯»­µÄÊ±¼ä²ÎÊı
+     * @brief   ç¼©æ”¾åŠ¨ç”»æ—¶é—´æ§½å‡½æ•°
+     * @details å¤„ç†ç¼©æ”¾åŠ¨ç”»çš„æ—¶é—´å‚æ•°
      *
-     * @param   x Ê±¼ä²ÎÊı
-     * @note    ¸Ã²Ûº¯ÊıÓÃÓÚ¿ØÖÆËõ·Å¶¯»­µÄ½ø¶È
+     * @param   x æ—¶é—´å‚æ•°
+     * @note    è¯¥æ§½å‡½æ•°ç”¨äºæ§åˆ¶ç¼©æ”¾åŠ¨ç”»çš„è¿›åº¦
      */
     void scalingTime(qreal x);
 
     /**
-     * @brief   Ëõ·ÅÍê³É²Ûº¯Êı
-     * @details Ëõ·Å²Ù×÷Íê³ÉºóµÄ´¦Àí
-     * @note    ¸Ã²Ûº¯ÊıÔÚËõ·Å¶¯»­Íê³Éºóµ÷ÓÃ
+     * @brief   ç¼©æ”¾å®Œæˆæ§½å‡½æ•°
+     * @details ç¼©æ”¾æ“ä½œå®Œæˆåçš„å¤„ç†
+     * @note    è¯¥æ§½å‡½æ•°åœ¨ç¼©æ”¾åŠ¨ç”»å®Œæˆåè°ƒç”¨
      */
     void zoomFinished();
 
     /**
-     * @brief   µã»÷Ñ¡ÖĞ²Ù×÷
-     * @details Ï¸·ÖÑ¡ÖĞItemµÄÄÚÈİÊÇÊ²Ã´
-     * @note    ¸Ãº¯ÊıÔÚµã»÷ÊÂ¼şÖĞµ÷ÓÃ
+     * @brief   ç‚¹å‡»é€‰ä¸­æ“ä½œ
+     * @details ç»†åˆ†é€‰ä¸­Itemçš„å†…å®¹æ˜¯ä»€ä¹ˆ
+     * @note    è¯¥å‡½æ•°åœ¨ç‚¹å‡»äº‹ä»¶ä¸­è°ƒç”¨
      */
     void handleItemSelection(QGraphicsItem* item);
 
     /**
-     * @brief   ¸üĞÂFPS²Ûº¯Êı
-     * @details ¸üĞÂµ±Ç°µÄFPSÖµ²¢·¢³öĞÅºÅ
-     * @note    ¸Ã²Ûº¯ÊıÓÉFPS¶¨Ê±Æ÷¶¨ÆÚµ÷ÓÃ
+     * @brief   æ›´æ–°FPSæ§½å‡½æ•°
+     * @details æ›´æ–°å½“å‰çš„FPSå€¼å¹¶å‘å‡ºä¿¡å·
+     * @note    è¯¥æ§½å‡½æ•°ç”±FPSå®šæ—¶å™¨å®šæœŸè°ƒç”¨
      */
     void updateFPS() {
         m_currentFPS = m_frameCount;
-        m_frameCount = 0; // ÖØÖÃ¼ÆÊıÆ÷
-        emit fpsUpdated(m_currentFPS); // ·¢³öĞÅºÅ¸üĞÂUI
-        qDebug() << "FPS:" << m_currentFPS;
+        m_frameCount = 0; // é‡ç½®è®¡æ•°å™¨
+        
+        // æ·»åŠ åˆ°å†å²è®°å½•
+        m_fpsHistory.append(m_currentFPS);
+        if (m_fpsHistory.size() > m_fpsHistorySize) {
+            m_fpsHistory.removeFirst();
+        }
+        
+        // è®¡ç®—å¹³å‡FPS
+        int avgFPS = 0;
+        if (!m_fpsHistory.isEmpty()) {
+            int sum = 0;
+            for (int fps : m_fpsHistory) {
+                sum += fps;
+            }
+            avgFPS = sum / m_fpsHistory.size();
+        }
+        
+        emit fpsUpdated(m_currentFPS); // å‘å‡ºä¿¡å·æ›´æ–°UI
+        qDebug() << "ğŸ“Š FPS:" << m_currentFPS << "| Avg FPS:" << avgFPS;
     }
     /**
-    * @brief   Ö±Ïß³¤¶ÈÖĞ×ª
-    * @details ¸üĞÂµ±Ç°µÄFPSÖµ²¢·¢³öĞÅºÅ
-    * @note    ¸Ã²Ûº¯ÊıÓÉFPS¶¨Ê±Æ÷¶¨ÆÚµ÷ÓÃ
+    * @brief   ç›´çº¿é•¿åº¦ä¸­è½¬
+    * @details æ›´æ–°å½“å‰çš„FPSå€¼å¹¶å‘å‡ºä¿¡å·
+    * @note    è¯¥æ§½å‡½æ•°ç”±FPSå®šæ—¶å™¨å®šæœŸè°ƒç”¨
     */
 
 };

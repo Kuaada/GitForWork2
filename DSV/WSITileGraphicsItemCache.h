@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    WSITileGraphicsItemCache.h
  * @brief   瓦片图形项缓存类，管理瓦片图形项的内存和性能优化
  * @author  [JianZhang]

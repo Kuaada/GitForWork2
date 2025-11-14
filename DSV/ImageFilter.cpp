@@ -1,4 +1,4 @@
-#include "ImageFilter.h"
+ï»¿#include "ImageFilter.h"
 
 ImageFilter::ImageFilter(QWidget *parent)
 	: QDialog(parent)
@@ -16,12 +16,12 @@ ImageFilter::~ImageFilter()
 void ImageFilter::initUi()
 {
 	this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
-	this->setWindowTitle(QStringLiteral("Í¼ÏñÂË²¨"));
+	this->setWindowTitle(QStringLiteral("å›¾åƒæ»¤æ³¢"));
 	this->setMinimumSize(300, 400);
 	this->setMaximumSize(300, 700);
 	QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
-	QCheckBox* Guass = new QCheckBox(QStringLiteral("¸ßË¹ÂË²¨"),this);
+	QCheckBox* Guass = new QCheckBox(QStringLiteral("é«˜æ–¯æ»¤æ³¢"),this);
 	Guass->setObjectName(QStringLiteral("GuassFilter"));
 	Guass->setFixedHeight(30);
 	QFont fontsize = Guass->font();
@@ -29,7 +29,7 @@ void ImageFilter::initUi()
 	Guass->setFont(fontsize);
 
 	
-	QCheckBox* Sharp = new QCheckBox(QStringLiteral("Èñ»¯"), this);
+	QCheckBox* Sharp = new QCheckBox(QStringLiteral("é”åŒ–"), this);
 	Sharp->setObjectName(QStringLiteral("SharpFilter"));
 	Sharp->setFixedHeight(30);
 	Sharp->setFont(fontsize);
@@ -50,12 +50,12 @@ void ImageFilter::initUi()
 	m_LineEdit->setFixedHeight(30);
 	m_LineEdit->setStyleSheet(R"(
         QLineEdit {
-            border: none;          /* È¥³ýÄ¬ÈÏ±ß¿ò */
-            border-bottom: 1px solid #ccc; /* ¿ÉÑ¡ÔñÐÔµØ±£Áôµ×²¿Ï¸±ß¿ò */
-            padding: 2px;          /* µ÷ÕûÄÚ±ß¾à£¬ÈÃÎÄ±¾¿´ÆðÀ´¸ü¾ÓÖÐ */
+            border: none;          /* åŽ»é™¤é»˜è®¤è¾¹æ¡† */
+            border-bottom: 1px solid #ccc; /* å¯é€‰æ‹©æ€§åœ°ä¿ç•™åº•éƒ¨ç»†è¾¹æ¡† */
+            padding: 2px;          /* è°ƒæ•´å†…è¾¹è·ï¼Œè®©æ–‡æœ¬çœ‹èµ·æ¥æ›´å±…ä¸­ */
         }
         QLineEdit:focus {
-            border-bottom: 1px solid #4a90e2; /* ¾Û½¹Ê±Í»³öÏÔÊ¾µ×²¿±ß¿ò */
+            border-bottom: 1px solid #4a90e2; /* èšç„¦æ—¶çªå‡ºæ˜¾ç¤ºåº•éƒ¨è¾¹æ¡† */
         }
     )");
 
@@ -65,7 +65,7 @@ void ImageFilter::initUi()
 	mainLayout->addWidget(Guass);
 	mainLayout->addWidget(Sharp);
 	mainLayout->addLayout(H3);
-	// Ìí¼Ó´¹Ö±ÉìËõÏî£¬ÈÃH1ºÍH2ÏÂ·½ÓÐ¿Õ¼ä
+	// æ·»åŠ åž‚ç›´ä¼¸ç¼©é¡¹ï¼Œè®©H1å’ŒH2ä¸‹æ–¹æœ‰ç©ºé—´
 	QSpacerItem* verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	mainLayout->addItem(verticalSpacer);
 

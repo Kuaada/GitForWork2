@@ -1,17 +1,17 @@
-/**
+﻿/**
  * @file    SlideColorManagement.h
- * @brief   ������Ƭ��ɫ����ģ�飬������ɫ���͡��������ͺ���ɫӳ��
+ * @brief   病理切片颜色管理模块，定义颜色类型、数据类型和颜色映射
  * @author  [JianZhang] ([])
  * @date    2025-05-19
  * @version 1.0.0
- * @details ��ģ���ṩ�˲�����Ƭͼ�����ɫ�������ܣ�������
- *          - ��ɫ���ͺ��������Ͷ���
- *          - ��ɫ���ұ�(LUT)����
- *          - ͼ��������Ϣ����
- *          - ѹ���Ͳ�ֵ��������
- *          ʹ�������ռ���֯��ع��ܣ�ȷ�������ģ�黯�Ϳ�ά���ԡ�
+ * @details 该模块提供了病理切片图像的颜色管理功能，包括：
+ *          - 颜色类型和数据类型定义
+ *          - 颜色查找表(LUT)管理
+ *          - 图像属性信息处理
+ *          - 压缩和插值方法定义
+ *          使用命名空间组织相关功能，确保代码的模块化和可维护性。
  *
- * @note    ��ģ�����̰߳�ȫ�ģ����ж��嶼�ǳ�����ֵ����
+ * @note    该模块是线程安全的，所有定义都是常量或值类型
  * @see     ImageSource, MultiResolutionImage
  */
 
@@ -22,34 +22,34 @@
 #include <string>
 
  /**
-  * @brief   RGBA��ɫ�������Ͷ���
-  * @details ʹ��4��floatֵ��ʾRGBA��ɫ��������ɫ���ұ�����ɫӳ��
-  * @note    ����˳��Ϊ��R(��), G(��), B(��), A(͸����)
+  * @brief   RGBA颜色数组类型定义
+  * @details 使用4个float值表示RGBA颜色，用于颜色查找表和颜色映射
+  * @note    数组顺序为：R(红), G(绿), B(蓝), A(透明度)
   */
 typedef std::array<float, 4> rgbaArray;
 
 /**
  * @namespace SlideColorManagement
- * @brief     ������Ƭ��ɫ���������ռ�
- * @details   �������ռ���������벡����Ƭ��ɫ������ص����Ͷ�������ݽṹ��
- *            ������ɫ���͡��������͡�ѹ����������ֵ�㷨�ȡ�ʹ�������ռ����
- *            �������Ƴ�ͻ����ߴ���Ŀɶ��Ժ���֯�ԡ�
+ * @brief     病理切片颜色管理命名空间
+ * @details   该命名空间包含所有与病理切片颜色管理相关的类型定义和数据结构，
+ *            包括颜色类型、数据类型、压缩方法、插值算法等。使用命名空间可以
+ *            避免名称冲突，提高代码的可读性和组织性。
  *
- * @note      �������Ͷ��嶼��ǿ���͵ģ��ṩ���õ����Ͱ�ȫ��
+ * @note      所有类型定义都是强类型的，提供更好的类型安全性
  * @see       ImageSource, MultiResolutionImage
  */
 namespace SlideColorManagement
 {
     /**
      * @struct   LUT
-     * @brief    ��ɫ���ұ�(Look-Up-Table)�ṹ��
-     * @details  ��ɫ���ұ�ͨ��Ԥ����ʹ洢��ɫӳ���ϵ������ʵʱ���㣬
-     *           �Ӷ����ϵͳ���ܺ�Ч�ʡ����ڴ洢��ɫӳ����Ϣ��֧��
-     *           ��������ɫ�Ŀ���ת����
+     * @brief    颜色查找表(Look-Up-Table)结构体
+     * @details  颜色查找表通过预计算和存储颜色映射关系，避免实时计算，
+     *           从而提高系统性能和效率。用于存储颜色映射信息，支持
+     *           索引到颜色的快速转换。
      *
-     * @note     �ýṹ��֧����Ժ;�������ģʽ
+     * @note     该结构体支持相对和绝对索引模式
      * @example
-     *           // ʹ��ʾ��
+     *           // 使用示例
      *           LUT lut;
      *           lut.indices = {0.0f, 0.5f, 1.0f};
      *           lut.colors = {{0,0,0,1}, {0.5,0.5,0.5,1}, {1,1,1,1}};
@@ -57,137 +57,137 @@ namespace SlideColorManagement
      */
     struct LUT
     {
-        /** @brief �������飬�洢��ɫӳ�������ֵ */
+        /** @brief 索引数组，存储颜色映射的索引值 */
         std::vector<float> indices;
 
-        /** @brief ��ɫ���飬�洢��Ӧ��RGBA��ɫֵ */
+        /** @brief 颜色数组，存储对应的RGBA颜色值 */
         std::vector<rgbaArray> colors;
 
         /**
-         * @brief �Ƿ�Ϊ�������ģʽ
-         * @note  true��ʾ�������(0-1��Χ)��false��ʾ��������
+         * @brief 是否为相对索引模式
+         * @note  true表示相对索引(0-1范围)，false表示绝对索引
          */
         bool relative = false;
     };
 
     /**
-     * @brief   Ĭ����ɫ���ұ�ӳ��
-     * @details ȫ�ֱ������洢�ַ�����LUT��ӳ���ϵ�����ڴ洢Ĭ�ϵ���ɫ���ұ�
-     * @note    �ñ����ڶ�Ӧ��cpp�ļ��ж���ͳ�ʼ��
+     * @brief   默认颜色查找表映射
+     * @details 全局变量，存储字符串到LUT的映射关系，用于存储默认的颜色查找表
+     * @note    该变量在对应的cpp文件中定义和初始化
      */
     extern std::map<std::string, LUT> DefaultColorLUT;
 
     /**
      * @enum     ColorType
-     * @brief    ͼ����ɫ����ö��
-     * @details  ���岡����Ƭͼ��֧�ֵ���ɫ��ʾ���ͣ�ʹ��ǿ����ö��ȷ�����Ͱ�ȫ
+     * @brief    图像颜色类型枚举
+     * @details  定义病理切片图像支持的颜色表示类型，使用强类型枚举确保类型安全
      *
-     * @note     ö��ֵ˵����
-     *           - InvalidColorType: ��Ч��ɫ����
-     *           - Monochrome: ��ɫ(�Ҷ�)ͼ��
-     *           - RGB: ��ͨ����ɫͼ��
-     *           - RGBA: ��ͨ����ɫͼ��(��͸����)
-     *           - Indexed: ������ɫͼ��
+     * @note     枚举值说明：
+     *           - InvalidColorType: 无效颜色类型
+     *           - Monochrome: 单色(灰度)图像
+     *           - RGB: 三通道彩色图像
+     *           - RGBA: 四通道彩色图像(含透明度)
+     *           - Indexed: 索引颜色图像
      */
     enum class ColorType {
-        InvalidColorType,  ///< ��Ч��ɫ����
-        Monochrome,        ///< ��ɫ(�Ҷ�)ͼ��
-        RGB,               ///< ��ͨ����ɫͼ��
-        RGBA,              ///< ��ͨ����ɫͼ��(��͸����)
-        Indexed            ///< ������ɫͼ��
+        InvalidColorType,  ///< 无效颜色类型
+        Monochrome,        ///< 单色(灰度)图像
+        RGB,               ///< 三通道彩色图像
+        RGBA,              ///< 四通道彩色图像(含透明度)
+        Indexed            ///< 索引颜色图像
     };
 
     /**
      * @enum     DataType
-     * @brief    ͼ����������ö��
-     * @details  ���岡����Ƭͼ���������ݵĴ洢���ͣ�֧�ֲ�ͬ�ľ��Ⱥͷ�Χ
+     * @brief    图像数据类型枚举
+     * @details  定义病理切片图像像素数据的存储类型，支持不同的精度和范围
      *
-     * @note     ö��ֵ˵����
-     *           - InvalidDataType: ��Ч��������
-     *           - UChar: 8λ�޷����ַ�(0-255)
-     *           - UInt16: 16λ�޷�������(0-65535)
-     *           - UInt32: 32λ�޷�������
-     *           - Float: 32λ������
+     * @note     枚举值说明：
+     *           - InvalidDataType: 无效数据类型
+     *           - UChar: 8位无符号字符(0-255)
+     *           - UInt16: 16位无符号整数(0-65535)
+     *           - UInt32: 32位无符号整数
+     *           - Float: 32位浮点数
      */
     enum class DataType {
-        InvalidDataType,   ///< ��Ч��������
-        UChar,             ///< 8λ�޷����ַ�(0-255)
-        UInt16,            ///< 16λ�޷�������(0-65535)
-        UInt32,            ///< 32λ�޷�������
-        Float              ///< 32λ������
+        InvalidDataType,   ///< 无效数据类型
+        UChar,             ///< 8位无符号字符(0-255)
+        UInt16,            ///< 16位无符号整数(0-65535)
+        UInt32,            ///< 32位无符号整数
+        Float              ///< 32位浮点数
     };
 
     /**
      * @enum     Compression
-     * @brief    ͼ��ѹ������ö��
-     * @details  ���岡����Ƭͼ��֧�ֵ�ѹ���㷨����
+     * @brief    图像压缩方法枚举
+     * @details  定义病理切片图像支持的压缩算法类型
      *
-     * @note     ö��ֵ˵����
-     *           - RAW: ��ѹ��ԭʼ����
-     *           - JPEG: JPEGѹ���㷨
-     *           - LZW: LZWѹ���㷨
-     *           - JPEG2000: JPEG2000ѹ���㷨
+     * @note     枚举值说明：
+     *           - RAW: 无压缩原始数据
+     *           - JPEG: JPEG压缩算法
+     *           - LZW: LZW压缩算法
+     *           - JPEG2000: JPEG2000压缩算法
      */
     enum class Compression {
-        RAW,               ///< ��ѹ��ԭʼ����
-        JPEG,              ///< JPEGѹ���㷨
-        LZW,               ///< LZWѹ���㷨
-        JPEG2000           ///< JPEG2000ѹ���㷨
+        RAW,               ///< 无压缩原始数据
+        JPEG,              ///< JPEG压缩算法
+        LZW,               ///< LZW压缩算法
+        JPEG2000           ///< JPEG2000压缩算法
     };
 
     /**
      * @enum     Interpolation
-     * @brief    ͼ���ֵ����ö��
-     * @details  ����ͼ�����źͱ任ʱʹ�õĲ�ֵ�㷨
+     * @brief    图像插值方法枚举
+     * @details  定义图像缩放和变换时使用的插值算法
      *
-     * @note     ö��ֵ˵����
-     *           - NearestNeighbor: ����ڲ�ֵ(���ٵ������ϵ�)
-     *           - Linear: ���Բ�ֵ(ƽ���ٶȺ�����)
+     * @note     枚举值说明：
+     *           - NearestNeighbor: 最近邻插值(快速但质量较低)
+     *           - Linear: 线性插值(平衡速度和质量)
      */
     enum class Interpolation {
-        NearestNeighbor,   ///< ����ڲ�ֵ(���ٵ������ϵ�)
-        Linear             ///< ���Բ�ֵ(ƽ���ٶȺ�����)
+        NearestNeighbor,   ///< 最近邻插值(快速但质量较低)
+        Linear             ///< 线性插值(平衡速度和质量)
     };
 
     /**
      * @struct   PropertyInfo
-     * @brief    ͼ��������Ϣ�ṹ��
-     * @details  ���ڴ洢������Ƭͼ���Ԫ����������Ϣ��֧����ֵ���ַ����������͡�
-     *           ʹ��������(union)�Ż��ڴ�ʹ�ã������������Ͷ�̬ѡ��洢��ʽ��
+     * @brief    图像属性信息结构体
+     * @details  用于存储病理切片图像的元数据属性信息，支持数值和字符串两种类型。
+     *           使用联合体(union)优化内存使用，根据属性类型动态选择存储方式。
      *
-     * @note     �ýṹ��ʵ���������Ŀ������졢��ֵ������������ȷ���ڴ氲ȫ
+     * @note     该结构体实现了完整的拷贝构造、赋值和析构函数，确保内存安全
      * @example
-     *           // ��ֵ����ʾ��
+     *           // 数值属性示例
      *           PropertyInfo mpp("MPP", true, 0.5);
      *
-     *           // �ַ�������ʾ��
+     *           // 字符串属性示例
      *           PropertyInfo vendor("Vendor", false, 0.0, "Aperio");
      */
     struct PropertyInfo {
-        /** @brief �������� */
+        /** @brief 属性名称 */
         std::string name;
 
-        /** @brief �Ƿ�Ϊ��ֵ���� */
+        /** @brief 是否为数值类型 */
         bool isNumeric;
 
         /**
-         * @brief ����ֵ������
-         * @details ����isNumeric��־ѡ��洢��ֵ���ַ���
+         * @brief 属性值联合体
+         * @details 根据isNumeric标志选择存储数值或字符串
          */
         union {
-            double numericValue;      ///< ��ֵ���͵�����ֵ
-            std::string stringValue;  ///< �ַ������͵�����ֵ
+            double numericValue;      ///< 数值类型的属性值
+            std::string stringValue;  ///< 字符串类型的属性值
         };
 
         /**
-         * @brief   ���캯��
-         * @details �����������ͳ�ʼ����Ӧ��ֵ
+         * @brief   构造函数
+         * @details 根据属性类型初始化相应的值
          *
-         * @param   n      ��������
-         * @param   num    �Ƿ�Ϊ��ֵ����
-         * @param   numVal ��ֵ���͵�Ĭ��ֵ
-         * @param   strVal �ַ������͵�Ĭ��ֵ
-         * @note    ʹ��placement newȷ�����������ȷ��ʼ��
+         * @param   n      属性名称
+         * @param   num    是否为数值类型
+         * @param   numVal 数值类型的默认值
+         * @param   strVal 字符串类型的默认值
+         * @note    使用placement new确保联合体的正确初始化
          */
         PropertyInfo(const std::string& n, bool num, double numVal = 0.0, const std::string& strVal = "")
             : name(n), isNumeric(num) {
@@ -200,11 +200,11 @@ namespace SlideColorManagement
         }
 
         /**
-         * @brief   �������캯��
-         * @details �����һ��PropertyInfo����
+         * @brief   拷贝构造函数
+         * @details 深拷贝另一个PropertyInfo对象
          *
-         * @param   other Ҫ�����Ķ���
-         * @note    ��ȷ����������Ŀ����������ڴ�й©
+         * @param   other 要拷贝的对象
+         * @note    正确处理联合体的拷贝，避免内存泄漏
          */
         PropertyInfo(const PropertyInfo& other)
             : name(other.name), isNumeric(other.isNumeric) {
@@ -217,12 +217,12 @@ namespace SlideColorManagement
         }
 
         /**
-         * @brief   ��ֵ�����
-         * @details ��ȫ�ظ�ֵ��һ��PropertyInfo����
+         * @brief   赋值运算符
+         * @details 安全地赋值另一个PropertyInfo对象
          *
-         * @param   other Ҫ��ֵ�Ķ���
-         * @return  ��ǰ���������
-         * @note    ��������ǰ������ַ������ٿ�����ֵ
+         * @param   other 要赋值的对象
+         * @return  当前对象的引用
+         * @note    先清理当前对象的字符串，再拷贝新值
          */
         PropertyInfo& operator=(const PropertyInfo& other) {
             if (this != &other) {
@@ -242,9 +242,9 @@ namespace SlideColorManagement
         }
 
         /**
-         * @brief   ��������
-         * @details ��ȷ�ͷ��ַ������͵��ڴ�
-         * @note    ֻ���ַ������͵���������������ֵ�����������⴦��
+         * @brief   析构函数
+         * @details 正确释放字符串类型的内存
+         * @note    只对字符串类型调用析构函数，数值类型无需特殊处理
          */
         ~PropertyInfo() {
             if (!isNumeric) {

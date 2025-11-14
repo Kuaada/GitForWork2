@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file PrefetchThread.cpp
  * @brief 预取线程实现文件
  * @details 该文件实现了多分辨率图像的预取功能，包括：

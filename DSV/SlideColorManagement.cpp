@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file SlideColorManagement.cpp
  * @brief 数字病理切片颜色管理实现文件
  * @details 该文件定义了数字病理切片查看器中使用的默认颜色查找表(LUT)

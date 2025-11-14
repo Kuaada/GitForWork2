@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    WSITileGraphicsItem.h
  * @brief   瓦片图形项类，负责瓦片的图形渲染和显示
  * @author  [JianZhang]

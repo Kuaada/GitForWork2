@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file IOWorker.cpp
  * @brief IO工作线程实现文件
  * @details 该文件实现了多线程IO工作线程功能，包括：

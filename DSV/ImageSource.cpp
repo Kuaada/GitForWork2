@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file ImageSource.cpp
  * @brief 图像源抽象基类的实现文件
  * @details 该文件实现了ImageSource抽象基类的所有虚函数和基础功能

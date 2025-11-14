@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file FileWidget.cpp
  * @brief 文件窗口部件实现文件
  * @details 实现数字病理切片查看器的文件管理界面，包括文件树视图、最近文件列表等功能
@@ -9,7 +9,7 @@
 
 #include "FileWidget.h"
 #include <QDebug>
-#pragma execution_character_set("utf-8")
+//#pragma execution_character_set("utf-8")
 /**
  * @brief 文件窗口部件构造函数
  * @param parent 父窗口指针
@@ -72,7 +72,7 @@ void FileWidget::initUI()
     FileTreeVerticalLayout->setContentsMargins(10, 10, 10, 10);
     
     // 创建文件树标签
-    QLabel* FileTreeLabel = new QLabel(QStringLiteral("FileTree"), this);
+    QLabel* FileTreeLabel = new QLabel(QStringLiteral("文件树"), this);
     FileTreeLabel->setObjectName("FileTreeLabel");
     FileTreeVerticalLayout->addWidget(FileTreeLabel, 0);
 
@@ -129,8 +129,8 @@ void FileWidget::initUI()
     connect(listView, &QListView::clicked, this, &FileWidget::onListViewItemClicked); // 连接 QListView 点击信号
 
     // 添加标签页
-    tabWidget->addTab(treeView, QStringLiteral("File"));
-    tabWidget->addTab(listView, QStringLiteral("Latest"));
+    tabWidget->addTab(treeView, QStringLiteral("文件"));
+    tabWidget->addTab(listView, QStringLiteral("最近"));
     FileTreeHorizontalLayout->addWidget(tabWidget);
     FileTreeVerticalLayout->addLayout(FileTreeHorizontalLayout, 9);
 }

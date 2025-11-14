@@ -1,4 +1,4 @@
-#include "CenteredToolBar.h"
+﻿#include "CenteredToolBar.h"
 #include <QDebug>
 CenteredToolBar::CenteredToolBar(QWidget* parent = nullptr)
     : QToolBar(parent), m_iToolBarHeight(50)

@@ -1,4 +1,4 @@
-#include "SnapWidget.h"
+ï»¿#include "SnapWidget.h"
 
 #include <QPainter>
 #include <QPaintEvent>
@@ -10,14 +10,34 @@ SnapWidget::SnapWidget(QWidget* parent) : QWidget(parent) {}
 
 void SnapWidget::setPixmap(const QPixmap& pix) {
     m_pixmap = pix;
-    update(); // ´¥·¢ÖØ»æ
+    update(); // è§¦å‘é‡ç»˜
+}
+
+void SnapWidget::saveTIFFSnap()
+{
+    QString filePath = QFileDialog::getSaveFileName(this,
+        QStringLiteral("ä¿å­˜å›¾åƒ"),
+        "",//è·¯å¾„
+        QStringLiteral("Images (*tiff)"));
+
+    if (!filePath.isEmpty()) {
+        // ä¿å­˜QPixmapåˆ°æŒ‡å®šè·¯å¾„
+        if (m_pixmap.save(filePath)) {
+            // ä¿å­˜æˆåŠŸ
+            qDebug() << "Pixmap saved successfully to:" << filePath;
+        }
+        else {
+            // ä¿å­˜å¤±è´¥
+            qDebug() << "Failed to save pixmap to:" << filePath;
+        }
+    }
 }
 
 void SnapWidget::paintEvent(QPaintEvent* event) {
     Q_UNUSED(event);
     QPainter painter(this);
     if (!m_pixmap.isNull()) {
-        // »æÖÆ QPixmap
+        // ç»˜åˆ¶ QPixmap
         painter.drawPixmap(0, 0, m_pixmap.scaled(size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
 
@@ -35,18 +55,18 @@ void SnapWidget::mousePressEvent(QMouseEvent* event)
 void SnapWidget::saveSnap()
 {
     QString filePath = QFileDialog::getSaveFileName(this,
-        QStringLiteral("±£´æÍ¼Ïñ"),
-        "",//Â·¾¶
+        QStringLiteral("ä¿å­˜å›¾åƒ"),
+        "",//è·¯å¾„
         QStringLiteral("Images (*.png *.jpg *.bmp)"));
 
     if (!filePath.isEmpty()) {
-        // ±£´æQPixmapµ½Ö¸¶¨Â·¾¶
+        // ä¿å­˜QPixmapåˆ°æŒ‡å®šè·¯å¾„
         if (m_pixmap.save(filePath)) {
-            // ±£´æ³É¹¦
+            // ä¿å­˜æˆåŠŸ
             qDebug() << "Pixmap saved successfully to:" << filePath;
         }
         else {
-            // ±£´æÊ§°Ü
+            // ä¿å­˜å¤±è´¥
             qDebug() << "Failed to save pixmap to:" << filePath;
         }
     }
